@@ -1,9 +1,7 @@
 import React from 'react';
-import { useGradientText } from '../hooks/useGradientText';
 import { ArrowDown, ArrowRight, Github, Linkedin, Mail } from 'lucide-react';
 
 export default function Hero() {
-  
 
   return (
     <section className="flex items-center justify-center min-h-screen transition-colors duration-500">

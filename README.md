@@ -42,8 +42,6 @@ This repository powers **André Marinho’s personal portfolio**, a modern React
 ├── public/                 # Static assets and `.nojekyll` to disable Jekyll
 ├── src/                    # Application source
 │   ├── components/         # UI components (layout, sections, UI)
-│   ├── hooks/              # Custom React hooks
-│   ├── assets/             # JS-imported images or SVGs
 │   ├── index.css           # Tailwind directives & custom styles
 │   ├── main.tsx            # Entry point with HelmetProvider
 │   └── App.tsx             # Root component, dark mode logic
