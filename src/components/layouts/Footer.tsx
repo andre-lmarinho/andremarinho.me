@@ -21,15 +21,15 @@ export default function FooterCTA() {
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Whatsapp link"
-              className="inline-flex items-center font-medium bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white dark:text-white px-8 py-3 rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105"
+              className="main-btn"
             >
               Let&apos;s Talk
               <ArrowRight size={16} className="ml-2" />
             </a>
             <a
               href="#about"
-              className="inline-flex items-center font-medium bg-gray-50 dark:bg-gray-800 dark:text-gray-400 border-2 border-gray-300 dark:border-gray-600 hover:border-blue-500 dark:hover:border-blue-400 px-8 py-3 rounded-lg transition-all duration-300 hover:scale-105"
               aria-label="Learn more about me"
+              className="sec-btn"
             >
               About Me
               <Info size={16} className="ml-2" />

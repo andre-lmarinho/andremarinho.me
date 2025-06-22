@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import Navbar from './components/Navbar';
-import Hero from './components/Hero';
-import About from './components/About';
-import Projects from './components/Projects';
-import Stacks from './components/Stacks';
-import Footer from './components/Footer';
-import AnimationBG from './components/AnimationBG'
+import Navbar from './components/layouts/Navbar';
+import Hero from './components/sections/Hero';
+import About from './components/sections/About';
+import Projects from './components/sections/Projects';
+import Stacks from './components/sections/Stacks';
+import Footer from './components/layouts/Footer';
+import AnimationBG from './components/layouts/AnimationBG';
+import SEO from './components/ui/SEO'
 //import MatrixBackground from './components/AnimationBGMatrix'
 
 export default function App() {
@@ -21,6 +22,12 @@ export default function App() {
 
   return (
     <>
+      <SEO
+        title="André Marinho · Frontend Developer"
+        description="André Marinho’s portfolio — React projects, animations, dark mode, and more."
+        url="https://andre-lmarinho.github.io/Homepage/"
+        image="https://andre-lmarinho.github.io/Homepage/social-preview.png"/>
+
       {/* Background */}
       <AnimationBG />
 

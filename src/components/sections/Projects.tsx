@@ -15,7 +15,7 @@ const projects = [
     title: 'This Portfolio Site',
     description: 'Built with React, Tailwind CSS, Vite and TypeScript to showcase my work.',
     img: 'https://picsum.photos/400/300?random=2',
-    //siteLink: '#', This site no link needed.
+    siteLink: 'https://andre-lmarinho.github.io/Homepage/', 
     repoLink: 'https://github.com/andre-lmarinho/Homepage/',
     stacks: ['React', 'TypeScript','Tailwind CSS']
   }
@@ -78,8 +78,9 @@ export default function Projects() {
                     target="_blank"
                     rel="noopener noreferrer"
                     className="justify-center whitespace-nowrap text-sm font-medium ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 border border-input bg-background hover:text-accent-foreground h-9 rounded-md px-3 flex items-center gap-2 hover:bg-gray-50 hover:border-gray-400 transition-colors duration-200 dark:text-white dark:[&_svg]:text-white dark:bg-gray-800 dark:border-gray-600 dark:hover:bg-gray-700"
+                    aria-label="View Code"
                     >
-                    <Github size={16} className="mr-2" /> Código
+                    <Github size={16} className="mr-2" /> Code
                     </a>
                 </div>
               </div>

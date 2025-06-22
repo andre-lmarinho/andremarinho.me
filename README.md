@@ -1,90 +1,131 @@
 # Personal Portfolio – André Marinho
 
-This repository contains the source code for my **personal portfolio site**, originally built as a CS50 PSet 8 exercise and later evolved into a React + TypeScript SPA with Tailwind CSS.
+This repository powers **André Marinho’s personal portfolio**, a modern React + TypeScript SPA built with Vite and Tailwind CSS, showcasing dynamic UI features, SEO, and smooth user experiences.
+
+---
+
+## 🔗 Live Demo
+
+[View on GitHub Pages](https://andre-lmarinho.github.io/Homepage/)
+*or* deploy easily to Vercel or Netlify with the same settings.
 
 ---
 
 ## 📋 Project Overview
 
-The site features:
+**Key Features:**
 
-* **Dynamic Navbar:** fixed at the top and hides/shows on scroll.
-* **Light/Dark Mode:** user-controlled theme with smooth transitions.
-* **Full Responsiveness:** optimized for mobile, tablet, and desktop.
-
----
-
-## 🚀 Technologies
-
-* **Frontend:** React 18, TypeScript, Vite
-* **Styling:** Tailwind CSS, custom CSS
-* **Animations:** CSS keyframes, custom React hook for animated gradient text
-* **Icons:** lucide-react, Simple Icons CDN
-* **Form Handling:** native validation with JavaScript feedback
-* **Tooling:** npm, PostCSS, Autoprefixer, Vitest (boilerplate)
+* **Animated Background** — full‑screen gradients, orbs, mesh lines, and floating particles behind content
+* **Smooth Scroll** — native CSS `scroll-behavior: smooth` for in‑page navigation
+* **Dynamic Navbar** — hides on scroll down, reveals on scroll up
+* **Dark/Light Mode** — user‑toggleable theme, persists via HTML and BODY classes
+* **Responsive Layout** — mobile‑first design with Tailwind utility classes and Framer Motion for animations
+* **SEO Metadata** — dynamic `<title>` and `<meta>` tags via `react-helmet-async`
 
 ---
 
-## 📂 Folder Structure
+## 🚀 Technology Stack
 
-```
-/  
-├── public/               # Static assets (PDFs, images, favicon)
-│   └── assets/
-├── src/                  # Source files
-│   ├── components/       # React components (Navbar, Hero, About, Projects, Stacks, Contact)
-│   ├── hooks/            # Custom hooks (e.g. useGradientText)
-│   ├── index.css         # Main CSS with Tailwind directives and custom styles
-│   ├── main.tsx          # React entry point
-│   └── App.tsx           # Global layout and dark mode toggle
-├── tailwind.config.js    # Tailwind configuration
-├── postcss.config.js     # PostCSS plugins
-├── tsconfig.json         # TypeScript configuration
-├── vite.config.ts        # Vite configuration
-├── package.json          # npm dependencies and scripts
-└── README.md             # Project documentation
+* **Framework:** React 18 + TypeScript, Vite (JIT mode)
+* **Styling:** Tailwind CSS (v3+) with `@apply`, custom keyframes, JIT
+* **Animations:** Framer Motion, CSS keyframes
+* **Icons:** lucide‑react
+* **SEO:** react‑helmet‑async
+* **Testing (boilerplate):** Vitest + Testing Library
+* **Deployment Tools:** npm scripts, `gh-pages`
+
+---
+
+## 📂 Project Structure
+
+```bash
+├── public/                 # Static assets and `.nojekyll` to disable Jekyll
+├── src/                    # Application source
+│   ├── components/         # UI components (layout, sections, UI)
+│   ├── hooks/              # Custom React hooks
+│   ├── assets/             # JS-imported images or SVGs
+│   ├── index.css           # Tailwind directives & custom styles
+│   ├── main.tsx            # Entry point with HelmetProvider
+│   └── App.tsx             # Root component, dark mode logic
+├── tailwind.config.js      # Tailwind config (colors, animations, JIT content)
+├── vite.config.ts          # Vite config (base path, plugins)
+├── tsconfig.json           # TypeScript compiler options
+├── package.json            # Scripts & dependencies
+└── README.md               # This documentation
 ```
 
 ---
 
 ## 💻 Getting Started
 
-1. **Clone the repository**
+1. **Clone the repo**
 
    ```bash
-   git clone https://github.com/andre-marinho/portfolio.git
-   cd portfolio
+   git clone https://github.com/andre-lmarinho/Homepage.git
+   cd Homepage
    ```
 2. **Install dependencies**
 
    ```bash
    npm install
    ```
-3. **Start development server**
+3. **Run in development**
 
    ```bash
    npm run dev
    ```
-4. **Open in browser**
-   Navigate to `http://localhost:5173` to view the site.
+4. **Build for production**
+
+   ```bash
+   npm run build
+   ```
+5. **Preview the build**
+
+   ```bash
+   npm run preview
+   ```
 
 ---
 
-## 📦 Available Scripts
+## 📦 NPM Scripts
 
-* `npm run dev` — Start the development server.
-* `npm run build` — Build the production bundle into `/dist`.
-* `npm run preview` — Preview the production build locally.
-* `npm test` — Run tests with Vitest (preconfigured).
+* `npm run dev` — start Vite dev server
+* `npm run build` — generate production build in `/dist`
+* `npm run preview` — serve `/dist` locally
+* `npm run deploy` — *(optional)* build & publish to GitHub Pages (requires `predeploy` script)
+* `npm test` — run Vitest
+
+*Add these lines to `package.json` if using `gh-pages`:*
+
+```json
+"scripts": {
+  "predeploy": "npm run build",
+  "deploy": "gh-pages -d dist"
+}
+```
 
 ---
 
 ## ☁️ Deployment
 
-I recommend hosting on platforms like **Vercel** or **Netlify**. Connect your repository, set the build command (`npm run build`), and the output directory (`dist`).
+**GitHub Actions:**
+Automatically build and publish to `gh-pages` branch on `main` push, defined in `.github/workflows/deploy.yml`.
+
+**Manual (gh-pages):**
+
+```bash
+npm run deploy
+```
+
+Then visit `https://<username>.github.io/<repo>/`.
 
 ---
 
 ## 📜 License
 
-This project is licensed under the [MIT License](LICENSE).
+This project is open-source under the [MIT License](LICENSE).
+Feel free to reuse and adapt!
+
+---
+
+*Last updated: 😊 keep iterating and pushing commits!*
