@@ -18,6 +18,10 @@
   animation: gradient-x 3s ease infinite;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 /* keyframes que deslocam o gradiente horizontalmente */
 @keyframes gradient-x {
   0% {

@@ -7,7 +7,7 @@ export default function FooterCTA() {
   return (
     <>
       {/* Call-to-Action Section */}
-      <section className="bg-white dark:bg-gray-900 text-gray-900 dark:text-white py-20 transition-colors duration-500">
+      <section className="text-gray-900 dark:text-white py-20 transition-colors duration-500">
         <div className="container mx-auto px-6 text-center">
           <h2 className="text-4xl md:text-5xl font-bold mb-4">
             Liked what you saw?
@@ -17,16 +17,18 @@ export default function FooterCTA() {
           </p>
           <div className="flex justify-center gap-4 mb-8">
             <a
-              href="#contact"
+              href="http://wa.me/557184770061"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Whatsapp link"
               className="inline-flex items-center font-medium bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white dark:text-white px-8 py-3 rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105"
-              aria-label="Contact me"
             >
               Let&apos;s Talk
               <ArrowRight size={16} className="ml-2" />
             </a>
             <a
               href="#about"
-              className="inline-flex items-center font-medium dark:text-gray-400 border-2 border-gray-300 dark:border-gray-600 hover:border-blue-500 dark:hover:border-blue-400 px-8 py-3 rounded-lg transition-all duration-300 hover:scale-105"
+              className="inline-flex items-center font-medium bg-gray-50 dark:bg-gray-800 dark:text-gray-400 border-2 border-gray-300 dark:border-gray-600 hover:border-blue-500 dark:hover:border-blue-400 px-8 py-3 rounded-lg transition-all duration-300 hover:scale-105"
               aria-label="Learn more about me"
             >
               About Me

@@ -7,23 +7,23 @@ const projects = [
     title: 'Trivia Quiz App',
     description: 'Interactive quiz game built for CS50 PSet8 using HTML5, CSS3 and JavaScript.',
     img: 'https://picsum.photos/400/300?random=1',
-    siteLink: '/projects/trivia-quiz',
-    repoLink: 'https://github.com/andre-lmarinho/Trivia',
+    siteLink: 'https://andre-lmarinho.github.io/Trivia/',
+    repoLink: 'https://github.com/andre-lmarinho/Trivia/',
     stacks: ['HTML5', 'CSS3', 'JavaScript']
   },
   {
     title: 'This Portfolio Site',
     description: 'Built with React, Tailwind CSS, Vite and TypeScript to showcase my work.',
     img: 'https://picsum.photos/400/300?random=2',
-    siteLink: '/',
-    repoLink: 'https://github.com/andre-marinho/portfolio',
-    stacks: ['React', 'Tailwind CSS', 'TypeScript']
+    //siteLink: '#', This site no link needed.
+    repoLink: 'https://github.com/andre-lmarinho/Homepage/',
+    stacks: ['React', 'TypeScript','Tailwind CSS']
   }
 ];
 
 export default function Projects() {
   return (
-    <section id="projects" className="py-20 bg-white dark:bg-gray-900 transition-colors duration-500">
+    <section id="projects" className="py-20 transition-colors duration-500">
       <div className="container mx-auto px-6">
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-6xl font-black text-gray-900 dark:text-gray-100">
@@ -66,6 +66,8 @@ export default function Projects() {
                 <div className="flex space-x-4">
                     <a
                     href={siteLink}
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="justify-center whitespace-nowrap text-sm font-medium ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 border border-input bg-background hover:text-accent-foreground h-9 rounded-md px-3 flex items-center gap-2 hover:bg-blue-50 hover:border-blue-300 transition-colors duration-200 dark:text-white dark:[&_svg]:text-white dark:bg-gray-800 dark:border-gray-600 dark:hover:bg-blue-700 dark:hover:border-blue-500"
                     aria-label="View Demo"
                     >
@@ -73,6 +75,8 @@ export default function Projects() {
                     </a>
                     <a
                     href={repoLink}
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="justify-center whitespace-nowrap text-sm font-medium ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 border border-input bg-background hover:text-accent-foreground h-9 rounded-md px-3 flex items-center gap-2 hover:bg-gray-50 hover:border-gray-400 transition-colors duration-200 dark:text-white dark:[&_svg]:text-white dark:bg-gray-800 dark:border-gray-600 dark:hover:bg-gray-700"
                     >
                     <Github size={16} className="mr-2" /> Código

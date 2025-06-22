@@ -3,7 +3,7 @@ import { Code, Lightbulb, Users, Zap } from 'lucide-react';
 
 export default function About() {
   return (
-    <section id="about" className="bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200 py-20 transition-colors duration-500">
+    <section id="about" className="text-gray-800 dark:text-gray-200 py-20 transition-colors duration-500">
       <div className="container mx-auto px-6">
         <div className="text-center mb-12">
           <h2 className="text-4xl md:text-6xl font-black mb-6 text-gray-900 dark:text-gray-100">

@@ -1,14 +1,14 @@
 import React from 'react';
 import { useGradientText } from '../hooks/useGradientText';
-import { ArrowDown, Github, Linkedin, Mail } from 'lucide-react';
+import { ArrowDown, ArrowRight, Github, Linkedin, Mail } from 'lucide-react';
 
 export default function Hero() {
   
 
   return (
-    <section className="flex items-center justify-center min-h-screen bg-white dark:bg-gray-900 transition-colors duration-500">
+    <section className="flex items-center justify-center min-h-screen transition-colors duration-500">
       <div className="container mx-auto px-6 text-center">
-        <h1 className="text-6xl md:text-8xl xl:text-6xl font-black tracking-tighter text-gray-900 dark:text-gray-100 mb-6">
+        <h1 className="text-6xl md:text-8xl font-black tracking-tighter text-gray-900 dark:text-gray-100 mb-6">
           <span>Developer</span><br />
           <span className="gradient-text">
             Front-End
@@ -26,10 +26,14 @@ export default function Hero() {
             See Portfolio
           </a>
           <a
-            href="/assets/docs/cv.pdf"
-            className="inline-flex items-center font-medium dark:text-gray-400 border-2 border-gray-300 dark:border-gray-600 hover:border-blue-500 dark:hover:border-blue-400 px-8 py-3 rounded-lg transition-all duration-300 hover:scale-105"
+            href="http://wa.me/557184770061"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Whatsapp link"
+            className="inline-flex items-center font-medium bg-gray-50 dark:bg-gray-800 dark:text-gray-400 border-2 border-gray-300 dark:border-gray-600 hover:border-blue-500 dark:hover:border-blue-400 px-8 py-3 rounded-lg transition-all duration-300 hover:scale-105"
           >
-            Download CV
+            Let&apos;s Talk
+            <ArrowRight size={16} className="ml-2" />
           </a>
         </div>
 
