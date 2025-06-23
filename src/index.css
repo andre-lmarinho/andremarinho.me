@@ -55,3 +55,25 @@ html {
     hover:scale-105
   }
 }
+
+/* Custom scrollbar for WebKit browsers */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+/* light mode */
+::-webkit-scrollbar-track {
+  background: white;
+}
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(to bottom, #fb923c, #38bdf8);
+}
+
+/* dark mode */
+html.dark ::-webkit-scrollbar-track {
+  background: rgb(17 24 39);
+}
+html.dark ::-webkit-scrollbar-thumb {
+  background: linear-gradient(to bottom, #d946ef, #0284c7);
+}

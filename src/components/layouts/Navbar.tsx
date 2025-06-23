@@ -41,11 +41,11 @@ export default function Navbar({ darkMode, setDarkMode }: NavbarProps) {
         <div className="flex items-center gap-4 md:gap-6">
           {/* Desktop nav */}
           <div className="hidden md:flex items-center gap-6">
-            {['Home', 'About', 'Projects', 'Contact'].map((item) => (
+            {['Home', 'About', 'Projects', 'Contact' ].map((item) => (
               <a
                 key={item}
                 href={`#${item.toLowerCase()}`}
-                className="relative text-sm font-medium hover:text-primary-500 transition-colors after:block after:h-[2px] after:w-0 after:bg-primary-500 after:transition-all after:duration-300 after:hover:w-full after:mt-1"
+                className="relative text-lg font-medium hover:text-primary-500 transition-colors after:block after:h-[2px] after:w-0 after:bg-primary-500 after:transition-all after:duration-300 after:hover:w-full after:mt-1"
               >
                 {item}
               </a>
@@ -90,7 +90,7 @@ export default function Navbar({ darkMode, setDarkMode }: NavbarProps) {
             transition={{ duration: 0.3 }}
             className="md:hidden fixed top-16 left-0 w-full bg-white dark:bg-gray-900 text-center shadow-lg py-6 px-4 z-40 border-t border-gray-200 dark:border-gray-700"
           >
-            {['Home', 'About', 'Projects', 'Contact'].map((item) => (
+            {['Home', 'About', 'Projects', 'Contact' ].map((item) => (
               <a
                 key={item}
                 href={`#${item.toLowerCase()}`}
