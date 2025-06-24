@@ -1,20 +1,22 @@
 import React from 'react';
 import { Github, ExternalLink } from 'lucide-react';
+import imgProjeto from '../assets/images/Portfolio.webp';
+import imgTrivia from '../assets/images/Trivia.webp';
 
-// Two project entries
+// Project Entries
 const projects = [
   {
     title: 'Trivia Quiz App',
-    description: 'Interactive quiz game built for CS50 PSet8 using HTML5, CSS3 and JavaScript.',
-    img: 'https://picsum.photos/400/300?random=1',
+    description: 'An interactive, themeable trivia quiz app built with React, TypeScript, and Tailwind CSS, fetching real-time questions from the OpenTDB API.',
+    img: 'public/assets/images/Trivia.webp',
     siteLink: 'https://andre-lmarinho.github.io/Trivia/',
     repoLink: 'https://github.com/andre-lmarinho/Trivia/',
-    stacks: ['HTML5', 'CSS3', 'JavaScript']
+    stacks: ['React', 'TypeScript','Tailwind CSS']
   },
   {
     title: 'This Portfolio Site',
-    description: 'Built with React, Tailwind CSS, Vite and TypeScript to showcase my work.',
-    img: 'https://picsum.photos/400/300?random=2',
+    description: 'Is this site that you are in to showcase my work.',
+    img: 'public/assets/images/Portfolio.webp',
     siteLink: 'https://andre-lmarinho.github.io/Homepage/', 
     repoLink: 'https://github.com/andre-lmarinho/Homepage/',
     stacks: ['React', 'TypeScript','Tailwind CSS']
@@ -40,7 +42,7 @@ export default function Projects() {
                 <img
                   src={img}
                   alt={title}
-                  className="w-full h-48 object-cover transition-transform duration-300 group-hover:scale-110"
+                  className="w-full h-48 object-contain bg-white transition-transform duration-300 group-hover:scale-110"
                   loading="lazy"
                 />
               </div>

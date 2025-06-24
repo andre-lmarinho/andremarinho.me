@@ -14,13 +14,16 @@ export default function About() {
           {/* Text Column */}
           <div className="space-y-6 text-lg text-gray-700 dark:text-gray-300 leading-relaxed">
             <p>
-              Hello! I’m André Marinho, a passionate web developer and digital marketer with a background in logistics and business strategy. Over the years, I’ve combined analytical thinking with creative problem-solving to deliver high-impact solutions for clients and projects.
+              Hi, I'm André, a front-end developer with a unique blend of marketing strategy and technical expertise. Having transitioned from digital marketing to development, I bring a business-oriented perspective to every line of code I write.
             </p>
             <p>
-              My journey started in CS50, where I learned the fundamentals of programming in C and SQL. Since then, I have expanded my stack to include HTML, CSS, JavaScript, Node.js, and Power BI, building responsive websites and data-driven dashboards that drive real results.
+              My passion lies in creating seamless, responsive, and strategically crafted user interfaces. Using React, TypeScript, and advanced analytics, I ensure every digital experience is aligned with clear business outcomes.
             </p>
             <p>
-              I believe in continuous learning and adaptability, and I thrive in environments that challenge me to push the boundaries of performance and user experience. Whether working solo or collaborating in a team, I aim to write clean, maintainable code and deliver projects that align with strategic business goals.
+              Driven by continuous learning and community involvement, I've completed Harvard's CS50 and actively engage in global tech communities, consistently pushing my skills and perspectives forward.
+            </p>
+            <p>
+              Let's collaborate to build something impactful, an experience that not only looks great but genuinely moves your business forward.
             </p>
           </div>
           {/* Cards Grid Column */}
