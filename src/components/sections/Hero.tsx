@@ -4,7 +4,7 @@ import { ArrowDown, ArrowRight, Github, Linkedin, Mail } from 'lucide-react';
 export default function Hero() {
 
   return (
-    <section className="flex items-center justify-center min-h-screen transition-colors duration-500">
+    <section id="hero" className="flex items-center justify-center min-h-screen transition-colors duration-500">
       <div className="container mx-auto px-6 text-center">
         <h1 className="text-6xl md:text-8xl font-black tracking-tighter text-gray-900 dark:text-gray-100 mb-6">
           <span>Developer</span><br />
@@ -47,7 +47,7 @@ export default function Hero() {
             <Github size={28} />
           </a>
           <a
-            href="https://linkedin.com/in/andré-marinho-3318ab1aa"
+            href="https://linkedin.com/in/andre-marinho-3318ab1aa"
             target="_blank"
             rel="noopener noreferrer"
             aria-label="LinkedIn profile"

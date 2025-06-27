@@ -4,6 +4,7 @@ import Hero from './components/sections/Hero';
 import About from './components/sections/About';
 import Projects from './components/sections/Projects';
 import Stacks from './components/sections/Stacks';
+import CTA from './components/sections/CTA';
 import Footer from './components/layouts/Footer';
 import AnimationBG from './components/layouts/AnimationBG';
 import SEO from './components/ui/SEO'
@@ -32,15 +33,23 @@ export default function App() {
       <AnimationBG />
 
       <div className="relative z-20 flex flex-col min-h-screen">
-      {/* Menu */}
+      {/* Nav Menu */}
       <Navbar darkMode={darkMode} setDarkMode={setDarkMode} />
-      {/* Main */}
+      
+      {/* Main Section */}
       <main className="flex-grow">
+        {/* Hero Section */}
         <Hero />
+        {/* Projects Section */}
         <Projects />
+        {/* About Section */}
         <About />
+        {/* Stacks Section */}
         <Stacks />
+        {/* Final CTA Section */}
+        <CTA />
       </main>
+      
       {/* Footer */}
       <Footer />
       </div>

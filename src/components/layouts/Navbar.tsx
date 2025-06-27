@@ -28,7 +28,7 @@ export default function Navbar({ darkMode, setDarkMode }: NavbarProps) {
   }, []);
 
   return (
-    <nav
+    <nav id="navbar"
       className={`fixed top-0 w-full z-50 bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 transition-transform duration-300 shadow-md ${
         showNav ? 'translate-y-0' : '-translate-y-full'
       }`}
