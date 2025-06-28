@@ -6,7 +6,7 @@ This repository powers **André Marinho’s personal portfolio**, a modern React
 
 ## 🔗 Live Demo
 
-[View on GitHub Pages](https://andre-lmarinho.github.io/Home/)
+[View on GitHub Pages](https://andre-lmarinho.github.io/Homepage/)
 *or* deploy easily to Vercel or Netlify with the same settings.
 
 ---
