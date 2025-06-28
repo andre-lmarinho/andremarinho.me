@@ -2,7 +2,7 @@
   "name": "personal-portfolio",
   "version": "0.0.1",
   "private": true,
-  "homepage": "https://andre-lmarinho.github.io/Homepage",
+  "homepage": "https://andre-lmarinho.github.io/Home",
   "scripts": {
     "dev": "vite",
     "build": "vite build",

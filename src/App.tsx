@@ -27,8 +27,8 @@ export default function App() {
       <SEO
         title="André Marinho · Frontend Developer"
         description="André Marinho’s portfolio — React projects, animations, dark mode, and more."
-        url="https://andre-lmarinho.github.io/Homepage/"
-        image="https://andre-lmarinho.github.io/Homepage/social-preview.png"/>
+        url="https://andre-lmarinho.github.io/Home/"
+        image="https://andre-lmarinho.github.io/Home/social-preview.png"/>
 
       {/* Background */}
       <AnimationBG showCenterOrb={showCenterOrb} />
