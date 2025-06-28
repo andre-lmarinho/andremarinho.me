@@ -1,7 +1,13 @@
 import React, { useRef, useState, useEffect } from 'react';
 
+interface AboutProps {
+  /**
+   * Callback to control visibility of the center orb in the background.
+   */
+  setShowCenterOrb?: (value: boolean) => void;
+}
 
-export default function About() {
+export default function About({ setShowCenterOrb }: AboutProps) {
   const fullText = `I'm André, a front-end developer who bridges the gap between marketing strategy and technical execution. My journey from digital marketing to development has shaped my approach: every line of code is crafted with clear business outcomes in mind.
 
 Specializing in responsive and intuitive user interfaces built with React, TypeScript, and enhanced by analytics, I create digital experiences designed to not only engage but strategically drive results.
@@ -37,6 +43,11 @@ Let's build something remarkable together.`;
   const revealEnd = sectionTop + totalWords * REVEAL_SPACING;
   // Reveal in progress when scroll is within section reveal window
   const isRevealing = scrollBottom > sectionTop && scrollBottom < revealEnd;
+
+  // Hide or show the center orb based on reveal state
+  useEffect(() => {
+    setShowCenterOrb?.(!isRevealing);
+  }, [isRevealing, setShowCenterOrb]);
 
   // Total height to allow full reveal
   const sectionHeight = window.innerHeight + totalWords * REVEAL_SPACING;
