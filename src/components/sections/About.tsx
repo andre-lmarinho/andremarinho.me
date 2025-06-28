@@ -61,7 +61,7 @@ Let's build something remarkable together.`;
   const sectionHeight = window.innerHeight + totalWords * REVEAL_SPACING;
 
   return (
-    <section
+    <section id="about" 
       ref={sectionRef}
       className="relative py-20 transition-colors duration-500"
       style={{ height: sectionHeight }}

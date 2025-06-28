@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Navbar from './components/layouts/Navbar';
 import Hero from './components/sections/Hero';
-import About from './components/sections/About';
+import About from './components/sections/About2';
 import Projects from './components/sections/Projects';
 import Stacks from './components/sections/Stacks';
 import CTA from './components/sections/CTA';
@@ -44,7 +44,6 @@ export default function App() {
         {/* Projects Section */}
         <Projects />
         {/* About Section */}
-
         <About setShowCenterOrb={setShowCenterOrb} />
 
         {/* Stacks Section */}

@@ -53,6 +53,12 @@ html {
     bg-gray-50 dark:bg-gray-800 dark:text-gray-400 border-2 
     border-gray-300 dark:border-gray-600 hover:border-blue-500 dark:hover:border-blue-400 
     hover:scale-105
+  };
+
+
+  .clamptext {
+    @apply text-[1.25rem] md:text-[1.75rem] lg:text-[2rem] xl:text-[2.25rem]
+          leading-relaxed text-gray-800 dark:text-gray-200
   }
 }
 
