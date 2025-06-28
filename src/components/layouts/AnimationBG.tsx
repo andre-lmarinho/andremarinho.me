@@ -6,7 +6,7 @@ import React from 'react';
  */
 export default function AnimationBG() {
   return (
-    <div className="fixed bg-red z-10 inset-0 overflow-hidden pointer-events-none">
+    <div className="fixed bg-red-500 z-10 inset-0 overflow-hidden pointer-events-none">
       {/* Top-right orb */}
       <div className="absolute -top-40 -right-40 w-80 h-80 bg-gradient-to-br from-primary-400 to-secondary-500 rounded-full opacity-20 blur-3xl animate-float" />
 
