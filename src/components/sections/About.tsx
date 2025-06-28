@@ -44,9 +44,17 @@ Let's build something remarkable together.`;
   // Reveal in progress when scroll is within section reveal window
   const isRevealing = scrollBottom > sectionTop && scrollBottom < revealEnd;
 
-  // Hide or show the center orb based on reveal state
+   // Fade the center orb out during reveal and back in afterwards
   useEffect(() => {
-    setShowCenterOrb?.(!isRevealing);
+    if (!setShowCenterOrb) return;
+    if (isRevealing) {
+      // start fading out immediately
+      setShowCenterOrb(false);
+    } else {
+      // wait a moment before bringing it back
+      const id = setTimeout(() => setShowCenterOrb(true), 800);
+      return () => clearTimeout(id);
+    }
   }, [isRevealing, setShowCenterOrb]);
 
   // Total height to allow full reveal

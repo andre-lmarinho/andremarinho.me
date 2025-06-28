@@ -22,9 +22,7 @@ export default function AnimationBG({ showCenterOrb = true }: AnimationBGProps) 
       <div className="absolute -bottom-40 -left-40 w-96 h-96 bg-gradient-to-tr from-accent-400 to-primary-500 rounded-full opacity-15 blur-3xl animate-float" />
 
       {/* Center orb */}
-      {showCenterOrb && (
-        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-gradient-to-r from-secondary-400 to-accent-400 rounded-full opacity-10 blur-3xl animate-pulse-slow" />
-      )}
+      <div className={`absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-gradient-to-r from-secondary-400 to-accent-400 rounded-full blur-3xl transition-opacity duration-700 ${showCenterOrb ? 'opacity-10 animate-pulse-slow' : 'opacity-0'}`}/>
 
       {/* Animated mesh lines */}
       <div className="absolute inset-0 opacity-5 dark:opacity-10">
