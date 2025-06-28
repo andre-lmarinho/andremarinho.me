@@ -12,6 +12,7 @@ import SEO from './components/ui/SEO'
 
 export default function App() {
   const [darkMode, setDarkMode] = useState(false);
+  const [showCenterOrb, setShowCenterOrb] = useState(true);
 
   // When change darkMode, add or remove a class on <html>
   useEffect(() => {
@@ -30,7 +31,7 @@ export default function App() {
         image="https://andre-lmarinho.github.io/Homepage/social-preview.png"/>
 
       {/* Background */}
-      <AnimationBG />
+      <AnimationBG showCenterOrb={showCenterOrb} />
 
       <div className="relative z-20 flex flex-col min-h-screen">
       {/* Nav Menu */}
@@ -44,7 +45,7 @@ export default function App() {
         <Projects />
         {/* About Section */}
 
-        <About />
+        <About setShowCenterOrb={setShowCenterOrb} />
 
         {/* Stacks Section */}
         <Stacks />

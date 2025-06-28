@@ -4,7 +4,15 @@ import React from 'react';
  * Full-screen animated background with orbs, mesh lines, and floating particles.
  * Utilizes Tailwind CSS utility classes and custom animations defined in tailwind.config.js.
  */
-export default function AnimationBG() {
+interface AnimationBGProps {
+  /**
+   * Whether the central pulsating orb should be visible.
+   * Defaults to true when the prop is not provided.
+   */
+  showCenterOrb?: boolean;
+}
+
+export default function AnimationBG({ showCenterOrb = true }: AnimationBGProps) {
   return (
     <div className="fixed z-10 inset-0 overflow-hidden pointer-events-none">
       {/* Top-right orb */}
@@ -13,8 +21,10 @@ export default function AnimationBG() {
       {/* Bottom-left orb */}
       <div className="absolute -bottom-40 -left-40 w-96 h-96 bg-gradient-to-tr from-accent-400 to-primary-500 rounded-full opacity-15 blur-3xl animate-float" />
 
-      {/* Center orb */}
-      <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-gradient-to-r from-secondary-400 to-accent-400 rounded-full opacity-10 blur-3xl animate-pulse-slow" />
+      {/* Center orb with fade in/out */}
+      <div
+        className={`absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-gradient-to-r from-secondary-400 to-accent-400 rounded-full blur-3xl transition-opacity duration-700 ${showCenterOrb ? 'opacity-10 animate-pulse-slow' : 'opacity-0'}`}
+      />
 
       {/* Animated mesh lines */}
       <div className="absolute inset-0 opacity-5 dark:opacity-10">
