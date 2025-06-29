@@ -1,4 +1,5 @@
-import React, { useRef, useState, useEffect } from 'react';
+import React, { useRef, useEffect } from 'react';
+import useScrollPosition from '../../hooks/useScrollPosition';
 import AnimatedParagraph from '../ui/AnimatedParagraph';
 
 interface AboutProps {
@@ -30,14 +31,8 @@ Let's build something remarkable together.`;
 
   const REVEAL_SPACING = 40; // px per word
   const sectionRef = useRef<HTMLDivElement>(null);
-  const [scrollBottom, setScrollBottom] = useState(0);
-
-  useEffect(() => {
-    const handleScroll = () => setScrollBottom(window.scrollY + window.innerHeight);
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    handleScroll();
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  const { y: scrollY } = useScrollPosition();
+  const scrollBottom = scrollY + window.innerHeight;
 
   // Compute section positions
   const sectionTop = sectionRef.current?.offsetTop ?? 0;

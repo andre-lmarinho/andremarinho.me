@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
+import useDarkMode from './hooks/useDarkMode';
 import Navbar from './components/layouts/Navbar';
 import Hero from './components/sections/Hero';
 import About from './components/sections/About2';
@@ -11,16 +12,8 @@ import SEO from './components/ui/SEO'
 //import MatrixBackground from './components/AnimationBGMatrix'
 
 export default function App() {
-  const [darkMode, setDarkMode] = useState(false);
+  const [darkMode, setDarkMode] = useDarkMode(false);
   const [showCenterOrb, setShowCenterOrb] = useState(true);
-
-  // When change darkMode, add or remove a class on <html>
-  useEffect(() => {
-    const html = document.documentElement;
-    const body = document.body;
-    if (darkMode) {html.classList.add('dark'); body.classList.add('dark');}
-    else {html.classList.remove('dark'); body.classList.remove('dark');}
-  }, [darkMode]);
 
   return (
     <>
