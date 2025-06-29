@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { Sun, Moon } from 'lucide-react';
 import { AnimatePresence, motion } from 'framer-motion';
+import useScrollPosition from '../../hooks/useScrollPosition';
 
 interface NavbarProps {
   darkMode: boolean;
@@ -11,21 +12,17 @@ export default function Navbar({ darkMode, setDarkMode }: NavbarProps) {
   const [showNav, setShowNav] = useState(true);
   const [menuOpen, setMenuOpen] = useState(false);
   const lastScrollY = useRef(0);
+  const { y: scrollY } = useScrollPosition();
 
   useEffect(() => {
-    const handleScroll = () => {
-      if (window.scrollY < lastScrollY.current) {
-        setShowNav(true);
-      } else {
-        setShowNav(false);
-        setMenuOpen(false);
-      }
-      lastScrollY.current = window.scrollY;
-    };
-
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+    if (scrollY < lastScrollY.current) {
+      setShowNav(true);
+    } else {
+      setShowNav(false);
+      setMenuOpen(false);
+    }
+    lastScrollY.current = scrollY;
+  }, [scrollY]);
 
   return (
     <nav id="navbar"
