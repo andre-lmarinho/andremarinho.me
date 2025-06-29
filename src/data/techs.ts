@@ -1,3 +1,4 @@
+// src/data/techs.ts
 export const techs = [
   { name: 'React', icon: 'react', color: '61DAFB' },
   { name: 'TypeScript', icon: 'typescript', color: '3178C6' },

@@ -1,29 +1,7 @@
 import React, { useRef, useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { SiReact, SiTypescript } from 'react-icons/si';
+import { alwaysActiveWords, iconMap } from '../../data/about';
 
-export const iconMap: Record<
-  string,
-  {
-    icon: React.ElementType;
-    color: string;
-    hoverAnimation?: string;
-    customMotionProps?: object;
-  }
-> = {
-  react: {
-    icon: SiReact,
-    color: '#61DAFB',
-    hoverAnimation: 'hover:scale-110 hover:rotate-[180deg] transition-all duration-300',
-  },
-  typescript: {
-    icon: SiTypescript,
-    color: '#3178C6',
-    hoverAnimation: 'hover:scale-110 transition-all duration-300',
-  },
-};
-
-const alwaysActiveWords = ['hi', 'im', 'andre'];
 
 export default function RevealWord({ word }: { word: string }) {
   const ref = useRef<HTMLSpanElement>(null);

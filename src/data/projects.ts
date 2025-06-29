@@ -1,3 +1,4 @@
+// src/data/projects.ts
 import imgProjeto from '/assets/images/Portfolio.webp';
 import imgTrivia from '/assets/images/Trivia.webp';
 

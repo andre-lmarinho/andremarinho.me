@@ -1,18 +1,11 @@
 import React, { useRef, useEffect } from 'react';
 import { useInView } from 'framer-motion';
 import RevealWord from '../ui/RevealWord';
+import { aboutParagraphs as paragraphs } from '../../data/about';
 
 interface AboutProps {
   setShowCenterOrb?: (value: boolean) => void;
 }
-
-const paragraphs: string[] = [
-  "Hi! I'm André, a front-end developer who bridges the gap between marketing strategy and technical execution.",
-  "Specializing in responsive and intuitive user interfaces built with React, TypeScript, and enhanced by analytics, I create digital experiences designed to not only engage but strategically drive results.",
-  "A believer in continuous learning and active contributor in global tech communities, I've completed Harvard's CS50 and continually sharpen my skills by staying at the forefront of emerging technologies.",
-  "Clean, maintainable code and performance-driven innovation form the core of my work. Ensuring seamless experiences that look great and deliver measurable impact for your business.",
-  "Let's build something remarkable together."
-];
 
 export default function About({ setShowCenterOrb }: AboutProps): JSX.Element {
   
