@@ -13,11 +13,35 @@ export const aboutParagraphs: string[] = [
   "Let's build something remarkable together."
 ];
 
+
 /**
- * Words that should always stay highlighted in the animation.
- * They remain permanently active (not affected by scroll position or interaction).
+ * Highlight configuration for the About section.
+ * 
+ * - The object keys represent the paragraph index.
+ * - `alwaysActiveIndexes` is an array of word positions (zero-based) within the paragraph that should always remain highlighted, regardless of scroll position.
+ * - `highlightWord` is a specific word (cleaned and case-insensitive) within the paragraph that should receive a custom CSS class (e.g., "gradient-text").
+ * 
+ * Example:
+ * 
+ * {
+ *   0: { alwaysActiveIndexes: [0, 1, 2] }, // Always highlight the first three words of paragraph 0
+ *   4: { highlightWord: 'remarkable' }    // Apply special CSS to the word 'remarkable' in paragraph 4
+ * }
+ * 
+ * Notes:
+ * - Word positions start at 0 and should be counted after splitting the paragraph by spaces.
+ * - The highlightWord is automatically cleaned (accents and punctuation removed, and compared in lowercase).
+ * - You can combine both `alwaysActiveIndexes` and `highlightWord` in the same paragraph if needed.
  */
-export const alwaysActiveWords = ['hi', "i'm", 'andre'];
+export const highlightConfig: Record<number, { alwaysActiveIndexes?: number[]; highlightWord?: string }> = {
+  0: { 
+    alwaysActiveIndexes: [0, 1, 2, 3] 
+  },
+  4: { 
+    highlightWord: 'remarkable'
+  }
+};
+
 
 /**
  * Words that should display an icon next to them.

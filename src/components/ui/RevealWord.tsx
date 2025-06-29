@@ -1,9 +1,13 @@
 import React, { useRef, useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { alwaysActiveWords, iconMap } from '../../data/about';
+import { highlightConfig, iconMap } from '../../data/about';
 
+export default function RevealWord({
+  word,
+  index,
+  paragraph
+}: { word: string, index: number, paragraph: number }) {
 
-export default function RevealWord({ word }: { word: string }) {
   const ref = useRef<HTMLSpanElement>(null);
   const [active, setActive] = useState(false);
 
@@ -35,8 +39,11 @@ export default function RevealWord({ word }: { word: string }) {
     .replace(/[^A-Za-z]/g, '')
     .toLowerCase();
 
-  const isAlwaysActive = alwaysActiveWords.includes(clean);
-  const isHighlight = clean === 'remarkable';
+  // Check if the current word index is always active in this paragraph
+  const isAlwaysActive = highlightConfig[paragraph]?.alwaysActiveIndexes?.includes(index);
+
+  // Check if the current word matches the gradient highlight
+  const isGradient = highlightConfig[paragraph]?.highlightWord?.toLowerCase() === clean;
 
   const iconEntry = iconMap[clean];
   const Icon = iconEntry?.icon;
@@ -52,7 +59,7 @@ export default function RevealWord({ word }: { word: string }) {
       className="inline-block transition-opacity duration-300"
     >
       <AnimatePresence mode="wait">
-        {Icon && active && (
+        {Icon && (isAlwaysActive || active) && (
           <motion.span
             layout
             key={clean}
@@ -70,7 +77,7 @@ export default function RevealWord({ word }: { word: string }) {
           </motion.span>
         )}
       </AnimatePresence>
-      {isHighlight ? <span className="gradient-text">{word}</span> : word}
+      {isGradient ? <span className="gradient-text">{word}</span> : word}
       &nbsp;
     </motion.span>
   );

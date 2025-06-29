@@ -24,7 +24,7 @@ export default function About({ setShowCenterOrb }: AboutProps): JSX.Element {
         {paragraphs.map((text, pi) => (
           <p key={pi} className="mb-6">
             {text.split(' ').map((w, wi) => (
-              <RevealWord key={`${pi}-${wi}`} word={w} />
+              <RevealWord key={`${pi}-${wi}`} word={w} index={wi} paragraph={pi} />
             ))}
           </p>
         ))}
