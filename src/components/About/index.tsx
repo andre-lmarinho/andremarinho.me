@@ -2,7 +2,7 @@ import React, { useRef, useEffect } from 'react';
 import { useInView } from 'framer-motion';
 import RevealWord from '../ui/RevealWord';
 
-interface About2Props {
+interface AboutProps {
   setShowCenterOrb?: (value: boolean) => void;
 }
 
@@ -14,7 +14,7 @@ const paragraphs: string[] = [
   "Let's build something remarkable together."
 ];
 
-export default function About2({ setShowCenterOrb }: About2Props): JSX.Element {
+export default function About({ setShowCenterOrb }: AboutProps): JSX.Element {
   
   const ref = useRef(null);
   const inView = useInView(ref, { margin: '-40% 0% -40% 0%', amount: 0.1 });
