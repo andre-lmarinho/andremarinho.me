@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, fireEvent, waitFor } from '@testing-library/react';
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
-import Navbar from './Navbar';
+import Navbar from './index';
 
 function Wrapper({ onToggle }: { onToggle: (value: boolean) => void }) {
   const [darkMode, setDarkMode] = React.useState(false);
