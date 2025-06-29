@@ -1,6 +1,6 @@
-import { render, screen } from '@testing-library/react';
+import { render, act, screen } from '@testing-library/react';
 import React from 'react';
-import { act, vi } from 'vitest';
+import '@testing-library/jest-dom'; 
 import RevealWord from '../RevealWord';
 
 vi.mock('framer-motion', async () => {

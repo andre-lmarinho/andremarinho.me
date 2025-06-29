@@ -1,6 +1,7 @@
 // src/data/about.ts
 import { SiReact, SiTypescript } from 'react-icons/si';
 
+
 /**
  * Main About section text.
  * Each string in the array represents a separate paragraph.
@@ -35,13 +36,12 @@ export const aboutParagraphs: string[] = [
  */
 export const highlightConfig: Record<number, { alwaysActiveIndexes?: number[]; highlightWord?: string }> = {
   0: { 
-    alwaysActiveIndexes: [0, 1, 2] 
+    alwaysActiveIndexes: [0, 1, 2],
   },
   4: { 
     highlightWord: 'remarkable'
   }
 };
-
 
 /**
  * Words that should display an icon next to them.
@@ -64,3 +64,5 @@ export const iconMap: Record<string, {
     hoverAnimation: 'hover:scale-110 transition-all duration-300',
   },
 };
+
+

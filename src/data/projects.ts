@@ -5,8 +5,7 @@ import imgTrivia from '/assets/images/Trivia.webp';
 export const projects = [
   {
     title: 'Trivia Quiz App',
-    description:
-      'An interactive, themeable trivia quiz app built with React, TypeScript, and Tailwind CSS, fetching real-time questions from the OpenTDB API.',
+    description: 'An interactive, themeable trivia fetching real-time questions from the OpenTDB API.',
     img: imgTrivia,
     siteLink: 'https://andre-lmarinho.github.io/Trivia/',
     repoLink: 'https://github.com/andre-lmarinho/Trivia/',

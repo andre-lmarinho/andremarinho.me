@@ -14,23 +14,37 @@ export default function RevealWord({
   useEffect(() => {
     if (!ref.current) return;
 
+    let observerTarget: Element | null = null;
+    const offset = 2;
+    const targetIndex = index - offset;
+
+    if (targetIndex >= 0) {
+      observerTarget = document.querySelector(
+        `[data-paragraph="${paragraph}"][data-index="${targetIndex}"]`
+      );
+    }
+
+    if (!observerTarget) {
+      observerTarget = ref.current;
+    }
+
     const observer = new IntersectionObserver(
       ([entry]) => {
         setActive(entry.isIntersecting);
       },
       {
         root: null,
-        rootMargin: '0px 0px -20% 0px',
+        rootMargin: '0px 0px -60% 0px',
         threshold: 0,
       }
     );
 
-    observer.observe(ref.current);
+    observer.observe(observerTarget);
 
     return () => {
       observer.disconnect();
     };
-  }, []);
+  }, [index, paragraph]);
 
   const clean = word
     .normalize('NFD')
@@ -38,10 +52,8 @@ export default function RevealWord({
     .replace(/[^A-Za-z]/g, '')
     .toLowerCase();
 
-  // Check if the current word index is always active in this paragraph
   const isAlwaysActive = highlightConfig[paragraph]?.alwaysActiveIndexes?.includes(index);
 
-  // Check if the current word matches the gradient highlight
   const isGradient = highlightConfig[paragraph]?.highlightWord?.toLowerCase() === clean;
 
   const iconEntry = iconMap[clean];
@@ -52,6 +64,8 @@ export default function RevealWord({
   return (
     <motion.span
       ref={ref}
+      data-paragraph={paragraph}
+      data-index={index}
       initial={{ opacity: 0.2 }}
       animate={{ opacity: isAlwaysActive || active ? 1 : 0.2 }}
       transition={{ type: 'tween', ease: 'linear', duration: 0.2 }}
@@ -63,14 +77,14 @@ export default function RevealWord({
             layout
             key={clean}
             initial={{ width: 0, height: 0, padding: 0, borderWidth: 0 }}
-            animate={{ width: 42, height: 42, padding: 6, borderWidth: 1 }}
+            animate={{ width: '1.4125em', height: '1.4125em', padding: '0.1875em', borderWidth: 1 }}
             exit={{ width: 0, height: 0, padding: 0, borderWidth: 0 }}
             transition={{ type: 'spring', stiffness: 300, damping: 20, mass: 0.5 }}
             className={`inline-flex items-center justify-center mr-1
-            glass border backdrop-blur-sm rounded-lg
-            bg-gray-50 dark:bg-gray-800 border-gray-400/40 dark:border-gray-600/30 hover:border-blue-500/60 dark:hover:border-blue-400/50
-            hover:scale-110 transition-all duration-500
-            `}
+              glass border backdrop-blur-sm rounded-lg
+              bg-gray-50 dark:bg-gray-800 border-gray-400/40 dark:border-gray-600/30
+              hover:border-blue-500/60 dark:hover:border-blue-400/50
+              hover:scale-110 transition-all duration-500`}
           >
             {React.createElement(Icon, { size: '100%', color: IconColor, className: IconHover })}
           </motion.span>

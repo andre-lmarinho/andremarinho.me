@@ -4,7 +4,7 @@ import { Github, ExternalLink } from 'lucide-react';
 interface ProjectCardProps {
   title: string;
   description: string;
-  img: string;
+  img?: string;
   siteLink: string;
   repoLink: string;
   stacks: string[];
