@@ -1,7 +1,6 @@
 import React, { useRef, useEffect, useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence, useInView } from 'framer-motion';
 import { SiReact, SiTypescript } from 'react-icons/si';
-import { FaChartBar, FaCode, FaBook, FaGlobe, FaRocket } from 'react-icons/fa';
 
 interface About2Props {
   setShowCenterOrb?: (value: boolean) => void;
@@ -122,8 +121,18 @@ const RevealWord: React.FC<{ word: string }> = ({ word }) => {
 };
 
 export default function About2({ setShowCenterOrb }: About2Props): JSX.Element {
+  
+  const ref = useRef(null);
+  const inView = useInView(ref, { margin: '-40% 0% -40% 0%', amount: 0.1 });
+
+  useEffect(() => {
+    if (setShowCenterOrb) {
+      setShowCenterOrb(!inView); // Hide orb when inside About section
+    }
+  }, [inView, setShowCenterOrb]);
+
   return (
-    <section id="about" className="py-20">
+    <section id="about" className="py-20" ref={ref}>
       <div className="mx-auto max-w-3xl px-6 clamptext">
         {paragraphs.map((text, pi) => (
           <p key={pi} className="mb-6">
