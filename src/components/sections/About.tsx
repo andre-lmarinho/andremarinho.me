@@ -1,4 +1,5 @@
 import React, { useRef, useState, useEffect } from 'react';
+import AnimatedParagraph from '../ui/AnimatedParagraph';
 
 interface AboutProps {
   /**
@@ -68,32 +69,14 @@ Let's build something remarkable together.`;
     >
       <div className="sticky top-20 mx-auto max-w-3xl px-6 text-gray-800 dark:text-gray-200">
         {paragraphs.map((para, pi) => (
-          <p
+          <AnimatedParagraph
             key={pi}
-            className="mb-6 text-xl md:text-2xl leading-relaxed text-center text-gray-900 dark:text-gray-100"
-          >
-            {para.split(' ').map((word, wi) => {
-              const idx = offsets[pi] + wi;
-              // compute scroll progress for this word
-              const wordStart = sectionTop + idx * REVEAL_SPACING;
-              const delta = scrollBottom - wordStart;
-              let stage = 0;
-              if (delta >= REVEAL_SPACING) stage = 2;
-              else if (delta > 0) stage = 1;
-              // three opacity stages: low, mid, full
-              const opacityClass =
-                stage === 2 ? 'opacity-100' : stage === 1 ? 'opacity-50' : 'opacity-10';
-              return (
-                <span
-                  key={wi}
-                  className={`inline-block transition-opacity duration-200 ${opacityClass}`}
-                  style={{ marginRight: '0.25rem' }}
-                >
-                  {word}
-                </span>
-              );
-            })}
-          </p>
+            text={para}
+            offset={offsets[pi]}
+            scrollBottom={scrollBottom}
+            sectionTop={sectionTop}
+            revealSpacing={REVEAL_SPACING}
+          />
         ))}
       </div>
     </section>
