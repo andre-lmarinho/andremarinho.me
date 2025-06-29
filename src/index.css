@@ -7,7 +7,7 @@ html {
   scroll-behavior: smooth;
 }
 
-/* Text Gradient Animation */
+/*** Text Gradient Animation START ***/
 .gradient-text {
   background: linear-gradient(
     to right,
@@ -33,6 +33,51 @@ html {
     background-position: 0% 50%;
   }
 }
+/* Text Gradient Animation END */
+
+
+/*** Ultra Narrow Container - Responsive Max Widths ***/
+.container-ultra-narrow {
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+    max-width: 340px; /* Mobile default */
+    padding-left: 1.25rem;
+    padding-right: 1.25rem;
+}
+
+@media (min-width: 414px) {
+    .container-ultra-narrow {
+        max-width: 410px;
+    }
+}
+
+@media (min-width: 640px) {
+    .container-ultra-narrow {
+        max-width: 470px;
+        padding-left: 2rem;
+        padding-right: 2rem;
+    }
+}
+
+@media (min-width: 768px) {
+    .container-ultra-narrow {
+        max-width: 635px;
+    }
+}
+
+@media (min-width: 1024px) {
+    .container-ultra-narrow {
+        max-width: 860px;
+    }
+}
+
+@media (min-width: 1280px) {
+    .container-ultra-narrow {
+        max-width: 960px;
+    }
+}
+/*** Ultra Narrow Container END */
 
 /* Custom BoxShadow */
 .boxshadow {
@@ -58,7 +103,7 @@ html {
 
   .clamptext {
     @apply text-[1.25rem] md:text-[1.75rem] lg:text-[2rem] xl:text-[2.25rem]
-          leading-relaxed text-gray-800 dark:text-gray-200
+          leading-relaxed text-gray-800 dark:text-gray-200 font-medium
   }
 }
 

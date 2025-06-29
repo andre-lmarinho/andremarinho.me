@@ -20,9 +20,9 @@ export default function About({ setShowCenterOrb }: AboutProps): JSX.Element {
 
   return (
     <section id="about" className="py-20" ref={ref}>
-      <div className="mx-auto max-w-3xl px-6 clamptext">
+      <div className="container-ultra-narrow">
         {paragraphs.map((text, pi) => (
-          <p key={pi} className="mb-6">
+          <p key={pi} className="clamptext mb-6">
             {text.split(' ').map((w, wi) => (
               <RevealWord key={`${pi}-${wi}`} word={w} index={wi} paragraph={pi} />
             ))}

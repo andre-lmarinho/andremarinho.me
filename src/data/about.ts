@@ -35,7 +35,7 @@ export const aboutParagraphs: string[] = [
  */
 export const highlightConfig: Record<number, { alwaysActiveIndexes?: number[]; highlightWord?: string }> = {
   0: { 
-    alwaysActiveIndexes: [0, 1, 2, 3] 
+    alwaysActiveIndexes: [0, 1, 2] 
   },
   4: { 
     highlightWord: 'remarkable'
