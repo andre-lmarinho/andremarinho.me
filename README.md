@@ -17,8 +17,8 @@ This repository powers **André Marinho’s personal portfolio**, a modern React
 
 * **Animated Background** — full‑screen gradients, orbs, mesh lines, and floating particles behind content
 * **Smooth Scroll** — native CSS `scroll-behavior: smooth` for in‑page navigation
-* **Dynamic Navbar** — hides on scroll down, reveals on scroll up
-* **Dark/Light Mode** — user‑toggleable theme, persists via HTML and BODY classes
+* **Dynamic Navbar** — hides on scroll down, reveals on scroll up using `useScrollPosition`
+* **Dark/Light Mode** — user-toggleable theme via custom `useDarkMode` hook
 * **Responsive Layout** — mobile‑first design with Tailwind utility classes and Framer Motion for animations
 * **SEO Metadata** — dynamic `<title>` and `<meta>` tags via `react-helmet-async`
 
@@ -41,10 +41,12 @@ This repository powers **André Marinho’s personal portfolio**, a modern React
 ```bash
 ├── public/                 # Static assets and `.nojekyll` to disable Jekyll
 ├── src/                    # Application source
-│   ├── components/         # UI components (layout, sections, UI)
+│   ├── components/         # Each section in its own folder + shared UI
+│   ├── data/               # Project and stack data
+│   ├── hooks/              # Custom React hooks
 │   ├── index.css           # Tailwind directives & custom styles
 │   ├── main.tsx            # Entry point with HelmetProvider
-│   └── App.tsx             # Root component, dark mode logic
+│   └── App.tsx             # Root component
 ├── tailwind.config.js      # Tailwind config (colors, animations, JIT content)
 ├── vite.config.ts          # Vite config (base path, plugins)
 ├── tsconfig.json           # TypeScript compiler options
@@ -59,8 +61,8 @@ This repository powers **André Marinho’s personal portfolio**, a modern React
 1. **Clone the repo**
 
    ```bash
-   git clone https://github.com/andre-lmarinho/Homepage.git
-   cd Homepage
+   git clone https://github.com/andre-lmarinho/Home.git
+   cd Home
    ```
 2. **Install dependencies**
 
@@ -107,7 +109,7 @@ This repository powers **André Marinho’s personal portfolio**, a modern React
 ## ☁️ Deployment
 
 **GitHub Actions:**
-Automatically build and publish to `gh-pages` branch on `main` push, defined in `.github/workflows/deploy.yml`.
+You can automate deployment to `gh-pages` using a workflow file.
 
 **Manual (gh-pages):**
 
@@ -126,4 +128,4 @@ Feel free to reuse and adapt!
 
 ---
 
-*Last updated: 😊 keep iterating and pushing commits!*
+*Last updated: 2025-06-29*
