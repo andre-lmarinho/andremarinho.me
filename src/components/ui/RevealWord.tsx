@@ -11,26 +11,25 @@ export default function RevealWord({
   const ref = useRef<HTMLSpanElement>(null);
   const [active, setActive] = useState(false);
 
-  const handleScroll = () => {
-    if (ref.current) {
-      const rect = ref.current.getBoundingClientRect();
-      const viewportHeight = window.innerHeight;
-      const totalVisible = Math.min(1, Math.max(0, (viewportHeight - rect.top) / (viewportHeight + rect.height)));
-      const minMargin = 0.35;
-      const maxMargin = 0.8;
-      const dynamicMargin = minMargin + (maxMargin - minMargin) * totalVisible;
-      if (rect.top < viewportHeight * dynamicMargin) {
-        setActive(true);
-      } else {
-        setActive(false);
-      }
-    }
-  };
-
   useEffect(() => {
-    handleScroll();
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    if (!ref.current) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setActive(entry.isIntersecting);
+      },
+      {
+        root: null,
+        rootMargin: '0px 0px -20% 0px',
+        threshold: 0,
+      }
+    );
+
+    observer.observe(ref.current);
+
+    return () => {
+      observer.disconnect();
+    };
   }, []);
 
   const clean = word
