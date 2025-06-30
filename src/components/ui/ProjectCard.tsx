@@ -8,6 +8,7 @@ interface ProjectCardProps {
   siteLink: string;
   repoLink: string;
   stacks: string[];
+  children?: React.ReactNode;
 }
 
 export default function ProjectCard({
@@ -17,20 +18,30 @@ export default function ProjectCard({
   siteLink,
   repoLink,
   stacks,
+  children,
 }: ProjectCardProps) {
   return (
     <div className="group glass overflow-hidden boxshadow bg-gray-50 dark:bg-gray-800 rounded-lg transition-transform duration-300 hover:scale-105">
       <div>
-        <img
-          src={img}
-          alt={title}
-          className="w-full h-48 object-contain bg-white transition-transform duration-300 group-hover:scale-110"
-          loading="lazy"
-        />
+        {children ? (
+          children
+        ) : (
+          <img
+            src={img}
+            alt={title}
+            className="w-full h-48 object-contain bg-white transition-transform duration-300 group-hover:scale-110"
+            loading="lazy"
+          />
+        )}
       </div>
+
       <div className="p-6">
-        <h3 className="text-xl font-semibold mb-2 text-gray-900 dark:text-gray-100">{title}</h3>
-        <p className="text-gray-600 dark:text-gray-300 mb-4">{description}</p>
+        <h3 className="text-xl font-semibold mb-2 text-gray-900 dark:text-gray-100">
+          {title}
+        </h3>
+        <p className="text-gray-600 dark:text-gray-300 mb-4">
+          {description}
+        </p>
         <div className="flex flex-wrap gap-2 mb-6">
           {stacks.map(stack => (
             <span

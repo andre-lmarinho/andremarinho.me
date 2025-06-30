@@ -13,9 +13,15 @@ export default function Projects() {
           </h2>
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
-          {projects.map(project => (
-            <ProjectCard key={project.title} {...project} />
-          ))}
+          {projects.map(p =>
+            p.title === 'Trivia Quiz App' ? (
+              <ProjectCard key={p.title} {...p}>
+                <TriviaShowcase {...p} />
+              </ProjectCard>
+            ) : (
+              <ProjectCard key={p.title} {...p} />
+            )
+          )}
         </div>
       </div>
     </section>
