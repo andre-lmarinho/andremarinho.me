@@ -33,18 +33,18 @@ export default function TriviaShowcase({
   ];
 
   const topics = [
-    { icon: <FaFlask />,    style: { top: '10%', left: '5%' } },
-    { icon: <FaLandmark />, style: { top: '30%', left: '15%' } },
-    { icon: <FaFutbol />,   style: { top: '5%', left: '55%' } },
-    { icon: <FaMusic />,    style: { top: '70%', left: '10%' } },
-    { icon: <FaFilm />,     style: { top: '10%', left: '80%' } },
+    { icon: <FaFlask />,    style: { top: '-20%', left: '-5%' } },
+    { icon: <FaLandmark />, style: { top: '30%', left: '10%' } },
+    { icon: <FaFutbol />,   style: { top: '0%', left: '55%' } },
+    { icon: <FaMusic />,    style: { top: '70%', left: '0%' } },
+    { icon: <FaFilm />,     style: { top: '-10%', left: '80%' } },
   ];
 
   return (
-    <div className="group overflow-visible glass bg-gray-50 dark:bg-gray-800 transition-transform duration-300 hover:scale-105">
+    <div className="group overflow-visible glass transition-transform duration-300 hover:scale-105">
       <div className="relative items-center">
 
-        {/* GRID CELL 1: Interactive Card */}
+        {/* Floating Elements */}
         <div className="relative w-full h-full p-8 ">
           <div>
             {topics.map((topic, i) => (
@@ -62,6 +62,7 @@ export default function TriviaShowcase({
               </motion.div>
             ))}
           </div>
+          {/* Interactive Card */}
           <div className="flex text-center pointer-events-none items-center justify-center">
             <div className={`p-6 bg-[var(--content-bg)] rounded-lg shadow-lg transition-all 
               duration-500 ${currentTheme}`}>
@@ -78,7 +79,7 @@ export default function TriviaShowcase({
           </div>
         </div>
 
-        {/* GRID CELL 2: Theme Selector */}
+        {/* Theme Selector */}
         <div className="absolute right-4 top-1/2 -translate-y-1/2 space-y-2">
           {themes.map(t => (
             <div

@@ -21,17 +21,18 @@ export default function ProjectCard({
   children,
 }: ProjectCardProps) {
   return (
-    <div className="group glass overflow-hidden boxshadow bg-gray-50 dark:bg-gray-800 rounded-lg transition-transform duration-300 hover:scale-105">
+    <div className="group glass overflow-visible boxshadow bg-gray-50 dark:bg-gray-800 rounded-lg transition-transform duration-300 hover:scale-105">
       <div>
         {children ? (
           children
         ) : (
+          <div className="overflow-hidden rounded-t-lg">
           <img
             src={img}
             alt={title}
             className="w-full h-48 object-contain bg-white transition-transform duration-300 group-hover:scale-110"
             loading="lazy"
-          />
+          /></div>
         )}
       </div>
 

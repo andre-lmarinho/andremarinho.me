@@ -2,11 +2,7 @@
 
 This repository powers **André Marinho’s personal portfolio**, a modern React + TypeScript SPA built with Vite and Tailwind CSS, showcasing dynamic UI features, SEO, and smooth user experiences.
 
----
-
-## 🔗 Live Demo
-
-[View on GitHub Pages](https://andre-lmarinho.github.io/Home/)
+🔗 [Live Demo](https://andre-lmarinho.github.io/Home/)
 *or* deploy easily to Vercel or Netlify with the same settings.
 
 ---
