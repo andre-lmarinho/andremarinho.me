@@ -1,6 +1,6 @@
 import React from 'react';
-import TechItem from '../ui/TechItem';
-import { techs } from '../../data/techs';
+import TechItem from '../components/ui/TechItem';
+import { techs } from '../data/techs';
 
 export default function Stacks() {
   return (

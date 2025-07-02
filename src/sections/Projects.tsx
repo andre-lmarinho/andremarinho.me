@@ -1,6 +1,6 @@
 import React from 'react';
-import ProjectCard from '../ui/ProjectCard';
-import { projects } from '../../data/projects';
+import ProjectCard from '../components/ui/ProjectCard';
+import { projects } from '../data/projects';
 import TriviaShowcase from './TriviaShowcase'
 
 export default function Projects() {

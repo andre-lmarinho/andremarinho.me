@@ -1,7 +1,7 @@
 import React, { useRef, useEffect } from 'react';
 import { useInView } from 'framer-motion';
-import RevealWord from '../ui/RevealWord';
-import { aboutParagraphs as paragraphs } from '../../data/about';
+import RevealWord from '../components/ui/RevealWord';
+import { aboutParagraphs as paragraphs } from '../data/about';
 
 interface AboutProps {
   setShowCenterOrb?: (value: boolean) => void;

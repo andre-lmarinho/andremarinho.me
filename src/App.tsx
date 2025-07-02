@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import useDarkMode from './hooks/useDarkMode';
-import Navbar from './components/Navbar';
-import Hero from './components/Hero';
-import About from './components/About';
-import Projects from './components/Projects';
-import Stacks from './components/Stacks';
-import CTA from './components/CTA';
+import Navbar from './components/ui/NavBar';
+import Hero from './sections/Hero';
+import About from './sections/About';
+import Projects from './sections/Projects';
+import Stacks from './sections/Stacks';
+import CTA from './sections/CTA';
 import Footer from './components/Footer';
-import AnimationBG from './components/AnimationBG';
+import AnimationBG from './components/ui/BGAnimation';
 import SEO from './components/ui/SEO'
 //import MatrixBackground from './components/AnimationBGMatrix'
 
