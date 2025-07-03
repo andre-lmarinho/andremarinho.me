@@ -3,6 +3,7 @@ import { ArrowRight, Info } from 'lucide-react';
 
 export default function CTA() {
 
+
   return (
     <section id="contact" className="py-20 transition-colors duration-500">
         <div className="container-ultra-narrow text-center">

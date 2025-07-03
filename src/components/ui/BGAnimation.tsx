@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useRef } from 'react';
+import CenterOrb from '../CenterOrb'
 
 /**
  * Full-screen animated background with orbs, mesh lines, and floating particles.
@@ -6,24 +7,23 @@ import React from 'react';
  */
 interface AnimationBGProps {
   /**
-   * Whether the central pulsating orb should be visible.
-   * Defaults to true when the prop is not provided.
+   * Ref of the About section to control orb movement based on its visibility.
    */
-  showCenterOrb?: boolean;
+  aboutRef: React.RefObject<HTMLElement>;
+  ctaRef: React.RefObject<HTMLElement>;
 }
 
-export default function AnimationBG({ showCenterOrb = true }: AnimationBGProps) {
+export default function AnimationBG({ aboutRef, ctaRef }: AnimationBGProps) {
   return (
     <div className="fixed z-10 inset-0 overflow-hidden pointer-events-none">
+
+      <CenterOrb aboutRef={aboutRef} ctaRef={ctaRef} />
+
       {/* Top-right orb */}
       <div className="absolute -top-40 -right-40 w-80 h-80 bg-gradient-to-br from-primary-400 to-secondary-500 rounded-full opacity-20 blur-3xl animate-float" />
 
       {/* Bottom-left orb */}
       <div className="absolute -bottom-40 -left-40 w-96 h-96 bg-gradient-to-tr from-accent-400 to-primary-500 rounded-full opacity-15 blur-3xl animate-float" />
-
-      {/* Center orb */}
-      <div className={`${showCenterOrb ? 'opacity-10 animate-pulse-slow' : 'opacity-0 scale-95'}
-      absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-gradient-to-r from-secondary-400 to-accent-400 rounded-full blur-3xl transition-opacity duration-700`}/>
 
       {/* Animated mesh lines */}
       <div className="absolute inset-0 opacity-5 dark:opacity-10">

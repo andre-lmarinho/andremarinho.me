@@ -7,7 +7,7 @@ import { SiReact, SiTypescript, SiNextdotjs } from 'react-icons/si';
  * Each string in the array represents a separate paragraph.
  */
 export const aboutParagraphs: string[] = [
-  "Hi! I'm André, a front-end developer who likes to build responsive and intuitive user interfaces with React, TypeScript, and Next.js.",
+  "Hi! I'm André, a front-end developer who builds engaging, responsive interfaces with React, Next.js and TypeScript.",
   //"Clean, maintainable code and performance-driven innovation form the core of my work. Ensuring seamless experiences that look great and deliver measurable impact for your business.",
   //"Let's build something remarkable together."
 ];
@@ -43,17 +43,17 @@ export const iconMap: Record<string, {
 }> = {
   react: {
     icon: SiReact,
-    color: '#61DAFB',
-    hoverAnimation: 'hover:scale-110 hover:rotate-[180deg] transition-all duration-300',
+    color: 'var(--react-color)',
+    hoverAnimation: 'group-hover:scale-110 group-hover:rotate-[180deg] transition-all duration-300',
   },
   typescript: {
     icon: SiTypescript,
-    color: '#3178C6',
-    hoverAnimation: 'hover:scale-110 transition-all duration-300',
+    color: 'var(--typescript-color)',
+    hoverAnimation: 'group-hover:scale-110 transition-all duration-300',
   },
   nextjs: {
     icon: SiNextdotjs,
-    color: '#000000',
-    hoverAnimation: 'hover:scale-110 transition-all duration-300',
+    color: 'var(--next-color)',
+    hoverAnimation: 'group-hover:scale-110 transition-all duration-300',
   },
 };

@@ -7,9 +7,9 @@ import { highlightConfig, iconMap } from '../../data/about';
 interface RevealWordProps {
   word: string;
   paragraph: number;
-  index: number;       // position within paragraph
-  globalIndex: number; // running word index across all paragraphs
-  revealIndex: number; // from FixedRevealContainer
+  index: number;
+  globalIndex: number;
+  revealIndex: number;
 }
 
 export default function RevealWord({
@@ -19,25 +19,25 @@ export default function RevealWord({
   globalIndex,
   revealIndex,
 }: RevealWordProps) {
-  // normalize for lookups
+  // Clean the word for lookups
   const clean = word
     .normalize('NFD')
     .replace(/[\u0300-\u036f]/g, '')
     .replace(/[^A-Za-z]/g, '')
     .toLowerCase();
 
-  // config-driven always-on and gradient
+  // Always-on highlights from config
   const alwaysOn = highlightConfig[paragraph]?.alwaysActiveIndexes?.includes(index) ?? false;
+  // Determine visibility based on revealIndex
+  const visible = alwaysOn || globalIndex <= revealIndex;
+  // Gradient word?
   const isGradient = highlightConfig[paragraph]?.highlightWord?.toLowerCase() === clean;
 
-  // icon config
+  // Icon config lookup
   const iconEntry = iconMap[clean];
   const Icon = iconEntry?.icon;
   const IconColor = iconEntry?.color || '#000';
   const IconHover = iconEntry?.hoverAnimation || '';
-
-  // visible if alwaysOn OR globalIndex ≤ revealIndex
-  const visible = alwaysOn || globalIndex <= revealIndex;
 
   return (
     <motion.span
@@ -47,25 +47,22 @@ export default function RevealWord({
       className="inline-block transition-opacity duration-300 break-words leading-relaxed"
     >
       <AnimatePresence>
-        {Icon && visible && (
+        {Icon && globalIndex <= revealIndex + 1 && (
           <motion.span
             layout
             key={clean}
             initial={{ width: 0, height: 0, padding: 0, borderWidth: 0 }}
-            animate={{
-              width: '1.5em',
-              height: '1.5em',
-              padding: '0.25em',
-              borderWidth: 1,
-            }}
+            animate={{ width: '1.5em', height: '1.5em', padding: '0.25em', borderWidth: 1}}
             exit={{ width: 0, height: 0, padding: 0, borderWidth: 0 }}
-            transition={{ type: 'spring', stiffness: 300, damping: 20 }}
-            className={`inline-flex items-center justify-center mr-1
+            transition={{ type: 'spring', stiffness: 2000, damping: 16, velocity: 4 }}
+            className={`group inline-flex items-center justify-center mr-1
               glass border backdrop-blur-sm rounded-lg
-              bg-gray-50 dark:bg-gray-800 border-gray-400/40 dark:border-gray-600/30
-              ${IconHover}`}
+              bg-gray-50 dark:bg-gray-800
+              border-gray-400/40 dark:border-gray-600/30
+              hover:border-blue-500/60 dark:hover:border-blue-400/50
+              hover:scale-110 transition-all duration-100`}
           >
-            <Icon size="100%" color={IconColor} />
+            <Icon size="100%" color={IconColor} className={IconHover} />
           </motion.span>
         )}
       </AnimatePresence>

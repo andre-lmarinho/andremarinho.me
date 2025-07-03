@@ -1,3 +1,5 @@
+// src/components/ui/TechItem
+
 import React from 'react';
 
 interface TechItemProps {
