@@ -15,7 +15,7 @@
   /* Text Colors */
   --text-title: #20292f;
   --text-body: #505b6a;
-  
+
   --text-title-night: #f1f5f9;
   --text-body-night: #cbd5e1;
 
@@ -25,8 +25,8 @@
 
   /* Icon Colors */
   --next-color: #000000;
-  --react-color: #61DAFB;
-  --typescript-color: #3178C6;
+  --react-color: #61dafb;
+  --typescript-color: #3178c6;
 }
 
 /* ====================================
@@ -38,7 +38,6 @@ html {
   -moz-osx-font-smoothing: grayscale;
   min-height: 100%;
 }
-
 
 html.dark {
   --next-color: #ffffff;
@@ -54,7 +53,9 @@ body {
   background-color: var(--background-dark);
 }
 
-*, *::before, *::after {
+*,
+*::before,
+*::after {
   box-sizing: border-box;
 }
 
@@ -80,7 +81,6 @@ body {
   }
 }
 
-
 /* ====================================
    Components Layer
    ==================================== */
@@ -95,7 +95,7 @@ body {
   /* Box Shadow Utility */
   .boxshadow {
     box-shadow: 0 8px 60px rgba(12, 40, 70, 0.11),
-                0 12px 90px rgba(12, 40, 70, 0.11);
+      0 12px 90px rgba(12, 40, 70, 0.11);
   }
 
   /* Text Color Utilities */
@@ -133,45 +133,62 @@ body {
 /* ====================================
    Utilities Layer
    ==================================== */
-  /* Text Gradient Animation */
-  @keyframes gradient-x {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
+/* Text Gradient Animation */
+@keyframes gradient-x {
+  0% {
+    background-position: 0% 50%;
   }
-
-  .gradient-text {
-    background: linear-gradient(to right,
-      var(--highlight-color-1),
-      var(--highlight-color-2),
-      var(--highlight-color-night-1),
-      var(--highlight-color-night-2),
-      var(--highlight-color-1)
-    );
-    background-size: 1000% 300%;
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-    animation: gradient-x 12s ease-in-out infinite;
+  50% {
+    background-position: 100% 50%;
   }
-
-
-  
-
-  /* Scrolling Text Animation */
-  @keyframes type {
-    0% { transform: translateX(0%); }
-    100% { transform: translateX(-50%); }
+  100% {
+    background-position: 0% 50%;
   }
-  .animate-scroll {
-    animation: type 90s steps(100, end) infinite;
+}
+
+.gradient-text {
+  background: linear-gradient(
+    to right,
+    var(--highlight-color-1),
+    var(--highlight-color-2),
+    var(--highlight-color-night-1),
+    var(--highlight-color-night-2),
+    var(--highlight-color-1)
+  );
+  background-size: 1000% 300%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: gradient-x 12s ease-in-out infinite;
+}
+
+/* Scrolling Text Animation */
+@keyframes type {
+  0% {
+    transform: translateX(0%);
   }
-  
-  /* CentralOrb Animation */
-  @keyframes pulse-orb {
-  0% { transform: scale(1); opacity: 0.15; }
-  50% { transform: scale(1.1); opacity: 0.3; }
-  100% { transform: scale(1); opacity: 0.15; }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+.animate-scroll {
+  animation: type 90s steps(100, end) infinite;
+}
+
+/* CentralOrb Animation */
+@keyframes pulse-orb {
+  0% {
+    transform: scale(1);
+    opacity: 0.15;
+  }
+  50% {
+    transform: scale(1.1);
+    opacity: 0.3;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 0.15;
+  }
 }
 .animate-pulse-orb {
   animation: pulse-orb 2.5s ease-in-out infinite;
@@ -189,7 +206,8 @@ body {
   background: white;
 }
 ::-webkit-scrollbar-thumb {
-  background: linear-gradient(to bottom,
+  background: linear-gradient(
+    to bottom,
     var(--highlight-color-1),
     var(--highlight-color-2)
   );
@@ -200,7 +218,8 @@ body {
   background: rgb(17 24 39);
 }
 .dark ::-webkit-scrollbar-thumb {
-  background: linear-gradient(to bottom,
+  background: linear-gradient(
+    to bottom,
     var(--highlight-color-night-1),
     var(--highlight-color-night-2)
   );

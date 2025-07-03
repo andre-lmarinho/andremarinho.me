@@ -3,7 +3,9 @@ import { useState, useEffect } from 'react';
 /**
  * Manage dark mode state and apply/remove the `dark` class on `<html>` and `<body>`.
  */
-export default function useDarkMode(initial = false): [boolean, (value: boolean) => void] {
+export default function useDarkMode(
+  initial = false,
+): [boolean, (value: boolean) => void] {
   const [darkMode, setDarkMode] = useState(initial);
 
   useEffect(() => {

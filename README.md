@@ -3,7 +3,7 @@
 This repository powers **André Marinho’s personal portfolio**, a modern React + TypeScript SPA built with Vite and Tailwind CSS, showcasing dynamic UI features, SEO, and smooth user experiences.
 
 🔗 [Live Demo](https://andre-lmarinho.github.io/Home/)
-*or* deploy easily to Vercel or Netlify with the same settings.
+_or_ deploy easily to Vercel or Netlify with the same settings.
 
 ---
 
@@ -11,24 +11,24 @@ This repository powers **André Marinho’s personal portfolio**, a modern React
 
 **Key Features:**
 
-* **Animated Background** — full‑screen gradients, orbs, mesh lines, and floating particles behind content
-* **Smooth Scroll** — native CSS `scroll-behavior: smooth` for in‑page navigation
-* **Dynamic Navbar** — hides on scroll down, reveals on scroll up using `useScrollPosition`
-* **Dark/Light Mode** — user-toggleable theme via custom `useDarkMode` hook
-* **Responsive Layout** — mobile‑first design with Tailwind utility classes and Framer Motion for animations
-* **SEO Metadata** — dynamic `<title>` and `<meta>` tags via `react-helmet-async`
+- **Animated Background** — full‑screen gradients, orbs, mesh lines, and floating particles behind content
+- **Smooth Scroll** — native CSS `scroll-behavior: smooth` for in‑page navigation
+- **Dynamic Navbar** — hides on scroll down, reveals on scroll up using `useScrollPosition`
+- **Dark/Light Mode** — user-toggleable theme via custom `useDarkMode` hook
+- **Responsive Layout** — mobile‑first design with Tailwind utility classes and Framer Motion for animations
+- **SEO Metadata** — dynamic `<title>` and `<meta>` tags via `react-helmet-async`
 
 ---
 
 ## 🚀 Technology Stack
 
-* **Framework:** React 18 + TypeScript, Vite (JIT mode)
-* **Styling:** Tailwind CSS (v3+) with `@apply`, custom keyframes, JIT
-* **Animations:** Framer Motion, CSS keyframes
-* **Icons:** lucide‑react
-* **SEO:** react‑helmet‑async
-* **Testing (boilerplate):** Vitest + Testing Library
-* **Deployment Tools:** npm scripts, `gh-pages`
+- **Framework:** React 18 + TypeScript, Vite (JIT mode)
+- **Styling:** Tailwind CSS (v3+) with `@apply`, custom keyframes, JIT
+- **Animations:** Framer Motion, CSS keyframes
+- **Icons:** lucide‑react
+- **SEO:** react‑helmet‑async
+- **Testing (boilerplate):** Vitest + Testing Library
+- **Deployment Tools:** npm scripts, `gh-pages`
 
 ---
 
@@ -60,21 +60,25 @@ This repository powers **André Marinho’s personal portfolio**, a modern React
    git clone https://github.com/andre-lmarinho/Home.git
    cd Home
    ```
+
 2. **Install dependencies**
 
    ```bash
    npm install
    ```
+
 3. **Run in development**
 
    ```bash
    npm run dev
    ```
+
 4. **Build for production**
 
    ```bash
    npm run build
    ```
+
 5. **Preview the build**
 
    ```bash
@@ -85,13 +89,13 @@ This repository powers **André Marinho’s personal portfolio**, a modern React
 
 ## 📦 NPM Scripts
 
-* `npm run dev` — start Vite dev server
-* `npm run build` — generate production build in `/dist`
-* `npm run preview` — serve `/dist` locally
-* `npm run deploy` — *(optional)* build & publish to GitHub Pages (requires `predeploy` script)
-* `npm test` — run Vitest
+- `npm run dev` — start Vite dev server
+- `npm run build` — generate production build in `/dist`
+- `npm run preview` — serve `/dist` locally
+- `npm run deploy` — _(optional)_ build & publish to GitHub Pages (requires `predeploy` script)
+- `npm test` — run Vitest
 
-*Add these lines to `package.json` if using `gh-pages`:*
+_Add these lines to `package.json` if using `gh-pages`:_
 
 ```json
 "scripts": {
@@ -124,4 +128,4 @@ Feel free to reuse and adapt!
 
 ---
 
-*Last updated: 2025-06-29*
+_Last updated: 2025-06-29_

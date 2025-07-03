@@ -5,8 +5,7 @@ import FixedRevealContainer from '../components/ui/FixedRevealContainer';
 import RevealWord from '../components/ui/RevealWord';
 import { aboutParagraphs as paragraphs, highlightConfig } from '../data/about';
 
-export default function About({ onFixedChange }: { onFixedChange?: (isFixed: boolean) => void }) {
-
+export default function About() {
   // Calculate per-paragraph offsets, total number of words, and initial reveal index
   const { offsets, totalWords, initialRevealIndex } = useMemo(() => {
     let sum = 0;

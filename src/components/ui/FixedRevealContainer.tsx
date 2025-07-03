@@ -32,9 +32,11 @@ export default function FixedRevealContainer({
         scrub: true,
         onUpdate: (self) => {
           const progress = self.progress;
-          const currentIndex = Math.floor(progress * (totalWords - initialRevealIndex)) + initialRevealIndex;
+          const currentIndex =
+            Math.floor(progress * (totalWords - initialRevealIndex)) +
+            initialRevealIndex;
           setRevealIndex(currentIndex);
-        }
+        },
       });
 
       return () => {

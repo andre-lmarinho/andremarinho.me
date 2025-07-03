@@ -27,12 +27,13 @@ export default function ProjectCard({
           children
         ) : (
           <div className="overflow-hidden rounded-t-lg">
-          <img
-            src={img}
-            alt={title}
-            className="w-full h-48 object-contain bg-white transition-transform duration-300 group-hover:scale-110"
-            loading="lazy"
-          /></div>
+            <img
+              src={img}
+              alt={title}
+              className="w-full h-48 object-contain bg-white transition-transform duration-300 group-hover:scale-110"
+              loading="lazy"
+            />
+          </div>
         )}
       </div>
 
@@ -40,11 +41,9 @@ export default function ProjectCard({
         <h3 className="text-xl font-semibold mb-2 text-gray-900 dark:text-gray-100">
           {title}
         </h3>
-        <p className="text-gray-600 dark:text-gray-300 mb-4">
-          {description}
-        </p>
+        <p className="text-gray-600 dark:text-gray-300 mb-4">{description}</p>
         <div className="flex flex-wrap gap-2 mb-6">
-          {stacks.map(stack => (
+          {stacks.map((stack) => (
             <span
               key={stack}
               className="text-xs bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 px-2 py-1 rounded"

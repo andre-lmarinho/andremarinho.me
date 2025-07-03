@@ -44,7 +44,9 @@ export default function Navbar({ darkMode, setDarkMode }: NavbarProps) {
   return (
     <nav
       id="navbar"
-      className={`fixed top-2 left-1/2 transform -translate-x-1/2 max-w-5xl w-[90%] z-50 bg-gray-50/80 dark:bg-gray-800/80 text-gray-900 dark:text-gray-100 transition-transform duration-300 shadow-lg rounded-2xl backdrop-blur-md ${showNav || menuOpen ? 'translate-y-0' : '-translate-y-[calc(100%+1rem)]'}`}
+      className={`fixed top-2 left-1/2 transform -translate-x-1/2 max-w-5xl w-[90%] z-50 bg-gray-50/80 dark:bg-gray-800/80 text-gray-900 dark:text-gray-100 transition-transform duration-300 shadow-lg rounded-2xl backdrop-blur-md ${
+        showNav || menuOpen ? 'translate-y-0' : '-translate-y-[calc(100%+1rem)]'
+      }`}
     >
       {/* Navbar content */}
       <div className="flex justify-between items-center px-6 py-4 h-16">
@@ -85,15 +87,26 @@ export default function Navbar({ darkMode, setDarkMode }: NavbarProps) {
             {/* Hamburger lines */}
             <div
               className="absolute top-1/2 left-1/2 w-6 h-[2px] bg-current transition-transform duration-300 origin-center"
-              style={{ transform: menuOpen ? 'translate(-50%, -50%) rotate(45deg)' : 'translate(-50%, -8px)' }}
+              style={{
+                transform: menuOpen
+                  ? 'translate(-50%, -50%) rotate(45deg)'
+                  : 'translate(-50%, -8px)',
+              }}
             ></div>
             <div
               className="absolute top-1/2 left-1/2 w-6 h-[2px] bg-current transition-opacity duration-300"
-              style={{ opacity: menuOpen ? 0 : 1, transform: 'translate(-50%, -50%)' }}
+              style={{
+                opacity: menuOpen ? 0 : 1,
+                transform: 'translate(-50%, -50%)',
+              }}
             ></div>
             <div
               className="absolute top-1/2 left-1/2 w-6 h-[2px] bg-current transition-transform duration-300 origin-center"
-              style={{ transform: menuOpen ? 'translate(-50%, -50%) rotate(-45deg)' : 'translate(-50%, 6px)' }}
+              style={{
+                transform: menuOpen
+                  ? 'translate(-50%, -50%) rotate(-45deg)'
+                  : 'translate(-50%, 6px)',
+              }}
             ></div>
           </button>
 

@@ -4,7 +4,9 @@ import useDarkMode from '../useDarkMode';
 
 function TestComponent({ initial = false }: { initial?: boolean }) {
   const [dark, setDark] = useDarkMode(initial);
-  return <button onClick={() => setDark(!dark)}>{dark ? 'dark' : 'light'}</button>;
+  return (
+    <button onClick={() => setDark(!dark)}>{dark ? 'dark' : 'light'}</button>
+  );
 }
 
 describe('useDarkMode', () => {

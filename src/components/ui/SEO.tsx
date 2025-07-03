@@ -1,11 +1,11 @@
-import React from 'react'
-import { Helmet } from 'react-helmet-async'
+import React from 'react';
+import { Helmet } from 'react-helmet-async';
 
 interface SEOProps {
-  title: string
-  description: string
-  url?: string
-  image?: string
+  title: string;
+  description: string;
+  url?: string;
+  image?: string;
 }
 
 export default function SEO({
@@ -33,5 +33,5 @@ export default function SEO({
       <meta name="twitter:description" content={description} />
       {image && <meta name="twitter:image" content={image} />}
     </Helmet>
-  )
+  );
 }

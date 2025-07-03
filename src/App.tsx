@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef } from 'react';
 import useDarkMode from './hooks/useDarkMode';
 import Navbar from './components/ui/NavBar';
 import Hero from './sections/Hero';
@@ -16,7 +16,6 @@ export default function App() {
   // Create refs to track About and CTA sections
   const aboutRef = useRef<HTMLElement>(null);
   const ctaRef = useRef<HTMLElement>(null);
-
 
   return (
     <>
@@ -53,7 +52,6 @@ export default function App() {
           <section ref={ctaRef}>
             <CTA />
           </section>
-          
         </main>
 
         {/* Footer */}

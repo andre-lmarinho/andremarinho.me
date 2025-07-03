@@ -8,9 +8,9 @@ interface LetterSwapProps {
 
 export default function LetterSwap({ word, className }: LetterSwapProps) {
   const letters = word.split('');
-  
+
   const staggerChildren = 0.01;
-  
+
   const container = {
     hover: {
       transition: {
@@ -28,7 +28,10 @@ export default function LetterSwap({ word, className }: LetterSwapProps) {
 
   const letter = {
     initial: { y: 0 },
-    hover: { y: '-100%', transition: { duration: 0.3, ease: 'easeInOut' as const } },
+    hover: {
+      y: '-100%',
+      transition: { duration: 0.3, ease: 'easeInOut' as const },
+    },
   };
 
   return (
@@ -41,10 +44,7 @@ export default function LetterSwap({ word, className }: LetterSwapProps) {
     >
       {letters.map((letterChar, index) => (
         <span key={index} className="relative inline-block overflow-hidden">
-          <motion.span
-            className="block"
-            variants={letter}
-          >
+          <motion.span className="block" variants={letter}>
             {letterChar}
           </motion.span>
           <motion.span

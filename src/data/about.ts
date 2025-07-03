@@ -14,37 +14,44 @@ export const aboutParagraphs: string[] = [
 
 /**
  * Highlight configuration for the About section.
- * 
+ *
  * - Keys represent paragraph indices.
  * - `alwaysActiveIndexes`: word positions (0-based) that are always highlighted.
  * - `highlightWord`: a specific cleaned, case-insensitive word to apply a special CSS class.
  */
-export const highlightConfig: Record<number, { alwaysActiveIndexes?: number[]; highlightWord?: string }> = {
-  0: { 
+export const highlightConfig: Record<
+  number,
+  { alwaysActiveIndexes?: number[]; highlightWord?: string }
+> = {
+  0: {
     alwaysActiveIndexes: [0, 1, 2], // Always highlight "Hi!", "I'm", "André,"
   },
-  2: { 
-    highlightWord: 'remarkable'      // Apply gradient to "remarkable"
-  }
+  2: {
+    highlightWord: 'remarkable', // Apply gradient to "remarkable"
+  },
 };
 
 /**
  * Mapping of clean words to icons, colors, and hover animations.
- * 
+ *
  * - `icon`: React icon component
  * - `color`: brand color for the icon
  * - `hoverAnimation`: Tailwind classes for hover effects
  */
-export const iconMap: Record<string, {
-  icon: React.ElementType;
-  color: string;
-  hoverAnimation?: string;
-  customMotionProps?: object;
-}> = {
+export const iconMap: Record<
+  string,
+  {
+    icon: React.ElementType;
+    color: string;
+    hoverAnimation?: string;
+    customMotionProps?: object;
+  }
+> = {
   react: {
     icon: SiReact,
     color: 'var(--react-color)',
-    hoverAnimation: 'group-hover:scale-110 group-hover:rotate-[180deg] transition-all duration-300',
+    hoverAnimation:
+      'group-hover:scale-110 group-hover:rotate-[180deg] transition-all duration-300',
   },
   typescript: {
     icon: SiTypescript,

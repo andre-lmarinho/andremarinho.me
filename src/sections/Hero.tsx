@@ -3,27 +3,25 @@ import { ArrowDown, ArrowRight, Github, Linkedin, Mail } from 'lucide-react';
 import ScrollingBackground from '../components/ui/ScrollingBackground';
 
 export default function Hero() {
-
   return (
-    <section id="home" className="flex items-center justify-center min-h-screen transition-colors duration-500">
+    <section
+      id="home"
+      className="flex items-center justify-center min-h-screen transition-colors duration-500"
+    >
       <div className="mx-auto px-6 text-center">
         <ScrollingBackground />
         <h1 className="text-6xl md:text-8xl font-black tracking-tighter text-gray-900 dark:text-gray-100 mb-6">
-          <span>Developer</span><br />
-          <span className="gradient-text">
-            Front-End
-          </span>
+          <span>Developer</span>
+          <br />
+          <span className="gradient-text">Front-End</span>
         </h1>
         <p className="text-xl md:text-2xl text-gray-600 dark:text-gray-400 mb-8 max-w-3xl mx-auto leading-relaxed">
-          I turn ideas into innovative web solutions. Building great digital experiences with clean code and modern design.
+          I turn ideas into innovative web solutions. Building great digital
+          experiences with clean code and modern design.
         </p>
 
         <div className="flex justify-center gap-4 mb-8">
-          <a
-            href="#projects"
-            aria-label="Go to Projects"
-            className="main-btn"
-          >
+          <a href="#projects" aria-label="Go to Projects" className="main-btn">
             See Portfolio
           </a>
           <a
@@ -67,7 +65,10 @@ export default function Hero() {
         </div>
 
         <div className="animate-bounce">
-          <ArrowDown className="mx-auto text-gray-400 dark:text-gray-500" size={32} />
+          <ArrowDown
+            className="mx-auto text-gray-400 dark:text-gray-500"
+            size={32}
+          />
         </div>
       </div>
     </section>

@@ -27,11 +27,13 @@ export default function RevealWord({
     .toLowerCase();
 
   // Always-on highlights from config
-  const alwaysOn = highlightConfig[paragraph]?.alwaysActiveIndexes?.includes(index) ?? false;
+  const alwaysOn =
+    highlightConfig[paragraph]?.alwaysActiveIndexes?.includes(index) ?? false;
   // Determine visibility based on revealIndex
   const visible = alwaysOn || globalIndex <= revealIndex;
   // Gradient word?
-  const isGradient = highlightConfig[paragraph]?.highlightWord?.toLowerCase() === clean;
+  const isGradient =
+    highlightConfig[paragraph]?.highlightWord?.toLowerCase() === clean;
 
   // Icon config lookup
   const iconEntry = iconMap[clean];
@@ -52,9 +54,19 @@ export default function RevealWord({
             layout
             key={clean}
             initial={{ width: 0, height: 0, padding: 0, borderWidth: 0 }}
-            animate={{ width: '1.5em', height: '1.5em', padding: '0.25em', borderWidth: 1}}
+            animate={{
+              width: '1.5em',
+              height: '1.5em',
+              padding: '0.25em',
+              borderWidth: 1,
+            }}
             exit={{ width: 0, height: 0, padding: 0, borderWidth: 0 }}
-            transition={{ type: 'spring', stiffness: 2000, damping: 16, velocity: 4 }}
+            transition={{
+              type: 'spring',
+              stiffness: 2000,
+              damping: 16,
+              velocity: 4,
+            }}
             className={`group inline-flex items-center justify-center mr-1
               glass border backdrop-blur-sm rounded-lg
               bg-gray-50 dark:bg-gray-800
@@ -66,7 +78,6 @@ export default function RevealWord({
           </motion.span>
         )}
       </AnimatePresence>
-
       {isGradient && visible ? (
         <motion.span
           initial={{ backgroundPosition: '0% 50%' }}

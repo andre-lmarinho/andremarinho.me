@@ -1,15 +1,28 @@
 import { render, act, screen } from '@testing-library/react';
-import React from 'react';
-import '@testing-library/jest-dom'; 
+import React, { ForwardedRef, HTMLAttributes } from 'react';
+import '@testing-library/jest-dom';
 import RevealWord from '../RevealWord';
 
+// Mock framer-motion with proper typing and display name
 vi.mock('framer-motion', async () => {
   const React = await import('react');
+
+  const MockMotionSpan = React.forwardRef<
+    HTMLSpanElement,
+    HTMLAttributes<HTMLSpanElement>
+  >((props, ref: ForwardedRef<HTMLSpanElement>) => (
+    <span ref={ref} {...props} />
+  ));
+
+  MockMotionSpan.displayName = 'MockMotionSpan';
+
   return {
     motion: {
-      span: React.forwardRef((props: any, ref) => <span ref={ref} {...props} />),
+      span: MockMotionSpan,
     },
-    AnimatePresence: ({ children }: { children: React.ReactNode }) => <>{children}</>,
+    AnimatePresence: ({ children }: { children: React.ReactNode }) => (
+      <>{children}</>
+    ),
   };
 });
 
@@ -18,10 +31,16 @@ describe('RevealWord', () => {
 
   beforeEach(() => {
     trigger = undefined;
-    (global as any).IntersectionObserver = class {
-      constructor(cb: any) { trigger = cb; }
-      observe() { }
-      disconnect() { }
+
+    // Proper typing for IntersectionObserver mock
+    (
+      global as unknown as { IntersectionObserver: typeof IntersectionObserver }
+    ).IntersectionObserver = class {
+      constructor(cb: (entries: IntersectionObserverEntry[]) => void) {
+        trigger = cb;
+      }
+      observe() {}
+      disconnect() {}
     };
   });
 
@@ -34,9 +53,11 @@ describe('RevealWord', () => {
   it('shows icon when intersecting', () => {
     render(<RevealWord word="React" index={2} paragraph={1} />);
     expect(document.querySelector('svg')).toBeNull();
+
     act(() => {
       trigger?.([{ isIntersecting: true } as IntersectionObserverEntry]);
     });
+
     expect(document.querySelector('svg')).not.toBeNull();
   });
 });
