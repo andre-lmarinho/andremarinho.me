@@ -1,5 +1,7 @@
+//src/components/visuals/BGAnimation
+
 import React from 'react';
-import CenterOrb from '../CenterOrb';
+import CenterOrb from './CenterOrb';
 
 /**
  * Full-screen animated background with orbs, mesh lines, and floating particles.

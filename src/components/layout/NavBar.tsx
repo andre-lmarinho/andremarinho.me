@@ -1,7 +1,9 @@
+//src/components/layouts/NavBar
+
 import React, { useEffect, useState, useRef } from 'react';
 import { Sun, Moon } from 'lucide-react';
 import { AnimatePresence, motion } from 'framer-motion';
-import LetterSwap from '../LetterSwap';
+import LetterSwap from '../ui/LetterSwap';
 
 interface NavbarProps {
   darkMode: boolean;

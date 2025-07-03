@@ -1,21 +1,20 @@
 import React, { useRef } from 'react';
 import useDarkMode from './hooks/useDarkMode';
-import Navbar from './components/ui/NavBar';
+import Navbar from './components/layout/NavBar';
 import Hero from './sections/Hero';
 import About from './sections/About';
 import Projects from './sections/Projects';
 import Stacks from './sections/Stacks';
 import CTA from './sections/CTA';
-import Footer from './components/Footer';
-import AnimationBG from './components/ui/BGAnimation';
-import SEO from './components/ui/SEO';
+import Footer from './components/layout/Footer';
+import AnimationBG from './components/visuals/BGAnimation';
+import SEO from './components/SEO';
 
 export default function App() {
   const [darkMode, setDarkMode] = useDarkMode(false);
 
-  // Create refs to track About and CTA sections
+  // Create refs to tracks
   const aboutRef = useRef<HTMLElement>(null);
-  const ctaRef = useRef<HTMLElement>(null);
 
   return (
     <>
@@ -27,7 +26,7 @@ export default function App() {
       />
 
       {/* Background */}
-      <AnimationBG aboutRef={aboutRef} ctaRef={ctaRef} />
+      <AnimationBG aboutRef={aboutRef} />
 
       <div className="relative z-20 flex flex-col min-h-screen">
         {/* Nav Menu */}
@@ -49,9 +48,7 @@ export default function App() {
           <Stacks />
 
           {/* Final CTA Section with ref */}
-          <section ref={ctaRef}>
-            <CTA />
-          </section>
+          <CTA />
         </main>
 
         {/* Footer */}
