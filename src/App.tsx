@@ -34,11 +34,10 @@ export default function App() {
       <main className="flex-grow">
         {/* Hero Section */}
         <Hero />
-        {/* Projects Section */}
-        <Projects />
         {/* About Section */}
         <About setShowCenterOrb={setShowCenterOrb} />
-
+        {/* Projects Section */}
+        <Projects />
         {/* Stacks Section */}
         <Stacks />
         {/* Final CTA Section */}

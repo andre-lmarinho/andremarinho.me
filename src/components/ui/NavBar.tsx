@@ -44,7 +44,7 @@ export default function Navbar({ darkMode, setDarkMode }: NavbarProps) {
   return (
     <nav
       id="navbar"
-      className={`fixed top-0 left-1/2 transform -translate-x-1/2 max-w-5xl w-[90%] z-50 bg-gray-50/80 dark:bg-gray-800/80 text-gray-900 dark:text-gray-100 transition-transform duration-300 shadow-lg rounded-2xl backdrop-blur-md ${showNav || menuOpen ? 'translate-y-0' : '-translate-y-full'}`}
+      className={`fixed top-2 left-1/2 transform -translate-x-1/2 max-w-5xl w-[90%] z-50 bg-gray-50/80 dark:bg-gray-800/80 text-gray-900 dark:text-gray-100 transition-transform duration-300 shadow-lg rounded-2xl backdrop-blur-md ${showNav || menuOpen ? 'translate-y-0' : '-translate-y-[calc(100%+1rem)]'}`}
     >
       {/* Navbar content */}
       <div className="flex justify-between items-center px-6 py-4 h-16">
