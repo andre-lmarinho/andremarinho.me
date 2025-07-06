@@ -43,7 +43,7 @@ _or_ deploy easily to Vercel or Netlify with the same settings.
 │   ├── index.css           # Tailwind directives & custom styles
 │   ├── main.tsx            # Entry point with HelmetProvider
 │   └── App.tsx             # Root component
-├── tailwind.config.js      # Tailwind config (colors, animations, JIT content)
+├── tailwind.config.ts      # Tailwind config (colors, animations, JIT content)
 ├── vite.config.ts          # Vite config (base path, plugins)
 ├── tsconfig.json           # TypeScript compiler options
 ├── package.json            # Scripts & dependencies
