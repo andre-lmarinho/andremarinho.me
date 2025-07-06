@@ -1,8 +1,8 @@
-// src/components/ui/SteppingBackground
+// src/components/ui/ScrollingBackground
 
 import React from 'react';
 
-const SteppingBackground: React.FC = () => {
+const ScrollingBackground: React.FC = () => {
   // Static text for each line
   const baseText = `E2039DE1847774F7953A36A20DE1C56B0F E03A1F E38A1F E2991F E37A0F E47A0F D46C0F D46C0F D3892E F DD1F65966A1E E1A83E F1A73E F1A83E`;
 
@@ -42,4 +42,4 @@ const SteppingBackground: React.FC = () => {
   );
 };
 
-export default SteppingBackground;
+export default ScrollingBackground;
