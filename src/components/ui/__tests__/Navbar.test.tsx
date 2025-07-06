@@ -56,11 +56,19 @@ describe('Navbar dark mode toggle', () => {
 
     await waitFor(() => {
       expect(toggle).toHaveBeenCalledWith(true);
+      expect(document.documentElement.classList.contains('dark')).toBe(true);
     });
 
     await waitFor(() => {
       expect(window.getComputedStyle(moon).display).toBe('none');
       expect(window.getComputedStyle(sun).display).not.toBe('none');
+    });
+
+    fireEvent.click(button);
+
+    await waitFor(() => {
+      expect(toggle).toHaveBeenCalledWith(false);
+      expect(document.documentElement.classList.contains('dark')).toBe(false);
     });
   });
 });
