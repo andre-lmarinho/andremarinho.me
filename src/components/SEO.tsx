@@ -11,7 +11,7 @@ interface SEOProps {
 export default function SEO({
   title,
   description,
-  url = 'https://andre-lmarinho.github.io/Homepage/',
+  url = 'https://andre-lmarinho.github.io/Home/',
   image,
 }: SEOProps) {
   return (
