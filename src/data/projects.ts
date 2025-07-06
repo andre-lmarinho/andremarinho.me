@@ -1,5 +1,5 @@
 // src/data/projects.ts
-import imgProjeto from '/assets/images/Portfolio.webp';
+import imgTravel from '/assets/images/Travel_app.webp';
 import imgTrivia from '/assets/images/Trivia.webp';
 
 export const projects = [
@@ -13,11 +13,11 @@ export const projects = [
     stacks: ['React', 'TypeScript', 'Tailwind CSS'],
   },
   {
-    title: 'This Portfolio Site',
-    description: 'Is this site that you are in to showcase my work.',
-    img: imgProjeto,
-    siteLink: 'https://andre-lmarinho.github.io/Homepage/',
-    repoLink: 'https://github.com/andre-lmarinho/Homepage/',
-    stacks: ['React', 'TypeScript', 'Tailwind CSS'],
+    title: 'Travel Planner',
+    description: 'We handle the plan, you enjoy your adventure.',
+    img: imgTravel,
+    siteLink: 'https://travel-planner-orpin.vercel.app/',
+    repoLink: 'https://github.com/andre-lmarinho/travel-planner',
+    stacks: ['Next.js', 'TypeScript', 'Tailwind CSS'],
   },
 ];
