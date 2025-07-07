@@ -2,10 +2,9 @@ import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 
 export default defineConfig({
-  base: '/Home/',
+  base: '/Trivia/',
   plugins: [react()],
-  test: {
-    environment: 'jsdom',
-    globals: true,
+  css: {
+    postcss: './postcss.config.cjs',
   },
 });

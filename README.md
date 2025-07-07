@@ -7,9 +7,7 @@ _or_ deploy easily to Vercel or Netlify with the same settings.
 
 ---
 
-## 📋 Project Overview
-
-**Key Features:**
+## 🚀 Key Features
 
 - **Animated Background** — full‑screen gradients, orbs, mesh lines, and floating particles behind content
 - **Smooth Scroll** — native CSS `scroll-behavior: smooth` for in‑page navigation
@@ -20,7 +18,7 @@ _or_ deploy easily to Vercel or Netlify with the same settings.
 
 ---
 
-## 🚀 Technology Stack
+## 🏗️ Tech Stack
 
 - **Framework:** React 18 + TypeScript, Vite (JIT mode)
 - **Styling:** Tailwind CSS (v3+) with `@apply`, custom keyframes, JIT
@@ -32,27 +30,16 @@ _or_ deploy easily to Vercel or Netlify with the same settings.
 
 ---
 
-## 📂 Project Structure
+## 📁 Project Structure
 
-```bash
-├── public/                 # Static assets and `.nojekyll` to disable Jekyll
-├── src/                    # Application source
-│   ├── components/         # Each section in its own folder + shared UI
-│   ├── data/               # Project and stack data
-│   ├── hooks/              # Custom React hooks
-│   ├── index.css           # Tailwind directives & custom styles
-│   ├── main.tsx            # Entry point with HelmetProvider
-│   └── App.tsx             # Root component
-├── tailwind.config.ts      # Tailwind config (colors, animations, JIT content)
-├── vite.config.ts          # Vite config (base path, plugins)
-├── tsconfig.json           # TypeScript compiler options
-├── package.json            # Scripts & dependencies
-└── README.md               # This documentation
-```
+- `/src`: Source code to be analyzed and maintained by AI agents
+  - `/components`: React components that should follow the guidelines in this document
 
 ---
 
 ## 💻 Getting Started
+
+**Prerequisites**: Node.js v16+, npm
 
 1. **Clone the repo**
 
@@ -87,7 +74,7 @@ _or_ deploy easily to Vercel or Netlify with the same settings.
 
 ---
 
-## 📦 NPM Scripts
+## 📦 Scripts
 
 - `npm run dev` — start Vite dev server
 - `npm run build` — generate production build in `/dist`
