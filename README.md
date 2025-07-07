@@ -82,15 +82,6 @@ _or_ deploy easily to Vercel or Netlify with the same settings.
 - `npm run deploy` — _(optional)_ build & publish to GitHub Pages (requires `predeploy` script)
 - `npm test` — run Vitest
 
-_Add these lines to `package.json` if using `gh-pages`:_
-
-```json
-"scripts": {
-  "predeploy": "npm run build",
-  "deploy": "gh-pages -d dist"
-}
-```
-
 ---
 
 ## ☁️ Deployment
