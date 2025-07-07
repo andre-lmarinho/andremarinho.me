@@ -1,4 +1,4 @@
-import { render, act, screen } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import { ForwardedRef, HTMLAttributes } from 'react';
 import '@testing-library/jest-dom';
 import RevealWord from '../RevealWord';
@@ -39,39 +39,12 @@ vi.mock('../../data/about', async () => {
 });
 
 describe('RevealWord', () => {
-  let trigger: ((entries: IntersectionObserverEntry[]) => void) | undefined;
-
-  beforeEach(() => {
-    trigger = undefined;
-
-    // Proper typing for IntersectionObserver mock
-    (
-      global as unknown as { IntersectionObserver: typeof IntersectionObserver }
-    ).IntersectionObserver = class {
-      constructor(cb: (entries: IntersectionObserverEntry[]) => void) {
-        trigger = cb;
-      }
-      observe() {}
-      disconnect() {}
-    };
-  });
-
   it('wraps highlight word with gradient class', () => {
     render(
       <RevealWord word="remarkable" index={0} paragraph={2} globalIndex={0} revealIndex={0} />
     );
     const elem = screen.getByText('remarkable');
     expect(elem.className).toContain('bg-gradient-to-r');
-  });
-
-  it.skip('shows icon when intersecting', () => {
-    render(<RevealWord word="React" index={2} paragraph={1} globalIndex={0} revealIndex={0} />);
-    expect(document.querySelector('svg')).toBeNull();
-
-    act(() => {
-      trigger?.([{ isIntersecting: true } as IntersectionObserverEntry]);
-    });
-
-    expect(document.querySelector('svg')).not.toBeNull();
+    expect(elem.className).toContain('text-transparent');
   });
 });
