@@ -11,7 +11,7 @@ _or_ deploy easily to Vercel or Netlify with the same settings.
 
 - **Animated Background** — full‑screen gradients, orbs, mesh lines, and floating particles behind content
 - **Smooth Scroll** — native CSS `scroll-behavior: smooth` for in‑page navigation
-- **Dynamic Navbar** — hides on scroll down, reveals on scroll up using `useScrollPosition`
+- **Dynamic Navbar** — hides on scroll down, reveals on scroll up.
 - **Dark/Light Mode** — user-toggleable theme via custom `useDarkMode` hook
 - **Responsive Layout** — mobile‑first design with Tailwind utility classes and Framer Motion for animations
 - **SEO Metadata** — dynamic `<title>` and `<meta>` tags via `react-helmet-async`
