@@ -1,9 +1,11 @@
 // src/data/projects.ts
-import imgTravel from '@/images/Travel_app.webp';
-import imgTrivia from '@/images/Trivia.webp';
-import imgPortfolio from '@/images/Portfolio.webp';
+import imgTravel from '@/assets/images/Travel_app.webp';
+import imgTrivia from '@/assets/images/Trivia.webp';
+import imgPortfolio from '@/assets/images/Portfolio.webp';
 
-export const projects = [
+import type { Project } from './types';
+
+export const projects: Project[] = [
   {
     title: 'Turistar – Drag-and-Drop Travel Planner',
     arialabel: 'Turistar travel planner',

@@ -7,14 +7,14 @@
 ======================== */
 :root {
   /* Highlights */
-  --color-accent-1: #37b3a8; /* --highlight-color-1 */
-  --color-accent-2: #38bff8; /* --highlight-color-2 */
-  --tag-bg: #f7f7ef; /* ======== n faço ideia de onde é isso :) */
+  --color-accent-1: #37b3a8;
+  --color-accent-2: #38bff8;
+  --tag-bg: #f7f7ef;
   --spotter: rgba(30, 59, 138, 0.055);
 
   /* Text */
-  --text-primary: #20292f; /* == --text-title */
-  --text-body: #6b7481; /* ===== --text-body */
+  --text-primary: #20292f;
+  --text-body: #6b7481;
   --text-muted: #878e99;
 
   /* Backgrounds */
@@ -113,6 +113,11 @@ textarea {
   border-width: 0;
 }
 
+/* Display skip link when focused */
+[href='#main']:focus {
+  @apply not-sr-only absolute left-4 top-4 z-50 rounded bg-primary-500 p-2 text-white;
+}
+
 /* ========================
    Layout Sections
 ======================== */
@@ -134,11 +139,11 @@ textarea {
 /* ========================
    Component Classes
 ======================== */
-.text-color-01 {
+.text-primary {
   color: var(--text-primary);
 }
 
-.text-color-02 {
+.text-body {
   color: var(--text-body);
 }
 

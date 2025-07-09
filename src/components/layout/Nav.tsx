@@ -6,7 +6,7 @@ const navItems = [
   { id: 'projects', label: 'Projects' },
 ];
 
-export default function ProjectCard() {
+export default function Nav() {
   const active = useActiveSection(navItems.map((item) => item.id));
 
   return (

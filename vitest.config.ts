@@ -1,11 +1,15 @@
 // vitest.config.ts
 import { defineConfig } from 'vitest/config';
-import { resolve } from 'path';
+import path from 'path';
 
 export default defineConfig({
   resolve: {
     alias: {
-      '@': resolve(__dirname, 'src'),
+      '@': path.resolve(__dirname, './src'),
+      '@hooks': path.resolve(__dirname, './src/hooks'),
+      '@components': path.resolve(__dirname, './src/components'),
+      '@utils': path.resolve(__dirname, './src/utils'),
+      '@testing-library/user-event': path.resolve(__dirname, 'src/test-utils/user-event.ts'),
     },
   },
   test: {

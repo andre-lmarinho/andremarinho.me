@@ -1,6 +1,7 @@
 // components/CodeText.tsx
 import React, { useEffect, useState } from 'react';
-import useMouseCoords from '../../hooks/useMouseCoords';
+import { useMouseCoords } from '../../hooks';
+import { isDesktop } from '../../utils';
 
 const baseCodeStyle = `
   text-sm font-mono p-4 leading-snug transition duration-200 pointer-events-none
@@ -18,9 +19,7 @@ export default function CodeText() {
   const [enabled, setEnabled] = useState(false);
 
   useEffect(() => {
-    if (typeof window === 'undefined') return;
-    const isDesktop = window.innerWidth >= 768;
-    if (!isDesktop) return;
+    if (!isDesktop()) return;
     setEnabled(true);
     const interval = setInterval(() => setTick((t) => t + 1), 16);
     return () => clearInterval(interval);
@@ -34,7 +33,7 @@ export default function CodeText() {
 
   return (
     <div
-      className="absolute inset-0 opacity-20 pointer-events-none z-30"
+      className="absolute text-body inset-0 opacity-20 pointer-events-none z-30"
       style={{
         WebkitMaskImage: mask,
         maskImage: mask,

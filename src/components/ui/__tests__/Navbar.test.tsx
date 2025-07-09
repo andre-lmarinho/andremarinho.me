@@ -1,5 +1,6 @@
 import React from 'react';
-import { render, fireEvent, waitFor } from '@testing-library/react';
+import { render } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import Navbar from '../../layout/NavBar';
 
@@ -25,8 +26,7 @@ function Wrapper({ onToggle }: { onToggle: (value: boolean) => void }) {
 describe('Navbar dark mode toggle', () => {
   const style = document.createElement('style');
   style.innerHTML = `
-    .hidden{display:none;}
-    .dark .dark\\:block{display:block !important;}
+@@ -30,45 +31,39 @@ describe('Navbar dark mode toggle', () => {
     .dark .dark\\:hidden{display:none !important;}
   `;
 
@@ -52,23 +52,17 @@ describe('Navbar dark mode toggle', () => {
     expect(window.getComputedStyle(moon).display).not.toBe('none');
     expect(window.getComputedStyle(sun).display).toBe('none');
 
-    fireEvent.click(button);
+    await userEvent.click(button);
 
-    await waitFor(() => {
-      expect(toggle).toHaveBeenCalledWith(true);
-      expect(document.documentElement.classList.contains('dark')).toBe(true);
-    });
+    expect(toggle).toHaveBeenCalledWith(true);
+    expect(document.documentElement.classList.contains('dark')).toBe(true);
 
-    await waitFor(() => {
-      expect(window.getComputedStyle(moon).display).toBe('none');
-      expect(window.getComputedStyle(sun).display).not.toBe('none');
-    });
+    expect(window.getComputedStyle(moon).display).toBe('none');
+    expect(window.getComputedStyle(sun).display).not.toBe('none');
 
-    fireEvent.click(button);
+    await userEvent.click(button);
 
-    await waitFor(() => {
-      expect(toggle).toHaveBeenCalledWith(false);
-      expect(document.documentElement.classList.contains('dark')).toBe(false);
-    });
+    expect(toggle).toHaveBeenCalledWith(false);
+    expect(document.documentElement.classList.contains('dark')).toBe(false);
   });
 });

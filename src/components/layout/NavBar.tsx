@@ -8,7 +8,7 @@ interface NavbarProps {
   setDarkMode: (value: boolean) => void;
 }
 
-export default function Navbar({ darkMode, setDarkMode }: NavbarProps) {
+export default function NavBar({ darkMode, setDarkMode }: NavbarProps) {
   return (
     <div className="fixed">
       <button

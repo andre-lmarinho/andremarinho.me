@@ -1,6 +1,7 @@
 // components/FogAnimation.tsx
 import { useEffect, useRef, useState } from 'react';
 import { useMouseCoords } from '../../hooks';
+import { isDesktop } from '../../utils';
 
 export default function FogAnimation() {
   const [enabled, setEnabled] = useState(false);
@@ -8,10 +9,7 @@ export default function FogAnimation() {
   const coords = useMouseCoords();
 
   useEffect(() => {
-    if (typeof window === 'undefined') return;
-
-    const isDesktop = window.innerWidth >= 768;
-    if (!isDesktop) return;
+    if (!isDesktop()) return;
 
     setEnabled(true);
 

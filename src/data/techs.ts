@@ -1,5 +1,7 @@
 // src/data/techs.ts
-export const techs = [
+import type { Tech } from './types';
+
+export const techs: Tech[] = [
   { name: 'React', icon: 'react', color: '61DAFB' },
   { name: 'Next.js', icon: 'next.js', color: '000000' },
   { name: 'TypeScript', icon: 'typescript', color: '3178C6' },
