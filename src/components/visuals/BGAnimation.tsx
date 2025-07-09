@@ -1,24 +1,15 @@
 //src/components/visuals/BGAnimation
 
 import React from 'react';
-import CenterOrb from './CenterOrb';
 
 /**
  * Full-screen animated background with orbs, mesh lines, and floating particles.
  * Utilizes Tailwind CSS utility classes and custom animations defined in tailwind.config.js.
  */
-interface AnimationBGProps {
-  /**
-   * Ref of the About section to control orb movement based on its visibility.
-   */
-  aboutRef: React.RefObject<HTMLElement>;
-}
 
-export default function AnimationBG({ aboutRef }: AnimationBGProps) {
+export default function AnimationBG() {
   return (
-    <div className="fixed z-10 inset-0 overflow-hidden pointer-events-none">
-      <CenterOrb aboutRef={aboutRef} />
-
+    <div className="fixed inset-0 -z-20 overflow-hidden pointer-events-none">
       {/* Top-right orb */}
       <div className="absolute -top-40 -right-40 w-80 h-80 bg-gradient-to-br from-primary-400 to-secondary-500 rounded-full opacity-20 blur-3xl animate-float" />
 
@@ -26,7 +17,7 @@ export default function AnimationBG({ aboutRef }: AnimationBGProps) {
       <div className="absolute -bottom-40 -left-40 w-96 h-96 bg-gradient-to-tr from-accent-400 to-primary-500 rounded-full opacity-15 blur-3xl animate-float" />
 
       {/* Animated mesh lines */}
-      <div className="absolute inset-0 opacity-5 dark:opacity-10">
+      <div className="absolute inset-0 opacity-10 dark:opacity-10">
         <div className="absolute inset-0 bg-gradient-to-r from-transparent via-primary-500 to-transparent h-px top-1/4 animate-gradient-x" />
         <div
           className="absolute inset-0 bg-gradient-to-r from-transparent via-secondary-500 to-transparent h-px top-2/4 animate-gradient-x"

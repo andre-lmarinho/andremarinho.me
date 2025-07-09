@@ -1,78 +1,64 @@
 import React from 'react';
-import { Github, ExternalLink } from 'lucide-react';
+import { projects } from '../../data/projects';
+import { ExternalLinkIcon } from '@/components/icons';
 
-interface ProjectCardProps {
-  title: string;
-  description: string;
-  img: string;
-  siteLink: string;
-  repoLink: string;
-  stacks: string[];
-  children?: React.ReactNode;
-}
-
-export default function ProjectCard({
-  title,
-  description,
-  img,
-  siteLink,
-  repoLink,
-  stacks,
-  children,
-}: ProjectCardProps) {
+export default function ProjectCardList() {
   return (
-    <div className="group glass overflow-visible boxshadow bg-gray-50 dark:bg-gray-800 rounded-lg transition-transform duration-300 hover:scale-105">
-      <div>
-        {children ? (
-          children
-        ) : (
-          <div className="overflow-hidden rounded-t-lg">
+    <ul>
+      {projects.map((project) => (
+        <li key={project.title} className="mb-12">
+          <div className="group relative grid gap-4 pb-1 transition-all sm:grid-cols-8 sm:gap-8 md:gap-4 lg:hover:!opacity-100 lg:group-hover/list:opacity-50">
+            <div
+              className="absolute -inset-x-4 -inset-y-4 z-0 hidden rounded-md transition motion-reduce:transition-none lg:-inset-x-6 lg:block 
+            lg:group-hover:bg-slate-500/10 dark:lg:group-hover:bg-slate-800/50 
+            lg:group-hover:shadow-[inset_0_1px_0_0_rgba(148,163,184,0.1)] lg:group-hover:drop-shadow-lg"
+            ></div>
+
+            <div className="z-10 sm:order-2 sm:col-span-6">
+              <h3 className="font-medium leading-snug">
+                <a
+                  className="inline-flex items-baseline font-medium leading-tight hover:text-[var(--color-accent-1)] focus-visible:text-[var(--color-accent-1)]  group/link text-base"
+                  href={project.siteLink}
+                  target="_blank"
+                  rel="noreferrer noopener"
+                  aria-label={`${project.arialabel} (opens in a new tab)`}
+                >
+                  <span className="absolute -inset-x-4 -inset-y-2.5 hidden rounded md:-inset-x-6 md:-inset-y-4 lg:block"></span>
+                  <span className="text-color-01 group-hover:text-[var(--color-accent-1)]">
+                    {project.title}
+                    <span className="inline-block">
+                      <ExternalLinkIcon />
+                    </span>
+                  </span>
+                </a>
+              </h3>
+
+              <p className="mt-2 text-sm text-color-02 leading-normal">{project.description}</p>
+
+              <ul className="mt-2 flex flex-wrap" aria-label="Technologies used:">
+                {project.stacks.map((tech) => (
+                  <li key={tech} className="mr-1.5 mt-2">
+                    <div className="flex items-center rounded-full bg-teal-400/10 px-3 py-1 text-xs font-medium leading-5 text-[var(--color-accent-1)] ">
+                      {tech}
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
             <img
-              src={img}
-              alt={title}
-              className="w-full h-48 object-contain bg-white transition-transform duration-300 group-hover:scale-110"
+              alt={project.title}
               loading="lazy"
+              width="200"
+              height="48"
+              decoding="async"
+              data-nimg="1"
+              className="aspect-video object-cover rounded border-2 border-slate-200/10 transition group-hover:border-slate-200/30 sm:order-1 sm:col-span-2 sm:translate-y-1"
+              src={project.img}
             />
           </div>
-        )}
-      </div>
-
-      <div className="p-6">
-        <h3 className="text-xl font-semibold mb-2 text-gray-900 dark:text-gray-100">
-          {title}
-        </h3>
-        <p className="text-gray-600 dark:text-gray-300 mb-4">{description}</p>
-        <div className="flex flex-wrap gap-2 mb-6">
-          {stacks.map((stack) => (
-            <span
-              key={stack}
-              className="text-xs bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 px-2 py-1 rounded"
-            >
-              {stack}
-            </span>
-          ))}
-        </div>
-        <div className="flex space-x-4">
-          <a
-            href={siteLink}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="justify-center whitespace-nowrap text-sm font-medium ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 border border-input bg-background hover:text-accent-foreground h-9 rounded-md px-3 flex items-center gap-2 hover:bg-blue-50 hover:border-blue-300 transition-colors duration-200 dark:text-white dark:[&_svg]:text-white dark:bg-gray-800 dark:border-gray-600 dark:hover:bg-blue-700 dark:hover:border-blue-500"
-            aria-label="View Demo"
-          >
-            <ExternalLink size={16} className="mr-2" /> Demo
-          </a>
-          <a
-            href={repoLink}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="justify-center whitespace-nowrap text-sm font-medium ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 border border-input bg-background hover:text-accent-foreground h-9 rounded-md px-3 flex items-center gap-2 hover:bg-gray-50 hover:border-gray-400 transition-colors duration-200 dark:text-white dark:[&_svg]:text-white dark:bg-gray-800 dark:border-gray-600 dark:hover:bg-gray-700"
-            aria-label="View Code"
-          >
-            <Github size={16} className="mr-2" /> Code
-          </a>
-        </div>
-      </div>
-    </div>
+        </li>
+      ))}
+    </ul>
   );
 }

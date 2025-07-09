@@ -3,6 +3,23 @@ module.exports = {
   content: ['./index.html', './src/**/*.{tsx,ts,jsx,js}'],
   theme: {
     extend: {
+      colors: {
+        primary: {
+          300: '#fdba74',
+          400: '#fb923c',
+          500: '#f97316',
+        },
+        secondary: {
+          300: '#7dd3fc',
+          400: '#38bdf8',
+          500: '#0ea5e9',
+        },
+        accent: {
+          300: '#f0abfc',
+          400: '#e879f9',
+          500: '#d946ef',
+        },
+      },
       keyframes: {
         float: {
           '0%,100%': { transform: 'translateY(0)' },

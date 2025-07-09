@@ -1,58 +1,56 @@
-import React, { useRef } from 'react';
-import useDarkMode from './hooks/useDarkMode';
+import React, { Suspense } from 'react';
+import { useDarkMode } from '@/hooks';
 import Navbar from './components/layout/NavBar';
-import Hero from './sections/Hero';
-import About from './sections/About';
-import Projects from './sections/Projects';
-import Stacks from './sections/Stacks';
-import CTA from './sections/CTA';
+import Hero from './components/sections/Hero';
+import About from './components/sections/About';
+import Projects from './components/sections/Projects';
+import Stacks from './components/sections/Stacks';
 import Footer from './components/layout/Footer';
-import AnimationBG from './components/visuals/BGAnimation';
 import SEO from './components/SEO';
+
+// LazyLoading
+const AnimationBG = React.lazy(() => import('@/components/visuals/BGAnimation'));
+const FogAnimation = React.lazy(() => import('@/components/visuals/FogAnimation'));
+const CodeText = React.lazy(() => import('@/components/visuals/CodeText'));
 
 export default function App() {
   const [darkMode, setDarkMode] = useDarkMode(false);
 
-  // Create refs to tracks
-  const aboutRef = useRef<HTMLElement>(null);
-
   return (
     <>
       <SEO
-        title="André Marinho · Frontend Developer"
-        description="André Marinho’s portfolio — React projects, animations, dark mode, and more."
+        title="André Marinho"
+        description="André Marinho’s portfolio."
         url="https://andre-lmarinho.github.io/Home/"
         image="https://andre-lmarinho.github.io/Home/social-preview.png"
       />
 
-      {/* Background */}
-      <AnimationBG aboutRef={aboutRef} />
+      {/* Nav Menu */}
+      <Navbar darkMode={darkMode} setDarkMode={setDarkMode} />
 
-      <div className="relative z-20 flex flex-col min-h-screen">
-        {/* Nav Menu */}
-        <Navbar darkMode={darkMode} setDarkMode={setDarkMode} />
+      {/* Main */}
+      <div className="mx-auto z-50 min-h-screen max-w-screen-xl px-6 py-12 font-sans md:px-12 md:py-16 lg:py-0">
+        <div className="lg:flex lg:justify-between lg:gap-4">
+          {/* Header Section */}
+          <header className="lg:sticky lg:top-0 lg:flex lg:max-h-screen lg:w-[48%] lg:flex-col lg:justify-between lg:py-24">
+            <Hero />
+          </header>
 
-        {/* Main Section */}
-        <main className="flex-grow">
-          {/* Hero Section */}
-          <Hero />
-
-          {/* About Section with ref */}
-          <section ref={aboutRef}>
+          {/* Main Section */}
+          <main className="pt-24 lg:w-[52%] lg:py-24">
             <About />
-          </section>
-          {/* Projects Section */}
-          <Projects />
+            <Stacks />
+            <Projects />
+            <Footer />
+          </main>
 
-          {/* Stacks Section */}
-          <Stacks />
-
-          {/* Final CTA Section with ref */}
-          <CTA />
-        </main>
-
-        {/* Footer */}
-        <Footer />
+          {/* Background e Animations*/}
+          <Suspense fallback={null}>
+            <AnimationBG />
+            <FogAnimation />
+            <CodeText />
+          </Suspense>
+        </div>
       </div>
     </>
   );

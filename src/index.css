@@ -2,36 +2,50 @@
 @tailwind components;
 @tailwind utilities;
 
-/* ====================================
-   Design Tokens (CSS Variables)
-   ==================================== */
+/* ========================
+   Design Tokens
+======================== */
 :root {
-  /* Highlight Colors */
-  --highlight-color-1: #fb923c;
-  --highlight-color-2: #38bdf8;
-  --highlight-color-night-1: #d946ef;
-  --highlight-color-night-2: #0284c7;
+  /* Highlights */
+  --color-accent-1: #37b3a8; /* --highlight-color-1 */
+  --color-accent-2: #38bff8; /* --highlight-color-2 */
+  --tag-bg: #f7f7ef; /* ======== n faço ideia de onde é isso :) */
+  --spotter: rgba(30, 59, 138, 0.055);
 
-  /* Text Colors */
-  --text-title: #20292f;
-  --text-body: #505b6a;
+  /* Text */
+  --text-primary: #20292f; /* == --text-title */
+  --text-body: #6b7481; /* ===== --text-body */
+  --text-muted: #878e99;
 
-  --text-title-night: #f1f5f9;
-  --text-body-night: #cbd5e1;
+  /* Backgrounds */
+  --background: #ffffff;
+  --bg-elevated: #f9fafb;
 
-  /* Background Colors */
-  --background-light: #ffffff;
-  --background-dark: #111827;
-
-  /* Icon Colors */
-  --next-color: #000000;
-  --react-color: #61dafb;
-  --typescript-color: #3178c6;
+  /* Icons / Tech */
+  --color-next: #000000;
+  --color-react: #61dafb;
+  --color-ts: #3178c6;
 }
 
-/* ====================================
-   Base Layer
-   ==================================== */
+.dark {
+  /* Highlights */
+  --color-accent-1: #5eead4;
+  --spotter: rgba(26, 72, 180, 0.15);
+  /* Text */
+  --text-primary: #f1f5f9;
+  --text-body: #b6bfca;
+  --text-muted: #94a3b8;
+  /* Backgrounds */
+  --background: #111827;
+  --bg-elevated: #1f2937;
+
+  /* Icons / Tech */
+  --color-next: #ffffff;
+}
+
+/* ================================
+   Global Base Styles
+   ================================ */
 html {
   scroll-behavior: smooth;
   -webkit-font-smoothing: antialiased;
@@ -39,18 +53,10 @@ html {
   min-height: 100%;
 }
 
-html.dark {
-  --next-color: #ffffff;
-}
-
 body {
   min-height: 100%;
   overflow-x: hidden;
-  background-color: var(--background-light);
-}
-
-.dark body {
-  background-color: var(--background-dark);
+  background-color: var(--background);
 }
 
 *,
@@ -59,168 +65,83 @@ body {
   box-sizing: border-box;
 }
 
-/* Accessible focus outline that adapts to dark mode */
-:focus {
-  outline: 2px solid var(--highlight-color-1);
+:focus-visible {
+  outline: 2px solid var(--color-accent-1);
   outline-offset: 2px;
 }
 
-.dark :focus {
-  outline: 2px solid var(--highlight-color-night-1);
+/* ================================
+   Typography Defaults
+   ================================ */
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: var(--text-primary);
 }
 
-/* Ultra-Narrow Container */
-.container-ultra-narrow {
-  margin-inline: auto;
-  width: 100%;
-  padding-inline: 1.25rem;
+p,
+span,
+li,
+ul,
+ol,
+blockquote,
+small,
+strong,
+em,
+label,
+input,
+textarea {
+  color: var(--text-body);
 }
-@layer utilities {
-  .container-ultra-narrow {
-    @apply mx-auto w-[90%] max-w-[960px];
-  }
+
+/* ========================
+   Acessibility
+======================== */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
 }
 
-/* ====================================
-   Components Layer
-   ==================================== */
-@layer components {
-  /* Fluid Typography */
-  .clamptext {
-    font-size: clamp(1.25rem, 4vw, 2.75rem);
-    line-height: 1.625;
-    @apply text-color-01;
+/* ========================
+   Layout Sections
+======================== */
+@layer base {
+  .main-section {
+    @apply mb-16 scroll-mt-16 md:mb-24 lg:mb-36 lg:scroll-mt-24;
   }
 
-  /* Box Shadow Utility */
-  .boxshadow {
-    box-shadow: 0 8px 60px rgba(12, 40, 70, 0.11),
-      0 12px 90px rgba(12, 40, 70, 0.11);
+  .main-section-h2 {
+    @apply sticky top-0 z-20 -mx-6 mb-4 w-screen bg-[var(--bg-elevated)/70] px-6 py-5 backdrop-blur 
+           md:-mx-12 md:px-12 lg:sr-only lg:relative lg:top-auto lg:mx-auto lg:w-full lg:px-0 lg:py-0 lg:opacity-0;
   }
 
-  /* Text Color Utilities */
-  .text-color-01 {
-    color: var(--text-title);
-  }
-  .dark .text-color-01 {
-    color: var(--text-title-night);
-  }
-  .text-color-02 {
-    color: var(--text-body);
-  }
-  .dark .text-color-02 {
-    color: var(--text-body-night);
-  }
-
-  /* Buttons */
-  .main-btn {
-    @apply inline-flex items-center font-medium px-8 py-3 rounded-lg
-           transition-transform duration-300
-           bg-gradient-to-r from-blue-600 to-purple-600
-           hover:from-blue-700 hover:to-purple-700
-           text-white shadow-lg hover:shadow-xl hover:scale-105;
-  }
-  .sec-btn {
-    @apply inline-flex items-center font-medium px-8 py-3 rounded-lg
-           transition-transform duration-300
-           bg-gray-50 dark:bg-gray-800 dark:text-gray-400
-           border-2 border-gray-300 dark:border-gray-600
-           hover:border-blue-500 dark:hover:border-blue-400
-           hover:scale-105;
+  .main-h2 {
+    @apply text-sm font-bold uppercase tracking-widest lg:sr-only;
   }
 }
 
-/* ====================================
-   Utilities Layer
-   ==================================== */
-/* Text Gradient Animation */
-@keyframes gradient-x {
-  0% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0% 50%;
-  }
+/* ========================
+   Component Classes
+======================== */
+.text-color-01 {
+  color: var(--text-primary);
 }
 
-.gradient-text {
-  background: linear-gradient(
-    to right,
-    var(--highlight-color-1),
-    var(--highlight-color-2),
-    var(--highlight-color-night-1),
-    var(--highlight-color-night-2),
-    var(--highlight-color-1)
-  );
-  background-size: 1000% 300%;
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  animation: gradient-x 12s ease-in-out infinite;
+.text-color-02 {
+  color: var(--text-body);
 }
 
-/* Scrolling Text Animation */
-@keyframes type {
-  0% {
-    transform: translateX(0%);
-  }
-  100% {
-    transform: translateX(-50%);
-  }
-}
-.animate-scroll {
-  animation: type 90s steps(100, end) infinite;
-}
-
-/* CentralOrb Animation */
-@keyframes pulse-orb {
-  0% {
-    transform: scale(1);
-    opacity: 0.15;
-  }
-  50% {
-    transform: scale(1.1);
-    opacity: 0.3;
-  }
-  100% {
-    transform: scale(1);
-    opacity: 0.15;
-  }
-}
-.animate-pulse-orb {
-  animation: pulse-orb 2.5s ease-in-out infinite;
-}
-
-/* ============================= Scrollbar ============================= */
-/* WebKit Scrollbar */
-::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
-}
-
-/* Light Mode Scrollbar */
-::-webkit-scrollbar-track {
-  background: white;
-}
-::-webkit-scrollbar-thumb {
-  background: linear-gradient(
-    to bottom,
-    var(--highlight-color-1),
-    var(--highlight-color-2)
-  );
-}
-
-/* Dark Mode Scrollbar */
-.dark ::-webkit-scrollbar-track {
-  background: rgb(17 24 39);
-}
-.dark ::-webkit-scrollbar-thumb {
-  background: linear-gradient(
-    to bottom,
-    var(--highlight-color-night-1),
-    var(--highlight-color-night-2)
-  );
+.text-muted {
+  color: var(--text-muted);
 }

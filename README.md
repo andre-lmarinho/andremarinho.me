@@ -103,7 +103,3 @@ Then visit `https://<username>.github.io/<repo>/`.
 
 This project is open-source under the [MIT License](LICENSE).
 Feel free to reuse and adapt!
-
----
-
-_Last updated: 2025-06-29_
