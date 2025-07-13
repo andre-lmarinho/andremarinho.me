@@ -8,10 +8,11 @@ import { useState, useEffect } from 'react';
  * - Falls back to system preference if no stored value is found.
  * - Defaults to dark mode if neither is available.
  */
-export default function useDarkMode(): [boolean, (value: boolean) => void] {
+export default function useDarkMode(initial?: boolean): [boolean, (value: boolean) => void] {
   const getInitialDarkMode = (): boolean => {
     const stored = localStorage.getItem('darkMode');
     if (stored !== null) return stored === 'true';
+    if (initial !== undefined) return initial;
 
     const prefersDark = window.matchMedia?.('(prefers-color-scheme: dark)');
     return prefersDark?.matches ?? true; // defaults to dark mode

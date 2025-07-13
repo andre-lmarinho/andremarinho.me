@@ -23,7 +23,7 @@ _or_ deploy easily to Vercel or Netlify with the same settings.
 - **Framework:** React 18 + TypeScript, Vite (JIT mode)
 - **Styling:** Tailwind CSS (v3+) with `@apply`, custom keyframes, JIT
 - **Animations:** Framer Motion, CSS keyframes
-- **Icons:** lucide‑react
+- **Icons:** w3.org.svg
 - **SEO:** react‑helmet‑async
 - **Testing (boilerplate):** Vitest + Testing Library
 - **Deployment Tools:** npm scripts
