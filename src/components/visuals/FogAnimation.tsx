@@ -10,6 +10,7 @@ export default function FogAnimation() {
 
   useEffect(() => {
     if (!isDesktop()) return;
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
     setEnabled(true);
 
@@ -38,6 +39,7 @@ export default function FogAnimation() {
     <div
       ref={backgroundRef}
       className="pointer-events-none fixed inset-0 z-30 transition duration-300 lg:absolute"
+      aria-hidden="true"
     />
   );
 }

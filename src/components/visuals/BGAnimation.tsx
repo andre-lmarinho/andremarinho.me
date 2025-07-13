@@ -9,12 +9,12 @@ import React from 'react';
 
 export default function AnimationBG() {
   return (
-    <div className="fixed inset-0 -z-20 overflow-hidden pointer-events-none">
+    <div className="fixed inset-0 -z-20 overflow-hidden pointer-events-none " aria-hidden="true">
       {/* Top-right orb */}
-      <div className="absolute -top-40 -right-40 w-80 h-80 bg-gradient-to-br from-primary-400 to-secondary-500 rounded-full opacity-20 blur-3xl animate-float" />
+      <div className="absolute -top-40 -right-40 w-80 h-80 bg-gradient-to-br from-primary-400 to-secondary-500 rounded-full opacity-20 blur-3xl motion-safe:animate-float motion-reduce:animate-none" />
 
       {/* Bottom-left orb */}
-      <div className="absolute -bottom-40 -left-40 w-96 h-96 bg-gradient-to-tr from-accent-400 to-primary-500 rounded-full opacity-15 blur-3xl animate-float" />
+      <div className="absolute -bottom-40 -left-40 w-96 h-96 bg-gradient-to-tr from-accent-400 to-primary-500 rounded-full opacity-15 blur-3xl motion-safe:animate-float motion-reduce:animate-none" />
 
       {/* Animated mesh lines */}
       <div className="absolute inset-0 opacity-10 dark:opacity-10">
@@ -42,19 +42,19 @@ export default function AnimationBG() {
       {/* Floating particles */}
       <div className="particles absolute inset-0">
         <div
-          className="particle absolute w-2 h-2 bg-primary-400 rounded-full opacity-30 animate-float"
+          className="particle absolute w-2 h-2 bg-primary-400 rounded-full opacity-30 motion-safe:animate-float motion-reduce:animate-none"
           style={{ top: '20%', left: '10%', animationDelay: '-1s' }}
         />
         <div
-          className="particle absolute w-1 h-1 bg-secondary-400 rounded-full opacity-40 animate-float"
+          className="particle absolute w-1 h-1 bg-secondary-400 rounded-full opacity-40 motion-safe:animate-float motion-reduce:animate-none"
           style={{ top: '60%', left: '80%', animationDelay: '-2s' }}
         />
         <div
-          className="particle absolute w-3 h-3 bg-accent-400 rounded-full opacity-20 animate-float"
+          className="particle absolute w-3 h-3 bg-accent-400 rounded-full opacity-20 motion-safe:animate-float motion-reduce:animate-none"
           style={{ top: '80%', left: '20%', animationDelay: '-3s' }}
         />
         <div
-          className="particle absolute w-1.5 h-1.5 bg-primary-300 rounded-full opacity-50 animate-float"
+          className="particle absolute w-1.5 h-1.5 bg-primary-300 rounded-full opacity-50 motion-safe:animate-float motion-reduce:animate-none"
           style={{ top: '10%', left: '60%', animationDelay: '-5s' }}
         />
       </div>

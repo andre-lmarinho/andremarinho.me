@@ -20,6 +20,7 @@ export default function CodeText() {
 
   useEffect(() => {
     if (!isDesktop()) return;
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
     setEnabled(true);
     const interval = setInterval(() => setTick((t) => t + 1), 16);
     return () => clearInterval(interval);
@@ -34,6 +35,7 @@ export default function CodeText() {
   return (
     <div
       className="absolute text-body inset-0 opacity-20 pointer-events-none z-30"
+      aria-hidden="true"
       style={{
         WebkitMaskImage: mask,
         maskImage: mask,

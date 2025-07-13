@@ -1,3 +1,5 @@
+//src/hooks/useMouseCoords
+
 import { useEffect, useRef } from 'react';
 
 export default function useMouseCoords() {

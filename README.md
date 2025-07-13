@@ -2,7 +2,7 @@
 
 This repository powers **André Marinho’s personal portfolio**, a modern React + TypeScript SPA built with Vite and Tailwind CSS, showcasing dynamic UI features, SEO, and smooth user experiences.
 
-🔗 [Live Demo](https://andre-lmarinho.github.io/Home/)
+🔗 [Live Demo](https://home-six-ashy.vercel.app/)
 _or_ deploy easily to Vercel or Netlify with the same settings.
 
 ---
@@ -26,7 +26,7 @@ _or_ deploy easily to Vercel or Netlify with the same settings.
 - **Icons:** lucide‑react
 - **SEO:** react‑helmet‑async
 - **Testing (boilerplate):** Vitest + Testing Library
-- **Deployment Tools:** npm scripts, `gh-pages`
+- **Deployment Tools:** npm scripts
 
 ---
 

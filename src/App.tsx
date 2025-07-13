@@ -1,6 +1,6 @@
 import React, { Suspense } from 'react';
 import { useDarkMode } from '@/hooks';
-import { NavBar, Hero, About, Projects, Stacks, Footer, SEO } from '@/components';
+import { NavBar, Hero, About, Projects, Footer, SEO } from '@/components';
 
 // LazyLoading
 const AnimationBG = React.lazy(() => import('@/components/visuals/BGAnimation'));
@@ -8,7 +8,7 @@ const FogAnimation = React.lazy(() => import('@/components/visuals/FogAnimation'
 const CodeText = React.lazy(() => import('@/components/visuals/CodeText'));
 
 export default function App() {
-  const [darkMode, setDarkMode] = useDarkMode(false);
+  const [darkMode, setDarkMode] = useDarkMode();
 
   return (
     <>
@@ -33,7 +33,7 @@ export default function App() {
           {/* Main Section */}
           <main id="main" className="pt-24 lg:w-[52%] lg:py-24">
             <About />
-            <Stacks />
+
             <Projects />
             <Footer />
           </main>

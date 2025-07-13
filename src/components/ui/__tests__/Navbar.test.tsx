@@ -26,7 +26,8 @@ function Wrapper({ onToggle }: { onToggle: (value: boolean) => void }) {
 describe('Navbar dark mode toggle', () => {
   const style = document.createElement('style');
   style.innerHTML = `
-@@ -30,45 +31,39 @@ describe('Navbar dark mode toggle', () => {
+    .hidden{display:none;}
+    .dark .dark\\:block{display:block !important;}
     .dark .dark\\:hidden{display:none !important;}
   `;
 
