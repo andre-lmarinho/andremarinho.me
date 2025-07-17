@@ -2,25 +2,15 @@ import React from 'react';
 import { render } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
-import Navbar from '../../layout/NavBar';
+import { NavBar } from '@/components';
+import { ThemeProvider } from '@/context';
 
-function Wrapper({ onToggle }: { onToggle: (value: boolean) => void }) {
-  const [darkMode, setDarkMode] = React.useState(false);
-
-  React.useEffect(() => {
-    if (darkMode) {
-      document.documentElement.classList.add('dark');
-    } else {
-      document.documentElement.classList.remove('dark');
-    }
-  }, [darkMode]);
-
-  const handleToggle = (value: boolean) => {
-    setDarkMode(value);
-    onToggle(value);
-  };
-
-  return <Navbar darkMode={darkMode} setDarkMode={handleToggle} />;
+function Wrapper() {
+  return (
+    <ThemeProvider>
+      <NavBar />
+    </ThemeProvider>
+  );
 }
 
 describe('Navbar dark mode toggle', () => {
@@ -42,9 +32,8 @@ describe('Navbar dark mode toggle', () => {
     }
   });
 
-  it('calls callback and toggles icons', async () => {
-    const toggle = vi.fn();
-    const { container, getByLabelText } = render(<Wrapper onToggle={toggle} />);
+  it('toggles icons and dark class', async () => {
+    const { container, getByLabelText } = render(<Wrapper />);
 
     const button = getByLabelText('Toggle dark mode');
     const moon = container.querySelector('svg.lucide-moon') as SVGElement;
@@ -55,7 +44,6 @@ describe('Navbar dark mode toggle', () => {
 
     await userEvent.click(button);
 
-    expect(toggle).toHaveBeenCalledWith(true);
     expect(document.documentElement.classList.contains('dark')).toBe(true);
 
     expect(window.getComputedStyle(moon).display).toBe('none');
@@ -63,7 +51,6 @@ describe('Navbar dark mode toggle', () => {
 
     await userEvent.click(button);
 
-    expect(toggle).toHaveBeenCalledWith(false);
     expect(document.documentElement.classList.contains('dark')).toBe(false);
   });
 });

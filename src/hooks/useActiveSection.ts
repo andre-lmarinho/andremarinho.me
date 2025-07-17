@@ -1,4 +1,4 @@
-//src/hooks/useactiveSection
+// src/hooks/useactiveSection
 
 import { useEffect, useState } from 'react';
 

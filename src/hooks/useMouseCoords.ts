@@ -1,4 +1,4 @@
-//src/hooks/useMouseCoords
+// src/hooks/useMouseCoords
 
 import { useEffect, useRef } from 'react';
 

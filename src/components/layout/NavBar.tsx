@@ -2,13 +2,11 @@
 
 import React from 'react';
 import { Sun, Moon } from 'lucide-react';
+import { useTheme } from '@/context';
 
-interface NavbarProps {
-  darkMode: boolean;
-  setDarkMode: (value: boolean) => void;
-}
+export default function NavBar() {
+  const { darkMode, setDarkMode } = useTheme();
 
-export default function NavBar({ darkMode, setDarkMode }: NavbarProps) {
   return (
     <div className="fixed top-4 right-4 z-50 ">
       <button

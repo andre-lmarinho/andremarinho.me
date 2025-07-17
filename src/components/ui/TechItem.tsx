@@ -1,6 +1,7 @@
 // src/components/ui/TechItem
 
 import React from 'react';
+import placeholder from '@/assets/icons/placeholder.svg';
 
 interface TechItemProps {
   name: string;
@@ -17,6 +18,10 @@ export default function TechItem({ name, icon, color }: TechItemProps) {
           alt={name}
           className="w-8 h-8 transition-transform group-hover:scale-110 duration-300"
           loading="lazy"
+          onError={(e) => {
+            e.currentTarget.onerror = null;
+            e.currentTarget.src = placeholder;
+          }}
         />
       </div>
       <div className="absolute -bottom-8 left-1/2 transform -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">

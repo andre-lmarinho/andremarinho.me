@@ -1,4 +1,4 @@
-//src/hooks/useDarkmode
+// src/hooks/useDarkmode
 
 import { useState, useEffect } from 'react';
 

@@ -2,7 +2,7 @@
 
 This repository powers **André Marinho’s personal portfolio**, a modern React + TypeScript SPA built with Vite and Tailwind CSS, showcasing dynamic UI features, SEO, and smooth user experiences.
 
-🔗 [Live Demo](https://home-six-ashy.vercel.app/)
+🔗 [Live Demo](https://andremarinho.vercel.app/)
 _or_ deploy easily to Vercel or Netlify with the same settings.
 
 ---
