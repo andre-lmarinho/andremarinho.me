@@ -1,5 +1,5 @@
 import React, { Suspense } from 'react';
-import { ThemeProvider, useTheme } from '@/context';
+import { ThemeProvider } from '@/context';
 import { NavBar, Hero, About, Projects, Footer, SEO } from '@/components';
 
 // LazyLoading
@@ -36,7 +36,7 @@ function AppContent() {
             <Footer />
           </main>
 
-          {/* Background e Animations*/}
+          {/* Background and Animations*/}
           <Suspense fallback={null}>
             <AnimationBG />
             <FogAnimation />

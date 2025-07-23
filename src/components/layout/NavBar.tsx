@@ -1,4 +1,4 @@
-//src/components/layouts/NavBar
+// src/components/layout/NavBar
 
 import React from 'react';
 import { Sun, Moon } from 'lucide-react';

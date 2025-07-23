@@ -24,7 +24,7 @@ export default function Hero() {
             aria-label="GitHub profile (opens in a new tab)"
             title="GitHub"
           >
-            <label className="sr-only">GitHub</label>
+            <span className="sr-only">GitHub</span>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               className="h-6 w-6"
@@ -45,7 +45,7 @@ export default function Hero() {
             aria-label="LinkedIn profile (opens in a new tab)"
             title="LinkedIn"
           >
-            <label className="sr-only">LinkedIn</label>
+            <span className="sr-only">LinkedIn</span>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               className="h-5 w-5"

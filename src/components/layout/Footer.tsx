@@ -1,4 +1,4 @@
-//src/components/layouts/Footer
+// src/components/layout/Footer
 
 import React from 'react';
 

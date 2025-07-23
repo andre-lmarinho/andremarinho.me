@@ -1,7 +1,7 @@
+import React from 'react';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import React from 'react';
-import useDarkMode from '../useDarkMode';
+import useDarkMode from './useDarkMode';
 
 function TestComponent({ initial = false }: { initial?: boolean }) {
   const [dark, setDark] = useDarkMode(initial);
@@ -12,6 +12,7 @@ describe('useDarkMode', () => {
   beforeEach(() => {
     document.documentElement.classList.remove('dark');
     document.body.classList.remove('dark');
+    localStorage.clear();
   });
 
   it('toggles dark class on html and body', async () => {

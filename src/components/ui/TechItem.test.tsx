@@ -8,6 +8,6 @@ describe('TechItem', () => {
     const { getByRole } = render(<TechItem name="React" icon="react" color="61DAFB" />);
     const img = getByRole('img') as HTMLImageElement;
     img.dispatchEvent(new Event('error'));
-    expect(img.src).toContain('placeholder.svg');
+    expect(img.src).toBe(placeholder);
   });
 });
