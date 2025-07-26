@@ -8,7 +8,7 @@ export default function Stacks() {
       <div className="main-section-h2">
         <h2 className="main-h2 isolate">Tech Stacks</h2>
       </div>
-      <div className="flex justify-center flex-wrap gap-8">
+      <div className="flex flex-wrap justify-center gap-8">
         {techs.map(({ name, icon, color }) => (
           <TechItem key={name} name={name} icon={icon} color={color} />
         ))}

@@ -9,13 +9,13 @@ export default function Hero() {
           <a href="/">André Marinho</a>
         </h1>
         <h2 className="mt-3 text-lg font-medium tracking-tight sm:text-xl">Front End Developer</h2>
-        <p className="mt-4 max-w-xs leading-normal text-color-02">
+        <p className="text-color-02 mt-4 max-w-xs leading-normal">
           I build fast, accessible, and business-driven web experiences.
         </p>
         <Nav />
       </div>
       <ul className="ml-1 mt-8 flex items-center" aria-label="Social media">
-        <li className="transition-colors duration-200 transform mr-5 shrink-0 text-xs">
+        <li className="mr-5 shrink-0 transform text-xs transition-colors duration-200">
           <a
             href="https://github.com/andre-marinho"
             target="_blank"
@@ -36,7 +36,7 @@ export default function Hero() {
             </svg>
           </a>
         </li>
-        <li className="transition-colors duration-200 transform mr-5 shrink-0 text-xs">
+        <li className="mr-5 shrink-0 transform text-xs transition-colors duration-200">
           <a
             href="https://linkedin.com/in/andre-marinho-3318ab1aa"
             target="_blank"

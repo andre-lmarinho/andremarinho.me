@@ -23,16 +23,10 @@ export default function Nav() {
                 className="group flex items-center py-3"
               >
                 <span
-                  className={`nav-indicator mr-4 h-px transition-all motion-reduce:transition-none
-                    ${isActive ? 'w-16 bg-[var(--text-primary)]' : 'w-8 bg-[var(--text-muted)]'}
-                    group-hover:w-16 group-hover:bg-[var(--text-primary)]
-                    group-focus-visible:w-16 group-focus-visible:bg-[var(--text-primary)]`}
+                  className={`nav-indicator mr-4 h-px transition-all motion-reduce:transition-none ${isActive ? 'w-16 bg-[var(--text-primary)]' : 'w-8 bg-[var(--text-muted)]'} group-hover:w-16 group-hover:bg-[var(--text-primary)] group-focus-visible:w-16 group-focus-visible:bg-[var(--text-primary)]`}
                 />
                 <span
-                  className={`nav-text text-xs font-bold uppercase tracking-widest
-                    ${isActive ? 'text-[var(--text-primary)]' : 'text-[var(--text-muted)]'}
-                    group-hover:text-[var(--text-primary)]
-                    group-focus-visible:text-[var(--text-primary)]`}
+                  className={`nav-text text-xs font-bold uppercase tracking-widest ${isActive ? 'text-[var(--text-primary)]' : 'text-[var(--text-muted)]'} group-hover:text-[var(--text-primary)] group-focus-visible:text-[var(--text-primary)]`}
                 >
                   {label}
                 </span>

@@ -6,7 +6,7 @@ export default function Footer() {
   return (
     <footer
       id="footer"
-      className="max-w-md pb-16 text-sm text-color-02 sm:pb-0 transition-colors duration-500"
+      className="text-color-02 max-w-md pb-16 text-sm transition-colors duration-500 sm:pb-0"
     >
       <p>
         From{' '}

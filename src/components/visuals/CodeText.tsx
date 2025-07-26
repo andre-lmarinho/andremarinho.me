@@ -34,7 +34,7 @@ export default function CodeText() {
 
   return (
     <div
-      className="absolute text-body inset-0 opacity-20 pointer-events-none z-30"
+      className="text-body pointer-events-none absolute inset-0 z-30 opacity-20"
       aria-hidden="true"
       style={{
         WebkitMaskImage: mask,
@@ -44,7 +44,7 @@ export default function CodeText() {
       }}
     >
       {/* Snippet 1 */}
-      <div className={`${baseCodeStyle} fixed top-[20%] left-[20%]`}>
+      <div className={`${baseCodeStyle} fixed left-[20%] top-[20%]`}>
         <pre>
           <code>
             <span className={blue}>useEffect</span>(() =&gt; {'{'}
@@ -66,7 +66,7 @@ export default function CodeText() {
       </div>
 
       {/* Snippet 2 */}
-      <div className={`${baseCodeStyle} fixed top-1/2 left-20`}>
+      <div className={`${baseCodeStyle} fixed left-20 top-1/2`}>
         <pre>
           <code>
             <span className={lightBlue}>ids</span>.forEach((<span className={lightBlue}>id</span>)
