@@ -80,7 +80,19 @@ _or_ deploy easily to Vercel or Netlify with the same settings.
 - `npm run build` — generate production build in `/dist`
 - `npm run preview` — serve `/dist` locally
 - `npm run deploy` — _(optional)_ build & publish to GitHub Pages (requires `predeploy` script)
+- `npm run lint` — check code with ESLint
+- `npm run format` — format files with Prettier
 - `npm test` — run Vitest
+
+### Linting, formatting & testing
+
+Before submitting changes, ensure the following commands pass:
+
+```bash
+npm run format
+npm run lint
+npm test
+```
 
 ---
 

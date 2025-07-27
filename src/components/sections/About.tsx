@@ -1,10 +1,10 @@
-// src/sections/About.tsx
+// src/components/sections/About.tsx
 
 import React from 'react';
 
 export default function About() {
   return (
-    <section id="about" className="main-section" aria-label="About me">
+    <section id="about" aria-label="About me">
       <div className="main-section-h2">
         <h2 className="main-h2">About</h2>
       </div>

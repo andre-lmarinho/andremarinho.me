@@ -1,6 +1,6 @@
 import React, { Suspense } from 'react';
 import { ThemeProvider } from '@/context';
-import { NavBar, Hero, About, Projects, Footer, SEO } from '@/components';
+import { Header, Hero, Projects, Footer } from '@/components';
 
 // LazyLoading
 const AnimationBG = React.lazy(() => import('@/components/visuals/BGAnimation'));
@@ -10,39 +10,25 @@ const CodeText = React.lazy(() => import('@/components/visuals/CodeText'));
 function AppContent() {
   return (
     <>
-      <SEO
-        title="André Marinho"
-        description="André Marinho’s portfolio."
-        url="https://andremarinho.vercel.app/"
-        image=""
-      />
+      <a href="#main" className="sr-only">
+        Skip to main content
+      </a>
+      <Header />
 
-      {/* Nav Menu */}
-      <NavBar />
+      <main id="main" className="m-[0_auto] max-w-4xl px-6 sm:px-4">
+        <Hero />
+        <Projects />
+      </main>
+      <Footer />
 
-      {/* Main */}
-      <div className="z-50 mx-auto min-h-screen max-w-screen-xl px-6 py-12 font-sans md:px-12 md:py-16 lg:py-0">
-        <div className="lg:flex lg:justify-between lg:gap-4">
-          {/* Header Section */}
-          <header className="lg:sticky lg:top-0 lg:flex lg:max-h-screen lg:w-[48%] lg:flex-col lg:justify-between lg:py-24">
-            <Hero />
-          </header>
-
-          {/* Main Section */}
-          <main id="main" className="pt-24 lg:w-[52%] lg:py-24">
-            <About />
-            <Projects />
-            <Footer />
-          </main>
-
-          {/* Background and Animations*/}
-          <Suspense fallback={null}>
-            <AnimationBG />
-            <FogAnimation />
-            <CodeText />
-          </Suspense>
+      {/* Background and Animations*/}
+      <Suspense fallback={null}>
+        <div>
+          <AnimationBG />
+          <FogAnimation />
+          <CodeText />
         </div>
-      </div>
+      </Suspense>
     </>
   );
 }

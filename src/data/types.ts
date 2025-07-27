@@ -4,9 +4,7 @@ export interface Project {
   title: string;
   arialabel: string;
   description: string;
-  img: string;
   siteLink: string;
-  repoLink: string;
   stacks: string[];
 }
 

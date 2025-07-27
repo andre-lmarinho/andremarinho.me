@@ -1,10 +1,11 @@
-// components/CodeText.tsx
+// src/components/visuals/CodeText.tsx
+
 import React, { useEffect, useState } from 'react';
 import { useMouseCoords } from '../../hooks';
 import { isDesktop } from '../../utils';
 
 const baseCodeStyle = `
-  text-sm font-mono p-4 leading-snug transition duration-200 pointer-events-none
+  text-sm font-mono p-4 leading-snug transition duration-200 pointer-events-none 
 `;
 
 const blue = 'text-[#569cd6]';
@@ -30,11 +31,11 @@ export default function CodeText() {
 
   const x = coords.current.x + window.scrollX;
   const y = coords.current.y + window.scrollY;
-  const mask = `radial-gradient(160px at ${x}px ${y}px, rgba(0, 0, 0, 1) 40%, rgba(0, 0, 0, 0) 100%)`;
+  const mask = `radial-gradient(160px at ${x}px ${y}px, rgba(0, 0, 0, 1) 20%, rgba(0, 0, 0, 0) 60%)`;
 
   return (
     <div
-      className="text-body pointer-events-none absolute inset-0 z-30 opacity-20"
+      className="text-body pointer-events-none absolute inset-0 opacity-20"
       aria-hidden="true"
       style={{
         WebkitMaskImage: mask,

@@ -36,8 +36,15 @@ module.exports = {
           '0%,100%': { 'background-position': '50% 0%' },
           '50%': { 'background-position': '50% 100%' },
         },
+        wave: {
+          '0%, 20%, 100%': { transform: 'rotate(0deg)' },
+          '5%': { transform: 'rotate(14deg)' },
+          '10%': { transform: 'rotate(-8deg)' },
+          '15%': { transform: 'rotate(14deg)' },
+        },
       },
       animation: {
+        wave: 'wave 3s ease-in-out infinite',
         float: 'float 6s ease-in-out infinite',
         'pulse-slow': 'pulse 4s ease-in-out infinite',
         'gradient-x': 'gradient-x 8s ease infinite',

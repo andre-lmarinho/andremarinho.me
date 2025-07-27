@@ -1,15 +1,14 @@
+// src/components/sections/Projects.tsx
+
 import React from 'react';
-import ProjectCard from '../ui/ProjectCard';
+import ProjectCard from '../ProjectCard';
 
 export default function Projects() {
   return (
-    <section id="projects" className="main-section" aria-label="Selected projects">
-      <div className="main-section-h2">
-        <h2 className="main-h2 isolate">Selected Projects</h2>
-      </div>
-      <div>
-        <ProjectCard />
-      </div>
+    <section id="projects" aria-label="Selected projects">
+      <h2 className="my-6 block text-lg font-bold">Selected Projects</h2>
+
+      <ProjectCard />
     </section>
   );
 }

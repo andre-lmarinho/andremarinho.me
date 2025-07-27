@@ -1,4 +1,5 @@
-// components/FogAnimation.tsx
+// src/components/visuals/FogAnimation.tsx
+
 import { useEffect, useRef, useState } from 'react';
 import { useMouseCoords } from '../../hooks';
 import { isDesktop } from '../../utils';
@@ -38,7 +39,7 @@ export default function FogAnimation() {
   return (
     <div
       ref={backgroundRef}
-      className="pointer-events-none fixed inset-0 z-30 transition duration-300 lg:absolute"
+      className="pointer-events-none fixed inset-0 transition duration-300 lg:absolute"
       aria-hidden="true"
     />
   );

@@ -9,7 +9,6 @@ export default defineConfig({
       '@hooks': path.resolve(__dirname, './src/hooks'),
       '@components': path.resolve(__dirname, './src/components'),
       '@utils': path.resolve(__dirname, './src/utils'),
-      '@testing-library/user-event': path.resolve(__dirname, 'src/utils/user-event.ts'),
     },
   },
   test: {
