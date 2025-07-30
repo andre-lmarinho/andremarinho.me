@@ -6,17 +6,7 @@ export type AnimationProps = Pick<
 >;
 
 export const animations = {
-  H1: (reduce: boolean): AnimationProps => ({
-    initial: reduce ? { opacity: 0 } : { opacity: 0, y: 12 },
-    animate: reduce ? { opacity: 1 } : { opacity: 1, y: 0 },
-    transition: { duration: reduce ? 0.15 : 0.22 },
-  }),
-  H2: (reduce: boolean): AnimationProps => ({
-    initial: reduce ? { opacity: 0 } : { opacity: 0, x: -6 },
-    whileInView: reduce ? { opacity: 1 } : { opacity: 1, x: 0 },
-    viewport: { once: true },
-    transition: { duration: reduce ? 0.15 : 0.16 },
-  }),
+  // Header
   HeaderImage: (reduce: boolean): AnimationProps => ({
     initial: reduce ? { opacity: 0 } : { opacity: 0, x: -8 },
     animate: reduce ? { opacity: 1 } : { opacity: 1, x: 0 },
@@ -27,27 +17,12 @@ export const animations = {
     animate: reduce ? { opacity: 1 } : { opacity: 1, x: 0, y: [0, -1, 0] },
     transition: { duration: reduce ? 0.15 : 0.18 },
   }),
-  FooterParagraph: (reduce: boolean): AnimationProps => ({
-    initial: { opacity: 0 },
-    whileInView: { opacity: 1 },
-    viewport: { once: true },
-    transition: { duration: reduce ? 0.15 : 0.2 },
-  }),
-  FooterSocialList: (reduce: boolean): AnimationProps => ({
-    initial: 'hidden',
-    whileInView: 'visible',
-    viewport: { once: true },
-    variants: {
-      hidden: {},
-      visible: { transition: { staggerChildren: reduce ? 0 : 0.1 } },
-    },
-  }),
-  FooterSocialItem: (reduce: boolean): AnimationProps => ({
-    variants: {
-      hidden: { opacity: 0, scale: 0.8 },
-      visible: { opacity: 1, scale: 1 },
-    },
-    transition: { duration: reduce ? 0.15 : 0.2 },
+
+  // Hero
+  H1: (reduce: boolean): AnimationProps => ({
+    initial: reduce ? { opacity: 0 } : { opacity: 0, y: 12 },
+    animate: reduce ? { opacity: 1 } : { opacity: 1, y: 0 },
+    transition: { duration: reduce ? 0.15 : 0.22 },
   }),
   HeroParagraphContainer: (reduce: boolean): AnimationProps => ({
     initial: 'hidden',
@@ -65,6 +40,14 @@ export const animations = {
     initial: reduce ? { opacity: 0 } : { opacity: 0, scale: 0.6, y: -10, filter: 'blur(4px)' },
     animate: reduce ? { opacity: 1 } : { opacity: 1, scale: 1, y: 0, filter: 'blur(0px)' },
     transition: { duration: reduce ? 0.15 : 0.4 },
+  }),
+
+  // Projects
+  H2: (reduce: boolean): AnimationProps => ({
+    initial: reduce ? { opacity: 0 } : { opacity: 0, x: -6 },
+    whileInView: reduce ? { opacity: 1 } : { opacity: 1, x: 0 },
+    viewport: { once: true },
+    transition: { duration: reduce ? 0.15 : 0.16 },
   }),
   ProjectList: (reduce: boolean): AnimationProps => ({
     initial: 'hidden',
@@ -98,7 +81,28 @@ export const animations = {
     variants: { hidden: { opacity: 0 }, visible: { opacity: 1 } },
     transition: { duration: reduce ? 0.15 : 0.2 },
   }),
-  AccentDot: (): AnimationProps => ({
+
+  // Footer
+  FooterParagraph: (reduce: boolean): AnimationProps => ({
     initial: { opacity: 0 },
+    whileInView: { opacity: 1 },
+    viewport: { once: true },
+    transition: { duration: reduce ? 0.15 : 0.2 },
+  }),
+  FooterSocialList: (reduce: boolean): AnimationProps => ({
+    initial: 'hidden',
+    whileInView: 'visible',
+    viewport: { once: true },
+    variants: {
+      hidden: {},
+      visible: { transition: { staggerChildren: reduce ? 0 : 0.1 } },
+    },
+  }),
+  FooterSocialItem: (reduce: boolean): AnimationProps => ({
+    variants: {
+      hidden: { opacity: 0, scale: 0.8 },
+      visible: { opacity: 1, scale: 1 },
+    },
+    transition: { duration: reduce ? 0.15 : 0.2 },
   }),
 };

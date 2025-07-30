@@ -4,12 +4,21 @@ import React from 'react';
 import { Sun, Moon } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { useTheme, useMotion } from '@/context';
-import { animations } from '@/utils';
+import { animations, themeToggle } from '@/utils';
 import me from '@/assets/images/Me.jpg';
 
 export default function Header() {
   const { darkMode, setDarkMode } = useTheme();
   const { shouldReduceMotion } = useMotion();
+
+  const handleToggle = (e: React.MouseEvent<HTMLButtonElement>) => {
+    themeToggle({
+      button: e.currentTarget,
+      darkMode,
+      setDarkMode,
+      shouldReduceMotion,
+    });
+  };
 
   return (
     <header
@@ -31,7 +40,7 @@ export default function Header() {
           />
         </a>
         <motion.button
-          onClick={() => setDarkMode(!darkMode)}
+          onClick={handleToggle}
           className="glass group relative order-1 rounded-xl border border-gray-300/30 p-3 transition-all duration-300 hover:scale-110 hover:border-primary-500/50 dark:border-gray-600/30 md:order-2"
           aria-label="Toggle dark mode"
           aria-pressed={darkMode}

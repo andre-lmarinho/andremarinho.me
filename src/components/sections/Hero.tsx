@@ -73,7 +73,6 @@ export default function Hero() {
           className="hidden h-44 w-44 transform-gpu rounded-full sm:block"
           src={me}
           {...animations.HeroImage(shouldReduceMotion)}
-          style={{ x: tiltX, y: tiltY, color: 'transparent' }}
         />
       </div>
     </section>
