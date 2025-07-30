@@ -1,4 +1,4 @@
-// src/context/ThemeContext
+// src/context/ThemeContext.tsx
 
 import React, { createContext, useContext } from 'react';
 import useDarkMode from '@/hooks/useDarkMode';
