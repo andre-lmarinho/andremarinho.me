@@ -3,18 +3,14 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { useMotion } from '@/context';
+import { animations } from '@/utils';
 
 export default function Footer() {
   const { shouldReduceMotion } = useMotion();
   return (
     <footer id="footer" className="m-[0_auto] max-w-4xl px-6 py-8 text-sm sm:px-4">
       <div className="flex items-center justify-between py-4 text-sm">
-        <motion.p
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: shouldReduceMotion ? 0.15 : 0.2 }}
-        >
+        <motion.p {...animations.FooterParagraph(shouldReduceMotion)}>
           From{' '}
           <a
             href="https://www.figma.com/"
@@ -70,18 +66,11 @@ export default function Footer() {
         <motion.ul
           className="ml-1 flex items-center"
           aria-label="Social media"
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-          variants={{
-            hidden: {},
-            visible: { transition: { staggerChildren: shouldReduceMotion ? 0 : 0.1 } },
-          }}
+          {...animations.FooterSocialList(shouldReduceMotion)}
         >
           <motion.li
             className="mr-5 shrink-0 transform text-xs"
-            variants={{ hidden: { opacity: 0, scale: 0.8 }, visible: { opacity: 1, scale: 1 } }}
-            transition={{ duration: shouldReduceMotion ? 0.15 : 0.2 }}
+            {...animations.FooterSocialItem(shouldReduceMotion)}
           >
             <a
               href="https://github.com/andre-marinho"
@@ -105,8 +94,7 @@ export default function Footer() {
           </motion.li>
           <motion.li
             className="mr-5 shrink-0 transform text-xs transition-colors duration-200"
-            variants={{ hidden: { opacity: 0, scale: 0.8 }, visible: { opacity: 1, scale: 1 } }}
-            transition={{ duration: shouldReduceMotion ? 0.15 : 0.2 }}
+            {...animations.FooterSocialItem(shouldReduceMotion)}
           >
             <a
               href="https://linkedin.com/in/andre-marinho-3318ab1aa"

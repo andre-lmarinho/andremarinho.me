@@ -4,33 +4,20 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { projects, techs } from '@/data';
 import { useMotion } from '@/context';
+import { animations } from '@/utils';
 
 export default function ProjectCard() {
   const { shouldReduceMotion } = useMotion();
   return (
     <motion.ul
       className="grid grid-cols-1 items-stretch gap-5 sm:grid-cols-2"
-      initial="hidden"
-      whileInView="visible"
-      viewport={{ once: true }}
-      variants={{
-        hidden: {},
-        visible: { transition: { staggerChildren: shouldReduceMotion ? 0 : 0.09 } },
-      }}
+      {...animations.ProjectList(shouldReduceMotion)}
     >
       {projects.map((project) => (
         <motion.li
           key={project.title}
           className="border-neutral-150 outline-hidden grid gap-2.5 overflow-hidden rounded-xl border px-5 py-4 transition-all focus-within:bg-neutral-100 hover:bg-neutral-100 focus:border-neutral-300 dark:border-neutral-800 dark:focus-within:bg-neutral-900 dark:hover:bg-neutral-900 dark:focus:border-neutral-700"
-          variants={{
-            hidden: shouldReduceMotion
-              ? { opacity: 0 }
-              : { opacity: 0, y: 12, scale: 0.95, boxShadow: '0 0 0 rgba(0,0,0,0)' },
-            visible: shouldReduceMotion
-              ? { opacity: 1 }
-              : { opacity: 1, y: 0, scale: 1, boxShadow: '0 5px 10px rgba(0,0,0,0.05)' },
-          }}
-          transition={{ duration: shouldReduceMotion ? 0.15 : 0.3 }}
+          {...animations.ProjectCard(shouldReduceMotion)}
         >
           <div className="group relative grid h-full gap-4 pb-1 transition-all lg:hover:!opacity-100 lg:group-hover/list:opacity-50">
             <div className="absolute -inset-x-4 -inset-y-4 z-0 hidden rounded-md transition motion-reduce:transition-none lg:-inset-x-6 lg:block lg:group-hover:bg-slate-100/10 lg:group-hover:shadow-[inset_0_1px_0_0_rgba(148,163,184,0.1)] lg:group-hover:drop-shadow-lg dark:lg:group-hover:bg-slate-800/50"></div>
@@ -75,21 +62,12 @@ export default function ProjectCard() {
               <motion.ul
                 className="mt-2 flex flex-wrap"
                 aria-label="Technologies used:"
-                initial="hidden"
-                animate="visible"
-                variants={{
-                  hidden: {},
-                  visible: { transition: { staggerChildren: shouldReduceMotion ? 0 : 0.06 } },
-                }}
+                {...animations.ProjectTechList(shouldReduceMotion)}
               >
                 {project.stacks.map((stack) => {
                   const tech = techs.find((t) => t.name === stack);
                   return (
-                    <motion.li
-                      key={stack}
-                      variants={{ hidden: { opacity: 0 }, visible: { opacity: 1 } }}
-                      transition={{ duration: shouldReduceMotion ? 0.15 : 0.2 }}
-                    >
+                    <motion.li key={stack} {...animations.ProjectTechItem(shouldReduceMotion)}>
                       <div className="flex items-center py-1 pr-3 text-sm leading-5 text-[var(--text-muted)]">
                         {tech && (
                           <img

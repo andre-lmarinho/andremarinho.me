@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { motion, useMotionValue } from 'framer-motion';
 import me from '@/assets/images/Me.jpg';
 import { useMotion as useMotionContext } from '@/context';
+import { animations } from '@/utils';
 
 export default function Hero() {
   const { shouldReduceMotion } = useMotionContext();
@@ -35,9 +36,7 @@ export default function Hero() {
         <div>
           <motion.h1
             className="flex gap-2 pb-4 text-3xl font-bold tracking-tight sm:text-4xl"
-            initial={shouldReduceMotion ? { opacity: 0 } : { opacity: 0, y: 12 }}
-            animate={shouldReduceMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
-            transition={{ duration: shouldReduceMotion ? 0.15 : 0.22 }}
+            {...animations.H1(shouldReduceMotion)}
           >
             <span className="text-[var(--text-primary)]">Hey! I'm André Marinho</span>
             <span
@@ -49,16 +48,7 @@ export default function Hero() {
           </motion.h1>
           <motion.div
             className="grid gap-4 leading-normal"
-            initial="hidden"
-            animate="visible"
-            variants={{
-              hidden: {},
-              visible: {
-                transition: {
-                  staggerChildren: shouldReduceMotion ? 0 : 0.04,
-                },
-              },
-            }}
+            {...animations.HeroParagraphContainer(shouldReduceMotion)}
           >
             {[
               "I'm a Front End Developer based in Salvador. I create elegant, business-driven interfaces through clean, strategic code.",
@@ -67,8 +57,7 @@ export default function Hero() {
               <motion.p
                 key={text}
                 className="sm:max-w-md"
-                variants={{ hidden: { opacity: 0 }, visible: { opacity: 1 } }}
-                transition={{ duration: shouldReduceMotion ? 0.15 : 0.2 }}
+                {...animations.HeroParagraph(shouldReduceMotion)}
               >
                 {text}
               </motion.p>
@@ -83,17 +72,7 @@ export default function Hero() {
           decoding="async"
           className="hidden h-44 w-44 transform-gpu rounded-full sm:block"
           src={me}
-          initial={
-            shouldReduceMotion
-              ? { opacity: 0 }
-              : { opacity: 0, scale: 0.6, y: -10, filter: 'blur(4px)' }
-          }
-          animate={
-            shouldReduceMotion
-              ? { opacity: 1 }
-              : { opacity: 1, scale: 1, y: 0, filter: 'blur(0px)' }
-          }
-          transition={{ duration: shouldReduceMotion ? 0.15 : 0.4 }}
+          {...animations.HeroImage(shouldReduceMotion)}
           style={{ x: tiltX, y: tiltY, color: 'transparent' }}
         />
       </div>

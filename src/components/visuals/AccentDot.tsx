@@ -3,6 +3,7 @@
 import { motion, useAnimation } from 'framer-motion';
 import { useEffect } from 'react';
 import { useMotion } from '@/context';
+import { animations } from '@/utils';
 
 function randomOffset() {
   const sign = Math.random() > 0.5 ? 1 : -1;
@@ -35,7 +36,7 @@ export default function AccentDot() {
     <motion.div
       aria-hidden="true"
       className="fixed left-4 top-4 z-20 h-2 w-2 rounded-full bg-accent-500"
-      initial={{ opacity: 0 }}
+      {...animations.AccentDot()}
       animate={controls}
     />
   );
