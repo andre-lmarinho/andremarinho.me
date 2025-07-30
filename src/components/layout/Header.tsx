@@ -4,6 +4,7 @@ import React from 'react';
 import { Sun, Moon } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { useTheme, useMotion } from '@/context';
+import { animations } from '@/utils';
 import me from '@/assets/images/Me.jpg';
 
 export default function Header() {
@@ -26,9 +27,7 @@ export default function Header() {
             className="rounded-full"
             style={{ color: 'transparent' }}
             src={me}
-            initial={shouldReduceMotion ? { opacity: 0 } : { opacity: 0, x: -8 }}
-            animate={shouldReduceMotion ? { opacity: 1 } : { opacity: 1, x: 0 }}
-            transition={{ duration: shouldReduceMotion ? 0.15 : 0.18 }}
+            {...animations.HeaderImage(shouldReduceMotion)}
           />
         </a>
         <motion.button
@@ -36,9 +35,7 @@ export default function Header() {
           className="glass group relative order-1 rounded-xl border border-gray-300/30 p-3 transition-all duration-300 hover:scale-110 hover:border-primary-500/50 dark:border-gray-600/30 md:order-2"
           aria-label="Toggle dark mode"
           aria-pressed={darkMode}
-          initial={shouldReduceMotion ? { opacity: 0 } : { opacity: 0, x: -8 }}
-          animate={shouldReduceMotion ? { opacity: 1 } : { opacity: 1, x: 0, y: [0, -1, 0] }}
-          transition={{ duration: shouldReduceMotion ? 0.15 : 0.18 }}
+          {...animations.DarkModeButton(shouldReduceMotion)}
         >
           {/* Hover background effect */}
           <span className="pointer-events-none absolute inset-0 rounded-xl bg-gradient-to-r from-primary-500/0 to-secondary-500/0 transition-all duration-300 group-hover:from-primary-500/20 group-hover:to-secondary-500/20"></span>
