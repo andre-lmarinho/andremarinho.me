@@ -26,10 +26,15 @@ export default function Header() {
       className="background-color/75 sticky top-0 z-10 py-2 backdrop-blur-xl sm:py-3"
     >
       <nav className="m-[0_auto] flex max-w-4xl items-center justify-between px-6 font-semibold sm:px-4">
-        <a href="/" aria-label="Visit André Marinho's website">
+        <a
+          className="grid grid-flow-col items-center overflow-hidden rounded-full"
+          href="/"
+          aria-label="Visit André Marinho's website"
+        >
           <motion.img
             alt="André Marinho"
             loading="lazy"
+            data-nimg="1"
             width={32}
             height={32}
             decoding="async"

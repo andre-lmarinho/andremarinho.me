@@ -8,13 +8,13 @@ import { animations } from '@/utils';
 export default function Footer() {
   const { shouldReduceMotion } = useMotion();
   return (
-    <footer id="footer" className="m-[0_auto] max-w-4xl px-6 py-8 text-sm sm:px-4">
+    <footer id="footer" className="m-[0_auto] max-w-4xl px-6 pt-8 text-sm sm:px-4">
       <div className="flex items-center justify-between py-4 text-sm">
         <motion.p {...animations.FooterParagraph(shouldReduceMotion)}>
           From{' '}
           <a
             href="https://www.figma.com/"
-            className="font-medium hover:text-teal-300 focus-visible:text-teal-300"
+            className="underline underline-offset-2"
             target="_blank"
             rel="noopener noreferrer"
             aria-label="Figma (opens in a new tab)"
@@ -24,7 +24,7 @@ export default function Footer() {
           to{' '}
           <a
             href="https://react.dev/"
-            className="font-medium hover:text-teal-300 focus-visible:text-teal-300"
+            className="underline underline-offset-2"
             target="_blank"
             rel="noopener noreferrer"
             aria-label="React (opens in a new tab)"
@@ -34,7 +34,7 @@ export default function Footer() {
           , through{' '}
           <a
             href="https://tailwindcss.com/"
-            className="font-medium hover:text-teal-300 focus-visible:text-teal-300"
+            className="underline underline-offset-2"
             target="_blank"
             rel="noopener noreferrer"
             aria-label="Tailwind CSS (opens in a new tab)"
@@ -44,7 +44,7 @@ export default function Footer() {
           and{' '}
           <a
             href="https://code.visualstudio.com/"
-            className="font-medium hover:text-teal-300 focus-visible:text-teal-300"
+            className="underline underline-offset-2"
             target="_blank"
             rel="noopener noreferrer"
             aria-label="VS Code (opens in a new tab)"
@@ -54,7 +54,7 @@ export default function Footer() {
           — now flying on{' '}
           <a
             href="https://vercel.com/"
-            className="font-medium hover:text-teal-300 focus-visible:text-teal-300"
+            className="underline underline-offset-2"
             target="_blank"
             rel="noopener noreferrer"
             aria-label="Vercel (opens in a new tab)"
@@ -76,7 +76,7 @@ export default function Footer() {
               href="https://github.com/andre-marinho"
               target="_blank"
               rel="noopener noreferrer"
-              className="relative block hover:text-[var(--text-primary)]"
+              className="relative block"
               aria-label="GitHub profile (opens in a new tab)"
               title="GitHub"
             >
@@ -100,7 +100,7 @@ export default function Footer() {
               href="https://linkedin.com/in/andre-marinho-3318ab1aa"
               target="_blank"
               rel="noopener noreferrer"
-              className="block hover:text-[var(--text-primary)]"
+              className="block"
               aria-label="LinkedIn profile (opens in a new tab)"
               title="LinkedIn"
             >

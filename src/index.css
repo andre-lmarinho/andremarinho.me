@@ -8,8 +8,7 @@
 :root {
   --color-accent: #37b3a8;
   --spotter: rgba(30, 59, 138, 0.055);
-  --text-primary: #20292f;
-  --text-body: #20292f;
+  --text-color: #20292f;
   --text-muted: #6b7481;
   --background: #ffffff;
 }
@@ -17,8 +16,7 @@
 .dark {
   --color-accent: #5eead4;
   --spotter: rgba(26, 72, 180, 0.15);
-  --text-primary: #f1f5f9;
-  --text-body: #f1f5f9;
+  --text-color: #f1f5f9;
   --text-muted: #94a3b8;
   --background: #111827;
 }
@@ -31,6 +29,7 @@ html {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   min-height: 100%;
+  color: var(--text-color);
 }
 
 body {
@@ -48,34 +47,6 @@ body {
 :focus-visible {
   outline: 2px solid var(--color-accent);
   outline-offset: 2px;
-}
-
-/* ================================
-   Typography Defaults
-   ================================ */
-
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  color: var(--text-primary);
-}
-
-p,
-span,
-li,
-ul,
-ol,
-blockquote,
-small,
-strong,
-em,
-label,
-input,
-textarea {
-  color: var(--text-body);
 }
 
 /* ========================

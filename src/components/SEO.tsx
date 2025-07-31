@@ -13,7 +13,7 @@ interface SEOProps {
 export default function SEO({
   title,
   description,
-  url = 'https://andre-lmarinho.github.io/Home/',
+  url = 'https://andremarinho.vercel.app/',
   image,
 }: SEOProps) {
   return (

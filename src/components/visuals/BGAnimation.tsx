@@ -9,12 +9,15 @@ import React from 'react';
 
 export default function AnimationBG() {
   return (
-    <div className="pointer-events-none fixed inset-0 -z-20 overflow-hidden" aria-hidden="true">
+    <div
+      className="pointer-events-none fixed inset-0 overflow-hidden opacity-50"
+      aria-hidden="true"
+    >
       {/* Top-right orb */}
-      <div className="absolute -right-40 -top-40 h-80 w-80 rounded-full bg-gradient-to-br from-primary-400 to-secondary-500 opacity-10 blur-3xl motion-safe:animate-float motion-reduce:animate-none" />
+      <div className="absolute -right-40 -top-40 h-80 w-80 rounded-full bg-gradient-to-br from-primary-400 to-secondary-500 opacity-20 blur-3xl motion-safe:animate-float motion-reduce:animate-none" />
 
       {/* Bottom-left orb */}
-      <div className="absolute -bottom-40 -left-40 h-96 w-96 rounded-full bg-gradient-to-tr from-accent-400 to-primary-500 opacity-10 blur-3xl motion-safe:animate-float motion-reduce:animate-none" />
+      <div className="absolute -bottom-40 -left-60 h-96 w-96 rounded-full bg-gradient-to-tr from-accent-400 to-primary-500 opacity-10 blur-3xl motion-safe:animate-float motion-reduce:animate-none" />
 
       {/* Animated mesh lines */}
       <div className="absolute inset-0 opacity-10 dark:opacity-10">

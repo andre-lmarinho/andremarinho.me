@@ -38,7 +38,7 @@ export default function Hero() {
             className="flex gap-2 pb-4 text-3xl font-bold tracking-tight sm:text-4xl"
             {...animations.H1(shouldReduceMotion)}
           >
-            <span className="text-[var(--text-primary)]">Hey! I'm André Marinho</span>
+            <span>Hey! I'm André Marinho</span>
             <span
               aria-hidden="true"
               className={`inline-block origin-[70%_70%] ${wave ? 'animate-wave' : ''}`}
@@ -66,6 +66,7 @@ export default function Hero() {
         </div>
         <motion.img
           alt="André Marinho"
+          data-nimg="1"
           loading="lazy"
           width={176}
           height={176}
