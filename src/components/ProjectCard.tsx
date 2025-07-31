@@ -68,7 +68,7 @@ export default function ProjectCard() {
                   const tech = techs.find((t) => t.name === stack);
                   return (
                     <motion.li key={stack} {...animations.ProjectTechItem(shouldReduceMotion)}>
-                      <div className="flex items-center py-1 pr-3 text-sm leading-5 text-[var(--text-muted)]">
+                      <div className="flex items-center py-1 pr-3">
                         {tech && (
                           <img
                             src={`https://cdn.simpleicons.org/${tech.icon}/${tech.color}`}
@@ -76,7 +76,7 @@ export default function ProjectCard() {
                             className="mr-1 inline-block h-3 w-3"
                           />
                         )}
-                        <span>{stack}</span>
+                        <span className="text-sm leading-5 text-[var(--text-muted)]">{stack}</span>
                       </div>
                     </motion.li>
                   );

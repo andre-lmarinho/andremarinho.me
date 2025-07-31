@@ -7,11 +7,28 @@
     <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
     <link rel="icon" href="/favicon.ico" />
     <title>André Marinho - Front End Developer</title>
+    <style>
+      html {
+        background-color: #fff;
+      }
+      html.dark {
+        background-color: #111827;
+      }
+    </style>
+    <script>
+      (function () {
+        const stored = localStorage.getItem('darkMode');
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        const dark = stored === 'true' || (stored === null && prefersDark);
+        if (dark) document.documentElement.classList.add('dark');
+        window.addEventListener('DOMContentLoaded', () => {
+          if (dark) document.body.classList.add('dark');
+          document.body.classList.add('transition-colors', 'duration-500');
+        });
+      })();
+    </script>
   </head>
-  <body
-    id="root"
-    class="text-body background-color relative min-h-screen transition-colors duration-500"
-  >
+  <body id="root" class="text-body background-color relative min-h-screen">
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>
