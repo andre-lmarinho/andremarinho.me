@@ -1,7 +1,7 @@
 // utils/themeToggle.ts
 import { easeOutQuad } from '@/utils/easings';
 
-export interface PixelBurstOptions {
+export interface themeToggleOptions {
   button: HTMLElement;
   darkMode: boolean;
   setDarkMode: (value: boolean) => void;
@@ -19,14 +19,14 @@ export default function themeToggle({
   shouldReduceMotion,
   cellSize = 140,
   durationMs = 900,
-}: PixelBurstOptions) {
+}: themeToggleOptions) {
   /* cancel any running burst */
   if (activeCleanup) {
     activeCleanup();
     activeCleanup = null;
   }
 
-  /* ───────── reduced-motion fallback ───────── */
+  /* reduced-motion fallback */
   if (shouldReduceMotion) {
     const overlay = document.createElement('div');
     Object.assign(overlay.style, {
@@ -52,7 +52,7 @@ export default function themeToggle({
     return;
   }
 
-  /* ───────── canvas setup ───────── */
+  /* canvas setup */
   const dpr = window.devicePixelRatio || 1;
   const w = window.innerWidth;
   const h = window.innerHeight;
@@ -79,7 +79,7 @@ export default function themeToggle({
   ctx.imageSmoothingEnabled = false;
   document.body.appendChild(canvas);
 
-  /* ───────── grid + distances ───────── */
+  /* grid + distances */
   const { left, top, width, height } = button.getBoundingClientRect();
   const cx = left + width / 2;
   const cy = top + height / 2;
@@ -101,7 +101,7 @@ export default function themeToggle({
   }
   cells.sort((a, b) => a.dist - b.dist); // ascending
 
-  /* ───────── paint screen with OLD color ───────── */
+  /* paint screen with OLD color */
   const oldColor = getComputedStyle(document.body).backgroundColor;
   ctx.fillStyle = oldColor;
   ctx.fillRect(0, 0, w, h);
@@ -110,7 +110,7 @@ export default function themeToggle({
   setDarkMode(!darkMode);
   document.documentElement.classList.toggle('dark', !darkMode);
 
-  /* ───────── animate: clear blocks inside radius ───────── */
+  /* animate: clear blocks inside radius */
   const start = performance.now();
   const frame = (now: number) => {
     const t = Math.min((now - start) / durationMs, 1);

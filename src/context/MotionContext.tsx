@@ -7,7 +7,7 @@ interface MotionContextValue {
   shouldReduceMotion: boolean;
 }
 
-const MotionContext = createContext<MotionContextValue>({ shouldReduceMotion: false });
+const MotionContext = createContext<MotionContextValue | undefined>(undefined);
 
 export function MotionProvider({ children }: { children: React.ReactNode }) {
   const [shouldReduceMotion, setShouldReduceMotion] = useState(false);
@@ -28,5 +28,7 @@ export function MotionProvider({ children }: { children: React.ReactNode }) {
 }
 
 export function useMotion() {
-  return useContext(MotionContext);
+  const context = useContext(MotionContext);
+  if (!context) throw new Error('useMotion must be used within MotionProvider');
+  return context;
 }

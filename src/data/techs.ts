@@ -13,3 +13,14 @@ export const techs: Tech[] = [
   { name: 'Node.js', icon: 'nodedotjs', color: '339933' },
   { name: 'SQL', icon: 'mysql', color: '4479A1' },
 ];
+
+export const techMap: Record<string, Tech> = techs.reduce(
+  (map, tech) => {
+    map[tech.name] = tech;
+    return map;
+  },
+  {} as Record<string, Tech>
+);
+
+export const getTechIconUrl = ({ icon, color }: Tech) =>
+  `https://cdn.simpleicons.org/${icon}/${color}`;

@@ -5,37 +5,39 @@ import React from 'react';
 export default function About() {
   return (
     <section id="about" aria-label="About me">
-      <div className="main-section-h2">
-        <h2 className="main-h2">About</h2>
+      <div>
+        <h2>About</h2>
       </div>
-      <div className="text-color-02">
+      <div>
         <p className="mb-4">
-          I’m a developer with a background that blends business, marketing, design, data, and code.
+          I’m a Front-End Developer who transforms digital strategies into impactful experiences by
+          blending technical elegance with strategic vision rooted in marketing and UX. My mission
+          is simple: craft interfaces that captivate visually and deliver tangible business
+          outcomes.
         </p>
         <p className="mb-4">
-          Before tech, I worked in logistics and finance. Those fields taught me how to think in
-          systems, optimize processes, and never underestimate the power of clean data. Later, I
-          transitioned into B2B marketing and web consulting, where I found my passion: creating
-          digital products that not only look great, but actually move the needle.
+          My professional path is unconventional yet powerful: transitioning from digital marketing
+          to web development has taught me that efficient code is most impactful when aligned with
+          real-world business goals. Today, I leverage React, Next.js, and TypeScript alongside my
+          analytical skills to build solutions that boost conversions, optimize performance, and
+          generate measurable value.
         </p>
         <p className="mb-4">
-          Today, I focus on building fast, accessible, and business-driven user interfaces using
-          Next.js, React, TypeScript, and modern tooling. My projects often start with data, evolve
-          through design, and are shaped by collaboration.
+          My competitive edge is the rare intersection of technical skill and strategic thinking. I
+          build high-performance interfaces, but what truly sets me apart is my deep understanding
+          of user behavior and commercial objectives—ensuring each project delivers more than code;
+          it delivers genuine business impact.
         </p>
         <p className="mb-4">
-          I’ve helped clients increase conversions, automate operations, and launch web experiences
-          that perform technically and strategically.
+          I’m a passionate believer in continuous learning and open collaboration. My self-driven
+          education, enhanced by Harvard’s CS50 course and active participation in global developer
+          communities, ensures that I remain at the forefront of technology and innovation.
         </p>
         <p className="mb-4">
-          Learning is a constant. I’ve completed Harvard’s CS50 and CS50w, and I’m currently diving
-          deeper into computer science through OSSU.
+          If you're looking for someone who not only masters technology but also knows how to
+          translate it into strategic success, let’s connect and explore how I can help your
+          business achieve greater heights.
         </p>
-        <p className="mb-4">
-          What drives me? Clean code, clear UX, and the belief that good development connects people
-          to value.
-        </p>
-        <p className="mb-4">Let’s build something that works beautifully.</p>
       </div>
     </section>
   );

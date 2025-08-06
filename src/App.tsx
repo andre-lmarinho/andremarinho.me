@@ -21,7 +21,6 @@ function AppContent() {
       <Suspense fallback={null}>
         <div>
           <AnimationBG />
-
           <CodeText />
         </div>
       </Suspense>

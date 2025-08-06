@@ -9,10 +9,7 @@ import React from 'react';
 
 export default function AnimationBG() {
   return (
-    <div
-      className="pointer-events-none fixed inset-0 overflow-hidden opacity-50"
-      aria-hidden="true"
-    >
+    <div className="pointer-events-none fixed inset-0 overflow-hidden" aria-hidden="true">
       {/* Top-right orb */}
       <div className="absolute -right-40 -top-40 h-80 w-80 rounded-full bg-gradient-to-br from-primary-400 to-secondary-500 opacity-20 blur-3xl motion-safe:animate-float motion-reduce:animate-none" />
 

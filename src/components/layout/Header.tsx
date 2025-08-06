@@ -2,9 +2,8 @@
 
 import React from 'react';
 import { Sun, Moon } from 'lucide-react';
-import { motion } from 'framer-motion';
 import { useTheme, useMotion } from '@/context';
-import { animations, themeToggle } from '@/utils';
+import { themeToggle } from '@/utils';
 import me from '@/assets/images/Me.jpg';
 
 export default function Header() {
@@ -31,7 +30,7 @@ export default function Header() {
           href="/"
           aria-label="Visit André Marinho's website"
         >
-          <motion.img
+          <img
             alt="André Marinho"
             loading="lazy"
             data-nimg="1"
@@ -41,15 +40,13 @@ export default function Header() {
             className="rounded-full"
             style={{ color: 'transparent' }}
             src={me}
-            {...animations.HeaderImage(shouldReduceMotion)}
           />
         </a>
-        <motion.button
+        <button
           onClick={handleToggle}
           className="glass group relative order-1 rounded-xl border border-gray-300/30 p-3 transition-all duration-300 hover:scale-110 hover:border-primary-500/50 dark:border-gray-600/30 md:order-2"
           aria-label="Toggle dark mode"
           aria-pressed={darkMode}
-          {...animations.DarkModeButton(shouldReduceMotion)}
         >
           {/* Hover background effect */}
           <span className="pointer-events-none absolute inset-0 rounded-xl bg-gradient-to-r from-primary-500/0 to-secondary-500/0 transition-all duration-300 group-hover:from-primary-500/20 group-hover:to-secondary-500/20"></span>
@@ -65,7 +62,7 @@ export default function Header() {
             aria-hidden="true"
             className="hidden h-5 w-5 text-amber-500 transition-all duration-300 group-hover:rotate-180 dark:block"
           />
-        </motion.button>
+        </button>
       </nav>
     </header>
   );

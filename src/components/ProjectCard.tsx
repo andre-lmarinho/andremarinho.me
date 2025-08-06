@@ -1,20 +1,13 @@
 // src/components/ui/ProjectCard.tsx
 
 import React from 'react';
-import { motion } from 'framer-motion';
-import { projects, techs } from '@/data';
-import { useMotion } from '@/context';
-import { animations } from '@/utils';
+import { projects, techMap, getTechIconUrl } from '@/data';
 
 export default function ProjectCard() {
-  const { shouldReduceMotion } = useMotion();
   return (
-    <motion.ul
-      className="grid grid-cols-1 items-stretch gap-5 sm:grid-cols-2"
-      {...animations.ProjectList(shouldReduceMotion)}
-    >
+    <ul className="grid grid-cols-1 items-stretch gap-5 sm:grid-cols-2">
       {projects.map((project) => (
-        <motion.li key={project.title} {...animations.ProjectCard(shouldReduceMotion)}>
+        <li key={project.title}>
           <a
             className="border-neutral-150 outline-hidden grid gap-2.5 overflow-hidden rounded-xl border px-5 py-4 focus-within:bg-neutral-100 hover:bg-neutral-100 focus:border-neutral-300 dark:border-neutral-800 dark:focus-within:bg-neutral-900 dark:hover:bg-neutral-900 dark:focus:border-neutral-700"
             href={project.siteLink}
@@ -29,34 +22,30 @@ export default function ProjectCard() {
                 <p className="mt-2 text-sm leading-normal text-[var(--text-muted)]">
                   {project.description}
                 </p>
-                <motion.ul
-                  className="mt-2 flex flex-wrap"
-                  aria-label="Technologies used:"
-                  {...animations.ProjectTechList(shouldReduceMotion)}
-                >
+                <ul className="mt-2 flex flex-wrap" aria-label="Technologies used:">
                   {project.stacks.map((stack) => {
-                    const tech = techs.find((t) => t.name === stack);
+                    const tech = techMap[stack];
                     return (
-                      <motion.li key={stack} {...animations.ProjectTechItem(shouldReduceMotion)}>
+                      <li key={stack}>
                         <div className="flex items-center py-1 pr-3 text-sm leading-5">
                           {tech && (
                             <img
-                              src={`https://cdn.simpleicons.org/${tech.icon}/${tech.color}`}
+                              src={getTechIconUrl(tech)}
                               alt={`${tech.name} logo`}
                               className="mr-1 inline-block h-3 w-3"
                             />
                           )}
                           <span className="text-[var(--text-muted)]">{stack}</span>
                         </div>
-                      </motion.li>
+                      </li>
                     );
                   })}
-                </motion.ul>
+                </ul>
               </div>
             </div>
           </a>
-        </motion.li>
+        </li>
       ))}
-    </motion.ul>
+    </ul>
   );
 }
