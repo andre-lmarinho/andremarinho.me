@@ -3,7 +3,7 @@
 This repository powers **André Marinho’s personal portfolio**, a modern React + TypeScript SPA built with Vite and Tailwind CSS, showcasing dynamic UI features, SEO, and smooth user experiences.
 
 🔗 [Live Demo](https://andremarinho.vercel.app/)
-_or_ deploy easily to Vercel or Netlify with the same settings.
+_or_ deploy easily to Vercel with the same settings.
 
 ---
 
@@ -79,7 +79,8 @@ _or_ deploy easily to Vercel or Netlify with the same settings.
 - `npm run dev` — start Vite dev server
 - `npm run build` — generate production build in `/dist`
 - `npm run preview` — serve `/dist` locally
-- `npm run deploy` — _(optional)_ build & publish to GitHub Pages (requires `predeploy` script)
+- `npm run typecheck` — run TypeScript type checks
+- `npm run vercel:build` — test a Vercel deployment build
 - `npm run lint` — check code with ESLint
 - `npm run format` — format files with Prettier
 - `npm test` — run Vitest
@@ -91,23 +92,22 @@ Before submitting changes, ensure the following commands pass:
 ```bash
 npm run format
 npm run lint
+npm run typecheck
 npm test
+npm run vercel:build
 ```
 
 ---
 
 ## ☁️ Deployment
 
-**GitHub Actions:**
-You can automate deployment to `gh-pages` using a workflow file.
-
-**Manual (gh-pages):**
+This project is deployed via [Vercel](https://vercel.com/). To verify a deployment build locally, run:
 
 ```bash
-npm run deploy
+npm run vercel:build
 ```
 
-Then visit `https://<username>.github.io/<repo>/`.
+The output in `.vercel/output` can then be deployed through Vercel.
 
 ---
 

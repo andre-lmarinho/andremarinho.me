@@ -2,7 +2,6 @@
   "name": "personal-portfolio",
   "version": "0.0.1",
   "private": true,
-  "homepage": "https://andre-lmarinho.github.io/Home",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
@@ -10,8 +9,8 @@
     "test": "vitest",
     "lint": "eslint . --ext .ts,.tsx",
     "format": "prettier --write \"**/*.{js,jsx,ts,tsx,css,md}\"",
-    "predeploy": "npm run build",
-    "deploy": "gh-pages -d dist"
+    "typecheck": "tsc --noEmit",
+    "vercel:build": "npx vercel build --yes"
   },
   "dependencies": {
     "framer-motion": "^11.18.2",
@@ -33,7 +32,6 @@
     "eslint": "^9.30.1",
     "eslint-plugin-react": "^7.29.0",
     "eslint-plugin-react-hooks": "^5.2.0",
-    "gh-pages": "^5.0.0",
     "jsdom": "^26.1.0",
     "postcss": "^8.4.38",
     "prettier": "^3.6.2",
