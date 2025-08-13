@@ -23,4 +23,18 @@ export const projects: Project[] = [
     siteLink: '#',
     stacks: ['React', 'TypeScript'],
   },
+  {
+    title: 'Roltek',
+    arialabel: 'Roltek industrial distribution website',
+    description: 'Industrial distributor site for bearings, belts, and maintenance supplies.',
+    siteLink: 'https://www.roltek.com.br/',
+    stacks: ['WordPress', 'JavaScript'],
+  },
+  {
+    title: 'TD Advocacia',
+    arialabel: 'TD Advocacia & Consultoria Empresarial website',
+    description: 'Corporate law & data protection firm website.',
+    siteLink: 'https://doreaadv.com/',
+    stacks: ['WordPress', 'JavaScript'],
+  },
 ];

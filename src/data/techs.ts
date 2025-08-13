@@ -12,6 +12,7 @@ export const techs: Tech[] = [
   { name: 'Bootstrap', icon: 'bootstrap', color: '7952B3' },
   { name: 'Node.js', icon: 'nodedotjs', color: '339933' },
   { name: 'SQL', icon: 'mysql', color: '4479A1' },
+  { name: 'WordPress', icon: 'wordpress', color: '21759B' },
 ];
 
 export const techMap: Record<string, Tech> = techs.reduce(
