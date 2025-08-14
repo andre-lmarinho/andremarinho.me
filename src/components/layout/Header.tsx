@@ -33,12 +33,10 @@ export default function Header() {
           <img
             alt="André Marinho"
             loading="lazy"
-            data-nimg="1"
             width={32}
             height={32}
             decoding="async"
             className="rounded-full"
-            style={{ color: 'transparent' }}
             src={me}
           />
         </a>
