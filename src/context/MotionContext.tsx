@@ -1,7 +1,7 @@
 // src/context/MotionContext.tsx
 
 import React, { createContext, useContext, useEffect, useState } from 'react';
-import { AnimatePresence as FMAnimatePresence } from 'framer-motion';
+import { AnimatePresence } from 'framer-motion';
 
 interface MotionContextValue {
   shouldReduceMotion: boolean;
@@ -9,12 +9,7 @@ interface MotionContextValue {
 
 const MotionContext = createContext<MotionContextValue | undefined>(undefined);
 
-// Wrapper around framer-motion's AnimatePresence to normalise return type
-const SafeAnimatePresence = FMAnimatePresence as unknown as React.FC<{ children: React.ReactNode }>;
-
-function AnimatePresenceWrapper({ children }: { children: React.ReactNode }): React.ReactElement {
-  return <SafeAnimatePresence>{children}</SafeAnimatePresence>;
-}
+const TypedAnimatePresence = AnimatePresence as React.FC<{ children: React.ReactNode }>;
 
 export function MotionProvider({ children }: { children: React.ReactNode }) {
   const [shouldReduceMotion, setShouldReduceMotion] = useState(false);
@@ -29,7 +24,7 @@ export function MotionProvider({ children }: { children: React.ReactNode }) {
 
   return (
     <MotionContext.Provider value={{ shouldReduceMotion }}>
-      <AnimatePresenceWrapper>{children}</AnimatePresenceWrapper>
+      <TypedAnimatePresence>{children}</TypedAnimatePresence>
     </MotionContext.Provider>
   );
 }
