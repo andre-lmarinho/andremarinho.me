@@ -4,7 +4,7 @@ import React from 'react';
 
 export default function Footer() {
   return (
-    <footer id="footer" className="m-[0_auto] max-w-4xl px-6 pt-8 text-sm sm:px-4">
+    <footer id="footer" className="mx-auto max-w-4xl px-6 pt-8 text-sm sm:px-4">
       <div className="flex items-center justify-between py-4 text-sm">
         <p>
           From{' '}
