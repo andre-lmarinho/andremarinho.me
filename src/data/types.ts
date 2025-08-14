@@ -2,7 +2,7 @@
 
 export interface Project {
   title: string;
-  arialabel: string;
+  ariaLabel: string;
   description: string;
   siteLink: string;
   stacks: string[];

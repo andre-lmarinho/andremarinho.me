@@ -13,7 +13,7 @@ export default function ProjectCard() {
             href={project.siteLink}
             target="_blank"
             rel="noreferrer noopener"
-            aria-label={`${project.arialabel} (opens in a new tab)`}
+            aria-label={`${project.ariaLabel} (opens in a new tab)`}
           >
             <div className="group relative grid h-full gap-4 pb-1 lg:hover:!opacity-100 lg:group-hover/list:opacity-50">
               <div className="sm:order-2 sm:col-span-6">
