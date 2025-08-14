@@ -9,18 +9,26 @@ import { useState, useEffect } from 'react';
  * - Defaults to dark mode if neither is available.
  */
 export default function useDarkMode(initial?: boolean): [boolean, (value: boolean) => void] {
-  const getInitialDarkMode = (): boolean => {
-    const stored = localStorage.getItem('darkMode');
-    if (stored !== null) return stored === 'true';
-    if (initial !== undefined) return initial;
+  const isBrowser = typeof window !== 'undefined';
 
-    const prefersDark = window.matchMedia?.('(prefers-color-scheme: dark)');
-    return prefersDark?.matches ?? true; // defaults to dark mode
+  const getInitialDarkMode = (): boolean => {
+    if (isBrowser) {
+      const stored = window.localStorage.getItem('darkMode');
+      if (stored !== null) return stored === 'true';
+      if (initial !== undefined) return initial;
+
+      const prefersDark = window.matchMedia?.('(prefers-color-scheme: dark)');
+      return prefersDark?.matches ?? true; // defaults to dark mode
+    }
+
+    return initial ?? true; // safe fallback outside the browser
   };
 
   const [darkMode, setDarkModeState] = useState(getInitialDarkMode);
 
   useEffect(() => {
+    if (!isBrowser) return;
+
     const html = document.documentElement;
     const body = document.body;
 
@@ -32,8 +40,8 @@ export default function useDarkMode(initial?: boolean): [boolean, (value: boolea
       body.classList.remove('dark');
     }
 
-    localStorage.setItem('darkMode', String(darkMode));
-  }, [darkMode]);
+    window.localStorage.setItem('darkMode', String(darkMode));
+  }, [darkMode, isBrowser]);
 
   const setDarkMode = (value: boolean) => {
     setDarkModeState(value);
