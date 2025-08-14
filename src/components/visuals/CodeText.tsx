@@ -15,30 +15,19 @@ const aqua = 'text-[#4ec9b0]'; // types/objects
 const pink = 'text-[#c586c0]'; // control flow / returns
 
 export default function CodeText() {
-  const coords = useMouseCoords();
-  const [, setTick] = useState(0);
   const [enabled, setEnabled] = useState(false);
+  useMouseCoords(enabled);
 
   useEffect(() => {
     if (!isDesktop()) return;
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
     setEnabled(true);
-
-    let frameId: number;
-    const tick = () => {
-      setTick((t) => t + 1);
-      frameId = requestAnimationFrame(tick);
-    };
-
-    frameId = requestAnimationFrame(tick);
-    return () => cancelAnimationFrame(frameId);
   }, []);
 
   if (!enabled) return null;
 
-  const x = coords.current.x + window.scrollX;
-  const y = coords.current.y + window.scrollY;
-  const mask = `radial-gradient(160px at ${x}px ${y}px, rgba(0, 0, 0, 1) 20%, rgba(0, 0, 0, 0) 60%)`;
+  const mask =
+    'radial-gradient(160px at var(--cursor-x) var(--cursor-y), rgba(0, 0, 0, 1) 20%, rgba(0, 0, 0, 0) 60%)';
 
   return (
     <div
