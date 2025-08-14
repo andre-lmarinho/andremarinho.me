@@ -17,11 +17,10 @@ export default function useDarkMode(initial?: boolean): [boolean, (value: boolea
       if (stored !== null) return stored === 'true';
       if (initial !== undefined) return initial;
 
-      const prefersDark = window.matchMedia?.('(prefers-color-scheme: dark)');
-      return prefersDark?.matches ?? true; // defaults to dark mode
+      return window.matchMedia ? window.matchMedia('(prefers-color-scheme: dark)').matches : false; // safe fallback
     }
 
-    return initial ?? true; // safe fallback outside the browser
+    return initial ?? false; // safe fallback outside the browser
   };
 
   const [darkMode, setDarkModeState] = useState(getInitialDarkMode);
@@ -29,14 +28,18 @@ export default function useDarkMode(initial?: boolean): [boolean, (value: boolea
   useEffect(() => {
     if (!isBrowser) return;
 
-    const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+    const html = document.documentElement;
+    const body = document.body;
+
+    let mediaQuery: MediaQueryList | undefined;
     const handleChange = (event: MediaQueryListEvent) => {
       setDarkModeState(event.matches);
     };
-    mediaQuery.addEventListener('change', handleChange);
 
-    const html = document.documentElement;
-    const body = document.body;
+    if (window.matchMedia) {
+      mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+      mediaQuery.addEventListener('change', handleChange);
+    }
 
     if (darkMode) {
       html.classList.add('dark');
@@ -49,7 +52,7 @@ export default function useDarkMode(initial?: boolean): [boolean, (value: boolea
     window.localStorage.setItem('darkMode', String(darkMode));
 
     return () => {
-      mediaQuery.removeEventListener('change', handleChange);
+      mediaQuery?.removeEventListener('change', handleChange);
     };
   }, [darkMode, isBrowser]);
 

@@ -15,6 +15,10 @@ export function MotionProvider({ children }: { children: ReactNode }) {
   const [shouldReduceMotion, setShouldReduceMotion] = useState(false);
 
   useEffect(() => {
+    if (!window.matchMedia) {
+      setShouldReduceMotion(false);
+      return;
+    }
     const query = window.matchMedia('(prefers-reduced-motion: reduce)');
     const update = () => setShouldReduceMotion(query.matches);
     update();
