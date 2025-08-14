@@ -23,8 +23,15 @@ export default function CodeText() {
     if (!isDesktop()) return;
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
     setEnabled(true);
-    const interval = setInterval(() => setTick((t) => t + 1), 16);
-    return () => clearInterval(interval);
+
+    let frameId: number;
+    const tick = () => {
+      setTick((t) => t + 1);
+      frameId = requestAnimationFrame(tick);
+    };
+
+    frameId = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(frameId);
   }, []);
 
   if (!enabled) return null;
