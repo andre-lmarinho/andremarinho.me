@@ -41,8 +41,6 @@ export default function themeToggle({
     document.body.appendChild(overlay);
     /* theme swap (instant) */
     setDarkMode(!darkMode);
-    document.documentElement.classList.toggle('dark', !darkMode);
-    document.body.classList.toggle('dark', !darkMode);
 
     requestAnimationFrame(() => (overlay.style.opacity = '0'));
     const id = setTimeout(() => overlay.remove(), 210);
@@ -73,8 +71,6 @@ export default function themeToggle({
   const ctx = canvas.getContext('2d');
   if (!ctx) {
     setDarkMode(!darkMode);
-    document.documentElement.classList.toggle('dark', !darkMode);
-    document.body.classList.toggle('dark', !darkMode);
     return;
   }
   ctx.scale(dpr, dpr);
@@ -110,8 +106,6 @@ export default function themeToggle({
 
   /* swap theme immediately so new colors are under the canvas */
   setDarkMode(!darkMode);
-  document.documentElement.classList.toggle('dark', !darkMode);
-  document.body.classList.toggle('dark', !darkMode);
 
   /* animate: clear blocks inside radius */
   const start = performance.now();
