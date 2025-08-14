@@ -6,6 +6,8 @@ export default function useMouseCoords() {
   const coords = useRef({ x: 0, y: 0 });
 
   useEffect(() => {
+    if (typeof window === 'undefined') return;
+
     const update = (e: MouseEvent | TouchEvent) => {
       if ('touches' in e) {
         const touch = e.touches[0];
