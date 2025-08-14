@@ -20,7 +20,10 @@ export default function CodeText() {
 
   useEffect(() => {
     if (!isDesktop()) return;
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    const reduceMotion = window.matchMedia
+      ? window.matchMedia('(prefers-reduced-motion: reduce)').matches
+      : false;
+    if (reduceMotion) return;
     setEnabled(true);
   }, []);
 
