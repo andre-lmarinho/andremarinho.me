@@ -15,12 +15,14 @@ export default function useMouseCoords() {
       }
     };
 
-    window.addEventListener('mousemove', update);
-    window.addEventListener('touchmove', update);
+    const options: AddEventListenerOptions = { passive: true };
+
+    window.addEventListener('touchmove', update as (e: TouchEvent) => void, options);
+    window.addEventListener('mousemove', update as (e: MouseEvent) => void, options);
 
     return () => {
-      window.removeEventListener('mousemove', update);
-      window.removeEventListener('touchmove', update);
+      window.removeEventListener('touchmove', update as (e: TouchEvent) => void, options);
+      window.removeEventListener('mousemove', update as (e: MouseEvent) => void, options);
     };
   }, []);
 
