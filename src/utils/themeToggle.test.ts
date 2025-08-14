@@ -4,6 +4,7 @@ import themeToggle from './themeToggle';
 describe('themeToggle', () => {
   beforeEach(() => {
     document.documentElement.classList.remove('dark');
+    document.body.classList.remove('dark');
     document.body.innerHTML = '';
     vi.useFakeTimers();
   });
@@ -22,6 +23,7 @@ describe('themeToggle', () => {
 
     expect(setDarkMode).toHaveBeenCalledWith(true);
     expect(document.documentElement.classList.contains('dark')).toBe(true);
+    expect(document.body.classList.contains('dark')).toBe(true);
   });
 
   it('cleans up previous overlay on subsequent calls', () => {
@@ -32,9 +34,11 @@ describe('themeToggle', () => {
     themeToggle({ button, darkMode: false, setDarkMode, shouldReduceMotion: true });
     const overlay = document.body.lastElementChild as HTMLElement;
     expect(overlay).toBeTruthy();
+    expect(document.body.classList.contains('dark')).toBe(true);
 
     themeToggle({ button, darkMode: true, setDarkMode, shouldReduceMotion: true });
     expect(overlay.isConnected).toBe(false);
     expect(document.documentElement.classList.contains('dark')).toBe(false);
+    expect(document.body.classList.contains('dark')).toBe(false);
   });
 });
