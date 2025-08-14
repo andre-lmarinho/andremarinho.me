@@ -17,7 +17,10 @@ export default function useDarkMode(initial?: boolean): [boolean, (value: boolea
       if (stored !== null) return stored === 'true';
       if (initial !== undefined) return initial;
 
-      const prefersDark = window.matchMedia?.('(prefers-color-scheme: dark)');
+      const prefersDark =
+        typeof window.matchMedia === 'function'
+          ? window.matchMedia('(prefers-color-scheme: dark)')
+          : undefined;
       return prefersDark?.matches ?? true; // defaults to dark mode
     }
 
@@ -29,11 +32,14 @@ export default function useDarkMode(initial?: boolean): [boolean, (value: boolea
   useEffect(() => {
     if (!isBrowser) return;
 
-    const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+    const mediaQuery =
+      typeof window.matchMedia === 'function'
+        ? window.matchMedia('(prefers-color-scheme: dark)')
+        : null;
     const handleChange = (event: MediaQueryListEvent) => {
       setDarkModeState(event.matches);
     };
-    mediaQuery.addEventListener('change', handleChange);
+    mediaQuery?.addEventListener('change', handleChange);
 
     const html = document.documentElement;
     const body = document.body;
@@ -49,7 +55,7 @@ export default function useDarkMode(initial?: boolean): [boolean, (value: boolea
     window.localStorage.setItem('darkMode', String(darkMode));
 
     return () => {
-      mediaQuery.removeEventListener('change', handleChange);
+      mediaQuery?.removeEventListener('change', handleChange);
     };
   }, [darkMode, isBrowser]);
 
