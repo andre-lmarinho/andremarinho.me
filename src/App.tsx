@@ -11,7 +11,7 @@ function AppContent() {
     <>
       <Header />
 
-      <main id="main" className="m-[0_auto] max-w-4xl px-6 sm:px-4">
+      <main id="main" className="mx-auto max-w-4xl px-6 sm:px-4">
         <Hero />
         <Projects />
       </main>
