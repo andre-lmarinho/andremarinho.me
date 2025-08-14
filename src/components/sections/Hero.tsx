@@ -35,7 +35,6 @@ export default function Hero() {
         </div>
         <img
           alt="André Marinho"
-          data-nimg="1"
           loading="lazy"
           width={176}
           height={176}
