@@ -22,7 +22,7 @@ export default function Header() {
   return (
     <header
       id="header"
-      className="background-color/75 sticky top-0 z-10 py-2 backdrop-blur-xl sm:py-3"
+      className="sticky top-0 z-10 bg-white/75 py-2 backdrop-blur-xl dark:bg-gray-900/75 sm:py-3"
     >
       <nav className="m-[0_auto] flex max-w-4xl items-center justify-between px-6 font-semibold sm:px-4">
         <a
