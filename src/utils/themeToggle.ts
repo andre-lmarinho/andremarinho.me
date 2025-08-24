@@ -12,6 +12,14 @@ export interface themeToggleOptions {
 
 let activeCleanup: (() => void) | null = null;
 
+function getBackgroundColor(): string {
+  const rootColor = getComputedStyle(document.documentElement).backgroundColor;
+  if (rootColor && rootColor !== 'rgba(0, 0, 0, 0)' && rootColor !== 'transparent') {
+    return rootColor;
+  }
+  return getComputedStyle(document.body).backgroundColor;
+}
+
 export default function themeToggle({
   button,
   darkMode,
@@ -32,7 +40,7 @@ export default function themeToggle({
     Object.assign(overlay.style, {
       position: 'fixed',
       inset: '0',
-      background: getComputedStyle(document.documentElement).backgroundColor,
+      background: getBackgroundColor(),
       pointerEvents: 'none',
       transition: 'opacity 200ms',
       zIndex: '9999',
@@ -100,7 +108,7 @@ export default function themeToggle({
   cells.sort((a, b) => a.dist - b.dist); // ascending
 
   /* paint screen with OLD color */
-  const oldColor = getComputedStyle(document.documentElement).backgroundColor;
+  const oldColor = getBackgroundColor();
   ctx.fillStyle = oldColor;
   ctx.fillRect(0, 0, w, h);
 

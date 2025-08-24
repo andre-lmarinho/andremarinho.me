@@ -40,6 +40,18 @@ describe('themeToggle', () => {
     expect(overlay.style.background).toBe('rgb(17, 24, 39)');
   });
 
+  it('falls back to body background color if root is transparent', () => {
+    document.documentElement.style.backgroundColor = 'transparent';
+    document.body.style.backgroundColor = '#111827';
+    const button = document.createElement('button');
+    document.body.appendChild(button);
+    const setDarkMode = vi.fn();
+
+    themeToggle({ button, darkMode: false, setDarkMode, shouldReduceMotion: true });
+    const overlay = document.body.lastElementChild as HTMLElement;
+    expect(overlay.style.background).toBe('rgb(17, 24, 39)');
+  });
+
   it('cleans up previous overlay on subsequent calls', () => {
     const button = document.createElement('button');
     document.body.appendChild(button);
