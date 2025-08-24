@@ -5,6 +5,8 @@ describe('themeToggle', () => {
   beforeEach(() => {
     document.documentElement.classList.remove('dark');
     document.body.classList.remove('dark');
+    document.documentElement.style.backgroundColor = '';
+    document.body.style.backgroundColor = '';
     document.body.innerHTML = '';
     vi.useFakeTimers();
   });
@@ -24,6 +26,18 @@ describe('themeToggle', () => {
     expect(setDarkMode).toHaveBeenCalledWith(true);
     expect(document.documentElement.classList.contains('dark')).toBe(false);
     expect(document.body.classList.contains('dark')).toBe(false);
+  });
+
+  it('uses root background color for overlay', () => {
+    document.documentElement.style.backgroundColor = '#111827';
+    document.body.style.backgroundColor = '#ffffff';
+    const button = document.createElement('button');
+    document.body.appendChild(button);
+    const setDarkMode = vi.fn();
+
+    themeToggle({ button, darkMode: false, setDarkMode, shouldReduceMotion: true });
+    const overlay = document.body.lastElementChild as HTMLElement;
+    expect(overlay.style.background).toBe('rgb(17, 24, 39)');
   });
 
   it('cleans up previous overlay on subsequent calls', () => {

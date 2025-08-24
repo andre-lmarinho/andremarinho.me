@@ -32,7 +32,7 @@ export default function themeToggle({
     Object.assign(overlay.style, {
       position: 'fixed',
       inset: '0',
-      background: getComputedStyle(document.body).backgroundColor,
+      background: getComputedStyle(document.documentElement).backgroundColor,
       pointerEvents: 'none',
       transition: 'opacity 200ms',
       zIndex: '9999',
@@ -100,7 +100,7 @@ export default function themeToggle({
   cells.sort((a, b) => a.dist - b.dist); // ascending
 
   /* paint screen with OLD color */
-  const oldColor = getComputedStyle(document.body).backgroundColor;
+  const oldColor = getComputedStyle(document.documentElement).backgroundColor;
   ctx.fillStyle = oldColor;
   ctx.fillRect(0, 0, w, h);
 
