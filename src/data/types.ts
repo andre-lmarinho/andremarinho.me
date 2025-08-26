@@ -6,6 +6,7 @@ export interface Project {
   description: string;
   siteLink: string;
   stacks: string[];
+  tag?: string;
 }
 
 export interface Tech {

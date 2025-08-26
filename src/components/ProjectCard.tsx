@@ -21,8 +21,14 @@ export default function ProjectCard() {
             >
               <div className="group relative grid h-full gap-4 pb-1 lg:hover:!opacity-100 lg:group-hover/list:opacity-50">
                 <div className="sm:order-2 sm:col-span-6">
-                  <h3 className="font-medium leading-snug">{project.title}</h3>
-
+                  <h3 className="font-medium leading-snug">
+                    {project.title}
+                    {project.tag && (
+                      <span className="mb-2 ml-5 inline-block rounded-full bg-neutral-200 px-2 py-0.5 text-xs font-medium text-neutral-800 dark:bg-neutral-700 dark:text-neutral-200">
+                        {project.tag}
+                      </span>
+                    )}
+                  </h3>
                   <p className="mt-2 text-sm leading-normal text-[var(--text-muted)]">
                     {project.description}
                   </p>
