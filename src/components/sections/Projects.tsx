@@ -6,7 +6,7 @@ import { ProjectCard } from '@/components';
 export default function Projects() {
   return (
     <section id="projects" aria-label="Selected projects">
-      <h2 className="my-6 block text-lg font-bold">Selected Projects</h2>
+      <h2 className="my-6 block text-lg font-bold">Projects</h2>
       <ProjectCard />
     </section>
   );

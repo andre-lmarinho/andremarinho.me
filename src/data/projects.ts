@@ -7,6 +7,7 @@ export const projects: Project[] = [
     ariaLabel: 'Turistar travel planner',
     description: 'Interactive trip planner with drag-and-drop features. 🗺️',
     siteLink: 'https://travel-planner-orpin.vercel.app/',
+    tag: 'Selected Project',
     stacks: ['Next.js', 'TypeScript'],
   },
   {
