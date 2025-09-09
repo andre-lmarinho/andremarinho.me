@@ -10,11 +10,13 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <HelmetProvider>
       <SEO
-        title="André Marinho - Front End Developer"
-        description="André Marinho’s portfolio."
+        title="André Marinho - Front-End Developer"
+        description="Front-End Developer based in Salvador. I craft fast, accessible, and business-driven interfaces with React and TypeScript."
         url="https://andremarinho.vercel.app/"
+        image="https://github.com/andre-marinho.png"
       />
       <App />
     </HelmetProvider>
   </React.StrictMode>
 );
+

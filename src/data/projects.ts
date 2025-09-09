@@ -5,7 +5,7 @@ export const projects: Project[] = [
   {
     title: 'Turistar App',
     ariaLabel: 'Turistar travel planner',
-    description: 'Interactive trip planner with drag-and-drop features. 🗺️',
+    description: 'Interactive trip planner with drag-and-drop features. 🚀',
     siteLink: 'https://travel-planner-orpin.vercel.app/',
     tag: 'Selected',
     stacks: ['Next.js', 'TypeScript'],
@@ -20,7 +20,7 @@ export const projects: Project[] = [
   {
     title: 'Personal Portfolio',
     ariaLabel: 'Personal portfolio',
-    description: 'A clean and responsive single-page portfolio with smooth animations. 🚀',
+    description: 'A clean and responsive single-page portfolio with smooth animations. 🎯',
     siteLink: '#',
     stacks: ['React', 'TypeScript'],
   },
@@ -32,3 +32,4 @@ export const projects: Project[] = [
     stacks: ['WordPress', 'JavaScript'],
   },
 ];
+

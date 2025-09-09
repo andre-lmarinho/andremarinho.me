@@ -102,7 +102,7 @@ export default function SEO({
       <meta property="og:url" content={url} />
       <meta property="og:site_name" content={siteName} />
       <meta property="og:locale" content={locale} />
-      {imageAbs && <meta property="og:image" content={imageAbs} />}
+      {imageAbs && <meta property="og:image" content={imageAbs} />} 
       {imageAbs && <meta property="og:image:alt" content={`${title} — ${siteName}`} />}
 
       {/* Twitter */}
@@ -113,7 +113,7 @@ export default function SEO({
       {twitterCreator && <meta name="twitter:creator" content={twitterCreator} />}
       {imageAbs && <meta name="twitter:image" content={imageAbs} />}
 
-      {/* App & theme colors */}
+      {/* App & theme */}
       <meta name="application-name" content={siteName} />
       <meta name="apple-mobile-web-app-title" content={siteName} />
 
@@ -122,3 +122,4 @@ export default function SEO({
     </Helmet>
   );
 }
+
