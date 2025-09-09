@@ -13,7 +13,6 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
         title="André Marinho - Front End Developer"
         description="André Marinho’s portfolio."
         url="https://andremarinho.vercel.app/"
-        image=""
       />
       <App />
     </HelmetProvider>
