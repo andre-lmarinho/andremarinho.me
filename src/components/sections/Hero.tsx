@@ -1,7 +1,7 @@
 // src/components/sections/Hero.tsx
 
 import React, { useEffect, useState } from 'react';
-import me from '@/assets/images/Me.jpg';
+import me from '@/assets/images/Me.webp';
 import { heroTexts } from '@/data';
 
 export default function Hero() {

@@ -1,5 +1,5 @@
 import React, { Suspense } from 'react';
-import { ThemeProvider, MotionProvider } from '@/context';
+import { ThemeProvider } from '@/context';
 import { Header, Hero, Projects, Footer } from '@/components';
 
 // LazyLoading
@@ -34,9 +34,7 @@ function AppContent() {
 export default function App() {
   return (
     <ThemeProvider>
-      <MotionProvider>
-        <AppContent />
-      </MotionProvider>
+      <AppContent />
     </ThemeProvider>
   );
 }

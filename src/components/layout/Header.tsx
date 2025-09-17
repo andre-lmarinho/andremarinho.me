@@ -2,20 +2,17 @@
 
 import React from 'react';
 import { Sun, Moon } from 'lucide-react';
-import { useTheme, useMotion } from '@/context';
+import { useTheme } from '@/context';
 import { themeToggle } from '@/utils';
-import me from '@/assets/images/Me.jpg';
+import me from '@/assets/images/Me.webp';
 
 export default function Header() {
   const { darkMode, setDarkMode } = useTheme();
-  const { shouldReduceMotion } = useMotion();
 
-  const handleToggle = (e: React.MouseEvent<HTMLButtonElement>) => {
+  const handleToggle = () => {
     themeToggle({
-      button: e.currentTarget,
       darkMode,
       setDarkMode,
-      shouldReduceMotion,
     });
   };
 

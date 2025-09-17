@@ -13,7 +13,6 @@
     "vercel:build": "npx vercel build --yes"
   },
   "dependencies": {
-    "framer-motion": "^11.18.2",
     "lucide-react": "^0.522.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
