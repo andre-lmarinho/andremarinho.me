@@ -2,40 +2,49 @@
 @tailwind components;
 @tailwind utilities;
 
-/* ========================
-   Design Tokens
-======================== */
-:root {
-  --color-accent: #37b3a8;
-  --spotter: rgba(30, 59, 138, 0.055);
-  --text-color: #20292f;
-  --text-muted: #6b7481;
-  --background: #ffffff;
-}
-
-.dark {
-  --color-accent: #5eead4;
-  --spotter: rgba(26, 72, 180, 0.15);
-  --text-color: #f1f5f9;
-  --text-muted: #94a3b8;
-  --background: #111827;
-}
-
 /* ================================
    Global Base Styles
    ================================ */
-html {
-  scroll-behavior: smooth;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  min-height: 100%;
-  color: var(--text-color);
-}
+@layer base {
+  @font-face {
+    font-family: 'InterVariable';
+    font-style: normal;
+    font-weight: 100 900;
+    font-display: swap;
+    src: url('/fonts/inter.var.latin.woff2') format('woff2');
+  }
 
-body {
-  min-height: 100%;
-  overflow-x: hidden;
-  background-color: var(--background);
+  @font-face {
+    font-family: 'InterVariable';
+    font-style: italic;
+    font-weight: 100 900;
+    font-display: swap;
+    src: url('/fonts/inter.var.latin.italic.woff2') format('woff2');
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    min-height: 100%;
+    font-family: 'InterVariable', 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+    @apply bg-white text-zinc-900;
+  }
+
+  body {
+    min-height: 100%;
+    overflow-x: hidden;
+    font-family: inherit;
+    @apply bg-white text-inherit;
+  }
+
+  .dark html {
+    @apply bg-zinc-950 text-zinc-100;
+  }
+
+  .dark body {
+    @apply bg-zinc-950 text-inherit;
+  }
 }
 
 *,
@@ -45,7 +54,7 @@ body {
 }
 
 :focus-visible {
-  outline: 2px solid var(--color-accent);
+  outline: 2px solid #3f3f46;
   outline-offset: 2px;
 }
 
@@ -66,5 +75,5 @@ body {
 
 /* Display skip link when focused */
 [href='#main']:focus {
-  @apply not-sr-only absolute left-4 top-4 z-50 rounded bg-primary-500 p-2 text-white;
+  @apply not-sr-only absolute left-4 top-4 z-50 rounded bg-zinc-900 p-2 text-zinc-100;
 }

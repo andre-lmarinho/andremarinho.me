@@ -5,62 +5,10 @@ import React from 'react';
 export default function Footer() {
   return (
     <footer id="footer" className="mx-auto max-w-4xl px-6 pt-8 text-sm sm:px-4">
-      <div className="flex items-center justify-between py-4 text-sm">
-        <p>
-          From{' '}
-          <a
-            href="https://www.figma.com/"
-            className="underline underline-offset-2"
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="Figma (opens in a new tab)"
-          >
-            Figma
-          </a>{' '}
-          to{' '}
-          <a
-            href="https://react.dev/"
-            className="underline underline-offset-2"
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="React (opens in a new tab)"
-          >
-            React
-          </a>
-          , through{' '}
-          <a
-            href="https://tailwindcss.com/"
-            className="underline underline-offset-2"
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="Tailwind CSS (opens in a new tab)"
-          >
-            Tailwind
-          </a>{' '}
-          and{' '}
-          <a
-            href="https://code.visualstudio.com/"
-            className="underline underline-offset-2"
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="VS Code (opens in a new tab)"
-          >
-            VS Code
-          </a>{' '}
-          — now flying on{' '}
-          <a
-            href="https://vercel.com/"
-            className="underline underline-offset-2"
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="Vercel (opens in a new tab)"
-          >
-            Vercel
-          </a>
-          .
-        </p>
-        <ul className="ml-1 flex items-center" aria-label="Social media">
-          <li className="mr-5 shrink-0 transform text-xs">
+      <div className="flex items-center justify-between py-6 text-sm">
+        <p className="text-zinc-600 dark:text-zinc-400">André Marinho © 2025</p>
+        <ul className="ml-1 flex items-center text-zinc-600 dark:text-zinc-400" aria-label="Social media">
+          <li className="mr-5 shrink-0 transform text-xs transition-colors hover:text-zinc-900 dark:hover:text-zinc-100">
             <a
               href="https://github.com/andre-marinho"
               target="_blank"
@@ -81,7 +29,7 @@ export default function Footer() {
               </svg>
             </a>
           </li>
-          <li className="mr-5 shrink-0 transform text-xs transition-colors duration-200">
+          <li className="mr-5 shrink-0 transform text-xs transition-colors hover:text-zinc-900 dark:hover:text-zinc-100">
             <a
               href="https://linkedin.com/in/andre-marinho-3318ab1aa"
               target="_blank"
@@ -107,3 +55,5 @@ export default function Footer() {
     </footer>
   );
 }
+
+

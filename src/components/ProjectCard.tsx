@@ -9,9 +9,9 @@ export default function ProjectCard() {
       {projects.map((project) => {
         const isExternal = project.siteLink.startsWith('http');
         return (
-          <li key={project.title}>
+          <li key={project.title} className="h-full">
             <a
-              className="grid gap-2.5 overflow-hidden rounded-xl border border-neutral-200 px-5 py-4 outline-none focus-within:bg-neutral-100 hover:bg-neutral-100 focus:border-neutral-300 dark:border-neutral-800 dark:focus-within:bg-neutral-900 dark:hover:bg-neutral-900 dark:focus:border-neutral-700"
+              className="flex h-full flex-col gap-2.5 overflow-hidden rounded-xl border border-zinc-200 px-5 py-4 outline-none transition-colors focus:border-zinc-300 focus-within:bg-zinc-100 hover:bg-zinc-100 dark:border-zinc-800 dark:focus:border-zinc-700 dark:focus-within:bg-zinc-900 dark:hover:bg-zinc-900"
               href={project.siteLink}
               target={isExternal ? '_blank' : undefined}
               rel={isExternal ? 'noreferrer noopener' : undefined}
@@ -19,17 +19,17 @@ export default function ProjectCard() {
                 isExternal ? `${project.ariaLabel} (opens in a new tab)` : project.ariaLabel
               }
             >
-              <div className="group relative grid h-full gap-4 pb-1 lg:hover:!opacity-100 lg:group-hover/list:opacity-50">
+              <div className="group relative flex h-full flex-col gap-4 pb-1 lg:hover:!opacity-100 lg:group-hover/list:opacity-50">
                 <div className="sm:order-2 sm:col-span-6">
                   <h3 className="font-medium leading-snug">
                     {project.title}
                     {project.tag && (
-                      <span className="mb-2 ml-5 inline-block rounded-full bg-neutral-200 px-2 py-0.5 text-xs font-medium text-neutral-800 dark:bg-neutral-700 dark:text-neutral-200">
+                      <span className="mb-2 ml-5 inline-block rounded-full bg-zinc-200 px-2 py-0.5 text-xs font-medium text-zinc-800 dark:bg-zinc-700 dark:text-zinc-200">
                         {project.tag}
                       </span>
                     )}
                   </h3>
-                  <p className="mt-2 text-sm leading-normal text-[var(--text-muted)]">
+                  <p className="mt-2 text-sm leading-normal text-zinc-600 dark:text-zinc-400">
                     {project.description}
                   </p>
                   <ul className="mt-2 flex flex-wrap" aria-label="Technologies used:">
@@ -45,7 +45,7 @@ export default function ProjectCard() {
                                 className="mr-1 inline-block h-3 w-3"
                               />
                             )}
-                            <span className="text-[var(--text-muted)]">{stack}</span>
+                            <span className="text-zinc-600 dark:text-zinc-400">{stack}</span>
                           </div>
                         </li>
                       );
