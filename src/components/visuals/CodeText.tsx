@@ -20,17 +20,28 @@ export default function CodeText() {
 
   useEffect(() => {
     if (!isDesktop()) return;
+    if (typeof window === 'undefined' || typeof document === 'undefined') return;
+
     const reduceMotion = window.matchMedia
       ? window.matchMedia('(prefers-reduced-motion: reduce)').matches
       : false;
     if (reduceMotion) return;
+
+    const root = document.documentElement;
+    root.style.setProperty('--cursor-x', '-9999px');
+    root.style.setProperty('--cursor-y', '-9999px');
     setEnabled(true);
+
+    return () => {
+      root.style.removeProperty('--cursor-x');
+      root.style.removeProperty('--cursor-y');
+    };
   }, []);
 
   if (!enabled) return null;
 
   const mask =
-    'radial-gradient(160px at var(--cursor-x) var(--cursor-y), rgba(0, 0, 0, 1) 20%, rgba(0, 0, 0, 0) 60%)';
+    'radial-gradient(160px at var(--cursor-x, -9999px) var(--cursor-y, -9999px), rgba(0, 0, 0, 1) 20%, rgba(0, 0, 0, 0) 60%)';
 
   return (
     <div
