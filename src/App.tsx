@@ -1,6 +1,6 @@
-import React, { Suspense } from 'react';
+﻿import React, { Suspense } from 'react';
 import { ThemeProvider } from '@/context';
-import { Header, Hero, Projects, Footer } from '@/components';
+import { Header, Hero, Projects, Work, Footer } from '@/components';
 
 // LazyLoading
 const AnimationBG = React.lazy(() => import('@/components/visuals/BGAnimation'));
@@ -17,6 +17,7 @@ function AppContent() {
       <main id="main" className="mx-auto max-w-4xl px-6 sm:px-4">
         <Hero />
         <Projects />
+        <Work />
       </main>
       <Footer />
 

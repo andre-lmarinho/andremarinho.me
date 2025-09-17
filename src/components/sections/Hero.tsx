@@ -22,7 +22,7 @@ export default function Hero() {
               aria-hidden="true"
               className={`inline-block origin-[70%_70%] ${wave ? 'animate-wave' : ''}`}
             >
-              👋
+              👋🏼
             </span>
           </h1>
           <div className="grid gap-4 leading-normal">
@@ -46,4 +46,3 @@ export default function Hero() {
     </section>
   );
 }
-
