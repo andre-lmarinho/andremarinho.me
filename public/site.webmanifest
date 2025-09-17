@@ -9,10 +9,19 @@
   "theme_color": "#111827",
   "icons": [
     {
-      "src": "/favicon.ico",
+      "src": "/favicon/icon.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    },
+    {
+      "src": "/favicon/apple-icon.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/favicon/favicon.ico",
       "sizes": "any",
       "type": "image/x-icon"
     }
   ]
 }
-
