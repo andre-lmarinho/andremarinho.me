@@ -3,6 +3,7 @@ import React from 'react';
 
 import { workPlaces } from '@/data';
 import type { WorkRole } from '@/data';
+import cn from '@/utils/cn';
 
 const slugify = (value: string) =>
   value
@@ -51,11 +52,12 @@ export default function Work() {
                 aria-label={`${role.title} at ${place.name}`}
               >
                 <span
-                  className={`hidden h-12 w-12 shrink-0 items-center justify-center sm:flex ${
+                  className={cn(
+                    'hidden h-12 w-12 shrink-0 items-center justify-center sm:flex',
                     showLogo
                       ? 'overflow-hidden rounded-xl bg-white/90 shadow-sm dark:bg-zinc-900/70'
                       : 'opacity-0'
-                  }`}
+                  )}
                   aria-hidden="true"
                 >
                   {showLogo ? (

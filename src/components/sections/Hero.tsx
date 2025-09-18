@@ -4,6 +4,7 @@ import Image from 'next/image';
 import React, { useEffect, useState } from 'react';
 
 import { heroTexts } from '@/data';
+import cn from '@/utils/cn';
 
 const waveEmoji = String.fromCodePoint(0x1f44b);
 
@@ -23,7 +24,7 @@ export default function Hero() {
             <span>Hey! I&apos;m Andre Marinho</span>
             <span
               aria-hidden="true"
-              className={`inline-block origin-[70%_70%] ${wave ? 'animate-wave' : ''}`}
+              className={cn('inline-block origin-[70%_70%]', wave && 'animate-wave')}
             >
               {waveEmoji}
             </span>

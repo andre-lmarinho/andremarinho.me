@@ -34,7 +34,6 @@
       -apple-system,
       'Segoe UI',
       sans-serif;
-    @apply bg-white text-zinc-900;
   }
 
   body {

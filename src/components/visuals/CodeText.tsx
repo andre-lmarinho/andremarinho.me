@@ -1,13 +1,14 @@
-'use client';
+﻿'use client';
 // src/components/visuals/CodeText.tsx
 
 import React, { useEffect, useState } from 'react';
+
+import cn from '@/utils/cn';
 import { useMouseCoords } from '@/hooks';
 import { isDesktop } from '@/utils';
 
-const baseCodeStyle = `
-  text-sm font-mono p-4 leading-snug transition duration-200 pointer-events-none
-  text-[#d4d4d4]`;
+const baseCodeStyle =
+  'text-sm font-mono p-4 leading-snug transition duration-200 pointer-events-none text-[#d4d4d4]';
 
 const blue = 'text-[#569cd6]'; // keywords
 const lightBlue = 'text-[#9cdcfe]'; // variables
@@ -56,7 +57,7 @@ export default function CodeText() {
       }}
     >
       {/* Snippet 1 */}
-      <div className={`${baseCodeStyle} fixed left-[20%] top-[20%]`}>
+      <div className={cn(baseCodeStyle, 'fixed left-[20%] top-[20%]')}>
         <pre>
           <code>
             <span className={blue}>useEffect</span>
@@ -88,7 +89,7 @@ export default function CodeText() {
       </div>
 
       {/* Snippet 2 */}
-      <div className={`${baseCodeStyle} fixed left-20 top-1/2`}>
+      <div className={cn(baseCodeStyle, 'fixed left-20 top-1/2')}>
         <pre>
           <code>
             <span className={lightBlue}>ids</span>
@@ -118,7 +119,7 @@ export default function CodeText() {
       </div>
 
       {/* Snippet 3 */}
-      <div className={`${baseCodeStyle} fixed bottom-20 right-20`}>
+      <div className={cn(baseCodeStyle, 'fixed bottom-20 right-20')}>
         <pre>
           <code>
             <span className={blue}>useEffect</span>

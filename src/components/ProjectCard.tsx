@@ -3,7 +3,14 @@
 import Image from 'next/image';
 import React from 'react';
 
-import { projects, techMap, getTechIconUrl } from '@/data';
+import { getTechIconUrl, projects, techMap } from '@/data';
+import cn from '@/utils/cn';
+
+const cardLinkClassName = cn(
+  'flex h-full flex-col gap-2.5 overflow-hidden rounded-xl border border-zinc-200 px-5 py-4 outline-none transition-colors',
+  'focus:border-zinc-300 focus-within:bg-zinc-100 hover:bg-zinc-100',
+  'dark:border-zinc-800 dark:focus:border-zinc-700 dark:focus-within:bg-zinc-900 dark:hover:bg-zinc-900'
+);
 
 export default function ProjectCard() {
   return (
@@ -13,7 +20,7 @@ export default function ProjectCard() {
         return (
           <li key={project.title} className="h-full">
             <a
-              className="flex h-full flex-col gap-2.5 overflow-hidden rounded-xl border border-zinc-200 px-5 py-4 outline-none transition-colors focus-within:bg-zinc-100 hover:bg-zinc-100 focus:border-zinc-300 dark:border-zinc-800 dark:focus-within:bg-zinc-900 dark:hover:bg-zinc-900 dark:focus:border-zinc-700"
+              className={cardLinkClassName}
               href={project.siteLink}
               target={isExternal ? '_blank' : undefined}
               rel={isExternal ? 'noreferrer noopener' : undefined}

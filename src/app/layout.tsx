@@ -2,6 +2,7 @@
 import { Inter } from 'next/font/google';
 import React from 'react';
 
+import cn from '@/utils/cn';
 import './globals.css';
 import { AppProviders } from './providers';
 
@@ -38,7 +39,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`${inter.variable} bg-white text-zinc-900 antialiased dark:bg-zinc-950`}>
+      <body className={cn(inter.variable, 'antialiased')}>
         <AppProviders>{children}</AppProviders>
       </body>
     </html>
