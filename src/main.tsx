@@ -12,7 +12,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
       <SEO
         title="André Marinho - Front-End Developer"
         description="Front-End Developer based in Salvador. I craft fast, accessible, and business-driven interfaces with React and TypeScript."
-        url="https://andremarinho.vercel.app/"
+        url="https://andremarinho.me/"
         image="https://github.com/andre-marinho.png"
       />
       <App />

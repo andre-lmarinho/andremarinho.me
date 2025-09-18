@@ -2,7 +2,7 @@
 
 This repository powers **André Marinho’s personal portfolio**, a modern React + TypeScript SPA built with Vite and Tailwind CSS, showcasing dynamic UI features, SEO, and smooth user experiences.
 
-🔗 [Live Demo](https://andremarinho.vercel.app/)
+🔗 [Live](https://andremarinho.me/)
 _or_ deploy easily to Vercel with the same settings.
 
 ---
@@ -44,7 +44,7 @@ _or_ deploy easily to Vercel with the same settings.
 1. **Clone the repo**
 
    ```bash
-   git clone https://github.com/andre-lmarinho/Home.git
+   git clone https://github.com/andre-lmarinho/andremarinho.me.git
    cd Home
    ```
 

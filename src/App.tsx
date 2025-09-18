@@ -9,9 +9,6 @@ const CodeText = React.lazy(() => import('@/components/visuals/CodeText'));
 function AppContent() {
   return (
     <>
-      <a href="#main" className="sr-only focus:block">
-        Skip to main content
-      </a>
       <Header />
 
       <main id="main" className="mx-auto max-w-4xl px-6 sm:px-4">

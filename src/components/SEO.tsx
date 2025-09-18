@@ -25,7 +25,7 @@ interface SEOProps {
 export default function SEO({
   title,
   description,
-  url = 'https://andremarinho.vercel.app/',
+  url = 'https://andremarinho.me/',
   image,
   type = 'website',
   siteName = 'André Marinho',
@@ -103,7 +103,7 @@ export default function SEO({
       <meta property="og:site_name" content={siteName} />
       <meta property="og:locale" content={locale} />
       {imageAbs && <meta property="og:image" content={imageAbs} />} 
-      {imageAbs && <meta property="og:image:alt" content={`${title} — ${siteName}`} />}
+      {imageAbs && <meta property="og:image:alt" content={`${title} - ${siteName}`} />}
 
       {/* Twitter */}
       <meta name="twitter:card" content={twitterCard} />

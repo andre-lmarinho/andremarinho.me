@@ -13,4 +13,4 @@ Allow: /
 User-agent: *
 Allow: /
 
-Sitemap: https://andremarinho.vercel.app/sitemap.xml
+Sitemap: https://andremarinho.me/sitemap.xml
