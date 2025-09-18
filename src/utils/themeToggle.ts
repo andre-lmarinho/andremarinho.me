@@ -1,5 +1,3 @@
-// utils/themeToggle.ts
-
 export interface ThemeToggleOptions {
   darkMode: boolean;
   setDarkMode: (value: boolean) => void;

@@ -41,13 +41,12 @@ export default function useDarkMode(initial?: boolean): [boolean, (value: boolea
       mediaQuery.addEventListener('change', handleChange);
     }
 
-    if (darkMode) {
-      html.classList.add('dark');
-      body.classList.add('dark');
-    } else {
-      html.classList.remove('dark');
-      body.classList.remove('dark');
-    }
+    const colorScheme = darkMode ? 'dark' : 'light';
+
+    html.classList.toggle('dark', darkMode);
+    body.classList.toggle('dark', darkMode);
+    html.style.colorScheme = colorScheme;
+    body.style.colorScheme = colorScheme;
 
     window.localStorage.setItem('darkMode', String(darkMode));
 

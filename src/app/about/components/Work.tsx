@@ -1,9 +1,45 @@
-﻿import Image from 'next/image';
+import Image from 'next/image';
 import React from 'react';
 
-import { workPlaces } from '@/data';
-import type { WorkRole } from '@/data';
 import cn from '@/utils/cn';
+
+type WorkRole = {
+  title: string;
+  startYear: number;
+  endYear?: number | 'Now';
+};
+
+type WorkPlace = {
+  name: string;
+  website: string;
+  logo: string;
+  roles: WorkRole[];
+};
+
+const workPlaces: WorkPlace[] = [
+  {
+    name: 'Duonorth Studio',
+    website: '/studio',
+    logo: '/images/work/duonorth.webp',
+    roles: [
+      {
+        title: 'Frontend Developer',
+        startYear: 2025,
+        endYear: 'Now',
+      },
+      {
+        title: 'Web and WordPress Developer',
+        startYear: 2020,
+        endYear: 2024,
+      },
+      {
+        title: 'Digital Marketing & Web Consultant',
+        startYear: 2017,
+        endYear: 2019,
+      },
+    ],
+  },
+];
 
 const slugify = (value: string) =>
   value
@@ -34,7 +70,7 @@ const workEntries = workPlaces
 export default function Work() {
   return (
     <section id="work" aria-label="Work">
-      <h2 className="my-6 block text-lg font-bold">Work</h2>
+      <h2>Work</h2>
       <ul className="space-y-2">
         {workEntries.map(({ place, role }, index) => {
           const href = place.website;
@@ -77,7 +113,7 @@ export default function Work() {
                     <span className="font-medium leading-tight text-zinc-900 transition-colors group-hover:text-zinc-600 dark:text-zinc-100 dark:group-hover:text-zinc-400">
                       {role.title}
                     </span>
-                    <span className="text-sm text-zinc-600 transition-colors group-hover:text-zinc-500 dark:text-zinc-400 dark:group-hover:text-zinc-300">
+                    <span className="text-sm text-zinc-600 transition-colors group-hover:text-zinc-500 dark:text-zinc-400 dark:group-hover:text-zinc-500">
                       {place.name}
                     </span>
                   </div>

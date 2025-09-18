@@ -1,4 +1,4 @@
-﻿@tailwind base;
+@tailwind base;
 @tailwind components;
 @tailwind utilities;
 
@@ -43,6 +43,26 @@
     @apply bg-white text-inherit;
   }
 
+  main {
+    @apply mx-auto max-w-4xl px-6 pb-16 sm:px-4;
+  }
+
+  section {
+    @apply my-12;
+  }
+
+  h1 {
+    @apply text-3xl font-bold tracking-tight text-zinc-900 dark:text-zinc-100 sm:text-4xl;
+  }
+
+  h2 {
+    @apply my-6 text-xl font-semibold text-zinc-900 dark:text-zinc-100;
+  }
+
+  p {
+    @apply mt-6;
+  }
+
   html.dark {
     @apply bg-zinc-950 text-zinc-100;
   }
@@ -61,21 +81,6 @@
 :focus-visible {
   outline: 2px solid #3f3f46;
   outline-offset: 2px;
-}
-
-/* ========================
-  Accessibility
-======================== */
-.sr-only {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  white-space: nowrap;
-  border-width: 0;
 }
 
 /* Display skip link when focused */

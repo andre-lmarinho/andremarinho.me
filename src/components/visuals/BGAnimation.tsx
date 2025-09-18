@@ -1,5 +1,4 @@
 'use client';
-// src/components/visuals/BGAnimation.tsx
 
 import React from 'react';
 

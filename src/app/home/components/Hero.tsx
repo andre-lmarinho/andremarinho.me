@@ -1,10 +1,14 @@
-﻿'use client';
+'use client';
 
 import Image from 'next/image';
 import React, { useEffect, useState } from 'react';
 
-import { heroTexts } from '@/data';
 import cn from '@/utils/cn';
+
+const heroTexts = [
+  'I am a Front-End Developer based in Salvador. I create digital experiences that connect design, strategy and business growth.',
+  'I run Duonorth Studio, where I turn ideas into products that are fast, meaningful and focused on results.',
+] as const;
 
 const waveEmoji = String.fromCodePoint(0x1f44b);
 
@@ -17,10 +21,10 @@ export default function Hero() {
   }, []);
 
   return (
-    <section id="hero" className="my-12">
+    <section id="hero" className="mb-20">
       <div className="flex justify-between gap-8">
         <div>
-          <h1 className="flex gap-2 pb-4 text-3xl font-bold tracking-tight sm:text-4xl">
+          <h1 className="flex gap-2">
             <span>Hey! I&apos;m Andre Marinho</span>
             <span
               aria-hidden="true"
@@ -29,13 +33,11 @@ export default function Hero() {
               {waveEmoji}
             </span>
           </h1>
-          <div className="grid gap-4 leading-normal">
-            {heroTexts.map((text) => (
-              <p key={text} className="sm:max-w-md">
-                {text}
-              </p>
-            ))}
-          </div>
+          {heroTexts.map((text) => (
+            <p key={text} className="sm:max-w-md">
+              {text}
+            </p>
+          ))}
         </div>
         <Image
           alt="Andre Marinho"
