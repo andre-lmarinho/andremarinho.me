@@ -1,13 +1,14 @@
-// src/components/layout/Footer.tsx
-
-import React from 'react';
+﻿import React from 'react';
 
 export default function Footer() {
   return (
     <footer id="footer" className="mx-auto max-w-4xl px-6 pt-8 text-sm sm:px-4">
       <div className="flex items-center justify-between py-6 text-sm">
-        <p className="text-zinc-600 dark:text-zinc-400">André Marinho © 2025</p>
-        <ul className="ml-1 flex items-center text-zinc-600 dark:text-zinc-400" aria-label="Social media">
+        <p className="text-zinc-600 dark:text-zinc-400">Andre Marinho © 2025</p>
+        <ul
+          className="ml-1 flex items-center text-zinc-600 dark:text-zinc-400"
+          aria-label="Social media"
+        >
           <li className="mr-5 shrink-0 transform text-xs transition-colors hover:text-zinc-900 dark:hover:text-zinc-100">
             <a
               href="https://github.com/andre-marinho"
@@ -55,5 +56,3 @@ export default function Footer() {
     </footer>
   );
 }
-
-

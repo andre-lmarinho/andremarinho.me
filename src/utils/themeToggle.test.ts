@@ -1,9 +1,8 @@
-import { vi } from 'vitest';
-import themeToggle from './themeToggle';
+﻿import themeToggle from './themeToggle';
 
 describe('themeToggle', () => {
   it('enables dark mode when currently disabled', () => {
-    const setDarkMode = vi.fn();
+    const setDarkMode = jest.fn();
 
     themeToggle({ darkMode: false, setDarkMode });
 
@@ -11,7 +10,7 @@ describe('themeToggle', () => {
   });
 
   it('disables dark mode when currently enabled', () => {
-    const setDarkMode = vi.fn();
+    const setDarkMode = jest.fn();
 
     themeToggle({ darkMode: true, setDarkMode });
 

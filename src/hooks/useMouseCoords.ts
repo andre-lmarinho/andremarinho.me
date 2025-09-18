@@ -1,4 +1,4 @@
-// src/hooks/useMouseCoords.ts
+'use client';
 
 import { useEffect, useState } from 'react';
 
@@ -25,7 +25,6 @@ export default function useMouseCoords(active = true) {
 
       setCoords({ x, y });
 
-      // Update CSS variables so components can react to cursor position
       const root = document.documentElement;
       root.style.setProperty('--cursor-x', `${x}px`);
       root.style.setProperty('--cursor-y', `${y}px`);

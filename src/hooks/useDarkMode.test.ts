@@ -1,5 +1,4 @@
-import { renderHook, act } from '@testing-library/react';
-import { vi } from 'vitest';
+﻿import { act, renderHook } from '@testing-library/react';
 import useDarkMode from './useDarkMode';
 
 interface MutableMediaQueryList extends MediaQueryList {
@@ -9,6 +8,7 @@ interface MutableMediaQueryList extends MediaQueryList {
 describe('useDarkMode', () => {
   let mql: MutableMediaQueryList;
   let listener: ((e: MediaQueryListEvent) => void) | null;
+  const originalMatchMedia = window.matchMedia;
 
   beforeEach(() => {
     window.localStorage.clear();
@@ -16,23 +16,32 @@ describe('useDarkMode', () => {
     document.body.classList.remove('dark');
 
     listener = null;
+
+    const addEventListener = jest
+      .fn((_: string, cb: EventListenerOrEventListenerObject) => {
+        listener = cb as (event: MediaQueryListEvent) => void;
+      })
+      .mockName('addEventListener');
+
     mql = {
       matches: false,
       media: '(prefers-color-scheme: dark)',
       onchange: null,
-      addListener: vi.fn(),
-      removeListener: vi.fn(),
-      addEventListener: vi.fn((_, cb) => {
-        listener = cb;
-      }),
-      removeEventListener: vi.fn(),
-      dispatchEvent: vi.fn((e: MediaQueryListEvent) => {
-        listener?.(e);
+      addListener: jest.fn(),
+      removeListener: jest.fn(),
+      addEventListener: addEventListener as unknown as MediaQueryList['addEventListener'],
+      removeEventListener: jest.fn() as unknown as MediaQueryList['removeEventListener'],
+      dispatchEvent: jest.fn((event: MediaQueryListEvent) => {
+        listener?.(event);
         return true;
       }),
     } as MutableMediaQueryList;
 
-    window.matchMedia = vi.fn().mockReturnValue(mql);
+    window.matchMedia = jest.fn().mockReturnValue(mql);
+  });
+
+  afterEach(() => {
+    window.matchMedia = originalMatchMedia;
   });
 
   it('initializes from localStorage when available', () => {

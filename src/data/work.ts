@@ -1,12 +1,11 @@
-﻿// src/data/work.ts
-import duonorthLogo from '@/assets/images/work/duonorth.webp';
+// src/data/work.ts
 import type { WorkPlace } from './types';
 
 export const workPlaces: WorkPlace[] = [
   {
     name: 'Duonorth Studio',
     website: '#',
-    logo: duonorthLogo,
+    logo: '/images/work/duonorth.webp',
     roles: [
       {
         title: 'Frontend Developer',
@@ -14,7 +13,7 @@ export const workPlaces: WorkPlace[] = [
         endYear: 'Now',
       },
       {
-        title: 'Web and Wordpress Developer',
+        title: 'Web and WordPress Developer',
         startYear: 2020,
         endYear: 2024,
       },

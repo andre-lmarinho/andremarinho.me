@@ -1,11 +1,12 @@
-# Project Agents.md Guide
+﻿# Project Agents.md Guide
 
 This `Agents.md` file provides comprehensive guidance for any AI agents working with this codebase.
 
 ## Project Structure
 
 - `/src`: Source code to be analyzed and maintained by AI agents
-  - `/components`: React components that should follow the guidelines in this document
+  - `/app`: Next.js App Router entry point (layout, pages, providers)
+  - `/components`: Shared UI, sections, and layout building blocks
 
 ## Coding Conventions
 
@@ -29,7 +30,7 @@ This `Agents.md` file provides comprehensive guidance for any AI agents working 
 - Use functional components with hooks.
 - Keep components small and focused.
 - Always define prop types properly.
-- Use PascalCase for component filenames.~
+- Use PascalCase for component filenames.
 
 ## CSS/Styling Standards
 
@@ -43,11 +44,11 @@ Run tests using the following commands:
 
 ```bash
 # Run all tests
-npm test
+npm run test
 
 # Run a specific test file
-npm test -- path/to/test-file.test.ts
+npm run test -- file.test.tsx
 
 # Run tests with coverage
-npm test -- --coverage
+npm run test -- --coverage
 ```

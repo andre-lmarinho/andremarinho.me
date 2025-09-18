@@ -1,6 +1,6 @@
-// src/components/sections/Work.tsx
-
+﻿import Image from 'next/image';
 import React from 'react';
+
 import { workPlaces } from '@/data';
 import type { WorkRole } from '@/data';
 
@@ -59,13 +59,14 @@ export default function Work() {
                   aria-hidden="true"
                 >
                   {showLogo ? (
-                    <img
+                    <Image
                       src={place.logo}
                       alt=""
                       className="h-full w-full object-contain"
                       width={48}
                       height={48}
-                      loading="eager"
+                      sizes="48px"
+                      priority
                     />
                   ) : null}
                 </span>

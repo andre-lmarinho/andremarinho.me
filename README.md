@@ -1,117 +1,92 @@
-# Personal Portfolio – André Marinho
+﻿# Personal Portfolio - Andre Marinho
 
-This repository powers **André Marinho’s personal portfolio**, a modern React + TypeScript SPA built with Vite and Tailwind CSS, showcasing dynamic UI features, SEO, and smooth user experiences.
+This repository powers **Andre Marinho's personal portfolio**, now built with **Next.js 14**, **React 18**, **TypeScript**, and **Tailwind CSS**. The site highlights motion design, theme switching, and carefully structured content for future growth.
 
-🔗 [Live](https://andremarinho.me/)
-_or_ deploy easily to Vercel with the same settings.
-
----
-
-## 🚀 Key Features
-
-- **Animated Background** — full‑screen gradients, orbs, mesh lines, and floating particles behind content
-- **Smooth Scroll** — native CSS `scroll-behavior: smooth` for in‑page navigation
-- **Dynamic Navbar** — hides on scroll down, reveals on scroll up.
-- **Dark/Light Mode** — user-toggleable theme via custom `useDarkMode` hook
-- **Responsive Layout** — mobile‑first design with Tailwind utility classes and Framer Motion for animations
-- **SEO Metadata** — dynamic `<title>` and `<meta>` tags via `react-helmet-async`
+- [Live Demo](https://andremarinho.vercel.app/)
+- Deploy-ready for Vercel with the included configuration.
 
 ---
 
-## 🏗️ Tech Stack
+## Highlights
 
-- **Framework:** React 18 + TypeScript, Vite (JIT mode)
-- **Styling:** Tailwind CSS (v3+) with `@apply`, custom keyframes, JIT
-- **Animations:** Framer Motion, CSS keyframes
-- **Icons:** w3.org.svg
-- **SEO:** react‑helmet‑async
-- **Testing (boilerplate):** Vitest + Testing Library
-- **Deployment Tools:** npm scripts
+- **Static-first Next.js app** with the App Router and typed metadata
+- **Dark/light theme** handled by a shared context and persisted preference
+- **Framer-inspired visuals** (background gradients, code spotlight)
+- **Accessibility first**: skip links, keyboard focus styles, semantic landmarks
+- **Typed content layer** for hero, projects, and work history
 
 ---
 
-## 📁 Project Structure
+## Tech Stack
 
-- `/src`: Source code to be analyzed and maintained by AI agents
-  - `/components`: React components that should follow the guidelines in this document
-
----
-
-## 💻 Getting Started
-
-**Prerequisites**: Node.js v16+, npm
-
-1. **Clone the repo**
-
-   ```bash
-   git clone https://github.com/andre-lmarinho/andremarinho.me.git
-   cd Home
-   ```
-
-2. **Install dependencies**
-
-   ```bash
-   npm install
-   ```
-
-3. **Run in development**
-
-   ```bash
-   npm run dev
-   ```
-
-4. **Build for production**
-
-   ```bash
-   npm run build
-   ```
-
-5. **Preview the build**
-
-   ```bash
-   npm run preview
-   ```
+- **Framework:** Next.js 14 (App Router) + React 18 + TypeScript
+- **Styling:** Tailwind CSS 3 with custom keyframes and design tokens
+- **Animations:** Tailwind motion utilities (ready for Framer Motion integration)
+- **Icons:** lucide-react
+- **Tooling:** ESLint, Prettier, Jest + Testing Library
+- **Deployment:** Vercel build output
 
 ---
 
-## 📦 Scripts
+## Getting Started
 
-- `npm run dev` — start Vite dev server
-- `npm run build` — generate production build in `/dist`
-- `npm run preview` — serve `/dist` locally
-- `npm run typecheck` — run TypeScript type checks
-- `npm run vercel:build` — test a Vercel deployment build
-- `npm run lint` — check code with ESLint
-- `npm run format` — format files with Prettier
-- `npm test` — run Vitest
+**Prerequisites:** Node.js 18+ and npm 9+
 
-### Linting, formatting & testing
+```bash
+# Install dependencies
+npm install
 
-Before submitting changes, ensure the following commands pass:
+# Run development server
+npm run dev
+
+# Build for production
+npm run build
+
+# Start the production server locally
+npm start
+```
+
+---
+
+## Scripts
+
+- `npm run dev` - start Next.js dev server
+- `npm run build` - create a production build
+- `npm run start` - serve the production build
+- `npm run lint` - run ESLint with Next.js rules
+- `npm run typecheck` - execute TypeScript in no-emit mode
+- `npm run test` - run Jest + Testing Library
+- `npm run format` - format with Prettier
+- `npm run vercel:build` - build using the same command executed by Vercel
+
+---
+
+## Testing and Quality Gates
+
+Ensure all checks pass before shipping:
 
 ```bash
 npm run format
 npm run lint
 npm run typecheck
-npm test
+npm run test
 npm run vercel:build
 ```
 
 ---
 
-## ☁️ Deployment
+## Deployment
 
-This project is deployed via [Vercel](https://vercel.com/). To verify a deployment build locally, run:
+The project is configured for Vercel. To validate the deployment locally run:
 
 ```bash
 npm run vercel:build
 ```
 
-The output in `.vercel/output` can then be deployed through Vercel.
+The `.vercel` directory is updated automatically by Vercel CLI builds.
 
 ---
 
-## 📜 License
+## License
 
-This project is open-source under the [MIT License](LICENSE).
-Feel free to reuse and adapt!
+This project is open-source under the [MIT License](LICENSE). Feel free to reuse and adapt.

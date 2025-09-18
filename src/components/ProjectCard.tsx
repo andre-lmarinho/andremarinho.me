@@ -1,6 +1,8 @@
-// src/components/ui/ProjectCard.tsx
+﻿// src/components/ui/ProjectCard.tsx
 
+import Image from 'next/image';
 import React from 'react';
+
 import { projects, techMap, getTechIconUrl } from '@/data';
 
 export default function ProjectCard() {
@@ -11,7 +13,7 @@ export default function ProjectCard() {
         return (
           <li key={project.title} className="h-full">
             <a
-              className="flex h-full flex-col gap-2.5 overflow-hidden rounded-xl border border-zinc-200 px-5 py-4 outline-none transition-colors focus:border-zinc-300 focus-within:bg-zinc-100 hover:bg-zinc-100 dark:border-zinc-800 dark:focus:border-zinc-700 dark:focus-within:bg-zinc-900 dark:hover:bg-zinc-900"
+              className="flex h-full flex-col gap-2.5 overflow-hidden rounded-xl border border-zinc-200 px-5 py-4 outline-none transition-colors focus-within:bg-zinc-100 hover:bg-zinc-100 focus:border-zinc-300 dark:border-zinc-800 dark:focus-within:bg-zinc-900 dark:hover:bg-zinc-900 dark:focus:border-zinc-700"
               href={project.siteLink}
               target={isExternal ? '_blank' : undefined}
               rel={isExternal ? 'noreferrer noopener' : undefined}
@@ -39,10 +41,15 @@ export default function ProjectCard() {
                         <li key={stack}>
                           <div className="flex items-center py-1 pr-3 text-sm leading-5">
                             {tech && (
-                              <img
+                              <Image
                                 src={getTechIconUrl(tech)}
                                 alt={`${tech.name} logo`}
                                 className="mr-1 inline-block h-3 w-3"
+                                width={12}
+                                height={12}
+                                sizes="12px"
+                                loading="lazy"
+                                unoptimized
                               />
                             )}
                             <span className="text-zinc-600 dark:text-zinc-400">{stack}</span>

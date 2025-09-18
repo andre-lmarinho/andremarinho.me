@@ -1,6 +1,6 @@
-// src/hooks/useDarkMode.ts
+'use client';
 
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 /**
  * Manage dark mode state and apply/remove the `dark` class on `<html>` and `<body>`.
@@ -17,10 +17,10 @@ export default function useDarkMode(initial?: boolean): [boolean, (value: boolea
       if (stored !== null) return stored === 'true';
       if (initial !== undefined) return initial;
 
-      return window.matchMedia ? window.matchMedia('(prefers-color-scheme: dark)').matches : false; // safe fallback
+      return window.matchMedia ? window.matchMedia('(prefers-color-scheme: dark)').matches : false;
     }
 
-    return initial ?? false; // safe fallback outside the browser
+    return initial ?? false;
   };
 
   const [darkMode, setDarkModeState] = useState(getInitialDarkMode);

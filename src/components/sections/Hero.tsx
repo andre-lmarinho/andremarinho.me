@@ -1,15 +1,18 @@
-// src/components/sections/Hero.tsx
+﻿'use client';
 
+import Image from 'next/image';
 import React, { useEffect, useState } from 'react';
-import me from '@/assets/images/Me.webp';
+
 import { heroTexts } from '@/data';
+
+const waveEmoji = String.fromCodePoint(0x1f44b);
 
 export default function Hero() {
   const [wave, setWave] = useState(false);
 
   useEffect(() => {
-    const id = setTimeout(() => setWave(true), 220);
-    return () => clearTimeout(id);
+    const id = window.setTimeout(() => setWave(true), 220);
+    return () => window.clearTimeout(id);
   }, []);
 
   return (
@@ -17,12 +20,12 @@ export default function Hero() {
       <div className="flex justify-between gap-8">
         <div>
           <h1 className="flex gap-2 pb-4 text-3xl font-bold tracking-tight sm:text-4xl">
-            <span>Hey! I'm André Marinho</span>
+            <span>Hey! I&apos;m Andre Marinho</span>
             <span
               aria-hidden="true"
               className={`inline-block origin-[70%_70%] ${wave ? 'animate-wave' : ''}`}
             >
-              👋🏼
+              {waveEmoji}
             </span>
           </h1>
           <div className="grid gap-4 leading-normal">
@@ -33,14 +36,14 @@ export default function Hero() {
             ))}
           </div>
         </div>
-        <img
-          alt="André Marinho"
+        <Image
+          alt="Andre Marinho"
           loading="lazy"
           width={176}
           height={176}
-          decoding="async"
           className="hidden h-44 w-44 transform-gpu rounded-full sm:block"
-          src={me}
+          src="/images/Me.webp"
+          sizes="176px"
         />
       </div>
     </section>
