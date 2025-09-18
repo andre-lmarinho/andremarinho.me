@@ -13,6 +13,19 @@ export const metadata: Metadata = {
   description:
     'Front-End Developer based in Salvador. I craft fast, accessible, and business-driven interfaces with React and TypeScript.',
   metadataBase: new URL('https://andremarinho.vercel.app/'),
+  manifest: '/site.webmanifest',
+  icons: {
+    icon: '/favicon/favicon.ico',
+    shortcut: '/favicon/favicon.ico',
+    apple: '/favicon/apple-icon.png',
+    other: [
+      {
+        rel: 'icon',
+        url: '/favicon/icon.png',
+        type: 'image/png',
+      },
+    ],
+  },
   openGraph: {
     type: 'profile',
     title: 'Andre Marinho - Front-End Developer',
