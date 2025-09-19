@@ -2,7 +2,7 @@
 
 This repository powers **Andre Marinho's personal portfolio**, now built with **Next.js 14**, **React 18**, **TypeScript**, and **Tailwind CSS**. The site highlights motion design, theme switching, and carefully structured content for future growth.
 
-- [Live Demo](https://andremarinho.vercel.app/)
+- [Website](https://andremarinho.me)
 - Deploy-ready for Vercel with the included configuration.
 
 ---
