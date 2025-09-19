@@ -10,11 +10,13 @@
         "format:check": "prettier --check \"**/*.{js,jsx,ts,tsx,css,md}\"",
         "lint": "next lint",
         "lint:ci": "next lint --max-warnings=0",
+        "serve:prod": "next start --hostname 0.0.0.0 --port 3000",
         "start": "next start",
         "test": "jest",
         "test:ci": "jest --ci",
         "typecheck": "tsc --noEmit",
-        "vercel:build": "next build"
+        "vercel:build": "next build",
+        "lhci": "npx --yes @lhci/cli autorun --config=./lighthouserc.json"
     },
     "dependencies": {
         "classix": "^2.2.4",
