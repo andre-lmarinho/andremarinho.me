@@ -1,13 +1,15 @@
-﻿'use client';
+'use client';
 
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import { Menu, X } from 'lucide-react';
-import { RemoveScroll } from 'react-remove-scroll';
 import { usePathname } from 'next/navigation';
 
 import cn from '@/utils/cn';
 
 import Links, { type NavLink } from './Links';
+
+const focusableSelector =
+  'a[href]:not([tabindex="-1"]), button:not([disabled]):not([tabindex="-1"]), [tabindex]:not([tabindex="-1"])';
 
 type HamburgerProps = {
   isOpen: boolean;
@@ -20,6 +22,8 @@ const buttonClassName =
 
 export default function Hamburger({ isOpen, setIsOpen, links }: HamburgerProps) {
   const pathname = usePathname();
+  const navRef = useRef<HTMLElement | null>(null);
+  const openButtonRef = useRef<HTMLButtonElement | null>(null);
 
   useEffect(() => {
     setIsOpen(false);
@@ -32,6 +36,74 @@ export default function Hamburger({ isOpen, setIsOpen, links }: HamburgerProps) 
     };
   }, [isOpen]);
 
+  useEffect(() => {
+    if (!isOpen) {
+      openButtonRef.current?.focus();
+      return;
+    }
+
+    const navElement = navRef.current;
+
+    if (!navElement) {
+      return;
+    }
+
+    const getFocusableElements = () =>
+      Array.from(navElement.querySelectorAll<HTMLElement>(focusableSelector));
+
+    const focusFirstElement = () => {
+      const [firstElement] = getFocusableElements();
+      (firstElement ?? navElement).focus();
+    };
+
+    const frameId = requestAnimationFrame(focusFirstElement);
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        event.preventDefault();
+        setIsOpen(false);
+        return;
+      }
+
+      if (event.key !== 'Tab') {
+        return;
+      }
+
+      const focusableElements = getFocusableElements();
+
+      if (focusableElements.length === 0) {
+        event.preventDefault();
+        navElement.focus();
+        return;
+      }
+
+      const [firstElement] = focusableElements;
+      const lastElement = focusableElements[focusableElements.length - 1];
+      const activeElement = document.activeElement as HTMLElement | null;
+      const isFocusInside = activeElement ? navElement.contains(activeElement) : false;
+
+      if (event.shiftKey) {
+        if (!isFocusInside || activeElement === firstElement) {
+          event.preventDefault();
+          lastElement.focus();
+        }
+        return;
+      }
+
+      if (!isFocusInside || activeElement === lastElement) {
+        event.preventDefault();
+        firstElement.focus();
+      }
+    };
+
+    document.addEventListener('keydown', handleKeyDown);
+
+    return () => {
+      cancelAnimationFrame(frameId);
+      document.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [isOpen, setIsOpen]);
+
   return (
     <div className="sm:hidden">
       <button
@@ -39,26 +111,31 @@ export default function Hamburger({ isOpen, setIsOpen, links }: HamburgerProps) 
         onClick={() => setIsOpen(true)}
         className={cn(buttonClassName, isOpen && 'pointer-events-none opacity-0')}
         type="button"
+        ref={openButtonRef}
       >
         <Menu className="h-6 w-6" aria-hidden="true" />
       </button>
 
       {isOpen && (
-        <RemoveScroll>
-          <nav className="fixed inset-0 z-50 bg-white text-zinc-900 dark:bg-zinc-950 dark:text-zinc-100">
-            <div className="absolute right-0 px-6 py-2">
-              <button
-                aria-label="Close navigation menu"
-                onClick={() => setIsOpen(false)}
-                className={buttonClassName}
-                type="button"
-              >
-                <X className="h-6 w-6" aria-hidden="true" />
-              </button>
-            </div>
-            <Links links={links} variant="mobile" onSelect={() => setIsOpen(false)} />
-          </nav>
-        </RemoveScroll>
+        <nav
+          ref={navRef}
+          className="fixed inset-0 z-50 bg-white text-zinc-900 dark:bg-zinc-950 dark:text-zinc-100"
+          role="dialog"
+          aria-modal="true"
+          tabIndex={-1}
+        >
+          <div className="absolute right-0 px-6 py-2">
+            <button
+              aria-label="Close navigation menu"
+              onClick={() => setIsOpen(false)}
+              className={buttonClassName}
+              type="button"
+            >
+              <X className="h-6 w-6" aria-hidden="true" />
+            </button>
+          </div>
+          <Links links={links} variant="mobile" onSelect={() => setIsOpen(false)} />
+        </nav>
       )}
     </div>
   );
