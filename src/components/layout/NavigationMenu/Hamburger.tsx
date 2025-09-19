@@ -134,7 +134,7 @@ export default function Hamburger({ isOpen, setIsOpen, links }: HamburgerProps) 
               <X className="h-6 w-6" aria-hidden="true" />
             </button>
           </div>
-          <Links links={links} variant="mobile" onSelect={() => setIsOpen(false)} />
+          <Links links={links} variant="mobile" />
         </nav>
       )}
     </div>
