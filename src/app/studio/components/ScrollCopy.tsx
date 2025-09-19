@@ -183,4 +183,3 @@ const ScrollCopy: React.FC<ScrollCopyProps> = ({
 };
 
 export default ScrollCopy;
-

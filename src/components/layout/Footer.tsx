@@ -25,7 +25,7 @@ export default function Footer() {
             return (
               <li
                 key={link.href}
-                className="mr-5 shrink-0 transform text-xs last:mr-0 transition-colors hover:text-zinc-900 dark:hover:text-zinc-100"
+                className="mr-5 shrink-0 transform text-xs transition-colors last:mr-0 hover:text-zinc-900 dark:hover:text-zinc-100"
               >
                 <a
                   href={link.href}

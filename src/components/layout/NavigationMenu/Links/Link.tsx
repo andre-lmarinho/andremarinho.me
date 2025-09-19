@@ -19,7 +19,14 @@ type LinkProps = {
   variant: Variant;
 };
 
-export default function LinkComponent({ href, text, isActive, isIndeterminate, onSelect, variant }: LinkProps) {
+export default function LinkComponent({
+  href,
+  text,
+  isActive,
+  isIndeterminate,
+  onSelect,
+  variant,
+}: LinkProps) {
   const className =
     variant === 'mobile'
       ? cn(
@@ -33,8 +40,8 @@ export default function LinkComponent({ href, text, isActive, isIndeterminate, o
           isIndeterminate
             ? 'hover:opacity-60'
             : isActive
-            ? 'opacity-100'
-            : 'opacity-50 hover:opacity-100'
+              ? 'opacity-100'
+              : 'opacity-50 hover:opacity-100'
         );
 
   const handleClick = () => {
@@ -56,7 +63,12 @@ export default function LinkComponent({ href, text, isActive, isIndeterminate, o
   }
 
   return (
-    <NextLink href={href} className={className} aria-current={isActive ? 'page' : undefined} onClick={handleClick}>
+    <NextLink
+      href={href}
+      className={className}
+      aria-current={isActive ? 'page' : undefined}
+      onClick={handleClick}
+    >
       {text}
     </NextLink>
   );

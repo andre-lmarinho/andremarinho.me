@@ -99,18 +99,12 @@ const TextType = ({
     }
 
     cursor.style.opacity = '1';
-    const animation = cursor.animate(
-      [
-        { opacity: 1 },
-        { opacity: 0 },
-      ],
-      {
-        duration: cursorBlinkDuration * 1000,
-        direction: 'alternate',
-        iterations: Infinity,
-        easing: 'ease-in-out',
-      }
-    );
+    const animation = cursor.animate([{ opacity: 1 }, { opacity: 0 }], {
+      duration: cursorBlinkDuration * 1000,
+      direction: 'alternate',
+      iterations: Infinity,
+      easing: 'ease-in-out',
+    });
 
     return () => {
       animation.cancel();
@@ -221,9 +215,3 @@ const TextType = ({
 };
 
 export default TextType;
-
-
-
-
-
-
