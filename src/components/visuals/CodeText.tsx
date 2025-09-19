@@ -56,7 +56,7 @@ export default function CodeText() {
       }}
     >
       {/* Snippet 1 */}
-      <div className={cn(baseCodeStyle, 'fixed left-[20%] top-[20%]')}>
+      <div className={cn(baseCodeStyle, 'fixed top-[20%] left-[20%]')}>
         <pre>
           <code>
             <span className={blue}>useEffect</span>
@@ -88,7 +88,7 @@ export default function CodeText() {
       </div>
 
       {/* Snippet 2 */}
-      <div className={cn(baseCodeStyle, 'fixed left-20 top-1/2')}>
+      <div className={cn(baseCodeStyle, 'fixed top-1/2 left-20')}>
         <pre>
           <code>
             <span className={lightBlue}>ids</span>
@@ -118,7 +118,7 @@ export default function CodeText() {
       </div>
 
       {/* Snippet 3 */}
-      <div className={cn(baseCodeStyle, 'fixed bottom-20 right-20')}>
+      <div className={cn(baseCodeStyle, 'fixed right-20 bottom-20')}>
         <pre>
           <code>
             <span className={blue}>useEffect</span>

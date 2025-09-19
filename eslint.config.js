@@ -22,13 +22,7 @@ const typeCheckedConfigs = tseslint.configs.recommendedTypeChecked.map((config) 
 
 export default tseslint.config(
   {
-    ignores: [
-      '**/node_modules/**',
-      '**/.next/**',
-      '**/dist/**',
-      '**/public/**',
-      '**/out/**',
-    ],
+    ignores: ['**/node_modules/**', '**/.next/**', '**/dist/**', '**/public/**', '**/out/**'],
   },
   ...typeCheckedConfigs,
   {
@@ -64,5 +58,5 @@ export default tseslint.config(
         { argsIgnorePattern: '^_', varsIgnorePattern: '^_' },
       ],
     },
-  },
+  }
 );
