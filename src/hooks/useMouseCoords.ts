@@ -1,12 +1,26 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useRef } from 'react';
 
-export default function useMouseCoords(active = true) {
-  const [coords, setCoords] = useState({ x: 0, y: 0 });
+type MouseCoords = {
+  x: number;
+  y: number;
+};
+
+export default function useMouseCoords(active = true, onChange?: (coords: MouseCoords) => void) {
+  const coordsRef = useRef<MouseCoords>({ x: 0, y: 0 });
+  const callbackRef = useRef(onChange);
 
   useEffect(() => {
-    if (!active || typeof window === 'undefined') return;
+    callbackRef.current = onChange;
+  }, [onChange]);
+
+  useEffect(() => {
+    if (!active || typeof window === 'undefined' || typeof document === 'undefined') {
+      return;
+    }
+
+    const root = document.documentElement;
 
     const update = (e: MouseEvent | TouchEvent) => {
       let x: number;
@@ -23,11 +37,15 @@ export default function useMouseCoords(active = true) {
         y = mouse.clientY + window.scrollY;
       }
 
-      setCoords({ x, y });
+      coordsRef.current.x = x;
+      coordsRef.current.y = y;
 
-      const root = document.documentElement;
       root.style.setProperty('--cursor-x', `${x}px`);
       root.style.setProperty('--cursor-y', `${y}px`);
+
+      if (callbackRef.current) {
+        callbackRef.current({ x, y });
+      }
     };
 
     const options: AddEventListenerOptions = { passive: true };
@@ -41,5 +59,5 @@ export default function useMouseCoords(active = true) {
     };
   }, [active]);
 
-  return coords;
+  return coordsRef;
 }
