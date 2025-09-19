@@ -1,6 +1,8 @@
 'use client';
 
-import React, { useCallback, useEffect, useLayoutEffect, useRef } from 'react';
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+
+import cn from '@/utils/cn';
 
 type ScrollCopyProps = {
   className?: string; // container classes (e.g., space-y-8)
@@ -26,6 +28,8 @@ const CONTENT: string[] = [
   "Together, we'll build something duonorth.",
 ];
 
+const TOKENIZED_CONTENT = CONTENT.map((paragraph) => tokenize(paragraph));
+
 const ScrollCopy: React.FC<ScrollCopyProps> = ({
   className = '',
   baseOpacity = 0.35,
@@ -36,148 +40,109 @@ const ScrollCopy: React.FC<ScrollCopyProps> = ({
 }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const rafRef = useRef<number | null>(null);
+  const activeParagraphRef = useRef(-1);
+  const [activeParagraph, setActiveParagraph] = useState(-1);
 
-  const wordsQuery = '.sc-word';
+  const normalizedThresholds = useMemo(() => {
+    const start = Math.min(Math.max(thresholdRatioStart, 0), 1);
+    const end = Math.min(Math.max(thresholdRatioEnd, 0), 1);
+    return start <= end ? { start, end } : { start: end, end: start };
+  }, [thresholdRatioEnd, thresholdRatioStart]);
 
-  const clearOverlays = useCallback(() => {
-    const el = containerRef.current;
-    if (!el) return;
-    el.querySelectorAll<HTMLSpanElement>('.sc-next').forEach((n) => n.remove());
-    el.querySelectorAll<HTMLSpanElement>(wordsQuery).forEach((w) => {
-      w.style.position = '';
-      (w as HTMLElement).style.visibility = '';
-      (w as HTMLElement).style.display = '';
-      (w as HTMLElement).style.width = '';
-      (w as HTMLElement).style.overflow = '';
-      w.classList.remove('sc-hide');
-      (w as HTMLElement).removeAttribute('data-sc-bridge-target');
-      (w as HTMLElement).removeAttribute('data-sc-bridge-source');
-    });
-  }, []);
+  const containerStyle = useMemo(
+    () =>
+      ({
+        '--sc-base-opacity': baseOpacity.toString(),
+        '--sc-active-opacity': maxOpacity.toString(),
+      }) as React.CSSProperties,
+    [baseOpacity, maxOpacity]
+  );
 
-  const buildParagraphBridges = useCallback(() => {
-    const el = containerRef.current;
-    if (!el) return;
-
-    clearOverlays();
-
-    const paras = Array.from(el.querySelectorAll<HTMLParagraphElement>('p'));
-    paras.forEach((p, pIdx) => {
-      const spans = Array.from(p.querySelectorAll<HTMLSpanElement>(wordsQuery));
-      if (spans.length === 0) return;
-
-      // Bridge paragraph boundary: logically link last word of current paragraph to first word of next paragraph
-      const nextPara = paras[pIdx + 1];
-      if (nextPara) {
-        const nextFirst = nextPara.querySelector<HTMLSpanElement>(wordsQuery);
-        const lastSpan = spans[spans.length - 1];
-        if (nextFirst && lastSpan) {
-          // Ensure both have ids
-          if (!lastSpan.id) lastSpan.id = `scw-last-${pIdx}`;
-          if (!nextFirst.id) nextFirst.id = `scw-first-${pIdx + 1}`;
-          // Store a logical bridge between them for opacity control
-          (lastSpan as HTMLElement).setAttribute('data-sc-bridge-target', nextFirst.id);
-          (nextFirst as HTMLElement).setAttribute('data-sc-bridge-source', lastSpan.id);
-        }
-      }
-    });
-  }, [clearOverlays]);
-
-  const updateOpacity = useCallback(() => {
+  const updateParagraphOpacity = useCallback(() => {
     rafRef.current = null;
     const el = containerRef.current;
     if (!el) return;
 
-    const winH = window.innerHeight;
-    const base = baseOpacity;
-    const max = maxOpacity;
+    const paragraphs = Array.from(
+      el.querySelectorAll<HTMLParagraphElement>('[data-sc-paragraph="true"]')
+    );
 
-    const spans = Array.from(el.querySelectorAll<HTMLSpanElement>(wordsQuery));
-    const opMap = new Map<Element, number>();
-    const lastIndex = Math.max(1, spans.length - 1);
-    let activeIdx = -1;
-    spans.forEach((span, idx) => {
-      const r = span.getBoundingClientRect();
-      const c = r.top + r.height / 2;
-      const t = idx / lastIndex; // 0 for first, 1 for last
-      const ratio = thresholdRatioStart + t * (thresholdRatioEnd - thresholdRatioStart);
-      const cut = winH * ratio;
-      if (c <= cut) activeIdx = idx;
-    });
+    if (paragraphs.length === 0) {
+      if (activeParagraphRef.current !== -1) {
+        activeParagraphRef.current = -1;
+        setActiveParagraph(-1);
+      }
+      return;
+    }
 
-    spans.forEach((span, idx) => {
-      const opacity = idx <= activeIdx ? max : base;
-      opMap.set(span, opacity);
-    });
+    const viewportHeight = window.innerHeight;
+    const denominator = Math.max(1, paragraphs.length - 1);
+    let nextActive = -1;
 
-    const bridges: Array<{ from: HTMLSpanElement; to: HTMLSpanElement }> = [];
-    spans.forEach((span) => {
-      const opacity = opMap.get(span) ?? base;
-      span.style.opacity = String(opacity);
-      // If this span bridges to next paragraph, force the next paragraph's first word
-      // to share the same opacity for a cohesive transition.
-      const targetId = (span as HTMLElement).dataset.scBridgeTarget;
-      if (targetId) {
-        const target = document.getElementById(targetId) as HTMLSpanElement | null;
-        if (target) bridges.push({ from: span, to: target });
+    paragraphs.forEach((paragraph, index) => {
+      const rect = paragraph.getBoundingClientRect();
+      const center = rect.top + rect.height / 2;
+      const progress = paragraphs.length === 1 ? 1 : index / denominator;
+      const ratio =
+        normalizedThresholds.start +
+        progress * (normalizedThresholds.end - normalizedThresholds.start);
+      const cutoff = viewportHeight * ratio;
+
+      if (center <= cutoff) {
+        nextActive = index;
       }
     });
 
-    bridges.forEach(({ from, to }) => {
-      const opacity = opMap.get(from) ?? base;
-      to.style.opacity = String(opacity);
-    });
-  }, [baseOpacity, maxOpacity, thresholdRatioStart, thresholdRatioEnd]);
+    if (nextActive !== activeParagraphRef.current) {
+      activeParagraphRef.current = nextActive;
+      setActiveParagraph(nextActive);
+    }
+  }, [normalizedThresholds.end, normalizedThresholds.start]);
 
-  useLayoutEffect(() => {
-    // Build paragraph bridges after initial paint for accurate layout
-    buildParagraphBridges();
-    updateOpacity();
-    // Rebuild overlays on resize (line breaks change)
-    const onResize = () => {
-      buildParagraphBridges();
+  useEffect(() => {
+    updateParagraphOpacity();
+
+    const handleScroll = () => {
       if (rafRef.current == null) {
-        rafRef.current = requestAnimationFrame(updateOpacity);
+        rafRef.current = requestAnimationFrame(updateParagraphOpacity);
       }
     };
-    window.addEventListener('resize', onResize);
 
-    // Update opacity on scroll
-    const onScroll = () => {
-      if (rafRef.current == null) {
-        rafRef.current = requestAnimationFrame(updateOpacity);
-      }
-    };
-    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    window.addEventListener('resize', handleScroll);
 
     return () => {
-      window.removeEventListener('resize', onResize);
-      window.removeEventListener('scroll', onScroll);
-      if (rafRef.current != null) cancelAnimationFrame(rafRef.current);
-    };
-  }, [buildParagraphBridges, updateOpacity]);
+      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('resize', handleScroll);
 
-  // Rebuild when mounted (content is internal)
-  useEffect(() => {
-    buildParagraphBridges();
-    if (rafRef.current == null) rafRef.current = requestAnimationFrame(updateOpacity);
-  }, [buildParagraphBridges, updateOpacity]);
+      if (rafRef.current != null) {
+        cancelAnimationFrame(rafRef.current);
+      }
+    };
+  }, [updateParagraphOpacity]);
 
   return (
-    <div ref={containerRef} className={className}>
-      {CONTENT.map((text, i) => {
-        const tokens = tokenize(text);
-        return (
-          <p key={i} style={{ wordSpacing: wordGap }}>
-            {tokens.map((tok, j) => (
-              <span id={`scw-${i}-${j}`} key={`${i}-${j}`} className="sc-word">
-                {tok}
-                {j < tokens.length - 1 ? ' ' : ''}
-              </span>
-            ))}
-          </p>
-        );
-      })}
+    <div ref={containerRef} className={className} style={containerStyle}>
+      {TOKENIZED_CONTENT.map((tokens, index) => (
+        <p
+          key={index}
+          data-sc-paragraph="true"
+          className={cn(
+            'will-change-opacity transition-opacity duration-500',
+            index <= activeParagraph
+              ? 'opacity-[var(--sc-active-opacity)]'
+              : 'opacity-[var(--sc-base-opacity)]'
+          )}
+          style={{ wordSpacing: wordGap }}
+        >
+          {tokens.map((token, tokenIndex) => (
+            <span key={`${index}-${tokenIndex}`} className="sc-word inline-block">
+              {token}
+              {tokenIndex < tokens.length - 1 ? ' ' : ''}
+            </span>
+          ))}
+        </p>
+      ))}
     </div>
   );
 };
