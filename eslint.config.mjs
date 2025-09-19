@@ -22,9 +22,35 @@ const typeCheckedConfigs = tseslint.configs.recommendedTypeChecked.map((config) 
 
 export default tseslint.config(
   {
-    ignores: ['**/node_modules/**', '**/.next/**', '**/dist/**', '**/public/**', '**/out/**'],
+    ignores: [
+      '**/node_modules/**',
+      '**/.next/**',
+      '**/dist/**',
+      '**/public/**',
+      '**/out/**',
+      'jest.config.js',
+      'next.config.js',
+      'next-env.d.ts',
+      'postcss.config.js',
+      'tailwind.config.js',
+    ],
   },
   ...typeCheckedConfigs,
+  {
+    plugins: {
+      '@next/next': nextPlugin,
+      react: reactPlugin,
+      'react-hooks': reactHooksPlugin,
+    },
+  },
+  {
+    files: ['eslint.config.mjs'],
+    languageOptions: {
+      parserOptions: {
+        project: false,
+      },
+    },
+  },
   {
     files: ['**/*.{ts,tsx,js,jsx}'],
     languageOptions: {
@@ -36,11 +62,6 @@ export default tseslint.config(
         ...globals.browser,
         ...globals.node,
       },
-    },
-    plugins: {
-      '@next/next': nextPlugin,
-      react: reactPlugin,
-      'react-hooks': reactHooksPlugin,
     },
     settings: {
       react: {
