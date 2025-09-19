@@ -1,5 +1,59 @@
-﻿import { act, renderHook } from '@testing-library/react';
+import { act, createElement } from 'react';
+import { createRoot } from 'react-dom/client';
 import useDarkMode from './useDarkMode';
+
+type HookResult<TValue> = {
+  current: TValue;
+};
+
+type RenderHookResponse<TValue> = {
+  result: HookResult<TValue>;
+  rerender: () => void;
+  cleanup: () => void;
+};
+
+const cleanups: Array<() => void> = [];
+
+afterEach(() => {
+  while (cleanups.length > 0) {
+    cleanups.pop()?.();
+  }
+});
+
+function renderHook<TValue>(render: () => TValue): RenderHookResponse<TValue> {
+  const result: HookResult<TValue> = {
+    current: undefined as unknown as TValue,
+  };
+
+  const container = document.createElement('div');
+  document.body.appendChild(container);
+
+  const root = createRoot(container);
+
+  const TestComponent = () => {
+    result.current = render();
+    return null;
+  };
+
+  const rerender = () => {
+    act(() => {
+      root.render(createElement(TestComponent));
+    });
+  };
+
+  rerender();
+
+  const cleanup = () => {
+    act(() => {
+      root.unmount();
+    });
+    container.remove();
+  };
+
+  cleanups.push(cleanup);
+
+  return { result, rerender, cleanup };
+}
 
 interface MutableMediaQueryList extends MediaQueryList {
   matches: boolean;
