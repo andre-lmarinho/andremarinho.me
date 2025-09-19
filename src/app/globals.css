@@ -42,72 +42,35 @@
     min-height: 100%;
     overflow-x: hidden;
     font-family: inherit;
-    background-color: white;
-    color: inherit;
+    @apply bg-white text-inherit;
   }
 
   main {
-    margin-left: auto;
-    margin-right: auto;
-    max-width: 56rem;
-    padding-left: 1.5rem;
-    padding-right: 1.5rem;
-    padding-bottom: 4rem;
-  }
-
-  @media (min-width: 640px) {
-    main {
-      padding-left: 1rem;
-      padding-right: 1rem;
-    }
+    @apply mx-auto max-w-4xl px-6 pb-16 sm:px-4;
   }
 
   section {
-    margin-top: 3rem;
-    margin-bottom: 3rem;
+    @apply my-12;
   }
 
   h1 {
-    font-size: 1.875rem;
-    line-height: 2.25rem;
-    font-weight: 700;
-    letter-spacing: -0.025em;
-    color: #18181b;
-  }
-
-  @media (min-width: 640px) {
-    h1 {
-      font-size: 2.25rem;
-      line-height: 2.5rem;
-    }
+    @apply text-3xl font-bold tracking-tight text-zinc-900 sm:text-4xl dark:text-zinc-100;
   }
 
   h2 {
-    margin-top: 1.5rem;
-    margin-bottom: 1.5rem;
-    font-size: 1.25rem;
-    line-height: 1.75rem;
-    font-weight: 600;
-    color: #18181b;
+    @apply my-6 text-xl font-semibold text-zinc-900 dark:text-zinc-100;
   }
 
   p {
-    margin-top: 1.5rem;
+    @apply mt-6;
   }
 
   html.dark {
-    background-color: #09090b;
-    color: #f4f4f5;
-  }
-
-  html.dark h1,
-  html.dark h2 {
-    color: #f4f4f5;
+    @apply bg-zinc-950 text-zinc-100;
   }
 
   body.dark {
-    background-color: #09090b;
-    color: inherit;
+    @apply bg-zinc-950 text-inherit;
   }
 }
 
@@ -124,19 +87,5 @@
 
 /* Display skip link when focused */
 [href='#main']:focus {
-  position: absolute;
-  left: 1rem;
-  top: 1rem;
-  z-index: 50;
-  border-radius: 0.25rem;
-  background-color: #18181b;
-  color: #f4f4f5;
-  padding: 0.5rem;
-  clip: auto;
-  clip-path: none;
-  width: auto;
-  height: auto;
-  margin: 0;
-  overflow: visible;
-  white-space: normal;
+  @apply not-sr-only absolute top-4 left-4 z-50 rounded bg-zinc-900 p-2 text-zinc-100;
 }
