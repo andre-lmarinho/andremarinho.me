@@ -87,6 +87,30 @@ The `.vercel` directory is updated automatically by Vercel CLI builds.
 
 ---
 
+## CI & Quality
+
+### Local parity scripts
+
+- `npm run format:check` – verify Prettier formatting before pushing, especially after touching Markdown or styles.
+- `npm run lint:ci` – run the stricter ESLint configuration used in CI to catch warnings early.
+- `npm run typecheck` – confirm TypeScript stays happy after API or prop changes.
+- `npm run test:ci` – execute the Jest suite in CI mode to ensure deterministic results.
+- `npm run build:prod` – build the production bundle to catch compilation issues.
+- `npm run lhci` – run Lighthouse CI locally after `npm run build:prod` and `npm run serve:prod` are active to spot performance or accessibility regressions.
+
+### GitHub Actions
+
+- **CI** – runs on pushes to `main` and every pull request. It installs dependencies, then executes `format:check`, `lint:ci`, `typecheck`, `test:ci`, and `build:prod` to mirror release gating.
+- **Lighthouse** – runs on pushes to `main`, every pull request, or when triggered manually. It builds the app, serves it, audits with Lighthouse CI, and uploads the `lhci-reports` artifact so regressions fail loudly.
+
+### Retrieve Lighthouse reports
+
+1. Download the `lhci-reports` artifact from the Lighthouse workflow run.
+2. Unzip the archive to a local directory.
+3. Open `index.html` in your browser to review scores and detailed audits.
+
+---
+
 ## License
 
 This project is open-source under the [MIT License](LICENSE). Feel free to reuse and adapt.
