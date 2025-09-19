@@ -13,7 +13,7 @@ export const metadata: Metadata = {
   title: 'Andre Marinho - Front-End Developer',
   description:
     'Front-End Developer based in Salvador. I craft fast, accessible, and business-driven interfaces with React and TypeScript.',
-  metadataBase: new URL('https://andremarinho.vercel.app/'),
+  metadataBase: new URL('https://andremarinho.me/'),
   manifest: '/site.webmanifest',
   icons: {
     icon: '/favicon/favicon.ico',
@@ -32,7 +32,7 @@ export const metadata: Metadata = {
     title: 'Andre Marinho - Front-End Developer',
     description:
       'Front-End Developer based in Salvador. I craft fast, accessible, and business-driven interfaces with React and TypeScript.',
-    url: 'https://andremarinho.vercel.app/',
+    url: 'https://andremarinho.me/',
     siteName: 'Andre Marinho',
     images: [
       {
