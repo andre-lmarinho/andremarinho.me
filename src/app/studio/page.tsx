@@ -133,18 +133,23 @@ function Pricing() {
 }
 
 function FinalCTA() {
+  const email = 'hey@andremarinho.me';
   const [copied, setCopied] = useState(false);
   const timerRef = useRef<number | null>(null);
-  const handleCopy = (e: React.MouseEvent<HTMLButtonElement>) => {
+  const handleCopy = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    try {
-      void navigator.clipboard.writeText('hey@duonorth.studio');
-    } catch {
-      /* noop */ void 0;
+    if (!navigator?.clipboard?.writeText) {
+      setCopied(false);
+      return;
     }
-    setCopied(true);
-    if (timerRef.current) window.clearTimeout(timerRef.current);
-    timerRef.current = window.setTimeout(() => setCopied(false), 3600);
+    try {
+      await navigator.clipboard.writeText(email);
+      setCopied(true);
+      if (timerRef.current) window.clearTimeout(timerRef.current);
+      timerRef.current = window.setTimeout(() => setCopied(false), 3600);
+    } catch {
+      setCopied(false);
+    }
   };
   return (
     <section id="contact">
@@ -187,7 +192,7 @@ function FinalCTA() {
                 <path d="M3.5 2A1.5 1.5 0 0 0 2 3.5v6A1.5 1.5 0 0 0 3.5 11V6.5a3 3 0 0 1 3-3H11A1.5 1.5 0 0 0 9.5 2h-6Z" />
               </svg>
             )}
-            hey@andremarinho.me
+            {email}
           </button>{' '}
           to see if we&apos;re a match.
         </p>
