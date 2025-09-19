@@ -1,6 +1,7 @@
+const { defineConfig } = require('tailwindcss');
 const defaultTheme = require('tailwindcss/defaultTheme');
 
-module.exports = {
+const config = {
   darkMode: 'class',
   content: [
     './src/app/**/*.{ts,tsx,js,jsx}',
@@ -62,3 +63,5 @@ module.exports = {
   },
   plugins: [],
 };
+
+module.exports = typeof defineConfig === 'function' ? defineConfig(config) : config;
