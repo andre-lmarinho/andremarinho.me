@@ -41,10 +41,11 @@ export default function Hero() {
         </div>
         <Image
           alt="Andre Marinho"
-          loading="lazy"
           width={176}
           height={176}
           className="hidden h-44 w-44 transform-gpu rounded-full sm:block"
+          priority
+          fetchPriority="high"
           src="/images/Me.webp"
           sizes="176px"
         />
