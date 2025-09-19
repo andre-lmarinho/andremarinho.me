@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
+import localFont from 'next/font/local';
 import React from 'react';
 
 import './globals.css';
@@ -7,7 +7,13 @@ import { SiteLayout } from '@/components/layout';
 import cn from '@/utils/cn';
 import { AppProviders } from './providers';
 
-const inter = Inter({ subsets: ['latin'], variable: '--font-inter' });
+const inter = localFont({
+  src: [
+    { path: '../../public/fonts/inter.var.latin.woff2', style: 'normal' },
+    { path: '../../public/fonts/inter.var.latin.italic.woff2', style: 'italic' },
+  ],
+  variable: '--font-inter',
+});
 
 export const metadata: Metadata = {
   title: 'Andre Marinho - Front-End Developer',
