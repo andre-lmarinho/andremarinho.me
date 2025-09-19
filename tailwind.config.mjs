@@ -1,15 +1,18 @@
-const { defineConfig } = require('tailwindcss');
-const defaultTheme = require('tailwindcss/defaultTheme');
+import defaultTheme from 'tailwindcss/defaultTheme';
 
+/** @type {import('tailwindcss').Config} */
 const config = {
   darkMode: 'class',
-  content: [
-    './src/app/**/*.{ts,tsx,js,jsx}',
-    './src/components/**/*.{ts,tsx,js,jsx}',
-    './src/context/**/*.{ts,tsx,js,jsx}',
-    './src/hooks/**/*.{ts,tsx,js,jsx}',
-    './src/utils/**/*.{ts,tsx,js,jsx}',
-  ],
+  content: {
+    files: [
+      './src/app/**/*.{js,jsx,ts,tsx,mdx}',
+      './src/components/**/*.{js,jsx,ts,tsx,mdx}',
+      './src/context/**/*.{js,jsx,ts,tsx,mdx}',
+      './src/hooks/**/*.{js,jsx,ts,tsx,mdx}',
+      './src/utils/**/*.{js,jsx,ts,tsx,mdx}',
+    ],
+    relative: import.meta.url,
+  },
   theme: {
     extend: {
       fontFamily: {
@@ -64,4 +67,4 @@ const config = {
   plugins: [],
 };
 
-module.exports = typeof defineConfig === 'function' ? defineConfig(config) : config;
+export default config;

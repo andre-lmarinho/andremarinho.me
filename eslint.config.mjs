@@ -32,7 +32,7 @@ export default tseslint.config(
       'next.config.js',
       'next-env.d.ts',
       'postcss.config.js',
-      'tailwind.config.js',
+      'tailwind.config.mjs',
     ],
   },
   ...typeCheckedConfigs,
