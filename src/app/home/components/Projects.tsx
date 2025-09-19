@@ -71,8 +71,8 @@ const projects: ProjectMeta[] = [
 
 const cardLinkClassName = cn(
   'flex h-full flex-col gap-2.5 overflow-hidden rounded-xl border border-zinc-200 px-5 py-4 outline-none transition-colors',
-  'focus:border-zinc-300 focus-within:bg-zinc-100 hover:bg-zinc-100',
-  'dark:border-zinc-800 dark:focus:border-zinc-700 dark:focus-within:bg-zinc-900 dark:hover:bg-zinc-900'
+  'hover:bg-zinc-100 active:bg-zinc-100 focus-visible:border-zinc-300 focus-visible:bg-zinc-100',
+  'dark:border-zinc-800 dark:hover:bg-zinc-900 dark:active:bg-zinc-900 dark:focus-visible:border-zinc-700 dark:focus-visible:bg-zinc-900'
 );
 
 export default function Projects() {
