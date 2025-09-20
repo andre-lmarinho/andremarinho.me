@@ -7,6 +7,11 @@ import { SiteLayout } from '@/components/layout';
 import cn from '@/utils/cn';
 import { AppProviders } from './providers';
 
+const metaTitle = 'Andre Marinho - Front-End Developer';
+const metaDescription =
+  'Front-End Developer based in Salvador. I craft fast, accessible, and business-driven interfaces with React and TypeScript.';
+const metaImage = '/images/Me.webp';
+
 const inter = localFont({
   src: [
     { path: '../../public/fonts/inter.var.latin.woff2', style: 'normal' },
@@ -16,9 +21,8 @@ const inter = localFont({
 });
 
 export const metadata: Metadata = {
-  title: 'Andre Marinho - Front-End Developer',
-  description:
-    'Front-End Developer based in Salvador. I craft fast, accessible, and business-driven interfaces with React and TypeScript.',
+  title: metaTitle,
+  description: metaDescription,
   metadataBase: new URL('https://andremarinho.me/'),
   manifest: '/site.webmanifest',
   icons: {
@@ -35,24 +39,22 @@ export const metadata: Metadata = {
   },
   openGraph: {
     type: 'profile',
-    title: 'Andre Marinho - Front-End Developer',
-    description:
-      'Front-End Developer based in Salvador. I craft fast, accessible, and business-driven interfaces with React and TypeScript.',
+    title: metaTitle,
+    description: metaDescription,
     url: 'https://andremarinho.me/',
     siteName: 'Andre Marinho',
     images: [
       {
-        url: 'https://github.com/andre-marinho.png',
+        url: metaImage,
         alt: 'Andre Marinho',
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Andre Marinho - Front-End Developer',
-    description:
-      'Front-End Developer based in Salvador. I craft fast, accessible, and business-driven interfaces with React and TypeScript.',
-    images: ['https://github.com/andre-marinho.png'],
+    title: metaTitle,
+    description: metaDescription,
+    images: [metaImage],
   },
 };
 
