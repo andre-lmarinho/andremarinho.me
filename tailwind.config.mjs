@@ -1,18 +1,17 @@
+import defaultTheme from 'tailwindcss/defaultTheme';
+
 /** @type {import('tailwindcss').Config} */
 const config = {
   darkMode: 'class',
   content: {
-    files: [
-      './src/app/**/*.{js,jsx,ts,tsx,mdx}',
-      './src/components/**/*.{js,jsx,ts,tsx,mdx}',
-      './src/context/**/*.{js,jsx,ts,tsx,mdx}',
-      './src/hooks/**/*.{js,jsx,ts,tsx,mdx}',
-      './src/utils/**/*.{js,jsx,ts,tsx,mdx}',
-    ],
+    files: ['./src/**/*.{js,ts,jsx,tsx,mdx}'],
     relative: import.meta.url,
   },
   theme: {
     extend: {
+      fontFamily: {
+        sans: ['var(--font-inter)', ...defaultTheme.fontFamily.sans],
+      },
       keyframes: {
         float: {
           '0%,100%': { transform: 'translateY(0)' },
