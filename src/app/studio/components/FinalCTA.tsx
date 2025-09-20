@@ -31,9 +31,9 @@ const FinalCTA = () => {
 
   return (
     <section id="contact">
-      <div className="rounded-3xl bg-zinc-50 p-10 dark:bg-zinc-900/50 sm:p-16">
+      <div className="rounded-3xl bg-zinc-50 p-10 sm:p-16 dark:bg-zinc-900/50">
         <h2 className="text-3xl font-semibold md:text-4xl">Your duonorth starts here</h2>
-        <div className="max-w-sm pb-8 pt-6 text-lg font-medium text-zinc-700 dark:text-zinc-300">
+        <div className="max-w-sm pt-6 pb-8 text-lg font-medium text-zinc-700 dark:text-zinc-300">
           <p className="mb-2">We&apos;ve got you &mdash; Schedule a call or email at</p>
           <div className="flex flex-wrap items-baseline gap-1">
             <button
