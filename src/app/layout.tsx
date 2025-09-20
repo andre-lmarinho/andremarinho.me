@@ -44,7 +44,7 @@ export const metadata: Metadata = {
     siteName: 'Andre Marinho',
     images: [
       {
-        url: '/images/me.webp',
+        url: '/images/Me.webp',
         alt: 'Andre Marinho',
       },
     ],

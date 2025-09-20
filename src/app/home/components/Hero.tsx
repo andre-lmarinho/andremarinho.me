@@ -45,7 +45,7 @@ export default function Hero() {
           width={176}
           height={176}
           className="hidden h-44 w-44 transform-gpu rounded-full sm:block"
-          src="/images/me.webp"
+          src="/images/Me.webp"
           sizes="176px"
         />
       </div>

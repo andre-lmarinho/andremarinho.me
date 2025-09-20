@@ -1,18 +1,10 @@
-import Link from 'next/link';
+import Links from '../components/layout/NavigationMenu/Links';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
   title: '404 – Page not found',
   description: "The page you were trying to reach doesn't exist.",
 };
-
-const links = [
-  { href: '/', label: 'Home' },
-  { href: '/about', label: 'About' },
-  { href: '/blog', label: 'Blog' },
-  { href: '/projects', label: 'Projects' },
-  { href: '/uses', label: 'Uses' },
-];
 
 export default function NotFound() {
   return (
@@ -23,11 +15,13 @@ export default function NotFound() {
       </p>
       <h2 className="text-lg">Here are some helpful links instead:</h2>
       <ul className="list-inside list-disc px-4 text-lg underline underline-offset-2">
-        {links.map((link) => (
-          <li key={link.href}>
-            <Link href={link.href}>{link.label}</Link>
-          </li>
-        ))}
+        <Links
+          links={[
+            { text: 'Home', href: '/' },
+            { text: 'Studio', href: '/studio' },
+            { text: 'About', href: '/about' },
+          ]}
+        />
       </ul>
       <p className="text-lg font-extrabold">Error code: 404</p>
     </section>
