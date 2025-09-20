@@ -8,7 +8,7 @@
         {
           "type": "header",
           "key": "x-forwarded-proto",
-          "value": "http"
+          "value": "^http$"
         }
       ],
       "destination": "https://andremarinho.me/:path*",
