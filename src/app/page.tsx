@@ -1,7 +1,12 @@
-import React from 'react';
-
+import { type Metadata } from 'next';
 import Home from './home';
 
-export default function Page() {
+export const metadata: Metadata = {
+  alternates: {
+    canonical: 'https://andremarinho.me',
+  },
+};
+
+export default function Index() {
   return <Home />;
 }

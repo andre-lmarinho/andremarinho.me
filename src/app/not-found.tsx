@@ -1,9 +1,11 @@
 import Link from 'next/link';
 import type { Metadata } from 'next';
+
 export const metadata: Metadata = {
   title: '404 – Page not found',
   description: "The page you were trying to reach doesn't exist.",
 };
+
 const links = [
   { href: '/', label: 'Home' },
   { href: '/about', label: 'About' },
@@ -11,6 +13,7 @@ const links = [
   { href: '/projects', label: 'Projects' },
   { href: '/uses', label: 'Uses' },
 ];
+
 export default function NotFound() {
   return (
     <section id="404">

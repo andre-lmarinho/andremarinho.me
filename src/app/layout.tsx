@@ -5,12 +5,7 @@ import React from 'react';
 import './globals.css';
 import Layout from '@/components/layout';
 import cn from '@/utils';
-import { AppProviders } from './providers';
-
-const metaTitle = 'Andre Marinho - Front-End Developer';
-const metaDescription =
-  'Front-End Developer based in Salvador. I craft fast, accessible, and business-driven interfaces with React and TypeScript.';
-const metaImage = '/images/Me.webp';
+import { Providers } from './providers';
 
 const inter = localFont({
   src: [
@@ -18,11 +13,17 @@ const inter = localFont({
     { path: '../../public/fonts/inter.var.latin.italic.woff2', style: 'italic' },
   ],
   variable: '--font-inter',
+  weight: '100 900',
+  display: 'swap',
 });
 
 export const metadata: Metadata = {
-  title: metaTitle,
-  description: metaDescription,
+  title: {
+    absolute: 'Andre Marinho - Front-End Developer',
+    template: 'Andre Marinho - %s',
+  },
+  description:
+    'I am a Front-End Developer based in Salvador. I create digital experiences that connect design, strategy and business growth.',
   metadataBase: new URL('https://andremarinho.me/'),
   manifest: '/site.webmanifest',
   icons: {
@@ -38,23 +39,18 @@ export const metadata: Metadata = {
     ],
   },
   openGraph: {
-    type: 'profile',
-    title: metaTitle,
-    description: metaDescription,
+    type: 'website',
     url: 'https://andremarinho.me/',
     siteName: 'Andre Marinho',
     images: [
       {
-        url: metaImage,
+        url: '/images/me.webp',
         alt: 'Andre Marinho',
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: metaTitle,
-    description: metaDescription,
-    images: [metaImage],
   },
 };
 
@@ -62,9 +58,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={cn(inter.variable, 'font-sans antialiased')}>
-        <AppProviders>
+        <Providers>
           <Layout>{children}</Layout>
-        </AppProviders>
+        </Providers>
       </body>
     </html>
   );

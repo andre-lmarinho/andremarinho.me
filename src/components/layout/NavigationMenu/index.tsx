@@ -30,7 +30,7 @@ const NavigationMenu = () => {
             width={32}
             height={32}
             className="rounded-full"
-            src="/images/Me.webp"
+            src="/images/me.webp"
             sizes="32px"
           />
         </Link>

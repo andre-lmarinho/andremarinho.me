@@ -10,7 +10,7 @@ import {
   useCallback,
 } from 'react';
 
-interface TextTypeProps {
+interface Props {
   className?: string;
   showCursor?: boolean;
   hideCursorWhileTyping?: boolean;
@@ -51,7 +51,7 @@ const TextType = ({
   startOnVisible = false,
   reverseMode = false,
   ...props
-}: TextTypeProps & React.HTMLAttributes<HTMLElement>) => {
+}: Props & React.HTMLAttributes<HTMLElement>) => {
   const [displayedText, setDisplayedText] = useState('');
   const [currentCharIndex, setCurrentCharIndex] = useState(0);
   const [isDeleting, setIsDeleting] = useState(false);

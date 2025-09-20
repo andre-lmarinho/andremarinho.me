@@ -2,7 +2,7 @@
 
 import React, { useCallback, useEffect, useLayoutEffect, useRef } from 'react';
 
-type ScrollCopyProps = {
+type Props = {
   className?: string; // container classes (e.g., space-y-8)
   baseOpacity?: number; // 0..1
   maxOpacity?: number; // 0..1
@@ -26,7 +26,7 @@ const CONTENT: string[] = [
   "Together, we'll build something duonorth.",
 ];
 
-const ScrollCopy: React.FC<ScrollCopyProps> = ({
+const ScrollCopy: React.FC<Props> = ({
   className = '',
   baseOpacity = 0.35,
   maxOpacity = 1,

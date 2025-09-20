@@ -3,10 +3,6 @@
 import React from 'react';
 import { ThemeProvider } from '@/context';
 
-interface AppProvidersProps {
-  children: React.ReactNode;
-}
-
-export function AppProviders({ children }: AppProvidersProps) {
+export function Providers({ children }: { children: React.ReactNode }) {
   return <ThemeProvider>{children}</ThemeProvider>;
 }
