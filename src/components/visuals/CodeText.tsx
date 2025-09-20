@@ -4,7 +4,6 @@ import { useEffect, useState } from 'react';
 
 import cn from '@/utils/cn';
 import { useMouseCoords } from '@/hooks';
-import { isDesktop } from '@/utils';
 
 const baseCodeStyle =
   'text-sm font-mono p-4 leading-snug transition duration-200 pointer-events-none text-[#d4d4d4]';
@@ -20,8 +19,13 @@ export default function CodeText() {
   useMouseCoords(enabled);
 
   useEffect(() => {
-    if (!isDesktop()) return;
-    if (typeof window === 'undefined' || typeof document === 'undefined') return;
+    if (
+      typeof window === 'undefined' ||
+      typeof document === 'undefined' ||
+      window.innerWidth < 768
+    ) {
+      return;
+    }
 
     const reduceMotion = window.matchMedia
       ? window.matchMedia('(prefers-reduced-motion: reduce)').matches
