@@ -8,21 +8,25 @@ const FinalCTA = () => {
   const [copied, setCopied] = useState(false);
   const timerRef = useRef<number | null>(null);
 
-  const handleCopy = async (event: React.MouseEvent<HTMLButtonElement>) => {
+  const handleCopy = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
     if (!navigator?.clipboard?.writeText) {
       setCopied(false);
       return;
     }
 
-    try {
-      await navigator.clipboard.writeText(email);
-      setCopied(true);
-      if (timerRef.current) window.clearTimeout(timerRef.current);
-      timerRef.current = window.setTimeout(() => setCopied(false), 3600);
-    } catch {
-      setCopied(false);
-    }
+    navigator.clipboard
+      .writeText(email)
+      .then(() => {
+        setCopied(true);
+        if (timerRef.current) {
+          window.clearTimeout(timerRef.current);
+        }
+        timerRef.current = window.setTimeout(() => setCopied(false), 3600);
+      })
+      .catch(() => {
+        setCopied(false);
+      });
   };
 
   return (

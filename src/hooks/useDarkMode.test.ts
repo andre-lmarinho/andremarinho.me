@@ -1,4 +1,4 @@
-﻿import { act, renderHook } from '@testing-library/react';
+import { act, renderHook } from '@testing-library/react';
 import useDarkMode from './useDarkMode';
 
 interface MutableMediaQueryList extends MediaQueryList {

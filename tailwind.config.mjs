@@ -1,36 +1,18 @@
-const defaultTheme = require('tailwindcss/defaultTheme');
-
-module.exports = {
+/** @type {import('tailwindcss').Config} */
+const config = {
   darkMode: 'class',
-  content: [
-    './src/app/**/*.{ts,tsx,js,jsx}',
-    './src/components/**/*.{ts,tsx,js,jsx}',
-    './src/context/**/*.{ts,tsx,js,jsx}',
-    './src/hooks/**/*.{ts,tsx,js,jsx}',
-    './src/utils/**/*.{ts,tsx,js,jsx}',
-  ],
+  content: {
+    files: [
+      './src/app/**/*.{js,jsx,ts,tsx,mdx}',
+      './src/components/**/*.{js,jsx,ts,tsx,mdx}',
+      './src/context/**/*.{js,jsx,ts,tsx,mdx}',
+      './src/hooks/**/*.{js,jsx,ts,tsx,mdx}',
+      './src/utils/**/*.{js,jsx,ts,tsx,mdx}',
+    ],
+    relative: import.meta.url,
+  },
   theme: {
     extend: {
-      fontFamily: {
-        sans: ['"InterVariable"', ...defaultTheme.fontFamily.sans],
-      },
-      colors: {
-        primary: {
-          300: '#fdba74',
-          400: '#fb923c',
-          500: '#f97316',
-        },
-        secondary: {
-          300: '#7dd3fc',
-          400: '#38bdf8',
-          500: '#0ea5e9',
-        },
-        accent: {
-          300: '#f0abfc',
-          400: '#e879f9',
-          500: '#d946ef',
-        },
-      },
       keyframes: {
         float: {
           '0%,100%': { transform: 'translateY(0)' },
@@ -54,7 +36,6 @@ module.exports = {
       animation: {
         wave: 'wave 3s ease-in-out infinite',
         float: 'float 6s ease-in-out infinite',
-        'pulse-slow': 'pulse 4s ease-in-out infinite',
         'gradient-x': 'gradient-x 8s ease infinite',
         'gradient-y': 'gradient-y 8s ease infinite',
       },
@@ -62,3 +43,5 @@ module.exports = {
   },
   plugins: [],
 };
+
+export default config;

@@ -4,7 +4,7 @@ import React from 'react';
 
 /**
  * Full-screen animated background with orbs, mesh lines, and floating particles.
- * Utilizes Tailwind CSS utility classes and custom animations defined in tailwind.config.js.
+ * Utilizes Tailwind CSS utility classes and custom animations defined in tailwind.config.mjs.
  */
 
 export default function AnimationBG() {
