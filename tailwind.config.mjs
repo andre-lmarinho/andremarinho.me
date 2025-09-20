@@ -2,7 +2,7 @@ import defaultTheme from 'tailwindcss/defaultTheme';
 
 /** @type {import('tailwindcss').Config} */
 const config = {
-  darkMode: 'class',
+  darkMode: ['selector', 'html:has(#dark-mode-toggle:checked)'],
   content: {
     files: ['./src/**/*.{js,ts,jsx,tsx,mdx}'],
     relative: import.meta.url,

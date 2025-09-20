@@ -5,7 +5,6 @@ import React from 'react';
 import './globals.css';
 import Layout from '@/components/layout';
 import cn from '@/utils';
-import { Providers } from './providers';
 
 const inter = localFont({
   src: [
@@ -56,11 +55,9 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en">
       <body className={cn(inter.variable, 'font-sans antialiased')}>
-        <Providers>
-          <Layout>{children}</Layout>
-        </Providers>
+        <Layout>{children}</Layout>
       </body>
     </html>
   );
