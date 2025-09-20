@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from 'react';
 import { useTheme } from '@/context';
-import { themeToggle } from '@/utils';
 import { Moon, Sun } from 'lucide-react';
 import cn from '@/utils/cn';
 
@@ -18,13 +17,9 @@ export default function ThemeSelector({ hidden = false }: ThemeSelectorProps) {
     setIsMounted(true);
   }, []);
 
-  const handleToggle = () => {
-    themeToggle({ darkMode, setDarkMode });
-  };
-
   return (
     <button
-      onClick={handleToggle}
+      onClick={() => setDarkMode(!darkMode)}
       className={cn(
         'group relative rounded-xl border-none bg-transparent p-2 transition-transform duration-300 hover:scale-110',
         hidden && 'pointer-events-none opacity-0 md:pointer-events-auto md:opacity-100'
