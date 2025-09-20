@@ -18,7 +18,7 @@ type HamburgerProps = {
 };
 
 const buttonClassName =
-  'inline-flex items-center justify-center rounded-lg p-2 text-zinc-900 transition-colors hover:text-zinc-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-zinc-400 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:text-zinc-100 dark:hover:text-zinc-300 dark:focus-visible:ring-zinc-500 dark:focus-visible:ring-offset-zinc-950';
+  'rounded-lg p-2 text-zinc-900 transition-colors hover:text-zinc-600 focus-visible:outline-hidden focus:ring-1 focus:ring-neutral-300 dark:text-zinc-100 dark:hover:text-zinc-300 dark:focus:ring-neutral-500';
 
 export default function Hamburger({ isOpen, setIsOpen, links }: HamburgerProps) {
   const pathname = usePathname();
@@ -124,14 +124,16 @@ export default function Hamburger({ isOpen, setIsOpen, links }: HamburgerProps) 
           aria-modal="true"
           tabIndex={-1}
         >
-          <button
-            aria-label="Close navigation menu"
-            onClick={() => setIsOpen(false)}
-            className={cn(buttonClassName, 'fixed right-6 top-2')}
-            type="button"
-          >
-            <X className="h-6 w-6" aria-hidden="true" />
-          </button>
+          <div className="absolute right-0 px-6 py-2">
+            <button
+              aria-label="Close navigation menu"
+              onClick={() => setIsOpen(false)}
+              className={buttonClassName}
+              type="button"
+            >
+              <X className="h-6 w-6" aria-hidden="true" />
+            </button>
+          </div>
           <Links links={links} variant="mobile" />
         </nav>
       )}
