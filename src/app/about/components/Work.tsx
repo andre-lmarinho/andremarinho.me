@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import React from 'react';
 
-import cn from '@/utils/cn';
+import cn from '@/utils';
 
 type WorkRole = {
   title: string;
@@ -81,7 +81,7 @@ export default function Work() {
           return (
             <li key={entryKey} className="h-full">
               <a
-                className="group flex gap-4 transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-zinc-500 dark:focus-visible:outline-zinc-400"
+                className="group flex gap-4 transition-colors focus-visible:outline focus-visible:outline-offset-2 focus-visible:outline-zinc-500 dark:focus-visible:outline-zinc-400"
                 href={href}
                 target={isExternal ? '_blank' : undefined}
                 rel={isExternal ? 'noreferrer noopener' : undefined}

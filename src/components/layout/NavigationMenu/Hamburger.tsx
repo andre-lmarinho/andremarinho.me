@@ -4,22 +4,21 @@ import { useEffect, useRef } from 'react';
 import { Menu, X } from 'lucide-react';
 import { usePathname } from 'next/navigation';
 
-import cn from '@/utils/cn';
-
-import Links, { type NavLink } from './Links';
+import cn from '@/utils';
+import Links from './Links';
 
 const focusableSelector =
   'a[href]:not([tabindex="-1"]), button:not([disabled]):not([tabindex="-1"]), [tabindex]:not([tabindex="-1"])';
 
-type HamburgerProps = {
+type Props = {
   isOpen: boolean;
   setIsOpen: (open: boolean) => void;
-  links: NavLink[];
 };
 
 const buttonClassName =
   'rounded-lg p-2 border-none bg-transparent text-zinc-900 transition-colors hover:text-zinc-600 focus-visible:ring-1 focus-visible:ring-neutral-300 dark:text-zinc-100 dark:hover:text-zinc-300 dark:focus-visible:ring-neutral-500';
-export default function Hamburger({ isOpen, setIsOpen, links }: HamburgerProps) {
+
+export default function Hamburger({ isOpen, setIsOpen }: Props) {
   const pathname = usePathname();
   const navRef = useRef<HTMLElement | null>(null);
   const openButtonRef = useRef<HTMLButtonElement | null>(null);
@@ -40,66 +39,50 @@ export default function Hamburger({ isOpen, setIsOpen, links }: HamburgerProps) 
       openButtonRef.current?.focus();
       return;
     }
+    const navEl = navRef.current;
+    if (!navEl) return;
 
-    const navElement = navRef.current;
-
-    if (!navElement) {
-      return;
-    }
-
-    const getFocusableElements = () =>
-      Array.from(navElement.querySelectorAll<HTMLElement>(focusableSelector));
-
-    const focusFirstElement = () => {
-      const [firstElement] = getFocusableElements();
-      (firstElement ?? navElement).focus();
+    const getFocusable = () => Array.from(navEl.querySelectorAll<HTMLElement>(focusableSelector));
+    const focusFirst = () => {
+      const [first] = getFocusable();
+      (first ?? navEl).focus();
     };
+    const frameId = requestAnimationFrame(focusFirst);
 
-    const frameId = requestAnimationFrame(focusFirstElement);
-
-    const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.key === 'Escape') {
-        event.preventDefault();
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        e.preventDefault();
         setIsOpen(false);
         return;
       }
-
-      if (event.key !== 'Tab') {
+      if (e.key !== 'Tab') return;
+      const els = getFocusable();
+      if (els.length === 0) {
+        e.preventDefault();
+        navEl.focus();
         return;
       }
-
-      const focusableElements = getFocusableElements();
-
-      if (focusableElements.length === 0) {
-        event.preventDefault();
-        navElement.focus();
-        return;
-      }
-
-      const [firstElement] = focusableElements;
-      const lastElement = focusableElements[focusableElements.length - 1];
-      const activeElement = document.activeElement as HTMLElement | null;
-      const isFocusInside = activeElement ? navElement.contains(activeElement) : false;
-
-      if (event.shiftKey) {
-        if (!isFocusInside || activeElement === firstElement) {
-          event.preventDefault();
-          lastElement.focus();
+      const [first] = els;
+      const last = els[els.length - 1];
+      const active = document.activeElement as HTMLElement | null;
+      const inside = active ? navEl.contains(active) : false;
+      if (e.shiftKey) {
+        if (!inside || active === first) {
+          e.preventDefault();
+          last.focus();
         }
         return;
       }
-
-      if (!isFocusInside || activeElement === lastElement) {
-        event.preventDefault();
-        firstElement.focus();
+      if (!inside || active === last) {
+        e.preventDefault();
+        first.focus();
       }
     };
 
-    document.addEventListener('keydown', handleKeyDown);
-
+    document.addEventListener('keydown', onKeyDown);
     return () => {
       cancelAnimationFrame(frameId);
-      document.removeEventListener('keydown', handleKeyDown);
+      document.removeEventListener('keydown', onKeyDown);
     };
   }, [isOpen, setIsOpen]);
 
@@ -133,7 +116,15 @@ export default function Hamburger({ isOpen, setIsOpen, links }: HamburgerProps) 
               <X className="h-6 w-6" aria-hidden="true" />
             </button>
           </div>
-          <Links links={links} variant="mobile" />
+
+          <Links
+            isHamburguer
+            links={[
+              { text: 'Home', href: '/' },
+              { text: 'Studio', href: '/studio' },
+              { text: 'About', href: '/about' },
+            ]}
+          />
         </nav>
       )}
     </div>

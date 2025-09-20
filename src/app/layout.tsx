@@ -3,8 +3,8 @@ import localFont from 'next/font/local';
 import React from 'react';
 
 import './globals.css';
-import { SiteLayout } from '@/components/layout';
-import cn from '@/utils/cn';
+import Layout from '@/components/layout';
+import cn from '@/utils';
 import { AppProviders } from './providers';
 
 const metaTitle = 'Andre Marinho - Front-End Developer';
@@ -63,7 +63,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en" suppressHydrationWarning>
       <body className={cn(inter.variable, 'font-sans antialiased')}>
         <AppProviders>
-          <SiteLayout>{children}</SiteLayout>
+          <Layout>{children}</Layout>
         </AppProviders>
       </body>
     </html>

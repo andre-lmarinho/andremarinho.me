@@ -3,7 +3,7 @@
 import Image from 'next/image';
 import React, { useEffect, useState } from 'react';
 
-import cn from '@/utils/cn';
+import cn from '@/utils';
 
 const heroTexts = [
   'I am a Front-End Developer based in Salvador. I create digital experiences that connect design, strategy and business growth.',

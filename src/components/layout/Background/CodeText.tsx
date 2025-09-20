@@ -1,11 +1,8 @@
-﻿'use client';
-
-import { useEffect, useState } from 'react';
-
-import cn from '@/utils/cn';
+﻿import { useEffect, useState } from 'react';
 import { useMouseCoords } from '@/hooks';
 
-const baseCodeStyle =
+const WRAPPER = 'pointer-events-none absolute inset-0 opacity-20';
+const CODE_BASE =
   'text-sm font-mono p-4 leading-snug transition duration-200 pointer-events-none text-[#d4d4d4]';
 
 const blue = 'text-[#569cd6]'; // keywords
@@ -14,18 +11,16 @@ const yellow = 'text-[#dcdcaa]'; // constants/numbers
 const aqua = 'text-[#4ec9b0]'; // types/objects
 const pink = 'text-[#c586c0]'; // control flow / returns
 
-export default function CodeText() {
+const MASK =
+  'radial-gradient(160px at var(--cursor-x, -9999px) var(--cursor-y, -9999px), rgba(0, 0, 0, 1) 20%, rgba(0, 0, 0, 0) 60%)';
+
+const CodeText = () => {
   const [enabled, setEnabled] = useState(false);
   useMouseCoords(enabled);
 
   useEffect(() => {
-    if (
-      typeof window === 'undefined' ||
-      typeof document === 'undefined' ||
-      window.innerWidth < 768
-    ) {
+    if (typeof window === 'undefined' || typeof document === 'undefined' || window.innerWidth < 768)
       return;
-    }
 
     const reduceMotion = window.matchMedia
       ? window.matchMedia('(prefers-reduced-motion: reduce)').matches
@@ -45,22 +40,19 @@ export default function CodeText() {
 
   if (!enabled) return null;
 
-  const mask =
-    'radial-gradient(160px at var(--cursor-x, -9999px) var(--cursor-y, -9999px), rgba(0, 0, 0, 1) 20%, rgba(0, 0, 0, 0) 60%)';
-
   return (
     <div
-      className="pointer-events-none absolute inset-0 opacity-20"
+      className={WRAPPER}
       aria-hidden="true"
       style={{
-        WebkitMaskImage: mask,
-        maskImage: mask,
+        WebkitMaskImage: MASK,
+        maskImage: MASK,
         WebkitMaskRepeat: 'no-repeat',
         maskRepeat: 'no-repeat',
       }}
     >
       {/* Snippet 1 */}
-      <div className={cn(baseCodeStyle, 'fixed top-[20%] left-[20%]')}>
+      <div className={`${CODE_BASE} fixed top-[20%] left-[20%]`}>
         <pre>
           <code>
             <span className={blue}>useEffect</span>
@@ -92,7 +84,7 @@ export default function CodeText() {
       </div>
 
       {/* Snippet 2 */}
-      <div className={cn(baseCodeStyle, 'fixed top-1/2 left-20')}>
+      <div className={`${CODE_BASE} fixed top-1/2 left-20`}>
         <pre>
           <code>
             <span className={lightBlue}>ids</span>
@@ -122,7 +114,7 @@ export default function CodeText() {
       </div>
 
       {/* Snippet 3 */}
-      <div className={cn(baseCodeStyle, 'fixed right-20 bottom-20')}>
+      <div className={`${CODE_BASE} fixed right-20 bottom-20`}>
         <pre>
           <code>
             <span className={blue}>useEffect</span>
@@ -140,4 +132,6 @@ export default function CodeText() {
       </div>
     </div>
   );
-}
+};
+
+export default CodeText;

@@ -1,30 +1,19 @@
 ﻿'use client';
-
-import dynamic from 'next/dynamic';
 import React from 'react';
 
+import Background from './Background';
 import Footer from './Footer';
 import Header from './NavigationMenu';
 
-const AnimationBG = dynamic(() => import('@/components/visuals/BGAnimation'), { ssr: false });
-const CodeText = dynamic(() => import('@/components/visuals/CodeText'), { ssr: false });
+type Props = { children: React.ReactNode };
 
-type SiteLayoutProps = {
-  children: React.ReactNode;
-};
+const Layout = (props: Props) => (
+  <>
+    <Header />
+    <main id="main">{props.children}</main>
+    <Footer />
+    <Background />
+  </>
+);
 
-export function SiteLayout({ children }: SiteLayoutProps) {
-  return (
-    <>
-      <Header />
-      <main id="main">{children}</main>
-      <Footer />
-      <div className="pointer-events-none" aria-hidden>
-        <AnimationBG />
-        <CodeText />
-      </div>
-    </>
-  );
-}
-
-export { Footer, Header };
+export default Layout;

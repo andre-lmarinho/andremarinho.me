@@ -1,49 +1,44 @@
-'use client';
 import NextLink from 'next/link';
 import { usePathname } from 'next/navigation';
 
-export type NavLink = { href: `/${string}` | `https://${string}`; text: string };
-type LinksProps = { links: NavLink[]; variant: 'desktop' | 'mobile'; onSelect?: () => void };
+type Props = {
+  links: { href: `/${string}` | `https://${string}`; text: string }[];
+  isHamburguer?: boolean;
+  onSelect?: () => void;
+};
 
-const STYLES = {
-  desktop: {
-    list: 'hidden grid-flow-col list-none gap-6 text-sm font-medium sm:grid group',
-    link: 'no-underline transition-opacity focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-zinc-500 focus-visible:ring-offset-2 dark:focus-visible:ring-zinc-400',
-    active: 'opacity-100',
-    inactive: 'opacity-50 hover:opacity-100',
-    indeterminate: 'hover:opacity-60',
-  },
-  mobile: {
-    list: 'm-0 flex h-full flex-1 flex-col items-center justify-center space-y-5 text-2xl list-none',
-    link: 'text-3xl font-semibold no-underline transition-opacity focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-zinc-500 focus-visible:ring-offset-2 dark:focus-visible:ring-zinc-400',
-    active: 'opacity-100',
-    inactive: 'opacity-50 hover:opacity-100 dark:opacity-60 dark:hover:opacity-100',
-  },
-} as const;
-
-export default function Links({ links, variant, onSelect }: LinksProps) {
-  const pathname = usePathname();
-  const activePath = `/${pathname?.split('/')[1] ?? ''}`;
-  const styles = STYLES[variant];
-  const indeterminate = variant === 'desktop' && !links.some(({ href }) => href === activePath);
-  const handleSelect = onSelect ? () => onSelect() : undefined;
+const Links = ({ links, isHamburguer, onSelect }: Props) => {
+  const pathname = `/${usePathname()?.split('/')[1] ?? ''}`;
+  const isIndeterminate = links.every((l) => l.href !== pathname);
+  const handle = onSelect ? () => onSelect() : undefined;
 
   return (
-    <ul className={styles.list}>
+    <ul
+      className={
+        isHamburguer
+          ? 'm-0 flex h-full flex-1 list-none flex-col items-center justify-center space-y-5 text-2xl'
+          : 'group hidden list-none grid-flow-col gap-6 text-sm font-medium sm:grid'
+      }
+    >
       {links.map(({ href, text }) => {
-        const isActive = href === activePath;
-        const stateClass = styles[isActive ? 'active' : 'inactive'];
-        const className = `${styles.link} ${stateClass}${indeterminate ? ` ${STYLES.desktop.indeterminate}` : ''}`;
+        const external = href.startsWith('http');
+        const isActive = href === pathname;
+        const state = isIndeterminate
+          ? 'hover:opacity-60'
+          : isActive
+            ? 'opacity-100'
+            : 'opacity-50 hover:opacity-100';
+        const className = `transition-opacity ${state}`;
 
         return (
           <li key={href}>
-            {!href.startsWith('/') ? (
+            {external ? (
               <a
-                className={className}
                 href={href}
-                rel="noopener noreferrer"
+                className={className}
                 target="_blank"
-                onClick={handleSelect}
+                rel="noopener noreferrer"
+                onClick={handle}
               >
                 {text}
               </a>
@@ -52,7 +47,7 @@ export default function Links({ links, variant, onSelect }: LinksProps) {
                 href={href}
                 className={className}
                 aria-current={isActive ? 'page' : undefined}
-                onClick={handleSelect}
+                onClick={handle}
               >
                 {text}
               </NextLink>
@@ -62,4 +57,6 @@ export default function Links({ links, variant, onSelect }: LinksProps) {
       })}
     </ul>
   );
-}
+};
+
+export default Links;

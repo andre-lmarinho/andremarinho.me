@@ -4,21 +4,12 @@ import Image from 'next/image';
 import Link from 'next/link';
 import React, { useState } from 'react';
 
-import cn from '@/utils/cn';
-
+import cn from '@/utils';
 import Hamburger from './Hamburger';
-import Links, { type NavLink } from './Links';
+import Links from './Links';
 import ThemeSelector from './ThemeSelector';
 
-const navLinks: NavLink[] = [
-  { text: 'Home', href: '/' },
-  { text: 'Studio', href: '/studio' },
-  { text: 'About', href: '/about' },
-];
-
-const desktopLinks: NavLink[] = navLinks.filter((link) => link.href !== '/');
-
-export default function NavigationMenu() {
+const NavigationMenu = () => {
   const [isHamburgerOpen, setIsHamburgerOpen] = useState(false);
 
   return (
@@ -43,12 +34,20 @@ export default function NavigationMenu() {
             sizes="32px"
           />
         </Link>
+
         <div className="flex flex-row-reverse items-center gap-3 sm:flex-row sm:gap-4">
-          <Links links={desktopLinks} variant="desktop" />
-          <Hamburger links={navLinks} isOpen={isHamburgerOpen} setIsOpen={setIsHamburgerOpen} />
+          <Links
+            links={[
+              { text: 'Studio', href: '/studio' },
+              { text: 'About', href: '/about' },
+            ]}
+          />
+          <Hamburger isOpen={isHamburgerOpen} setIsOpen={setIsHamburgerOpen} />
           <ThemeSelector />
         </div>
       </div>
     </header>
   );
-}
+};
+
+export default NavigationMenu;

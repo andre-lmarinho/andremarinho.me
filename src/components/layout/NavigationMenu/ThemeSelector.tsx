@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react';
 import { useTheme } from '@/context';
 import { Moon, Sun } from 'lucide-react';
-import cn from '@/utils/cn';
+import cn from '@/utils';
 
 interface ThemeSelectorProps {
   hidden?: boolean;
