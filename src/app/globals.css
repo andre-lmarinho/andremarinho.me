@@ -7,34 +7,12 @@
    Global Base Styles
    ================================ */
 @layer base {
-  @font-face {
-    font-family: 'InterVariable';
-    font-style: normal;
-    font-weight: 100 900;
-    font-display: swap;
-    src: url('/fonts/inter.var.latin.woff2') format('woff2');
-  }
-
-  @font-face {
-    font-family: 'InterVariable';
-    font-style: italic;
-    font-weight: 100 900;
-    font-display: swap;
-    src: url('/fonts/inter.var.latin.italic.woff2') format('woff2');
-  }
-
   html {
     scroll-behavior: smooth;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     min-height: 100%;
-    font-family:
-      'InterVariable',
-      'Inter',
-      system-ui,
-      -apple-system,
-      'Segoe UI',
-      sans-serif;
+    @apply font-sans;
   }
 
   body {
