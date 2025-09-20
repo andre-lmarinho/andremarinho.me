@@ -29,11 +29,11 @@ export default function ThemeSelector({ hidden = false }: ThemeSelectorProps) {
     >
       <Moon
         aria-hidden="true"
-        className="h-5 w-5 text-zinc-700 transition-all duration-300 group-hover:rotate-12 dark:hidden dark:text-zinc-300"
+        className="block h-5 w-5 shrink-0 text-zinc-700 transition-all duration-300 group-hover:rotate-12 dark:hidden dark:text-zinc-300"
       />
       <Sun
         aria-hidden="true"
-        className="hidden h-5 w-5 text-zinc-100 transition-all duration-300 group-hover:rotate-180 dark:block"
+        className="hidden h-5 w-5 shrink-0 text-zinc-100 transition-all duration-300 group-hover:rotate-180 dark:block"
       />
     </button>
   );
