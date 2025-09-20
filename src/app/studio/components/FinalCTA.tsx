@@ -1,5 +1,6 @@
 'use client';
 
+import StudioCta from '@/components/common/StudioCta';
 import type React from 'react';
 import { useRef, useState } from 'react';
 
@@ -77,14 +78,13 @@ const FinalCTA = () => {
           </div>
         </div>
 
-        <a
-          href="https://wa.me/5571984770061"
+        <StudioCta
+          className="inline-flex rounded-xl px-6"
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex rounded-xl bg-gradient-to-b from-orange-500 to-orange-600 px-6 py-2 font-semibold text-white antialiased shadow-[inset_0_1px_0_0.75px_rgba(255,255,255,0.2)] transition-transform will-change-transform focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-orange-500 active:scale-[.97]"
         >
           Get started
-        </a>
+        </StudioCta>
       </div>
     </section>
   );

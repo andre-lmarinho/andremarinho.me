@@ -1,5 +1,7 @@
 import type { ContactLink } from './types';
 
+export const WHATSAPP_LINK = 'https://wa.me/5571984770061';
+
 export const contactLinks: ContactLink[] = [
   {
     label: 'GitHub',
