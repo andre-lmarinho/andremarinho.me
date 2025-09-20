@@ -27,14 +27,16 @@ export default function ThemeSelector({ hidden = false }: ThemeSelectorProps) {
       aria-pressed={darkMode}
       type="button"
     >
-      <Moon
-        aria-hidden="true"
-        className="h-5 w-5 text-zinc-700 transition-all duration-300 group-hover:rotate-12 dark:hidden dark:text-zinc-300"
-      />
-      <Sun
-        aria-hidden="true"
-        className="hidden h-5 w-5 text-zinc-100 transition-all duration-300 group-hover:rotate-180 dark:block"
-      />
+      <span className="relative flex h-5 w-5 items-center justify-center">
+        <Moon
+          aria-hidden="true"
+          className="absolute inset-0 h-5 w-5 shrink-0 text-zinc-700 opacity-100 transition-all duration-300 group-hover:rotate-12 dark:text-zinc-300 dark:opacity-0"
+        />
+        <Sun
+          aria-hidden="true"
+          className="absolute inset-0 h-5 w-5 shrink-0 text-zinc-100 opacity-0 transition-all duration-300 group-hover:rotate-180 dark:opacity-100"
+        />
+      </span>
     </button>
   );
 }
