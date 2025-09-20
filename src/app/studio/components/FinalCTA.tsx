@@ -8,28 +8,32 @@ const FinalCTA = () => {
   const [copied, setCopied] = useState(false);
   const timerRef = useRef<number | null>(null);
 
-  const handleCopy = async (event: React.MouseEvent<HTMLButtonElement>) => {
+  const handleCopy = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
     if (!navigator?.clipboard?.writeText) {
       setCopied(false);
       return;
     }
 
-    try {
-      await navigator.clipboard.writeText(email);
-      setCopied(true);
-      if (timerRef.current) window.clearTimeout(timerRef.current);
-      timerRef.current = window.setTimeout(() => setCopied(false), 3600);
-    } catch {
-      setCopied(false);
-    }
+    navigator.clipboard
+      .writeText(email)
+      .then(() => {
+        setCopied(true);
+        if (timerRef.current) {
+          window.clearTimeout(timerRef.current);
+        }
+        timerRef.current = window.setTimeout(() => setCopied(false), 3600);
+      })
+      .catch(() => {
+        setCopied(false);
+      });
   };
 
   return (
     <section id="contact">
-      <div className="rounded-3xl bg-zinc-50 p-10 dark:bg-zinc-900/50 sm:p-16">
+      <div className="rounded-3xl bg-zinc-50 p-10 sm:p-16 dark:bg-zinc-900/50">
         <h2 className="text-3xl font-semibold md:text-4xl">Your duonorth starts here</h2>
-        <div className="max-w-sm pb-8 pt-6 text-lg font-medium text-zinc-700 dark:text-zinc-300">
+        <div className="max-w-sm pt-6 pb-8 text-lg font-medium text-zinc-700 dark:text-zinc-300">
           <p className="mb-2">We&apos;ve got you &mdash; Schedule a call or email at</p>
           <div className="flex flex-wrap items-baseline gap-1">
             <button

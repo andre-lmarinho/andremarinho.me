@@ -1,4 +1,12 @@
 ﻿/** @type {import('next').NextConfig} */
+const cspDirectives = [
+  "default-src 'self'",
+  "script-src 'none'",
+  'sandbox',
+  "style-src 'self' 'unsafe-inline'",
+  "img-src 'self' data: https://cdn.simpleicons.org https://github.com https://avatars.githubusercontent.com",
+].join('; ');
+
 const nextConfig = {
   images: {
     remotePatterns: [
@@ -12,10 +20,14 @@ const nextConfig = {
         hostname: 'github.com',
         pathname: '/**',
       },
+      {
+        protocol: 'https',
+        hostname: 'avatars.githubusercontent.com',
+        pathname: '/**',
+      },
     ],
     dangerouslyAllowSVG: true,
-    contentSecurityPolicy:
-      "default-src 'self'; script-src 'none'; sandbox; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://cdn.simpleicons.org https://github.com",
+    contentSecurityPolicy: cspDirectives,
   },
 };
 

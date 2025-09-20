@@ -22,19 +22,20 @@ export default function useMouseCoords(active = true, onChange?: (coords: MouseC
 
     const root = document.documentElement;
 
-    const update = (e: MouseEvent | TouchEvent) => {
-      let x: number;
-      let y: number;
+    const update: EventListener = (event) => {
+      let x = 0;
+      let y = 0;
 
-      if ('touches' in e) {
-        const touch = e.touches[0];
+      if (typeof TouchEvent !== 'undefined' && event instanceof TouchEvent) {
+        const touch = event.touches[0];
         if (!touch) return;
         x = touch.clientX + window.scrollX;
         y = touch.clientY + window.scrollY;
+      } else if (event instanceof MouseEvent) {
+        x = event.clientX + window.scrollX;
+        y = event.clientY + window.scrollY;
       } else {
-        const mouse = e as MouseEvent;
-        x = mouse.clientX + window.scrollX;
-        y = mouse.clientY + window.scrollY;
+        return;
       }
 
       coordsRef.current.x = x;
@@ -50,12 +51,12 @@ export default function useMouseCoords(active = true, onChange?: (coords: MouseC
 
     const options: AddEventListenerOptions = { passive: true };
 
-    window.addEventListener('touchmove', update as EventListener, options);
-    window.addEventListener('mousemove', update as EventListener, options);
+    window.addEventListener('touchmove', update, options);
+    window.addEventListener('mousemove', update, options);
 
     return () => {
-      window.removeEventListener('touchmove', update as EventListener, options);
-      window.removeEventListener('mousemove', update as EventListener, options);
+      window.removeEventListener('touchmove', update, options);
+      window.removeEventListener('mousemove', update, options);
     };
   }, [active]);
 

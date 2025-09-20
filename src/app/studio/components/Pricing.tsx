@@ -9,7 +9,7 @@ const PricingCard = ({ tier, price, description, features = [] }: PricingCardPro
   return (
     <div className="relative rounded-3xl border border-zinc-200 p-10 dark:border-zinc-800">
       <h3 className="text-lg font-semibold">{tier}</h3>
-      <p className="mb-6 mt-4 text-sm text-zinc-600 dark:text-zinc-400">{description}</p>
+      <p className="mt-4 mb-6 text-sm text-zinc-600 dark:text-zinc-400">{description}</p>
       <p className="text-xs text-zinc-600 dark:text-zinc-400">Starting at</p>
       <p className="mb-6 flex items-baseline gap-1 text-zinc-900 dark:text-zinc-100">
         <span className="text-3xl font-bold">{price}</span>
@@ -50,7 +50,7 @@ const PricingCard = ({ tier, price, description, features = [] }: PricingCardPro
 const Pricing = () => {
   return (
     <section id="pricing">
-      <div className="mb-6 mt-10 grid grid-cols-1 gap-6 md:grid-cols-2">
+      <div className="mt-10 mb-6 grid grid-cols-1 gap-6 md:grid-cols-2">
         <PricingCard
           tier="Website"
           price="$ 1.000"
@@ -64,10 +64,10 @@ const Pricing = () => {
           features={['End-to-end MVP', 'Product design', 'Full-stack development']}
         />
       </div>
-      <div className="flex flex-col gap-x-20 rounded-3xl border border-zinc-200 p-10 dark:border-zinc-800 sm:flex-row sm:items-center">
+      <div className="flex flex-col gap-x-20 rounded-3xl border border-zinc-200 p-10 sm:flex-row sm:items-center dark:border-zinc-800">
         <div className="flex-1">
           <h3 className="text-lg font-semibold">Custom</h3>
-          <p className="mb-8 mt-4 text-sm text-zinc-600 dark:text-zinc-400">
+          <p className="mt-4 mb-8 text-sm text-zinc-600 dark:text-zinc-400">
             If your needs don&apos;t fit any of our packages, we can work something out. Let&apos;s
             chat and see how we can help you.
           </p>
@@ -76,7 +76,7 @@ const Pricing = () => {
           href="https://wa.me/5571984770061"
           target="_blank"
           rel="noopener noreferrer"
-          className="shadow-xs inline-flex items-center justify-center gap-x-1.5 rounded-lg border border-zinc-200 px-6 py-2 text-sm font-semibold antialiased transition-transform will-change-transform focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-neutral-400 active:scale-[.99] dark:border-zinc-800 dark:bg-neutral-900 dark:focus-visible:outline-neutral-500"
+          className="inline-flex items-center justify-center gap-x-1.5 rounded-lg border border-zinc-200 px-6 py-2 text-sm font-semibold antialiased shadow-xs transition-transform will-change-transform focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-neutral-400 active:scale-[.99] dark:border-zinc-800 dark:bg-neutral-900 dark:focus-visible:outline-neutral-500"
         >
           Book a call
         </a>

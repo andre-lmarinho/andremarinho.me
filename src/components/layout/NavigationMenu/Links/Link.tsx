@@ -30,13 +30,13 @@ export default function LinkComponent({
   const className =
     variant === 'mobile'
       ? cn(
-          'text-3xl font-semibold transition-opacity focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-zinc-500 dark:focus-visible:outline-zinc-400',
+          'text-3xl font-semibold no-underline transition-opacity focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-zinc-500 focus-visible:ring-offset-2 dark:focus-visible:ring-zinc-400',
           isActive
             ? 'opacity-100'
             : 'opacity-50 hover:opacity-100 dark:opacity-60 dark:hover:opacity-100'
         )
       : cn(
-          'transition-opacity focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-zinc-500 dark:focus-visible:outline-zinc-400',
+          'no-underline transition-opacity focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-zinc-500 focus-visible:ring-offset-2 dark:focus-visible:ring-zinc-400',
           isIndeterminate
             ? 'hover:opacity-60'
             : isActive
