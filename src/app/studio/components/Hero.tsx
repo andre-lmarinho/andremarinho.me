@@ -6,9 +6,8 @@ const Hero = () => {
       <h1 className="pb-6 text-4xl font-extrabold tracking-tight sm:text-5xl md:text-6xl">
         {'World-class '}
         <TextType
-          as="span"
           className="text-zinc-900 italic dark:text-zinc-100"
-          text={['design', 'software', 'product']}
+          texts={['design', 'software', 'product']}
         />
         <span className="block">partner for your business</span>
       </h1>
