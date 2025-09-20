@@ -21,8 +21,8 @@ export default function Links({ links, variant, onSelect }: LinksProps) {
 
   const listClassName =
     variant === 'mobile'
-      ? 'm-0 flex h-full flex-1 flex-col items-center justify-center space-y-5 text-2xl'
-      : 'hidden grid-flow-col gap-6 text-sm font-medium sm:grid group';
+      ? 'm-0 flex h-full flex-1 flex-col items-center justify-center space-y-5 text-2xl list-none'
+      : 'hidden grid-flow-col list-none gap-6 text-sm font-medium sm:grid group';
 
   return (
     <ul className={listClassName}>
