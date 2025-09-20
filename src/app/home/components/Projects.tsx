@@ -94,9 +94,9 @@ export default function Projects() {
                   isExternal ? `${project.ariaLabel} (opens in a new tab)` : project.ariaLabel
                 }
               >
-                <div className="group relative flex h-full flex-col gap-4 pb-1 lg:group-hover/list:opacity-50 lg:hover:!opacity-100">
+                <div className="group relative flex h-full flex-col gap-4 pb-1 lg:hover:!opacity-100 lg:group-hover/list:opacity-50">
                   <div className="sm:order-2 sm:col-span-6">
-                    <h3 className="leading-snug font-medium">
+                    <h3 className="font-medium leading-snug">
                       {project.title}
                       {project.tag && (
                         <span className="mb-2 ml-5 inline-block rounded-full bg-zinc-200 px-2 py-0.5 text-xs font-medium text-zinc-800 dark:bg-zinc-700 dark:text-zinc-200">

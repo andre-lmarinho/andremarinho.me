@@ -24,7 +24,7 @@ export default function NavigationMenu() {
   return (
     <header
       className={cn(
-        'sticky top-0 z-40 bg-white/75 py-2 sm:py-3 dark:bg-zinc-950/75',
+        'sticky top-0 z-40 bg-white/75 py-2 dark:bg-zinc-950/75 sm:py-3',
         isHamburgerOpen ? '' : 'backdrop-blur-xl'
       )}
     >

@@ -110,7 +110,7 @@ export default function Work() {
                 </span>
                 <div className="flex flex-1 gap-3 sm:gap-4">
                   <div className="flex flex-1 flex-col">
-                    <span className="leading-tight font-medium text-zinc-900 transition-colors group-hover:text-zinc-600 dark:text-zinc-100 dark:group-hover:text-zinc-400">
+                    <span className="font-medium leading-tight text-zinc-900 transition-colors group-hover:text-zinc-600 dark:text-zinc-100 dark:group-hover:text-zinc-400">
                       {role.title}
                     </span>
                     <span className="text-sm text-zinc-600 transition-colors group-hover:text-zinc-500 dark:text-zinc-400 dark:group-hover:text-zinc-500">
