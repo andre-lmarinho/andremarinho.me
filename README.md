@@ -77,7 +77,12 @@ npm run vercel:build
 
 ## Deployment
 
-The project is configured for Vercel. To validate the deployment locally run:
+The project is configured for Vercel:
+
+- Incoming traffic is normalized by `vercel.json`, which permanently redirects any HTTP requests to HTTPS and folds `www.andremarinho.me` into the apex domain for canonical URLs.
+- Long-lived caching headers (`Cache-Control: public,max-age=31536000,immutable`) are applied to hashed build artefacts, including `/_next/static/**`, `/_next/data/**`, and any files served with a fingerprinted filename.
+
+To validate the deployment locally run:
 
 ```bash
 npm run vercel:build
