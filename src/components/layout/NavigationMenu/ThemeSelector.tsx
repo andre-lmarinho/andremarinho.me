@@ -1,5 +1,6 @@
 ﻿'use client';
 
+import { useEffect, useState } from 'react';
 import { useTheme } from '@/context';
 import { themeToggle } from '@/utils';
 import { Moon, Sun } from 'lucide-react';
@@ -11,6 +12,11 @@ interface ThemeSelectorProps {
 
 export default function ThemeSelector({ hidden = false }: ThemeSelectorProps) {
   const { darkMode, setDarkMode } = useTheme();
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
 
   const handleToggle = () => {
     themeToggle({ darkMode, setDarkMode });
@@ -24,7 +30,7 @@ export default function ThemeSelector({ hidden = false }: ThemeSelectorProps) {
         hidden && 'pointer-events-none opacity-0 md:pointer-events-auto md:opacity-100'
       )}
       aria-label="Toggle dark mode"
-      aria-pressed={darkMode}
+      aria-pressed={isMounted ? darkMode : undefined}
       type="button"
     >
       <span className="relative flex h-5 w-5 items-center justify-center">
