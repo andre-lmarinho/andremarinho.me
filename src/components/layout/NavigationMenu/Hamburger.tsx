@@ -5,6 +5,7 @@ import type { MouseEvent as ReactMouseEvent } from 'react';
 import { Menu, X } from 'lucide-react';
 import { usePathname } from 'next/navigation';
 
+import { navigationLinks } from '@/data';
 import cn from '@/utils';
 import Links from './Links';
 
@@ -133,14 +134,7 @@ export default function Hamburger({ isOpen, setIsOpen }: Props) {
             </button>
           </div>
 
-          <Links
-            isHamburguer
-            links={[
-              { text: 'Home', href: '/' },
-              { text: 'Studio', href: '/studio' },
-              { text: 'About', href: '/about' },
-            ]}
-          />
+          <Links isHamburguer links={navigationLinks} />
         </nav>
       )}
     </div>

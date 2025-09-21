@@ -5,6 +5,17 @@ export interface ContactLink {
   icon?: 'github' | 'linkedin' | 'email';
 }
 
+export type NavigationLink = {
+  text: string;
+  href: `/${string}` | `https://${string}` | `http://${string}`;
+};
+
+export const navigationLinks: NavigationLink[] = [
+  { text: 'Home', href: '/' },
+  { text: 'Studio', href: '/studio' },
+  { text: 'About', href: '/about' },
+];
+
 export const contactLinks: ContactLink[] = [
   {
     label: 'GitHub',

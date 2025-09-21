@@ -3,12 +3,14 @@
 import NextLink from 'next/link';
 import { usePathname } from 'next/navigation';
 
+import { navigationLinks, type NavigationLink } from '@/data';
+
 type Props = {
-  links: { href: `/${string}` | `https://${string}`; text: string }[];
+  links?: NavigationLink[];
   isHamburguer?: boolean;
 };
 
-const Links = ({ links, isHamburguer }: Props) => {
+const Links = ({ links = navigationLinks, isHamburguer }: Props) => {
   const pathname = `/${usePathname()?.split('/')[1] ?? ''}`;
   const isIndeterminate = links.every((l) => l.href !== pathname);
 
