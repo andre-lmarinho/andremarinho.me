@@ -1,6 +1,6 @@
-﻿# Personal Portfolio - Andre Marinho
+# Personal Portfolio - Andre Marinho
 
-This repository powers **Andre Marinho's personal portfolio**, now built with **Next.js 14**, **React 18**, **TypeScript**, and **Tailwind CSS**. The site highlights motion design, theme switching, and carefully structured content for future growth.
+This repository powers **Andre Marinho's personal portfolio**, built with **Next.js 14**, **React 18**, **TypeScript**, and **Tailwind CSS**. The site highlights motion design, theme switching, and carefully structured content for future growth.
 
 - [Website](https://andremarinho.me)
 - Deploy-ready for Vercel with the included configuration.
@@ -9,11 +9,11 @@ This repository powers **Andre Marinho's personal portfolio**, now built with **
 
 ## Highlights
 
-- **Static-first Next.js app** with the App Router and typed metadata
-- **Dark/light theme** handled by a shared context and persisted preference
-- **Framer-inspired visuals** (background gradients, code spotlight)
-- **Accessibility first**: skip links, keyboard focus styles, semantic landmarks
-- **Typed content layer** for hero, projects, and work history
+- **Static-first Next.js app** with typed metadata plus App Router handlers for the sitemap and robots directives.
+- **Security hardened by default** thanks to a shared HTTP header helper that ships HSTS, CSP, COOP/COEP, and other protective directives.
+- **Accessibility first**: persistent skip link, keyboard focus styles, and semantic landmarks for predictable navigation.
+- **Dark/light theming** handled by a shared context with persisted preference.
+- **Typed content layer** for hero, projects, and work history.
 
 ---
 
@@ -21,69 +21,92 @@ This repository powers **Andre Marinho's personal portfolio**, now built with **
 
 - **Framework:** Next.js 14 (App Router) + React 18 + TypeScript
 - **Styling:** Tailwind CSS 3 with custom keyframes and design tokens
-- **Animations:** Tailwind motion utilities (ready for Framer Motion integration)
 - **Icons:** lucide-react
-- **Tooling:** ESLint, Prettier, Jest + Testing Library
+- **Tooling:** ESLint, Prettier, Jest + Testing Library (Lighthouse CI remains available for ad-hoc audits)
 - **Deployment:** Vercel build output
+
+---
+
+## Security & SEO
+
+### Hardened response headers
+
+All routes share the same header policy configured in [`next.config.js`](next.config.js):
+
+- `Strict-Transport-Security: max-age=63072000; includeSubDomains; preload`
+- `X-Content-Type-Options: nosniff`
+- `Referrer-Policy: strict-origin-when-cross-origin`
+- `X-Frame-Options: DENY`
+- `Permissions-Policy: camera=(), microphone=(), geolocation=(), interest-cohort=()`
+- `Content-Security-Policy: default-src 'self'; img-src 'self' data: https:; style-src 'self' 'unsafe-inline'; font-src 'self' https: data:; script-src 'self' 'unsafe-inline'; connect-src 'self'; frame-ancestors 'none'`
+- `X-DNS-Prefetch-Control: off`
+- `X-Permitted-Cross-Domain-Policies: none`
+- `Cross-Origin-Opener-Policy: same-origin`
+- `Cross-Origin-Resource-Policy: same-origin`
+
+The Content Security Policy doubles as the `contentSecurityPolicy` for remote images to guarantee parity.
+
+### Crawling helpers
+
+App Router route handlers emit both `robots.txt` and `sitemap.xml`, keeping canonical URLs typed alongside the source. Update those handlers whenever you add or remove a top-level route so crawlers stay in sync.
+
+### Accessibility affordances
+
+A persistent “Skip to main content” link sits before the global navigation, landing on the `<main id="main">` landmark so keyboard users can jump straight into page content. Combined with semantic sections and focus states, the layout supports predictable navigation across devices.
 
 ---
 
 ## Getting Started
 
-**Prerequisites:** Node.js 18+ and npm 9+
+### Prerequisites
+
+- Node.js 18+
+- npm 9+
+
+### Install and run locally
 
 ```bash
 # Install dependencies
 npm install
 
-# Run development server
+# Start the development server
 npm run dev
+```
 
-# Build for production
+Visit [http://localhost:3000](http://localhost:3000) after the dev server boots.
+
+### Build and serve production output
+
+```bash
+# Create an optimized production build
 npm run build
 
-# Start the production server locally
+# Serve the production build locally
 npm start
 ```
 
 ---
 
-## Scripts
+## Local testing & verification
 
-- `npm run dev` - start Next.js dev server
-- `npm run build` - create a production build
-- `npm run start` - serve the production build
-- `npm run lint` - run ESLint with Next.js rules
-- `npm run typecheck` - execute TypeScript in no-emit mode
-- `npm run test` - run Jest + Testing Library
-- `npm run test:ci` - run the Jest suite in CI mode for deterministic output
-- `npm run verify` - run formatting checks, linting, type checking, tests, and a production build sequentially
-- `npm run ci` - alias for `npm run verify` to mirror the GitHub Actions workflow locally
-- `npm run format` - format with Prettier
-- `npm run vercel:build` - build using the same command executed by Vercel
+Run individual quality gates as needed:
+
+| Command                | Purpose                                        |
+| ---------------------- | ---------------------------------------------- |
+| `npm run lint`         | Run ESLint with the project defaults.          |
+| `npm run typecheck`    | Execute TypeScript in no-emit mode.            |
+| `npm run test`         | Execute the Jest + Testing Library suites.     |
+| `npm run vercel:build` | Reproduce the Vercel production build locally. |
+| `npm run format`       | Format files with Prettier.                    |
+
+Use `npm run verify` to chain `format:check`, `lint:ci`, `typecheck`, `test:ci`, and `build:prod` together. It mirrors the GitHub Actions verify workflow so local runs match CI exactly.
 
 ---
 
-## Testing and Quality Gates
+## Environment configuration
 
-### Running tests
-
-The Jest suites exercise the App Router pages end-to-end—rendering the Home, About, and Studio server components via Testing Library, checking their exported metadata, and validating the shared security headers helper. Run them locally with:
-
-```bash
-npm run test
-npm run test:ci
-```
-
-Ensure all checks pass before shipping:
-
-```bash
-npm run format
-npm run lint
-npm run typecheck
-npm run test
-npm run vercel:build
-```
+- Duplicate `.env.example` to `.env.local` for any environment-specific overrides. The example stays empty until a third-party integration requires configuration.
+- When deploying to Vercel, define the same variables inside the project dashboard so server and edge environments match your local setup.
 
 ---
 
@@ -91,41 +114,18 @@ npm run vercel:build
 
 The project is configured for Vercel:
 
-- Incoming traffic is normalized by `vercel.json`, which permanently redirects any HTTP requests to HTTPS and folds `www.andremarinho.me` into the apex domain for canonical URLs.
-- Long-lived caching headers (`Cache-Control: public,max-age=31536000,immutable`) are applied to hashed build artefacts, including `/_next/static/**`, `/_next/data/**`, and any files served with a fingerprinted filename.
+- Incoming traffic is normalized by [`vercel.json`](vercel.json), forcing HTTPS and consolidating `www.andremarinho.me` to the apex domain.
+- Long-lived caching headers (`Cache-Control: public,max-age=31536000,immutable`) apply to hashed build artefacts, including `/_next/static/**`, `/_next/data/**`, and any fingerprinted assets.
 
-To validate the deployment locally run:
-
-```bash
-npm run vercel:build
-```
-
-The `.vercel` directory is updated automatically by Vercel CLI builds.
+Use `npm run vercel:build` to validate the production build locally before promoting changes.
 
 ---
 
-## CI & Quality
+## Continuous integration
 
-### Local parity scripts
-
-- `npm run verify` – execute `format:check`, `lint:ci`, `typecheck`, `test:ci`, and `build:prod` together for full parity with CI.
-- `npm run format:check` – verify Prettier formatting before pushing, especially after touching Markdown or styles.
-- `npm run lint:ci` – run the stricter ESLint configuration used in CI to catch warnings early.
-- `npm run typecheck` – confirm TypeScript stays happy after API or prop changes.
-- `npm run test:ci` – execute the Jest suite in CI mode to ensure deterministic results.
-- `npm run build:prod` – build the production bundle to catch compilation issues.
-- `npm run lhci` – run Lighthouse CI locally after `npm run build:prod` and `npm run serve:prod` are active to spot performance or accessibility regressions.
-
-### GitHub Actions
-
-- **CI** – runs on pushes to `main` and every pull request. It installs dependencies, then runs `npm run ci` (aliasing `npm run verify`) to execute `format:check`, `lint:ci`, `typecheck`, `test:ci`, and `build:prod` for release gating.
-- **Lighthouse** – runs on pushes to `main`, every pull request, or when triggered manually. It builds the app, serves it, audits with Lighthouse CI, and uploads the `lhci-reports` artifact so regressions fail loudly.
-
-### Retrieve Lighthouse reports
-
-1. Download the `lhci-reports` artifact from the Lighthouse workflow run.
-2. Unzip the archive to a local directory.
-3. Open `index.html` in your browser to review scores and detailed audits.
+- **Verify** – Runs on pushes to `main` and every pull request. It installs dependencies and executes `npm run ci` (aliasing `npm run verify`) so formatting, linting, type checking, tests, and the production build all pass together.
+- **CodeQL** – Periodic static-analysis scan for common security issues.
+- **Lighthouse (optional)** – A standalone workflow and the `npm run lhci` script remain available for manual performance checks but are not required for the minimal stack.
 
 ---
 
