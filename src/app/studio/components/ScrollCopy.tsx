@@ -39,27 +39,14 @@ const ScrollCopy: React.FC<Props> = ({
 
   const wordsQuery = '.sc-word';
 
-  const clearOverlays = useCallback(() => {
-    const el = containerRef.current;
-    if (!el) return;
-    el.querySelectorAll<HTMLSpanElement>('.sc-next').forEach((n) => n.remove());
-    el.querySelectorAll<HTMLSpanElement>(wordsQuery).forEach((w) => {
-      w.style.position = '';
-      (w as HTMLElement).style.visibility = '';
-      (w as HTMLElement).style.display = '';
-      (w as HTMLElement).style.width = '';
-      (w as HTMLElement).style.overflow = '';
-      w.classList.remove('sc-hide');
-      (w as HTMLElement).removeAttribute('data-sc-bridge-target');
-      (w as HTMLElement).removeAttribute('data-sc-bridge-source');
-    });
-  }, []);
-
   const buildParagraphBridges = useCallback(() => {
     const el = containerRef.current;
     if (!el) return;
 
-    clearOverlays();
+    el.querySelectorAll<HTMLSpanElement>(wordsQuery).forEach((span) => {
+      (span as HTMLElement).removeAttribute('data-sc-bridge-target');
+      (span as HTMLElement).removeAttribute('data-sc-bridge-source');
+    });
 
     const paras = Array.from(el.querySelectorAll<HTMLParagraphElement>('p'));
     paras.forEach((p, pIdx) => {
@@ -81,7 +68,7 @@ const ScrollCopy: React.FC<Props> = ({
         }
       }
     });
-  }, [clearOverlays]);
+  }, [wordsQuery]);
 
   const updateOpacity = useCallback(() => {
     rafRef.current = null;
