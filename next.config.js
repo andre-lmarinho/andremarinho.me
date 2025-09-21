@@ -1,11 +1,15 @@
-/** @type {import('next').NextConfig} */
+const isDev = process.env.NODE_ENV !== 'production';
+
+const scriptSrc = `'self' 'unsafe-inline'${isDev ? " 'unsafe-eval'" : ''}`;
+const connectSrc = `'self'${isDev ? ' ws:' : ''}`;
+
 const cspDirectives = [
   "default-src 'self'",
   "img-src 'self' data: https:",
   "style-src 'self' 'unsafe-inline'",
   "font-src 'self' https: data:",
-  "script-src 'self' 'unsafe-inline'",
-  "connect-src 'self'",
+  `script-src ${scriptSrc}`,
+  `connect-src ${connectSrc}`,
   "frame-ancestors 'none'",
 ].join('; ');
 
@@ -52,6 +56,7 @@ const securityHeaders = [
   },
 ];
 
+/** @type {import('next').NextConfig} */
 const nextConfig = {
   async headers() {
     return [

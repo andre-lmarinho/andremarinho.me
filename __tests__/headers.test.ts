@@ -1,3 +1,6 @@
+import type { NextConfig } from 'next';
+import nextConfig from '../next.config.js';
+
 type SecurityHeader = {
   key: string;
   value: string;
@@ -8,14 +11,12 @@ type RouteHeaderConfig = {
   headers: SecurityHeader[];
 };
 
-type NextConfigWithHeaders = {
+type NextConfigWithHeaders = NextConfig & {
   headers: () => Promise<RouteHeaderConfig[]>;
-  images: {
-    contentSecurityPolicy: string;
-  };
+  images: NonNullable<NextConfig['images']> & { contentSecurityPolicy: string };
 };
 
-const config = require('../next.config.js') as NextConfigWithHeaders;
+const config = nextConfig as NextConfigWithHeaders;
 
 describe('security headers helper', () => {
   it('applies the expected security headers to all routes', async () => {
@@ -45,9 +46,19 @@ describe('security headers helper', () => {
       'Cross-Origin-Resource-Policy': 'same-origin',
     });
 
-    expect(headerMap['Content-Security-Policy']).toBe(
-      "default-src 'self'; img-src 'self' data: https:; style-src 'self' 'unsafe-inline'; font-src 'self' https: data:; script-src 'self' 'unsafe-inline'; connect-src 'self'; frame-ancestors 'none'"
-    );
+    const expectedCsp = [
+      "default-src 'self'",
+      "img-src 'self' data: https:",
+      "style-src 'self' 'unsafe-inline'",
+      "font-src 'self' https: data:",
+      `script-src 'self' 'unsafe-inline'${
+        process.env.NODE_ENV !== 'production' ? " 'unsafe-eval'" : ''
+      }`,
+      `connect-src 'self'${process.env.NODE_ENV !== 'production' ? ' ws:' : ''}`,
+      "frame-ancestors 'none'",
+    ].join('; ');
+
+    expect(headerMap['Content-Security-Policy']).toBe(expectedCsp);
   });
 
   it('keeps the CSP value shared between headers and image configuration', async () => {

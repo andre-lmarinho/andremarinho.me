@@ -26,9 +26,9 @@ const Footer = () => (
                   title={label}
                   target={external ? '_blank' : undefined}
                   rel={external ? 'noopener noreferrer' : undefined}
-                  className="p-3 transition-colors hover:text-zinc-900 dark:hover:text-zinc-100"
+                  className="inline-flex items-center justify-center p-3 transition-colors hover:text-zinc-900 dark:hover:text-zinc-100"
                 >
-                  <Icon aria-hidden className="h-5 w-5" />
+                  <Icon aria-hidden className="block h-5 w-5" />
                   <span className="sr-only">{label}</span>
                 </a>
               </li>
