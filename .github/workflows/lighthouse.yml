@@ -31,6 +31,14 @@ jobs:
       - name: Build application
         run: npm run build:prod
 
+      - name: Warm up server
+        run: |
+          for i in 1 2 3; do
+            curl -s -o /dev/null -w "%{http_code}\n" http://127.0.0.1:3000/;
+            curl -s -o /dev/null -w "%{http_code}\n" http://127.0.0.1:3000/about;
+            curl -s -o /dev/null -w "%{http_code}\n" http://127.0.0.1:3000/studio;
+          done
+
       - name: Run Lighthouse CI
         id: lhci
         continue-on-error: true
