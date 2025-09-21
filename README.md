@@ -11,7 +11,7 @@ This repository powers **Andre Marinho's personal portfolio**, built with **Next
 
 - **Static-first Next.js app** with typed metadata plus App Router handlers for the sitemap and robots directives.
 - **Security hardened by default** thanks to a shared HTTP header helper that ships HSTS, CSP, COOP/COEP, and other protective directives.
-- **Accessibility first**: persistent skip link, keyboard focus styles, and semantic landmarks for predictable navigation.
+- **Accessibility first**: keyboard focus styles and semantic landmarks for predictable navigation.
 - **Dark/light theming** handled by a shared context with persisted preference.
 - **Typed content layer** for hero, projects, and work history.
 
@@ -52,7 +52,7 @@ App Router route handlers emit both `robots.txt` and `sitemap.xml`, keeping cano
 
 ### Accessibility affordances
 
-A persistent “Skip to main content” link sits before the global navigation, landing on the `<main id="main">` landmark so keyboard users can jump straight into page content. Combined with semantic sections and focus states, the layout supports predictable navigation across devices.
+Semantic sections, heading structure, and visible focus states ensure predictable navigation for keyboard and assistive technology users across devices.
 
 ---
 
@@ -100,15 +100,6 @@ Run individual quality gates as needed:
 | `npm run format`       | Format files with Prettier.                    |
 
 Use `npm run verify` to chain `format:check`, `lint:ci`, `typecheck`, `test:ci`, and `build:prod` together. It mirrors the GitHub Actions verify workflow so local runs match CI exactly.
-
----
-
-## Environment configuration
-
-- Duplicate `.env.example` to `.env.local` for any environment-specific overrides. The example stays empty until a third-party integration requires configuration.
-- When deploying to Vercel, define the same variables inside the project dashboard so server and edge environments match your local setup.
-
----
 
 ## Deployment
 
