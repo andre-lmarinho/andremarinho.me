@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useRef } from 'react';
+import type { MouseEvent as ReactMouseEvent } from 'react';
 import { Menu, X } from 'lucide-react';
 import { usePathname } from 'next/navigation';
 
@@ -22,6 +23,23 @@ export default function Hamburger({ isOpen, setIsOpen }: Props) {
   const pathname = usePathname();
   const navRef = useRef<HTMLElement | null>(null);
   const openButtonRef = useRef<HTMLButtonElement | null>(null);
+
+  // Close the menu immediately when the current page is selected again or an external link opens.
+  const handleNavClick = (event: ReactMouseEvent<HTMLElement>) => {
+    const anchor = (event.target as HTMLElement | null)?.closest<HTMLAnchorElement>('a');
+    if (!anchor) return;
+
+    const href = anchor.getAttribute('href');
+    if (!href) return;
+
+    if (
+      anchor.target === '_blank' ||
+      href.startsWith('http') ||
+      anchor.getAttribute('aria-current') === 'page'
+    ) {
+      setIsOpen(false);
+    }
+  };
 
   useEffect(() => {
     setIsOpen(false);
@@ -105,6 +123,7 @@ export default function Hamburger({ isOpen, setIsOpen }: Props) {
           role="dialog"
           aria-modal="true"
           tabIndex={-1}
+          onClick={handleNavClick}
         >
           <div className="absolute right-0 px-6 py-2">
             <button
