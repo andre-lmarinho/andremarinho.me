@@ -9,6 +9,9 @@ type Props = { children: React.ReactNode };
 
 const Layout = (props: Props) => (
   <>
+    <a className="skip-link" href="#main">
+      Skip to main content
+    </a>
     <Header />
     <main id="main">{props.children}</main>
     <Footer />

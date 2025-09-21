@@ -66,6 +66,10 @@
   a:hover {
     @apply no-underline;
   }
+
+  .skip-link {
+    @apply absolute top-4 left-4 z-50 inline-flex -translate-y-full transform items-center rounded-lg bg-white px-4 py-2 text-sm font-medium text-zinc-900 shadow-lg transition focus-visible:translate-y-0 focus-visible:ring-2 focus-visible:ring-zinc-900 focus-visible:ring-offset-2 focus-visible:ring-offset-white focus-visible:outline-none dark:bg-zinc-900 dark:text-zinc-100 dark:focus-visible:ring-zinc-100 dark:focus-visible:ring-offset-zinc-900;
+  }
 }
 
 *,
