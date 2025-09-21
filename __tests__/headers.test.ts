@@ -46,7 +46,7 @@ describe('next.config.js security headers', () => {
     });
 
     expect(headerMap['Content-Security-Policy']).toBe(
-      "default-src 'self'; img-src 'self' data: https:; style-src 'self' 'unsafe-inline'; font-src 'self' https: data:; script-src 'self'; connect-src 'self'; frame-ancestors 'none'"
+      "default-src 'self'; img-src 'self' data: https:; style-src 'self' 'unsafe-inline'; font-src 'self' https: data:; script-src 'self' 'unsafe-inline' 'unsafe-eval' 'wasm-unsafe-eval'; connect-src 'self'; frame-ancestors 'none'"
     );
   });
 });

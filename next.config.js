@@ -1,10 +1,12 @@
 /** @type {import('next').NextConfig} */
+const scriptSrcDirectives = ["'self'", "'unsafe-inline'", "'unsafe-eval'", "'wasm-unsafe-eval'"];
+
 const cspDirectives = [
   "default-src 'self'",
   "img-src 'self' data: https:",
   "style-src 'self' 'unsafe-inline'",
   "font-src 'self' https: data:",
-  "script-src 'self'",
+  `script-src ${scriptSrcDirectives.join(' ')}`,
   "connect-src 'self'",
   "frame-ancestors 'none'",
 ].join('; ');
