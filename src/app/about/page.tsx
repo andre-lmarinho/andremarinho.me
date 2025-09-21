@@ -1,19 +1,17 @@
-'use client';
-
-import { Seo } from '@/components/seo/Seo';
-import { buildCanonical } from '@/config/seo';
+import { buildPageMetadata } from '@/config/seo';
 
 import Intro from './components/Intro';
 import Online from './components/Online';
 import Work from './components/Work';
 
-export default function About() {
-  const title = 'About me';
-  const canonicalUrl = buildCanonical('/about');
+export const metadata = buildPageMetadata({
+  title: 'About me',
+  path: '/about',
+});
 
+export default function About() {
   return (
     <>
-      <Seo title={title} canonical={canonicalUrl} openGraph={{ url: canonicalUrl, title }} />
       <Intro />
       <Online />
       <Work />

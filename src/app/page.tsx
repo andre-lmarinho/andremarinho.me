@@ -1,17 +1,9 @@
-'use client';
-
-import { Seo } from '@/components/seo/Seo';
-import { buildCanonical } from '@/config/seo';
+import { buildPageMetadata } from '@/config/seo';
 
 import Home from './home';
 
-export default function Index() {
-  const canonicalUrl = buildCanonical();
+export const metadata = buildPageMetadata();
 
-  return (
-    <>
-      <Seo canonical={canonicalUrl} openGraph={{ url: canonicalUrl }} />
-      <Home />
-    </>
-  );
+export default function Index() {
+  return <Home />;
 }

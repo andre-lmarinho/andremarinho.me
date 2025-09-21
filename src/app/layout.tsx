@@ -4,9 +4,12 @@ import React from 'react';
 import './globals.css';
 import Layout from '@/components/layout';
 import cn from '@/utils';
+import { defaultMetadata } from '@/config/seo';
 import { Providers } from './providers';
 import { Analytics } from '@vercel/analytics/next';
 import { SpeedInsights } from '@vercel/speed-insights/next';
+
+export const metadata = defaultMetadata;
 
 const inter = localFont({
   src: [
