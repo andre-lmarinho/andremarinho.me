@@ -10,8 +10,8 @@ interface ThemeSelectorProps {
 }
 
 export default function ThemeSelector({ hidden = false }: ThemeSelectorProps) {
-  const { resolvedTheme, setTheme } = useTheme();
-  const isDark = resolvedTheme === 'dark';
+  const theme = useTheme();
+  const isDark = theme.resolvedTheme === 'dark';
   const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
@@ -19,7 +19,7 @@ export default function ThemeSelector({ hidden = false }: ThemeSelectorProps) {
   }, []);
 
   const handleToggleTheme = () => {
-    setTheme(isDark ? 'light' : 'dark');
+    theme.setTheme(isDark ? 'light' : 'dark');
   };
 
   return (
