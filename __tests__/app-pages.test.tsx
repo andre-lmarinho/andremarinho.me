@@ -1,13 +1,19 @@
 import { cleanup, render, screen } from '@testing-library/react';
-import type { ComponentProps, ElementType } from 'react';
+import type { ComponentProps, ElementType, ReactNode } from 'react';
 
 import HomePage, { metadata as homeMetadata } from '@/app/page';
 import AboutPage, { metadata as aboutMetadata } from '@/app/about/page';
 import StudioPage, { metadata as studioMetadata } from '@/app/studio/page';
+import { buildCanonical } from '@/config/seo';
 
 afterEach(() => {
   cleanup();
 });
+
+const renderServerComponent = async (Component: () => ReactNode | Promise<ReactNode>) => {
+  const element = await Component();
+  render(<>{element}</>);
+};
 
 jest.mock('next/navigation', () => ({
   usePathname: jest.fn(() => '/'),
@@ -70,8 +76,8 @@ jest.mock('@/app/studio/components/ScrollCopy', () => ({
 
 describe('App router pages', () => {
   describe('Home page', () => {
-    it('renders the primary sections from the default export', () => {
-      render(<HomePage />);
+    it('renders the primary sections from the default export', async () => {
+      await renderServerComponent(HomePage);
 
       expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent("Hey! I'm Andre Marinho");
       expect(screen.getByRole('heading', { level: 2, name: 'Projects' })).toBeInTheDocument();
@@ -79,28 +85,36 @@ describe('App router pages', () => {
     });
 
     it('exposes the canonical metadata for the homepage', () => {
-      expect(homeMetadata.alternates?.canonical).toBe('https://andremarinho.me');
+      expect(homeMetadata).toMatchObject({
+        alternates: { canonical: buildCanonical() },
+        openGraph: expect.objectContaining({ url: buildCanonical() }),
+      });
     });
   });
 
   describe('About page', () => {
-    it('renders the about content from the default export', () => {
-      render(<AboutPage />);
+    it('renders the about content from the default export', async () => {
+      await renderServerComponent(AboutPage);
 
       expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent('About me');
       expect(screen.getByRole('heading', { level: 2, name: 'Work' })).toBeInTheDocument();
     });
 
     it('defines metadata for canonical navigation and Open Graph', () => {
-      expect(aboutMetadata.title).toBe('About me');
-      expect(aboutMetadata.alternates?.canonical).toBe('/about');
-      expect(aboutMetadata.openGraph?.url).toBe('/about');
+      expect(aboutMetadata).toMatchObject({
+        title: 'About me',
+        alternates: { canonical: buildCanonical('/about') },
+        openGraph: expect.objectContaining({
+          url: buildCanonical('/about'),
+          title: 'About me',
+        }),
+      });
     });
   });
 
   describe('Studio page', () => {
-    it('renders the studio marketing content without crashing', () => {
-      render(<StudioPage />);
+    it('renders the studio marketing content without crashing', async () => {
+      await renderServerComponent(StudioPage);
 
       const callLinks = screen.getAllByRole('link', { name: 'Book a call' });
       expect(callLinks.length).toBeGreaterThan(0);
@@ -112,9 +126,14 @@ describe('App router pages', () => {
     });
 
     it('exports metadata describing the studio landing page', () => {
-      expect(studioMetadata.title).toBe('Duonorth Studio');
-      expect(studioMetadata.alternates?.canonical).toBe('/studio');
-      expect(studioMetadata.openGraph?.url).toBe('/studio');
+      expect(studioMetadata).toMatchObject({
+        title: 'Duonorth Studio',
+        alternates: { canonical: buildCanonical('/studio') },
+        openGraph: expect.objectContaining({
+          url: buildCanonical('/studio'),
+          title: 'Duonorth Studio',
+        }),
+      });
     });
   });
 });

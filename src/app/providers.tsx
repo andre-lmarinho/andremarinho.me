@@ -1,7 +1,7 @@
 'use client';
 
-import { useEffect, type ReactNode } from 'react';
 import { ThemeProvider as NextThemesProvider } from 'next-themes';
+import { useEffect, type ReactNode } from 'react';
 
 type ProvidersProps = {
   children: ReactNode;
@@ -9,9 +9,7 @@ type ProvidersProps = {
 
 export function Providers({ children }: ProvidersProps) {
   useEffect(() => {
-    if (typeof window !== 'undefined') {
-      window.localStorage.removeItem('darkMode');
-    }
+    window.localStorage.removeItem('darkMode');
   }, []);
 
   return (

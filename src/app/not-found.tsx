@@ -1,10 +1,16 @@
-import Links from '../components/layout/NavigationMenu/Links';
-import type { Metadata } from 'next';
+import { buildPageMetadata } from '@/config/seo';
 
-export const metadata: Metadata = {
-  title: '404 – Page not found',
-  description: "The page you were trying to reach doesn't exist.",
-};
+import Links from '../components/layout/NavigationMenu/Links';
+
+const title = '404 – Page not found';
+const description = "The page you were trying to reach doesn't exist.";
+
+export const metadata = buildPageMetadata({
+  title,
+  description,
+  canonical: null,
+  noindex: true,
+});
 
 export default function NotFound() {
   return (
