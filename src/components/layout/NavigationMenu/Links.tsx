@@ -6,13 +6,11 @@ import { usePathname } from 'next/navigation';
 type Props = {
   links: { href: `/${string}` | `https://${string}`; text: string }[];
   isHamburguer?: boolean;
-  onSelect?: () => void;
 };
 
-const Links = ({ links, isHamburguer, onSelect }: Props) => {
+const Links = ({ links, isHamburguer }: Props) => {
   const pathname = `/${usePathname()?.split('/')[1] ?? ''}`;
   const isIndeterminate = links.every((l) => l.href !== pathname);
-  const handle = onSelect ? () => onSelect() : undefined;
 
   return (
     <ul
@@ -24,7 +22,7 @@ const Links = ({ links, isHamburguer, onSelect }: Props) => {
     >
       {links.map(({ href, text }) => {
         const external = href.startsWith('http');
-        const isActive = href === pathname;
+        const isActive = !external && href === pathname;
         const state = isIndeterminate
           ? 'hover:opacity-60'
           : isActive
@@ -35,13 +33,7 @@ const Links = ({ links, isHamburguer, onSelect }: Props) => {
         return (
           <li key={href}>
             {external ? (
-              <a
-                href={href}
-                className={className}
-                target="_blank"
-                rel="noopener noreferrer"
-                onClick={handle}
-              >
+              <a href={href} className={className} target="_blank" rel="noopener noreferrer">
                 {text}
               </a>
             ) : (
@@ -49,7 +41,6 @@ const Links = ({ links, isHamburguer, onSelect }: Props) => {
                 href={href}
                 className={className}
                 aria-current={isActive ? 'page' : undefined}
-                onClick={handle}
               >
                 {text}
               </NextLink>
