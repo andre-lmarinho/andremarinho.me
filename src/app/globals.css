@@ -12,6 +12,7 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     min-height: 100%;
+    color-scheme: light;
     @apply font-sans;
   }
 
@@ -47,10 +48,11 @@
   }
 
   html.dark {
+    color-scheme: dark;
     @apply bg-zinc-950 text-zinc-100;
   }
 
-  body.dark {
+  html.dark body {
     @apply bg-zinc-950 text-inherit;
   }
 

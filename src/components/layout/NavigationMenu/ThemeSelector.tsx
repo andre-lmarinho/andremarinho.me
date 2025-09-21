@@ -1,7 +1,7 @@
-﻿'use client';
+'use client';
 
 import { useEffect, useState } from 'react';
-import { useTheme } from '@/context';
+import { useTheme } from 'next-themes';
 import { Moon, Sun } from 'lucide-react';
 import cn from '@/utils';
 
@@ -10,7 +10,8 @@ interface ThemeSelectorProps {
 }
 
 export default function ThemeSelector({ hidden = false }: ThemeSelectorProps) {
-  const { darkMode, setDarkMode } = useTheme();
+  const { resolvedTheme, setTheme } = useTheme();
+  const isDark = resolvedTheme === 'dark';
   const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
@@ -19,23 +20,31 @@ export default function ThemeSelector({ hidden = false }: ThemeSelectorProps) {
 
   return (
     <button
-      onClick={() => setDarkMode(!darkMode)}
+      onClick={() => setTheme(isDark ? 'light' : 'dark')}
       className={cn(
         'group relative rounded-xl border-none bg-transparent p-2 transition-transform duration-300 hover:scale-110',
         hidden && 'pointer-events-none opacity-0 md:pointer-events-auto md:opacity-100'
       )}
       aria-label="Toggle dark mode"
-      aria-pressed={isMounted ? darkMode : undefined}
+      aria-pressed={isMounted ? isDark : undefined}
       type="button"
     >
       <span className="relative flex h-5 w-5 items-center justify-center">
         <Moon
           aria-hidden="true"
-          className="absolute inset-0 h-5 w-5 shrink-0 text-zinc-700 opacity-100 transition-all duration-300 group-hover:rotate-12 dark:text-zinc-300 dark:opacity-0"
+          className={cn(
+            'absolute inset-0 h-5 w-5 shrink-0 transition-all duration-300 group-hover:rotate-12',
+            !isMounted && 'opacity-0',
+            isMounted && (isDark ? 'text-zinc-300 opacity-0' : 'text-zinc-700 opacity-100')
+          )}
         />
         <Sun
           aria-hidden="true"
-          className="absolute inset-0 h-5 w-5 shrink-0 text-zinc-100 opacity-0 transition-all duration-300 group-hover:rotate-180 dark:opacity-100"
+          className={cn(
+            'absolute inset-0 h-5 w-5 shrink-0 text-zinc-100 transition-all duration-300 group-hover:rotate-180',
+            !isMounted && 'opacity-0',
+            isMounted && (isDark ? 'opacity-100' : 'opacity-0')
+          )}
         />
       </span>
     </button>
