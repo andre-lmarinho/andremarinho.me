@@ -5,4 +5,6 @@ node_modules
 coverage
 *.tsbuildinfo
 .swc
-.lighthouseci 
+.lighthouseci
+public/robots.txt
+public/sitemap*.xml
