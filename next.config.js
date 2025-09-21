@@ -4,7 +4,7 @@ const cspDirectives = [
   "img-src 'self' data: https:",
   "style-src 'self' 'unsafe-inline'",
   "font-src 'self' https: data:",
-  "script-src 'self'",
+  "script-src 'self' 'unsafe-inline'",
   "connect-src 'self'",
   "frame-ancestors 'none'",
 ].join('; ');
