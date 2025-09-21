@@ -19,6 +19,7 @@
         "verify": "npm run format:check && npm run lint:ci && npm run typecheck && npm run test:ci && npm run build:prod",
         "ci": "npm run verify",
         "vercel:build": "next build",
+        "warmup": "bash ./scripts/warmup.sh",
         "lhci": "npx --yes @lhci/cli autorun --config=./lighthouserc.json"
     },
     "dependencies": {

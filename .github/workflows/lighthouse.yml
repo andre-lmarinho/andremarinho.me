@@ -31,20 +31,12 @@ jobs:
       - name: Build application
         run: npm run build:prod
 
-      - name: Warm up server
-        run: |
-          for i in 1 2 3; do
-            curl -s -o /dev/null -w "%{http_code}\n" http://127.0.0.1:3000/;
-            curl -s -o /dev/null -w "%{http_code}\n" http://127.0.0.1:3000/about;
-            curl -s -o /dev/null -w "%{http_code}\n" http://127.0.0.1:3000/studio;
-          done
-
       - name: Run Lighthouse CI
         id: lhci
         continue-on-error: true
         run: |
           set +e
-          npx start-server-and-test "npm run serve:prod" http://127.0.0.1:3000 "npm run lhci"
+          npx start-server-and-test "npm run serve:prod" http://127.0.0.1:3000 "npm run warmup && npm run lhci"
           status=$?
           echo "exit_code=$status" >> "$GITHUB_OUTPUT"
           if [ -f ".lighthouseci/assertion-results.json" ]; then
