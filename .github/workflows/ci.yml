@@ -21,13 +21,5 @@ jobs:
         env:
           NEXT_TELEMETRY_DISABLED: 1
         run: npm ci
-      - name: Prettier (check)
-        run: npm run format:check
-      - name: Lint
-        run: npm run lint:ci
-      - name: Type check
-        run: npm run typecheck
-      - name: Test
-        run: npm run test:ci
-      - name: Build
-        run: npm run build:prod
+      - name: Run CI verification
+        run: npm run ci

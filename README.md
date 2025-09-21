@@ -57,6 +57,8 @@ npm start
 - `npm run typecheck` - execute TypeScript in no-emit mode
 - `npm run test` - run Jest + Testing Library
 - `npm run test:ci` - run the Jest suite in CI mode for deterministic output
+- `npm run verify` - run formatting checks, linting, type checking, tests, and a production build sequentially
+- `npm run ci` - alias for `npm run verify` to mirror the GitHub Actions workflow locally
 - `npm run format` - format with Prettier
 - `npm run vercel:build` - build using the same command executed by Vercel
 
@@ -106,6 +108,7 @@ The `.vercel` directory is updated automatically by Vercel CLI builds.
 
 ### Local parity scripts
 
+- `npm run verify` – execute `format:check`, `lint:ci`, `typecheck`, `test:ci`, and `build:prod` together for full parity with CI.
 - `npm run format:check` – verify Prettier formatting before pushing, especially after touching Markdown or styles.
 - `npm run lint:ci` – run the stricter ESLint configuration used in CI to catch warnings early.
 - `npm run typecheck` – confirm TypeScript stays happy after API or prop changes.
@@ -115,7 +118,7 @@ The `.vercel` directory is updated automatically by Vercel CLI builds.
 
 ### GitHub Actions
 
-- **CI** – runs on pushes to `main` and every pull request. It installs dependencies, then executes `format:check`, `lint:ci`, `typecheck`, `test:ci`, and `build:prod` to mirror release gating.
+- **CI** – runs on pushes to `main` and every pull request. It installs dependencies, then runs `npm run ci` (aliasing `npm run verify`) to execute `format:check`, `lint:ci`, `typecheck`, `test:ci`, and `build:prod` for release gating.
 - **Lighthouse** – runs on pushes to `main`, every pull request, or when triggered manually. It builds the app, serves it, audits with Lighthouse CI, and uploads the `lhci-reports` artifact so regressions fail loudly.
 
 ### Retrieve Lighthouse reports
