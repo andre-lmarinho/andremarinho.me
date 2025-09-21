@@ -1,12 +1,17 @@
-import { type Metadata } from 'next';
+'use client';
+
+import { Seo } from '@/components/seo/Seo';
+import { buildCanonical } from '@/config/seo';
+
 import Home from './home';
 
-export const metadata: Metadata = {
-  alternates: {
-    canonical: 'https://andremarinho.me',
-  },
-};
-
 export default function Index() {
-  return <Home />;
+  const canonicalUrl = buildCanonical();
+
+  return (
+    <>
+      <Seo canonical={canonicalUrl} openGraph={{ url: canonicalUrl }} />
+      <Home />
+    </>
+  );
 }

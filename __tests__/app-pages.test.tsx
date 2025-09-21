@@ -1,9 +1,28 @@
 import { cleanup, render, screen } from '@testing-library/react';
 import type { ComponentProps, ElementType } from 'react';
 
-import HomePage, { metadata as homeMetadata } from '@/app/page';
-import AboutPage, { metadata as aboutMetadata } from '@/app/about/page';
-import StudioPage, { metadata as studioMetadata } from '@/app/studio/page';
+import HomePage from '@/app/page';
+import AboutPage from '@/app/about/page';
+import StudioPage from '@/app/studio/page';
+import { buildCanonical } from '@/config/seo';
+
+const renderSeo = jest.fn();
+
+jest.mock('@/components/seo/Seo', () => ({
+  __esModule: true,
+  Seo: (props: unknown) => {
+    renderSeo(props);
+    return null;
+  },
+  default: (props: unknown) => {
+    renderSeo(props);
+    return null;
+  },
+}));
+
+beforeEach(() => {
+  renderSeo.mockClear();
+});
 
 afterEach(() => {
   cleanup();
@@ -79,7 +98,15 @@ describe('App router pages', () => {
     });
 
     it('exposes the canonical metadata for the homepage', () => {
-      expect(homeMetadata.alternates?.canonical).toBe('https://andremarinho.me');
+      render(<HomePage />);
+
+      expect(renderSeo).toHaveBeenCalledTimes(1);
+      expect(renderSeo).toHaveBeenCalledWith(
+        expect.objectContaining({
+          canonical: buildCanonical(),
+          openGraph: expect.objectContaining({ url: buildCanonical() }),
+        })
+      );
     });
   });
 
@@ -92,9 +119,19 @@ describe('App router pages', () => {
     });
 
     it('defines metadata for canonical navigation and Open Graph', () => {
-      expect(aboutMetadata.title).toBe('About me');
-      expect(aboutMetadata.alternates?.canonical).toBe('/about');
-      expect(aboutMetadata.openGraph?.url).toBe('/about');
+      render(<AboutPage />);
+
+      expect(renderSeo).toHaveBeenCalledTimes(1);
+      expect(renderSeo).toHaveBeenCalledWith(
+        expect.objectContaining({
+          title: 'About me',
+          canonical: buildCanonical('/about'),
+          openGraph: expect.objectContaining({
+            url: buildCanonical('/about'),
+            title: 'About me',
+          }),
+        })
+      );
     });
   });
 
@@ -112,9 +149,19 @@ describe('App router pages', () => {
     });
 
     it('exports metadata describing the studio landing page', () => {
-      expect(studioMetadata.title).toBe('Duonorth Studio');
-      expect(studioMetadata.alternates?.canonical).toBe('/studio');
-      expect(studioMetadata.openGraph?.url).toBe('/studio');
+      render(<StudioPage />);
+
+      expect(renderSeo).toHaveBeenCalledTimes(1);
+      expect(renderSeo).toHaveBeenCalledWith(
+        expect.objectContaining({
+          title: 'Duonorth Studio',
+          canonical: buildCanonical('/studio'),
+          openGraph: expect.objectContaining({
+            url: buildCanonical('/studio'),
+            title: 'Duonorth Studio',
+          }),
+        })
+      );
     });
   });
 });
