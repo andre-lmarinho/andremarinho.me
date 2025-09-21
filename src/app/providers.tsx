@@ -1,8 +1,22 @@
 'use client';
 
-import React from 'react';
-import { ThemeProvider } from '@/context';
+import { useEffect, type ReactNode } from 'react';
+import { ThemeProvider as NextThemesProvider } from 'next-themes';
 
-export function Providers({ children }: { children: React.ReactNode }) {
-  return <ThemeProvider>{children}</ThemeProvider>;
+type ProvidersProps = {
+  children: ReactNode;
+};
+
+export function Providers({ children }: ProvidersProps) {
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      window.localStorage.removeItem('darkMode');
+    }
+  }, []);
+
+  return (
+    <NextThemesProvider attribute="class" defaultTheme="system" enableSystem storageKey="theme">
+      {children}
+    </NextThemesProvider>
+  );
 }
