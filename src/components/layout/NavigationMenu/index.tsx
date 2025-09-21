@@ -4,10 +4,13 @@ import Image from 'next/image';
 import Link from 'next/link';
 import React, { useState } from 'react';
 
+import { navigationLinks } from '@/data';
 import cn from '@/utils';
 import Hamburger from './Hamburger';
 import Links from './Links';
 import ThemeSelector from './ThemeSelector';
+
+const desktopNavigationLinks = navigationLinks.filter(({ href }) => href !== '/');
 
 const NavigationMenu = () => {
   const [isHamburgerOpen, setIsHamburgerOpen] = useState(false);
@@ -36,12 +39,7 @@ const NavigationMenu = () => {
         </Link>
 
         <div className="flex flex-row-reverse items-center gap-3 sm:flex-row sm:gap-4">
-          <Links
-            links={[
-              { text: 'Studio', href: '/studio' },
-              { text: 'About', href: '/about' },
-            ]}
-          />
+          <Links links={desktopNavigationLinks} />
           <Hamburger isOpen={isHamburgerOpen} setIsOpen={setIsHamburgerOpen} />
           <ThemeSelector />
         </div>
