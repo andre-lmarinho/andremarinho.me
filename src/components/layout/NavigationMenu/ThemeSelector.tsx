@@ -33,7 +33,7 @@ export default function ThemeSelector({ hidden = false }: ThemeSelectorProps) {
         <Moon
           aria-hidden="true"
           className={cn(
-            'absolute inset-0 h-5 w-5 shrink-0 transition-all duration-300 group-hover:rotate-12',
+            'absolute inset-0 block h-5 w-5 shrink-0 transition-all duration-300 group-hover:rotate-12',
             !isMounted && 'opacity-0',
             isMounted && (isDark ? 'text-zinc-300 opacity-0' : 'text-zinc-700 opacity-100')
           )}
@@ -41,7 +41,7 @@ export default function ThemeSelector({ hidden = false }: ThemeSelectorProps) {
         <Sun
           aria-hidden="true"
           className={cn(
-            'absolute inset-0 h-5 w-5 shrink-0 text-zinc-100 transition-all duration-300 group-hover:rotate-180',
+            'absolute inset-0 block h-5 w-5 shrink-0 text-zinc-100 transition-all duration-300 group-hover:rotate-180',
             !isMounted && 'opacity-0',
             isMounted && (isDark ? 'opacity-100' : 'opacity-0')
           )}
