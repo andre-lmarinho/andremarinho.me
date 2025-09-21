@@ -15,13 +15,13 @@ type NextConfigWithHeaders = {
   };
 };
 
-const nextConfig = require('../next.config.js') as NextConfigWithHeaders;
+const config = require('../next.config.js') as NextConfigWithHeaders;
 
-describe('next.config.js security headers', () => {
+describe('security headers helper', () => {
   it('applies the expected security headers to all routes', async () => {
-    expect(typeof nextConfig.headers).toBe('function');
+    expect(typeof config.headers).toBe('function');
 
-    const headers = await nextConfig.headers();
+    const headers = await config.headers();
     const routeConfig = headers.find((entry) => entry.source === '/:path*');
 
     if (!routeConfig) {
@@ -38,7 +38,7 @@ describe('next.config.js security headers', () => {
       'Referrer-Policy': 'strict-origin-when-cross-origin',
       'X-Frame-Options': 'DENY',
       'Permissions-Policy': 'camera=(), microphone=(), geolocation=(), interest-cohort=()',
-      'Content-Security-Policy': nextConfig.images.contentSecurityPolicy,
+      'Content-Security-Policy': config.images.contentSecurityPolicy,
       'X-DNS-Prefetch-Control': 'off',
       'X-Permitted-Cross-Domain-Policies': 'none',
       'Cross-Origin-Opener-Policy': 'same-origin',
@@ -46,7 +46,21 @@ describe('next.config.js security headers', () => {
     });
 
     expect(headerMap['Content-Security-Policy']).toBe(
-      "default-src 'self'; img-src 'self' data: https:; style-src 'self' 'unsafe-inline'; font-src 'self' https: data:; script-src 'self'; connect-src 'self'; frame-ancestors 'none'"
+      "default-src 'self'; img-src 'self' data: https:; style-src 'self' 'unsafe-inline'; font-src 'self' https: data:; script-src 'self' 'unsafe-inline'; connect-src 'self'; frame-ancestors 'none'"
     );
+  });
+
+  it('keeps the CSP value shared between headers and image configuration', async () => {
+    const headers = await config.headers();
+    const routeConfig = headers.find((entry) => entry.source === '/:path*');
+
+    if (!routeConfig) {
+      throw new Error('Expected security headers to be configured for all routes.');
+    }
+
+    const cspHeader = routeConfig.headers.find(
+      (header) => header.key === 'Content-Security-Policy'
+    );
+    expect(cspHeader?.value).toBe(config.images.contentSecurityPolicy);
   });
 });

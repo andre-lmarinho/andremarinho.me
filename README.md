@@ -56,12 +56,22 @@ npm start
 - `npm run lint` - run ESLint with Next.js rules
 - `npm run typecheck` - execute TypeScript in no-emit mode
 - `npm run test` - run Jest + Testing Library
+- `npm run test:ci` - run the Jest suite in CI mode for deterministic output
 - `npm run format` - format with Prettier
 - `npm run vercel:build` - build using the same command executed by Vercel
 
 ---
 
 ## Testing and Quality Gates
+
+### Running tests
+
+The Jest suites exercise the App Router pages end-to-end—rendering the Home, About, and Studio server components via Testing Library, checking their exported metadata, and validating the shared security headers helper. Run them locally with:
+
+```bash
+npm run test
+npm run test:ci
+```
 
 Ensure all checks pass before shipping:
 
