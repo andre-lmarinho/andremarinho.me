@@ -13,7 +13,9 @@ const Layout = (props: Props) => (
       Skip to main content
     </a>
     <Header />
-    <main id="main">{props.children}</main>
+    <main id="main" tabIndex={-1}>
+      {props.children}
+    </main>
     <Footer />
     <Background />
   </>

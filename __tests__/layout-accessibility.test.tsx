@@ -15,8 +15,11 @@ describe('Layout accessibility', () => {
     );
 
     const skipLink = screen.getByRole('link', { name: /skip to main content/i });
+    const mainRegion = screen.getByRole('main');
 
     expect(skipLink).toBeInTheDocument();
     expect(skipLink).toHaveAttribute('href', '#main');
+    expect(mainRegion).toHaveAttribute('id', 'main');
+    expect(mainRegion).toHaveAttribute('tabindex', '-1');
   });
 });
