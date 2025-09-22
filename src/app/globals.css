@@ -18,7 +18,7 @@
   body {
     min-height: 100%;
     overflow-x: hidden;
-    @apply bg-white;
+    @apply bg-white text-zinc-900 dark:bg-zinc-950 dark:text-zinc-100;
   }
 
   main {
@@ -43,11 +43,6 @@
 
   html.dark {
     color-scheme: dark;
-    @apply bg-zinc-950 text-zinc-100;
-  }
-
-  html.dark body {
-    @apply bg-zinc-950;
   }
 }
 
