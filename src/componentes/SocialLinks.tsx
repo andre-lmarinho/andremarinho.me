@@ -1,0 +1,88 @@
+import { Github, Linkedin, Mail } from 'lucide-react';
+import cn from '@/utils';
+
+const ICONS = {
+  github: Github,
+  linkedin: Linkedin,
+  email: Mail,
+} as const;
+
+type SocialLink = {
+  label: string;
+  href: string;
+  ariaLabel: string;
+  icon?: keyof typeof ICONS;
+};
+
+const SOCIAL_LINKS: SocialLink[] = [
+  {
+    label: 'GitHub',
+    href: 'https://github.com/andre-lmarinho',
+    ariaLabel: 'GitHub profile (opens in a new tab)',
+    icon: 'github',
+  },
+  {
+    label: 'LinkedIn',
+    href: 'https://www.linkedin.com/in/andre-marinho-3318ab1aa/',
+    ariaLabel: 'LinkedIn profile (opens in a new tab)',
+    icon: 'linkedin',
+  },
+  {
+    label: 'Email',
+    href: 'mailto:hey@andremarinho.me',
+    ariaLabel: 'Send an email to hey@andremarinho.me',
+    icon: 'email',
+  },
+];
+
+const listStyles = {
+  footer: 'flex items-center gap-0',
+  about: 'flex flex-wrap items-center gap-3',
+} as const;
+
+const linkStyles = {
+  footer:
+    'inline-flex items-center justify-center p-3 text-zinc-600 transition-colors hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-100',
+  about:
+    'flex items-center justify-center rounded-full border border-zinc-200 px-5 py-2 text-sm font-medium text-zinc-700 transition-colors hover:border-zinc-300 hover:bg-zinc-100 dark:border-zinc-700 dark:text-zinc-200 dark:hover:border-zinc-500 dark:hover:bg-zinc-900',
+} as const;
+
+type SocialLinksVariant = keyof typeof listStyles;
+
+type SocialLinksProps = {
+  variant?: SocialLinksVariant;
+  className?: string;
+};
+
+const SocialLinks = ({ variant = 'footer', className }: SocialLinksProps) => (
+  <ul className={cn(listStyles[variant], className)}>
+    {SOCIAL_LINKS.map(({ href, label, ariaLabel, icon }) => {
+      const Icon = icon ? ICONS[icon] : undefined;
+
+      return (
+        <li key={href}>
+          <a
+            href={href}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label={ariaLabel}
+            title={variant === 'footer' ? label : undefined}
+            className={cn(linkStyles[variant])}
+          >
+            {variant === 'footer' && Icon ? (
+              <>
+                <Icon aria-hidden className="block h-5 w-5" />
+                <span className="sr-only">{label}</span>
+              </>
+            ) : (
+              label
+            )}
+          </a>
+        </li>
+      );
+    })}
+  </ul>
+);
+
+export type { SocialLinksVariant };
+export default SocialLinks;
