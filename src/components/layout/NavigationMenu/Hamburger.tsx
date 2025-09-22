@@ -5,9 +5,8 @@ import type { MouseEvent as ReactMouseEvent } from 'react';
 import { Menu, X } from 'lucide-react';
 import { usePathname } from 'next/navigation';
 
-import { navigationLinks } from '@/data';
+import MenuLinks from '@/componentes/MenuLinks';
 import cn from '@/utils';
-import Links from './Links';
 
 const focusableSelector =
   'a[href]:not([tabindex="-1"]), button:not([disabled]):not([tabindex="-1"]), [tabindex]:not([tabindex="-1"])';
@@ -134,7 +133,7 @@ export default function Hamburger({ isOpen, setIsOpen }: Props) {
             </button>
           </div>
 
-          <Links isHamburguer links={navigationLinks} />
+          <MenuLinks variant="mobile" />
         </nav>
       )}
     </div>

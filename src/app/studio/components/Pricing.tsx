@@ -1,3 +1,5 @@
+import StudioButton from '@/componentes/StudioButton';
+
 interface PricingCardProps {
   tier: string;
   price: string;
@@ -25,14 +27,7 @@ const PricingCard = ({ tier, price, description, features = [] }: PricingCardPro
         {price !== 'Custom' && <span className="text-zinc-500 dark:text-zinc-400">/ one-time</span>}
       </p>
     </div>
-    <a
-      href="https://wa.me/5571984770061"
-      target="_blank"
-      rel="noopener noreferrer"
-      className="block w-full rounded-lg bg-gradient-to-b from-orange-500 to-orange-600 py-2 text-center font-semibold text-white antialiased shadow-[inset_0_1px_0_0.75px_rgba(255,255,255,0.2)] transition-transform will-change-transform focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-orange-500 active:scale-[.97]"
-    >
-      Start a project
-    </a>
+    <StudioButton className="block w-full">Start a project</StudioButton>
     <ul className="mt-6 space-y-2 text-sm text-zinc-700 dark:text-zinc-300">
       {features.map((feature, index) => (
         <li key={index} className="flex items-center gap-2">
@@ -79,14 +74,7 @@ const Pricing = () => (
           chat and see how we can help you.
         </p>
       </div>
-      <a
-        href="https://wa.me/5571984770061"
-        target="_blank"
-        rel="noopener noreferrer"
-        className="inline-flex items-center justify-center gap-x-1.5 rounded-lg border border-zinc-200 px-6 py-2 text-sm font-semibold antialiased shadow-xs transition-transform will-change-transform focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-neutral-400 active:scale-[.99] dark:border-zinc-800 dark:bg-neutral-900 dark:focus-visible:outline-neutral-500"
-      >
-        Book a call
-      </a>
+      <StudioButton variant="secondary">Book a call</StudioButton>
     </div>
   </section>
 );

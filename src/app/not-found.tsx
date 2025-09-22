@@ -1,8 +1,6 @@
 import { buildPageMetadata } from '@/config/seo';
 
-import { navigationLinks } from '@/data';
-
-import Links from '../components/layout/NavigationMenu/Links';
+import MenuLinks from '@/componentes/MenuLinks';
 
 const title = '404 – Page not found';
 const description = "The page you were trying to reach doesn't exist.";
@@ -22,9 +20,7 @@ export default function NotFound() {
         The page you are looking for doesn&apos;t exist.
       </p>
       <h2 className="text-lg">Here are some helpful links instead:</h2>
-      <ul className="list-inside list-disc px-4 text-lg underline underline-offset-2">
-        <Links links={navigationLinks} />
-      </ul>
+      <MenuLinks variant="notFound" />
       <p className="text-lg font-extrabold">Error code: 404</p>
     </section>
   );
