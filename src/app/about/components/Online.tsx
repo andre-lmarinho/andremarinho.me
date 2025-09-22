@@ -1,4 +1,4 @@
-import SocialLinks from '@/componentes/SocialLinks';
+import SocialLinks from '@/components/layout/Footer/SocialLinks';
 
 const Online = () => (
   <section id="online">

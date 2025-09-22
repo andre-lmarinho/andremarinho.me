@@ -1,6 +1,5 @@
 import { buildPageMetadata } from '@/config/seo';
-
-import MenuLinks from '@/componentes/MenuLinks';
+import MenuLinks from '@/components/layout/NavigationMenu/MenuLinks';
 
 const title = '404 – Page not found';
 const description = "The page you were trying to reach doesn't exist.";

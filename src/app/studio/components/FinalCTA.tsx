@@ -1,9 +1,10 @@
 'use client';
 
-import StudioButton from '@/componentes/StudioButton';
-import cn from '@/utils';
 import type React from 'react';
 import { useRef, useState } from 'react';
+
+import StudioButton from './StudioButton';
+import cn from '@/utils';
 
 const FinalCTA = () => {
   const email = 'hey@andremarinho.me';

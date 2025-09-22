@@ -1,4 +1,4 @@
-import SocialLinks from '@/componentes/SocialLinks';
+import SocialLinks from './SocialLinks';
 
 const Footer = () => (
   <footer id="footer" className="mx-auto max-w-4xl px-6 pt-8 text-sm sm:px-4">

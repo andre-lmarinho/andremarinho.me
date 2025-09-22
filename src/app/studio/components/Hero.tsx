@@ -1,5 +1,4 @@
-import StudioButton from '@/componentes/StudioButton';
-
+import StudioButton from './StudioButton';
 import TextType from './TextType';
 
 const Hero = () => (

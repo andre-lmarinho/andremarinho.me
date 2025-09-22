@@ -1,4 +1,4 @@
-import StudioButton from '@/componentes/StudioButton';
+import StudioButton from './StudioButton';
 
 interface PricingCardProps {
   tier: string;

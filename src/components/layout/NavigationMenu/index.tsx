@@ -4,10 +4,10 @@ import Image from 'next/image';
 import Link from 'next/link';
 import React, { useState } from 'react';
 
-import MenuLinks from '@/componentes/MenuLinks';
-import cn from '@/utils';
+import MenuLinks from './MenuLinks';
 import Hamburger from './Hamburger';
 import ThemeSelector from './ThemeSelector';
+import cn from '@/utils';
 
 const NavigationMenu = () => {
   const [isHamburgerOpen, setIsHamburgerOpen] = useState(false);
