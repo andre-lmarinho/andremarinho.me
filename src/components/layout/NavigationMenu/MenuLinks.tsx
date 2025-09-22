@@ -16,9 +16,8 @@ const MENU_LINKS: NavigationLink[] = [
 ];
 
 const listStyles = {
-  desktop: 'group hidden list-none grid-flow-col gap-6 text-sm font-medium sm:grid',
-  mobile:
-    'm-0 flex h-full flex-1 list-none flex-col items-center justify-center space-y-5 text-2xl',
+  desktop: 'group hidden grid-flow-col gap-6 text-sm font-medium sm:grid',
+  mobile: 'flex h-full flex-1 flex-col items-center justify-center space-y-5 text-2xl',
   notFound: 'mt-4 list-inside list-disc space-y-2 px-4 text-lg',
 } as const;
 

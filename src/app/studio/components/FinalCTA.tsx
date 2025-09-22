@@ -55,7 +55,7 @@ const FinalCTA = () => {
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 16 16"
                 fill="currentColor"
-                className="mr-1 block h-4 w-4"
+                className="mr-1 h-4 w-4"
                 aria-hidden
               >
                 <path
@@ -69,7 +69,7 @@ const FinalCTA = () => {
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 16 16"
                 fill="currentColor"
-                className="mr-1 block h-4 w-4"
+                className="mr-1 h-4 w-4"
                 aria-hidden
               >
                 <path d="M5 6.5A1.5 1.5 0 0 1 6.5 5h6A1.5 1.5 0 0 1 14 6.5v6a1.5 1.5 0 0 1-1.5 1.5h-6A1.5 1.5 0 0 1 5 12.5v-6Z" />

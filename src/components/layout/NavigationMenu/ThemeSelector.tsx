@@ -26,7 +26,7 @@ export default function ThemeSelector({ hidden = false }: ThemeSelectorProps) {
     <button
       onClick={handleToggleTheme}
       className={cn(
-        'group relative rounded-xl border-none bg-transparent p-2 transition-transform duration-300 hover:scale-110',
+        'group relative rounded-xl p-2 transition-transform duration-300 hover:scale-110',
         hidden && 'pointer-events-none opacity-0 md:pointer-events-auto md:opacity-100'
       )}
       aria-label="Toggle dark mode"
@@ -37,7 +37,7 @@ export default function ThemeSelector({ hidden = false }: ThemeSelectorProps) {
         <Moon
           aria-hidden="true"
           className={cn(
-            'absolute inset-0 block h-5 w-5 shrink-0 transition-all duration-300 group-hover:rotate-12',
+            'absolute inset-0 h-5 w-5 shrink-0 transition-all duration-300 group-hover:rotate-12',
             !isMounted && 'opacity-0',
             isMounted && (isDark ? 'text-zinc-300 opacity-0' : 'text-zinc-700 opacity-100')
           )}
@@ -45,7 +45,7 @@ export default function ThemeSelector({ hidden = false }: ThemeSelectorProps) {
         <Sun
           aria-hidden="true"
           className={cn(
-            'absolute inset-0 block h-5 w-5 shrink-0 text-zinc-100 transition-all duration-300 group-hover:rotate-180',
+            'absolute inset-0 h-5 w-5 shrink-0 text-zinc-100 transition-all duration-300 group-hover:rotate-180',
             !isMounted && 'opacity-0',
             isMounted && (isDark ? 'opacity-100' : 'opacity-0')
           )}
