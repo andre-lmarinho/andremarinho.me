@@ -9,7 +9,7 @@ interface PricingCardProps {
 
 const PricingCard = ({ tier, price, description, features = [] }: PricingCardProps) => (
   <div className="relative rounded-3xl border border-zinc-200 p-10 dark:border-zinc-800">
-    <div className="mb-4 flex flex-row items-center justify-between gap-x-2">
+    <div className="flex flex-row items-center justify-between gap-x-2">
       <h3 className="text-lg font-semibold">{tier}</h3>
       <div className="flex cursor-default items-center gap-x-1.5 rounded-lg bg-zinc-200 px-2 py-1 text-xs font-medium tracking-tight select-none dark:bg-zinc-800">
         <span className="relative flex h-1 w-1">
@@ -20,14 +20,14 @@ const PricingCard = ({ tier, price, description, features = [] }: PricingCardPro
       </div>
     </div>
     <p className="mb-4 text-sm text-zinc-600 dark:text-zinc-400">{description}</p>
-    <div>
+    <div className="mb-4">
       <p className="m-0 text-xs leading-6 text-zinc-600 dark:text-zinc-400">Starting at</p>
       <p className="mt-0 flex items-baseline gap-1 text-zinc-900 dark:text-zinc-100">
         <span className="text-3xl font-bold">{price}</span>
         {price !== 'Custom' && <span className="text-zinc-500 dark:text-zinc-400">/ one-time</span>}
       </p>
     </div>
-    <StudioButton className="block w-full">Start a project</StudioButton>
+    <StudioButton className="block w-full text-center">Start a project</StudioButton>
     <ul className="mt-6 space-y-2 text-sm text-zinc-700 dark:text-zinc-300">
       {features.map((feature, index) => (
         <li key={index} className="flex items-center gap-2">
