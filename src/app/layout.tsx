@@ -1,4 +1,4 @@
-import localFont from 'next/font/local';
+import { Inter } from 'next/font/google';
 import React from 'react';
 
 import './globals.css';
@@ -11,13 +11,11 @@ import { SpeedInsights } from '@vercel/speed-insights/next';
 
 export const metadata = defaultMetadata;
 
-const inter = localFont({
-  src: [
-    { path: '../../public/fonts/inter.var.latin.woff2', style: 'normal' },
-    { path: '../../public/fonts/inter.var.latin.italic.woff2', style: 'italic' },
-  ],
+const inter = Inter({
+  subsets: ['latin'],
   variable: '--font-inter',
-  weight: '100 900',
+  weight: ['100', '200', '300', '400', '500', '600', '700', '800', '900'],
+  style: ['normal', 'italic'],
   display: 'swap',
 });
 
