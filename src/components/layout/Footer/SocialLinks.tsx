@@ -71,7 +71,7 @@ const SocialLinks = ({ variant = 'footer', className }: SocialLinksProps) => (
           >
             {variant === 'footer' && Icon ? (
               <>
-                <Icon aria-hidden className="block h-5 w-5" />
+                <Icon aria-hidden className="h-5 w-5" />
                 <span className="sr-only">{label}</span>
               </>
             ) : (

@@ -1,7 +1,9 @@
 @config '../../tailwind.config.mjs';
-@import 'tailwindcss/theme' layer(theme);
 
-@tailwind utilities;
+@layer theme, base, components, utilities;
+@import 'tailwindcss/theme.css' layer(theme);
+@import 'tailwindcss/preflight.css' layer(base);
+@import 'tailwindcss/utilities.css' layer(utilities);
 
 /* ================================
    Global Base Styles
@@ -13,14 +15,12 @@
     -moz-osx-font-smoothing: grayscale;
     min-height: 100%;
     color-scheme: light;
-    @apply font-sans;
   }
 
   body {
     min-height: 100%;
     overflow-x: hidden;
-    font-family: inherit;
-    @apply m-0 bg-white p-0 leading-normal text-inherit;
+    @apply bg-white text-zinc-900 dark:bg-zinc-950 dark:text-zinc-100;
   }
 
   main {
@@ -32,48 +32,16 @@
   }
 
   h1 {
-    @apply m-0 text-3xl font-bold tracking-tight text-zinc-900 sm:text-4xl dark:text-zinc-100;
+    @apply text-3xl font-bold tracking-tight sm:text-4xl;
   }
 
   h2 {
-    @apply m-0 pb-6 text-xl font-semibold text-zinc-900 dark:text-zinc-100;
-  }
-
-  h3 {
-    @apply my-0;
-  }
-
-  p {
-    @apply mt-6;
+    @apply text-xl font-semibold;
   }
 
   html.dark {
     color-scheme: dark;
-    @apply bg-zinc-950 text-zinc-100;
   }
-
-  html.dark body {
-    @apply bg-zinc-950 text-inherit;
-  }
-
-  ol,
-  ul {
-    @apply m-0 list-none p-0;
-  }
-
-  a {
-    @apply text-inherit no-underline;
-  }
-
-  a:hover {
-    @apply no-underline;
-  }
-}
-
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
 }
 
 :focus-visible {

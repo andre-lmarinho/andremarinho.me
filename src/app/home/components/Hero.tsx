@@ -34,7 +34,7 @@ export default function Hero() {
             </span>
           </h1>
           {heroTexts.map((text) => (
-            <p key={text} className="sm:max-w-md">
+            <p key={text} className="mt-6 sm:max-w-md">
               {text}
             </p>
           ))}

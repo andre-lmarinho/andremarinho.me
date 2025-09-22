@@ -17,7 +17,7 @@ type Props = {
 };
 
 const buttonClassName =
-  'inline-flex items-center justify-center rounded-lg border-none bg-transparent p-2 text-zinc-900 transition-colors hover:text-zinc-600 focus-visible:ring-1 focus-visible:ring-neutral-300 dark:text-zinc-100 dark:hover:text-zinc-300 dark:focus-visible:ring-neutral-500';
+  'inline-flex items-center justify-center rounded-lg p-2 text-zinc-900 transition-colors hover:text-zinc-600 focus-visible:ring-1 focus-visible:ring-neutral-300 dark:text-zinc-100 dark:hover:text-zinc-300 dark:focus-visible:ring-neutral-500';
 
 export default function Hamburger({ isOpen, setIsOpen }: Props) {
   const pathname = usePathname();
@@ -110,7 +110,7 @@ export default function Hamburger({ isOpen, setIsOpen }: Props) {
         className={cn(buttonClassName, isOpen && 'pointer-events-none opacity-0')}
         type="button"
       >
-        <Menu className="block h-6 w-6" aria-hidden="true" />
+        <Menu className="h-6 w-6" aria-hidden="true" />
       </button>
 
       {isOpen && (
@@ -129,7 +129,7 @@ export default function Hamburger({ isOpen, setIsOpen }: Props) {
               className={buttonClassName}
               type="button"
             >
-              <X className="block h-6 w-6" aria-hidden="true" />
+              <X className="h-6 w-6" aria-hidden="true" />
             </button>
           </div>
 

@@ -19,15 +19,15 @@ const PricingCard = ({ tier, price, description, features = [] }: PricingCardPro
         1 spot left
       </div>
     </div>
-    <p className="mb-5 text-sm text-zinc-600 dark:text-zinc-400">{description}</p>
-    <div>
+    <p className="mb-4 text-sm text-zinc-600 dark:text-zinc-400">{description}</p>
+    <div className="mb-4">
       <p className="m-0 text-xs leading-6 text-zinc-600 dark:text-zinc-400">Starting at</p>
       <p className="mt-0 flex items-baseline gap-1 text-zinc-900 dark:text-zinc-100">
         <span className="text-3xl font-bold">{price}</span>
         {price !== 'Custom' && <span className="text-zinc-500 dark:text-zinc-400">/ one-time</span>}
       </p>
     </div>
-    <StudioButton className="block w-full">Start a project</StudioButton>
+    <StudioButton className="block w-full text-center">Start a project</StudioButton>
     <ul className="mt-6 space-y-2 text-sm text-zinc-700 dark:text-zinc-300">
       {features.map((feature, index) => (
         <li key={index} className="flex items-center gap-2">
@@ -35,7 +35,7 @@ const PricingCard = ({ tier, price, description, features = [] }: PricingCardPro
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 16 16"
             fill="currentColor"
-            className="block h-4 w-4 fill-orange-500"
+            className="h-4 w-4 fill-orange-500"
           >
             <path
               fillRule="evenodd"
