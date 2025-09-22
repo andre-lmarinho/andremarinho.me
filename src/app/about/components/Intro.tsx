@@ -11,7 +11,9 @@ const Intro = () => (
     <div>
       <h1>About me</h1>
       {aboutParagraphs.map((paragraph) => (
-        <p key={paragraph}>{paragraph}</p>
+        <p key={paragraph} className="mt-6">
+          {paragraph}
+        </p>
       ))}
     </div>
   </section>

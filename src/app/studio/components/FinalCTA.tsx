@@ -35,7 +35,7 @@ const FinalCTA = () => {
   return (
     <section id="contact">
       <div className="rounded-3xl bg-zinc-50 p-10 sm:p-16 dark:bg-zinc-900/50 dark:shadow-[inset_0px_1px_0px_rgb(255_255_255_/_0.04),_inset_0px_0px_0px_0.5px_rgb(255_255_255_/_0.02),_0px_1px_2px_rgb(0_0_0_/_0.4),_0px_2px_4px_rgb(0_0_0_/_0.08),_0px_0px_0px_0.5px_rgb(0_0_0_/_0.24)]">
-        <h2 className="p-0 text-3xl font-semibold md:text-4xl">Your duonorth starts here</h2>
+        <h2 className="text-3xl font-semibold md:text-4xl">Your duonorth starts here</h2>
         <p className="mt-6 mb-8 max-w-sm text-lg font-medium text-zinc-700 dark:text-zinc-300">
           We&apos;ve got you &mdash; Schedule a call or email at
           <span

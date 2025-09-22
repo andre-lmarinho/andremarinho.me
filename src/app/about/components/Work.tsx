@@ -67,7 +67,7 @@ const workEntries = workPlaces
 
 const Work = () => (
   <section id="work" aria-label="Work">
-    <h2>Work</h2>
+    <h2 className="pb-6">Work</h2>
     <ul className="space-y-2">
       {workEntries.map(({ place, role }, index) => {
         const href = place.website;
