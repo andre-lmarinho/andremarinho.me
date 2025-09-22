@@ -1,11 +1,10 @@
-﻿'use client';
-import React from 'react';
+import type { ReactNode } from 'react';
 
 import Background from './Background';
 import Footer from './Footer';
 import Header from './NavigationMenu';
 
-type Props = { children: React.ReactNode };
+type Props = { children: ReactNode };
 
 const Layout = (props: Props) => (
   <>
