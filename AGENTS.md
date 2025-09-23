@@ -1,54 +1,31 @@
-﻿# Project Agents.md Guide
+# andremarinho.me Development Guide for AI Agents
 
-This `Agents.md` file provides comprehensive guidance for any AI agents working with this codebase.
+**📖 Complete documentation is in the [.agents/](.agents/) directory.**
 
-## Project Structure
+## Quick Reference
 
-- `/src`: Source code to be analyzed and maintained by AI agents
-  - `/app`: Next.js App Router entry point (layout, pages, providers)
-  - `/components`: Shared UI, sections, and layout building blocks
+### Essential Commands
 
-## Coding Conventions
+- `npm run dev` - Start the Next.js development server with hot reload
+- `npm run build` - Create a production-ready build
+- `npm run format` - Format the codebase with Prettier and Tailwind sorting
+- `npm run lint` - Run ESLint across `src` and shared config files
+- `npm run typecheck` - Execute the TypeScript compiler in `--noEmit` mode
+- `npm run test` - Run the Jest and Testing Library suite
+- `npm run vercel:build` - Replicate the Vercel deployment build locally
 
-- **Language**: All documentation, inline code comments, commit messages and PR descriptions must be written in English.
-- **Formatting**: Run `npm run format` before committing. The project uses Prettier with semicolons, single quotes and `printWidth` 100.
-- **Linting**: Ensure `npm run lint` passes.
-- **Tests**: Execute `npm run test` and make sure tests succeed.
-- **Type Checking**: Verify `npm run typecheck` completes without errors.
-- **Vercel Build**: Run `npm run vercel:build` to confirm the deployment build succeeds.
-- **Commit style**: Use short, imperative, English commit messages. Prefix with `feat:`, `fix:`, `chore:`, etc. when applicable.
+## Tool Preferences
 
-## General Conventions for AI Agents
+### Search Tools Priority
 
-- Use TypeScript for all new code.
-- Follow the existing code style in each file.
-- Write meaningful variable and function names.
-- Add comments for complex logic.
+Use tools in this order of preference:
 
-## React Components Guidelines
+1. **rg (ripgrep)** - For fast, project-wide text searches
+2. **find** - For locating files by pattern when directory context matters
+3. **grep** - As a fallback for simple inline matches when ripgrep is unavailable
 
-- Use functional components with hooks.
-- Keep components small and focused.
-- Always define prop types properly.
-- Use PascalCase for component filenames.
+## 📚 Detailed Documentation
 
-## CSS/Styling Standards
-
-- Use Tailwind CSS for styling.
-- Follow a utility-first approach.
-- Write custom CSS only when necessary.
-
-## Testing Requirements
-
-Run tests using the following commands:
-
-```bash
-# Run all tests
-npm run test
-
-# Run a specific test file
-npm run test -- file.test.tsx
-
-# Run tests with coverage
-npm run test -- --coverage
-```
+- **[.agents/README.md](.agents/README.md)** - Complete development guide
+- **[.agents/commands.md](.agents/commands.md)** - All build, test & dev commands
+- **[.agents/knowledge-base.md](.agents/knowledge-base.md)** - Knowledge base & best practices
