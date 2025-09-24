@@ -1,5 +1,5 @@
 import type { NextConfig } from 'next';
-import nextConfig from '../next.config.js';
+import nextConfig from './next.config.js';
 
 type SecurityHeader = {
   key: string;
