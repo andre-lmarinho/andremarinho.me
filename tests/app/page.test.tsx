@@ -1,22 +1,20 @@
 import { cleanup, render, screen } from '@testing-library/react';
 import type { ComponentProps, ElementType, ReactNode } from 'react';
 
-import StudioPage, { metadata as studioMetadata } from './page';
+import HomePage, { metadata as homeMetadata } from '@/app/page';
 import { buildCanonical } from '@/config/seo';
 
 afterEach(() => {
   cleanup();
 });
 
-const renderServerComponent = async (
-  Component: () => ReactNode | Promise<ReactNode>
-) => {
+const renderServerComponent = async (Component: () => ReactNode | Promise<ReactNode>) => {
   const element = await Component();
   render(<>{element}</>);
 };
 
 jest.mock('next/navigation', () => ({
-  usePathname: jest.fn(() => '/studio'),
+  usePathname: jest.fn(() => '/'),
   useSearchParams: jest.fn(() => new URLSearchParams()),
   useRouter: () => ({
     push: jest.fn(),
@@ -74,28 +72,19 @@ jest.mock('@/app/studio/components/ScrollCopy', () => ({
   ),
 }));
 
-describe('Studio page', () => {
-  it('renders the studio marketing content without crashing', async () => {
-    await renderServerComponent(StudioPage);
+describe('Home page', () => {
+  it('renders the primary sections from the default export', async () => {
+    await renderServerComponent(HomePage);
 
-    const callLinks = screen.getAllByRole('link', { name: 'Book a call' });
-    expect(callLinks.length).toBeGreaterThan(0);
-    callLinks.forEach((link) => {
-      expect(link).toHaveAttribute('href', 'https://wa.me/5571984770061');
-    });
-
+    expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent("Hey! I'm Andre Marinho");
     expect(screen.getByRole('heading', { level: 2, name: 'Projects' })).toBeInTheDocument();
-    expect(screen.getByTestId('mock-scroll-copy')).toBeInTheDocument();
+    expect(screen.getByRole('heading', { level: 2, name: 'Work' })).toBeInTheDocument();
   });
 
-  it('exports metadata describing the studio landing page', () => {
-    expect(studioMetadata).toMatchObject({
-      title: 'Duonorth Studio',
-      alternates: { canonical: buildCanonical('/studio') },
-      openGraph: expect.objectContaining({
-        url: buildCanonical('/studio'),
-        title: 'Duonorth Studio',
-      }),
+  it('exposes the canonical metadata for the homepage', () => {
+    expect(homeMetadata).toMatchObject({
+      alternates: { canonical: buildCanonical() },
+      openGraph: expect.objectContaining({ url: buildCanonical() }),
     });
   });
 });

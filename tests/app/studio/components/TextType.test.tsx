@@ -1,6 +1,6 @@
 import { act, render, waitFor } from '@testing-library/react';
 
-import TextType from './TextType';
+import TextType from '@/app/studio/components/TextType';
 
 const originalAnimate = HTMLElement.prototype.animate;
 
@@ -41,12 +41,7 @@ describe('TextType', () => {
 
   it('cycles through typing, pausing and deleting phases when multiple strings are provided', () => {
     const { container } = render(
-      <TextType
-        text={['Hi', 'Bye']}
-        typingSpeed={10}
-        deletingSpeed={10}
-        pauseDuration={20}
-      />
+      <TextType text={['Hi', 'Bye']} typingSpeed={10} deletingSpeed={10} pauseDuration={20} />
     );
 
     const textSpan = () => container.querySelector<HTMLSpanElement>('span.inline');
@@ -78,9 +73,7 @@ describe('TextType', () => {
   });
 
   it('stops after typing once when looping is disabled', () => {
-    const { container } = render(
-      <TextType text="Done" typingSpeed={10} loop={false} />
-    );
+    const { container } = render(<TextType text="Done" typingSpeed={10} loop={false} />);
 
     const textSpan = () => container.querySelector<HTMLSpanElement>('span.inline');
 
@@ -104,13 +97,7 @@ describe('TextType', () => {
 
   it('hides the cursor while typing and renders custom characters', () => {
     const { container } = render(
-      <TextType
-        text="OK"
-        typingSpeed={10}
-        loop={false}
-        hideCursorWhileTyping
-        cursorCharacter="|"
-      />
+      <TextType text="OK" typingSpeed={10} loop={false} hideCursorWhileTyping cursorCharacter="|" />
     );
 
     const cursor = () => container.querySelector<HTMLSpanElement>('span.inline-block');
@@ -125,8 +112,10 @@ describe('TextType', () => {
   });
 
   it('animates the cursor when the feature is enabled', async () => {
-    const cancel = jest.fn();
-    const animateMock = jest.fn(() => ({ cancel }));
+    const cancel = jest.fn<void, []>();
+    const animateMock = jest.fn<Animation, Parameters<typeof HTMLElement.prototype.animate>>(
+      () => ({ cancel }) as unknown as Animation
+    );
 
     Object.defineProperty(HTMLElement.prototype, 'animate', {
       configurable: true,
@@ -141,8 +130,10 @@ describe('TextType', () => {
     await waitFor(() => expect(animateMock).toHaveBeenCalledTimes(1));
 
     expect(cursor?.style.opacity).toBe('1');
-    expect(animateMock.mock.calls[0]?.[0]).toEqual([{ opacity: 1 }, { opacity: 0 }]);
-    expect(animateMock.mock.calls[0]?.[1]).toMatchObject({
+
+    const [frames, options] = animateMock.mock.calls[0];
+    expect(frames).toEqual([{ opacity: 1 }, { opacity: 0 }]);
+    expect(options).toMatchObject({
       duration: expect.any(Number),
       iterations: Infinity,
     });

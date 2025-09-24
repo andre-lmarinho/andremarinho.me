@@ -1,6 +1,6 @@
 import { act, fireEvent, render, screen, waitFor } from '@testing-library/react';
 
-import FinalCTA from './FinalCTA';
+import FinalCTA from '@/app/studio/components/FinalCTA';
 
 const originalClipboard = navigator.clipboard;
 
@@ -31,7 +31,7 @@ describe('FinalCTA', () => {
         value: originalClipboard,
       });
     } else {
-      delete (navigator as Navigator & { clipboard?: Clipboard }).clipboard;
+      Reflect.deleteProperty(navigator, 'clipboard');
     }
   });
 

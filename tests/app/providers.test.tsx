@@ -1,13 +1,13 @@
 import { render, screen, waitFor } from '@testing-library/react';
 import type { ReactNode } from 'react';
 
-import { Providers } from './providers';
+import { Providers } from '@/app/providers';
 
 type ThemeProviderProps = { children: ReactNode } & Record<string, unknown>;
 
-const themeProviderMock = jest.fn(
-  ({ children }: ThemeProviderProps) => <div data-testid="theme-provider">{children}</div>
-);
+const themeProviderMock = jest.fn(({ children }: ThemeProviderProps) => (
+  <div data-testid="theme-provider">{children}</div>
+));
 
 jest.mock('next-themes', () => ({
   ThemeProvider: (props: ThemeProviderProps) => themeProviderMock(props),
@@ -39,6 +39,5 @@ describe('Providers', () => {
     expect(props.storageKey).toBe('theme');
 
     expect(screen.getByText('content')).toBeInTheDocument();
-
   });
 });

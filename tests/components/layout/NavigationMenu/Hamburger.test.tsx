@@ -3,7 +3,7 @@ import userEvent from '@testing-library/user-event';
 import type { AnchorHTMLAttributes, ReactNode } from 'react';
 import { useState } from 'react';
 
-import Hamburger from './Hamburger';
+import Hamburger from '@/components/layout/NavigationMenu/Hamburger';
 
 type NextLinkProps = AnchorHTMLAttributes<HTMLAnchorElement> & {
   href: string;
@@ -55,7 +55,8 @@ describe('Hamburger', () => {
       return 1;
     }) as RequestAnimationFrameType;
 
-    const cancelMock: typeof globalThis.cancelAnimationFrame = (() => undefined) as typeof globalThis.cancelAnimationFrame;
+    const cancelMock: typeof globalThis.cancelAnimationFrame = (() =>
+      undefined) as typeof globalThis.cancelAnimationFrame;
 
     Object.defineProperty(globalThis, 'requestAnimationFrame', {
       configurable: true,
@@ -79,7 +80,8 @@ describe('Hamburger', () => {
         value: originalRequestAnimationFrame,
       });
     } else {
-      delete (globalThis as { requestAnimationFrame?: typeof globalThis.requestAnimationFrame }).requestAnimationFrame;
+      delete (globalThis as { requestAnimationFrame?: typeof globalThis.requestAnimationFrame })
+        .requestAnimationFrame;
     }
 
     if (originalCancelAnimationFrame) {
@@ -89,7 +91,8 @@ describe('Hamburger', () => {
         value: originalCancelAnimationFrame,
       });
     } else {
-      delete (globalThis as { cancelAnimationFrame?: typeof globalThis.cancelAnimationFrame }).cancelAnimationFrame;
+      delete (globalThis as { cancelAnimationFrame?: typeof globalThis.cancelAnimationFrame })
+        .cancelAnimationFrame;
     }
   });
 

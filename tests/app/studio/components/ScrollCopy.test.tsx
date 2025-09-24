@@ -1,6 +1,6 @@
 import { act, render } from '@testing-library/react';
 
-import ScrollCopy from './ScrollCopy';
+import ScrollCopy from '@/app/studio/components/ScrollCopy';
 
 type FrameCallback = Parameters<typeof requestAnimationFrame>[0];
 
@@ -74,7 +74,8 @@ describe('ScrollCopy', () => {
         value: originalRequestAnimationFrame,
       });
     } else {
-      delete (globalThis as { requestAnimationFrame?: typeof globalThis.requestAnimationFrame }).requestAnimationFrame;
+      delete (globalThis as { requestAnimationFrame?: typeof globalThis.requestAnimationFrame })
+        .requestAnimationFrame;
     }
 
     if (originalCancelAnimationFrame) {
@@ -84,7 +85,8 @@ describe('ScrollCopy', () => {
         value: originalCancelAnimationFrame,
       });
     } else {
-      delete (globalThis as { cancelAnimationFrame?: typeof globalThis.cancelAnimationFrame }).cancelAnimationFrame;
+      delete (globalThis as { cancelAnimationFrame?: typeof globalThis.cancelAnimationFrame })
+        .cancelAnimationFrame;
     }
   });
 

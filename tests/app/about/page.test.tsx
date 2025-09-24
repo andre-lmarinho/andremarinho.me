@@ -1,22 +1,20 @@
 import { cleanup, render, screen } from '@testing-library/react';
 import type { ComponentProps, ElementType, ReactNode } from 'react';
 
-import HomePage, { metadata as homeMetadata } from './page';
+import AboutPage, { metadata as aboutMetadata } from '@/app/about/page';
 import { buildCanonical } from '@/config/seo';
 
 afterEach(() => {
   cleanup();
 });
 
-const renderServerComponent = async (
-  Component: () => ReactNode | Promise<ReactNode>
-) => {
+const renderServerComponent = async (Component: () => ReactNode | Promise<ReactNode>) => {
   const element = await Component();
   render(<>{element}</>);
 };
 
 jest.mock('next/navigation', () => ({
-  usePathname: jest.fn(() => '/'),
+  usePathname: jest.fn(() => '/about'),
   useSearchParams: jest.fn(() => new URLSearchParams()),
   useRouter: () => ({
     push: jest.fn(),
@@ -74,19 +72,22 @@ jest.mock('@/app/studio/components/ScrollCopy', () => ({
   ),
 }));
 
-describe('Home page', () => {
-  it('renders the primary sections from the default export', async () => {
-    await renderServerComponent(HomePage);
+describe('About page', () => {
+  it('renders the about content from the default export', async () => {
+    await renderServerComponent(AboutPage);
 
-    expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent("Hey! I'm Andre Marinho");
-    expect(screen.getByRole('heading', { level: 2, name: 'Projects' })).toBeInTheDocument();
+    expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent('About me');
     expect(screen.getByRole('heading', { level: 2, name: 'Work' })).toBeInTheDocument();
   });
 
-  it('exposes the canonical metadata for the homepage', () => {
-    expect(homeMetadata).toMatchObject({
-      alternates: { canonical: buildCanonical() },
-      openGraph: expect.objectContaining({ url: buildCanonical() }),
+  it('defines metadata for canonical navigation and Open Graph', () => {
+    expect(aboutMetadata).toMatchObject({
+      title: 'About me',
+      alternates: { canonical: buildCanonical('/about') },
+      openGraph: expect.objectContaining({
+        url: buildCanonical('/about'),
+        title: 'About me',
+      }),
     });
   });
 });
