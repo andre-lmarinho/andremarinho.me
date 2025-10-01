@@ -1,9 +1,20 @@
-import { buildPageMetadata } from '@/config/seo';
-
+import { SocialProfileJsonLd } from 'next-seo';
+import { PageSeo } from '@/components/seo/PageSeo';
+import { getSocialSameAs } from '@/config/social';
+import { siteUrl } from '@/config/seo';
 import Home from './home';
 
-export const metadata = buildPageMetadata();
-
 export default function Index() {
-  return <Home />;
+  return (
+    <>
+      <PageSeo />
+      <SocialProfileJsonLd
+        type="Person"
+        name="Andre Marinho"
+        url={siteUrl}
+        sameAs={getSocialSameAs()}
+      />
+      <Home />
+    </>
+  );
 }

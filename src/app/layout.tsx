@@ -4,12 +4,10 @@ import React from 'react';
 import './globals.css';
 import Layout from '@/components/layout';
 import cn from '@/utils';
-import { defaultMetadata } from '@/config/seo';
+import { DefaultSeoProvider } from '@/components/seo/DefaultSeoProvider';
 import { Providers } from './providers';
 import { Analytics } from '@vercel/analytics/next';
 import { SpeedInsights } from '@vercel/speed-insights/next';
-
-export const metadata = defaultMetadata;
 
 const inter = Inter({
   subsets: ['latin'],
@@ -23,6 +21,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={cn(inter.variable, 'font-sans antialiased')}>
+        <DefaultSeoProvider />
         <Providers>
           <Layout>{children}</Layout>
         </Providers>

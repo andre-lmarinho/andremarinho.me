@@ -1,5 +1,4 @@
-import type { Metadata } from 'next';
-import type { DefaultSeoProps } from 'next-seo';
+import type { DefaultSeoProps, NextSeoProps } from 'next-seo';
 
 export const siteUrl = 'https://andremarinho.me';
 
@@ -34,10 +33,6 @@ const defaultOpenGraph = {
   ],
 };
 
-const defaultTwitter = {
-  card: 'summary_large_image' as const,
-};
-
 export const defaultSeoConfig: DefaultSeoProps = {
   defaultTitle,
   titleTemplate,
@@ -68,45 +63,17 @@ export const defaultSeoConfig: DefaultSeoProps = {
   ],
   openGraph: defaultOpenGraph,
   twitter: {
-    cardType: defaultTwitter.card,
+    cardType: 'summary_large_image',
   },
 };
 
-export const defaultMetadata: Metadata = {
-  metadataBase: new URL(siteUrl),
-  title: {
-    default: defaultTitle,
-    template: titleTemplate,
-  },
-  description: defaultDescription,
-  alternates: {
-    canonical: siteUrl,
-  },
-  openGraph: {
-    ...defaultOpenGraph,
-    title: defaultTitle,
-    description: defaultDescription,
-  },
-  twitter: {
-    ...defaultTwitter,
-    title: defaultTitle,
-    description: defaultDescription,
-  },
-  icons: {
-    icon: [{ url: '/favicon/favicon.ico' }, { url: '/favicon/icon.png', type: 'image/png' }],
-    shortcut: ['/favicon/favicon.ico'],
-    apple: ['/favicon/apple-icon.png'],
-  },
-  manifest: '/site.webmanifest',
-};
-
-type PageMetadataOverrides = {
+type PageSeoOverrides = {
   title?: string;
   description?: string;
   path?: string;
   canonical?: string | null;
-  openGraph?: Metadata['openGraph'];
-  twitter?: Metadata['twitter'];
+  openGraph?: NextSeoProps['openGraph'];
+  twitter?: NextSeoProps['twitter'];
   noindex?: boolean;
 };
 
@@ -126,7 +93,9 @@ const resolveCanonical = (path?: string, canonical?: string | null): string | un
   return buildCanonical();
 };
 
-export const buildPageMetadata = ({
+export type { PageSeoOverrides };
+
+export const buildPageSeo = ({
   title,
   description,
   path,
@@ -134,41 +103,32 @@ export const buildPageMetadata = ({
   openGraph,
   twitter,
   noindex,
-}: PageMetadataOverrides = {}): Metadata => {
+}: PageSeoOverrides = {}): NextSeoProps => {
   const resolvedTitle = title ?? defaultTitle;
   const resolvedDescription = description ?? defaultDescription;
   const resolvedCanonical = resolveCanonical(path, canonical);
 
-  const pageMetadata: Metadata = {
+  const seoConfig: NextSeoProps = {
     title: resolvedTitle,
     description: resolvedDescription,
+    canonical: resolvedCanonical,
     openGraph: {
-      ...defaultMetadata.openGraph,
+      ...defaultSeoConfig.openGraph,
       ...openGraph,
       url: resolvedCanonical ?? defaultOpenGraph.url,
       title: openGraph?.title ?? resolvedTitle,
       description: openGraph?.description ?? resolvedDescription,
     },
     twitter: {
-      ...defaultMetadata.twitter,
+      ...defaultSeoConfig.twitter,
       ...twitter,
-      title: twitter?.title ?? resolvedTitle,
-      description: twitter?.description ?? resolvedDescription,
     },
   };
 
-  if (resolvedCanonical) {
-    pageMetadata.alternates = {
-      canonical: resolvedCanonical,
-    };
-  }
-
   if (noindex) {
-    pageMetadata.robots = {
-      index: false,
-      follow: false,
-    };
+    seoConfig.noindex = true;
+    seoConfig.nofollow = true;
   }
 
-  return pageMetadata;
+  return seoConfig;
 };

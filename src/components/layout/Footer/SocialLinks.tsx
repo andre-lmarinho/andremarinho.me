@@ -1,4 +1,5 @@
 import { Github, Linkedin, Mail } from 'lucide-react';
+import { SOCIAL_LINKS } from '@/config/social';
 import cn from '@/utils';
 
 const ICONS = {
@@ -6,34 +7,6 @@ const ICONS = {
   linkedin: Linkedin,
   email: Mail,
 } as const;
-
-type SocialLink = {
-  label: string;
-  href: string;
-  ariaLabel: string;
-  icon?: keyof typeof ICONS;
-};
-
-const SOCIAL_LINKS: SocialLink[] = [
-  {
-    label: 'GitHub',
-    href: 'https://github.com/andre-lmarinho',
-    ariaLabel: 'GitHub profile (opens in a new tab)',
-    icon: 'github',
-  },
-  {
-    label: 'LinkedIn',
-    href: 'https://www.linkedin.com/in/andre-marinho-3318ab1aa/',
-    ariaLabel: 'LinkedIn profile (opens in a new tab)',
-    icon: 'linkedin',
-  },
-  {
-    label: 'Email',
-    href: 'mailto:hey@andremarinho.me',
-    ariaLabel: 'Send an email to hey@andremarinho.me',
-    icon: 'email',
-  },
-];
 
 const listStyles = {
   footer: 'flex items-center gap-0',
