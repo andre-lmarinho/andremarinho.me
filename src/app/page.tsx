@@ -1,13 +1,13 @@
 import { SocialProfileJsonLd } from 'next-seo';
-import { PageSeo } from '@/components/seo/PageSeo';
 import { getSocialSameAs } from '@/config/social';
-import { siteUrl } from '@/config/seo';
+import { buildPageMetadata, siteUrl } from '@/config/metadata';
 import Home from './home';
+
+export const metadata = buildPageMetadata();
 
 export default function Index() {
   return (
     <>
-      <PageSeo />
       <SocialProfileJsonLd
         type="Person"
         name="Andre Marinho"

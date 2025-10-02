@@ -1,13 +1,19 @@
-import { PageSeo } from '@/components/seo/PageSeo';
+import { buildPageMetadata } from '@/config/metadata';
 import MenuLinks from '@/components/layout/NavigationMenu/MenuLinks';
 
 const title = '404 – Page not found';
 const description = "The page you were trying to reach doesn't exist.";
 
+export const metadata = buildPageMetadata({
+  title,
+  description,
+  canonical: null,
+  noindex: true,
+});
+
 export default function NotFound() {
   return (
     <>
-      <PageSeo title={title} description={description} canonical={null} noindex />
       <section id="404">
         <h1>Are you lost?</h1>
         <p className="mt-6 text-xl font-medium tracking-tight text-zinc-600 dark:text-zinc-400">

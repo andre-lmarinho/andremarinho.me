@@ -2,7 +2,7 @@ import { cleanup, render, screen } from '@testing-library/react';
 import type { ComponentProps, ElementType, ReactNode } from 'react';
 
 import StudioPage, { metadata as studioMetadata } from '@/app/studio/page';
-import { buildCanonical } from '@/config/seo';
+import { buildCanonical } from '@/config/metadata';
 
 afterEach(() => {
   cleanup();
