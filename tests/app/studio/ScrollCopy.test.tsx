@@ -45,12 +45,7 @@ describe('scrollCopyUtils', () => {
   });
 
   it('creates bridges linking paragraph boundaries', () => {
-    const bridges = createBridges([
-      ['p0w0', 'p0w1'],
-      [],
-      ['p2w0', 'p2w1'],
-      ['p3w0'],
-    ]);
+    const bridges = createBridges([['p0w0', 'p0w1'], [], ['p2w0', 'p2w1'], ['p3w0']]);
 
     expect(bridges).toEqual([
       { fromId: 'p0w1', toId: 'p2w0' },

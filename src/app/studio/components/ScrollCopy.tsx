@@ -2,11 +2,7 @@
 
 import React, { CSSProperties, useCallback, useLayoutEffect, useMemo, useRef } from 'react';
 
-import {
-  calculateWordOpacities,
-  createBridges,
-  tokenize,
-} from './scrollCopyUtils';
+import { calculateWordOpacities, createBridges, tokenize } from './scrollCopyUtils';
 
 type Props = {
   className?: string; // container classes (e.g., space-y-8)
@@ -39,19 +35,16 @@ const ScrollCopy: React.FC<Props> = ({
 
   const wordsQuery = '.sc-word';
 
-  const scheduleOpacityUpdate = useCallback(
-    (callback: () => void) => {
-      if (rafRef.current != null) {
-        return;
-      }
+  const scheduleOpacityUpdate = useCallback((callback: () => void) => {
+    if (rafRef.current != null) {
+      return;
+    }
 
-      rafRef.current = requestAnimationFrame(() => {
-        rafRef.current = null;
-        callback();
-      });
-    },
-    []
-  );
+    rafRef.current = requestAnimationFrame(() => {
+      rafRef.current = null;
+      callback();
+    });
+  }, []);
 
   const applyBridges = useCallback(() => {
     const el = containerRef.current;
