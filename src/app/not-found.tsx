@@ -1,15 +1,31 @@
-import { buildPageMetadata } from '@/config/metadata';
+import type { Metadata } from 'next';
+import { buildCanonical, defaultOpenGraph, defaultTwitter } from '@/config/metadata';
 import MenuLinks from '@/components/layout/NavigationMenu/MenuLinks';
 
 const title = '404 – Page not found';
 const description = "The page you were trying to reach doesn't exist.";
 
-export const metadata = buildPageMetadata({
+const fallbackUrl = buildCanonical();
+
+export const metadata: Metadata = {
   title,
   description,
-  canonical: null,
-  noindex: true,
-});
+  robots: {
+    index: false,
+    follow: false,
+  },
+  openGraph: {
+    ...defaultOpenGraph,
+    title,
+    description,
+    url: fallbackUrl,
+  },
+  twitter: {
+    ...defaultTwitter,
+    title,
+    description,
+  },
+};
 
 export default function NotFound() {
   return (

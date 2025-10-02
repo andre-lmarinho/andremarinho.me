@@ -35,68 +35,8 @@ const buildCanonical = (path = ''): string => {
 
   return `${siteUrl}${normalizedPath}`;
 };
-
-type BuildPageMetadataOptions = {
-  title?: string;
-  description?: string;
-  path?: string;
-  canonical?: string | null;
-  noindex?: boolean;
-};
-
-const buildPageMetadata = ({
-  title,
-  description,
-  path,
-  canonical,
-  noindex,
-}: BuildPageMetadataOptions = {}): Metadata => {
-  const resolvedTitle = title ?? defaultTitle;
-  const resolvedDescription = description ?? defaultDescription;
-
-  const resolvedCanonical =
-    canonical === null
-      ? undefined
-      : canonical
-        ? buildCanonical(canonical)
-        : typeof path === 'string'
-          ? buildCanonical(path)
-          : buildCanonical();
-
-  const metadata: Metadata = {
-    title: resolvedTitle,
-    description: resolvedDescription,
-    openGraph: {
-      ...defaultOpenGraph,
-      title: resolvedTitle,
-      description: resolvedDescription,
-      url: resolvedCanonical ?? buildCanonical(path),
-    },
-    twitter: {
-      ...defaultTwitter,
-      title: resolvedTitle,
-      description: resolvedDescription,
-    },
-  };
-
-  if (resolvedCanonical) {
-    metadata.alternates = { canonical: resolvedCanonical };
-  }
-
-  if (noindex) {
-    metadata.robots = {
-      index: false,
-      follow: false,
-    };
-  }
-
-  return metadata;
-};
-
-export type { BuildPageMetadataOptions };
 export {
   buildCanonical,
-  buildPageMetadata,
   defaultDescription,
   defaultOpenGraph,
   defaultTitle,
