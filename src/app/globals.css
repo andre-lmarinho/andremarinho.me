@@ -48,3 +48,24 @@
   outline: 2px solid #3f3f46;
   outline-offset: 2px;
 }
+
+@layer components {
+  .scroll-copy {
+    --scroll-copy-base-opacity: 0.35;
+    --scroll-copy-max-opacity: 1;
+    --scroll-copy-word-gap: 0px;
+  }
+
+  .scroll-copy p {
+    word-spacing: var(--scroll-copy-word-gap);
+  }
+
+  .scroll-copy .sc-word {
+    opacity: var(--scroll-copy-base-opacity);
+    transition: opacity 200ms ease-out;
+  }
+
+  .scroll-copy .sc-word[data-sc-active='true'] {
+    opacity: var(--scroll-copy-max-opacity);
+  }
+}
