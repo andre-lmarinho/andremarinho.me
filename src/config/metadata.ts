@@ -1,18 +1,26 @@
 import type { Metadata } from 'next';
 
-const siteUrl = 'https://andremarinho.me';
+import siteConfig from '../../site.config.json';
+
+const { siteUrl } = siteConfig;
 const siteName = 'Andre Marinho';
 const defaultTitle = 'Andre Marinho - Front-End Developer';
 const titleTemplate = 'Andre Marinho - %s';
 const defaultDescription =
   'I am a Front-End Developer based in Salvador. I create digital experiences that connect design, strategy and business growth.';
 
-const openGraphImage: NonNullable<NonNullable<Metadata['openGraph']>['images']>[number] = {
-  url: `${siteUrl}/images/Me.webp`,
+type OpenGraph = NonNullable<Metadata['openGraph']>;
+type OpenGraphImage = NonNullable<OpenGraph['images']> extends (infer Item)[]
+  ? Item
+  : NonNullable<OpenGraph['images']>;
+
+const openGraphImage: OpenGraphImage = {
+  url: `${siteUrl}/opengraph-image`,
   alt: 'Andre Marinho',
+  type: 'image/png',
 };
 
-const defaultOpenGraph: NonNullable<Metadata['openGraph']> = {
+const defaultOpenGraph: OpenGraph = {
   type: 'website',
   siteName,
   images: [openGraphImage],
