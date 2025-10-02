@@ -1,18 +1,7 @@
 /** @type {import('next-sitemap').IConfig} */
-const config = {
+module.exports = {
   siteUrl: 'https://andremarinho.me',
   generateRobotsTxt: true,
-  sitemapSize: 5000,
-  exclude: ['/api/*'],
-  robotsTxtOptions: {
-    policies: [
-      { userAgent: 'Googlebot', allow: '/' },
-      { userAgent: 'Bingbot', allow: '/' },
-      { userAgent: 'Twitterbot', allow: '/' },
-      { userAgent: 'facebookexternalhit', allow: '/' },
-      { userAgent: '*', allow: '/' },
-    ],
-  },
+  generateIndexSitemap: false,
+  exclude: ['*/opengraph-image'],
 };
-
-module.exports = config;

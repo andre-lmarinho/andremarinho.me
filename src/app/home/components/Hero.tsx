@@ -1,9 +1,4 @@
-'use client';
-
 import Image from 'next/image';
-import React, { useEffect, useState } from 'react';
-
-import cn from '@/utils';
 
 const heroTexts = [
   'I am a Front-End Developer based in Salvador. I create digital experiences that connect design, strategy and business growth.',
@@ -13,23 +8,13 @@ const heroTexts = [
 const waveEmoji = String.fromCodePoint(0x1f44b);
 
 export default function Hero() {
-  const [wave, setWave] = useState(false);
-
-  useEffect(() => {
-    const id = window.setTimeout(() => setWave(true), 220);
-    return () => window.clearTimeout(id);
-  }, []);
-
   return (
     <section id="hero" className="mb-20">
       <div className="flex justify-between gap-8">
         <div>
           <h1 className="flex gap-2">
             <span>Hey! I&apos;m Andre Marinho</span>
-            <span
-              aria-hidden="true"
-              className={cn('inline-block origin-[70%_70%]', wave && 'animate-wave')}
-            >
+            <span aria-hidden="true" className="animate-wave inline-block origin-[70%_70%]">
               {waveEmoji}
             </span>
           </h1>

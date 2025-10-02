@@ -1,8 +1,11 @@
-import { buildPageMetadata } from '@/config/seo';
-
+import type { Metadata } from 'next';
 import Home from './home';
 
-export const metadata = buildPageMetadata();
+import { siteUrl } from '@/config/metadata';
+
+export const metadata: Metadata = {
+  alternates: { canonical: siteUrl },
+};
 
 export default function Index() {
   return <Home />;

@@ -2,7 +2,6 @@ import { cleanup, render, screen } from '@testing-library/react';
 import type { ComponentProps, ElementType, ReactNode } from 'react';
 
 import StudioPage, { metadata as studioMetadata } from '@/app/studio/page';
-import { buildCanonical } from '@/config/seo';
 
 afterEach(() => {
   cleanup();
@@ -89,10 +88,9 @@ describe('Studio page', () => {
   it('exports metadata describing the studio landing page', () => {
     expect(studioMetadata).toMatchObject({
       title: 'Duonorth Studio',
-      alternates: { canonical: buildCanonical('/studio') },
+      alternates: { canonical: '/studio' },
       openGraph: expect.objectContaining({
-        url: buildCanonical('/studio'),
-        title: 'Duonorth Studio',
+        url: '/studio',
       }),
     });
   });
