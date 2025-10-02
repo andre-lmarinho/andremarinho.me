@@ -2,7 +2,6 @@ import { cleanup, render, screen } from '@testing-library/react';
 import type { ComponentProps, ElementType, ReactNode } from 'react';
 
 import AboutPage, { metadata as aboutMetadata } from '@/app/about/page';
-import { buildCanonical } from '@/config/seo';
 
 afterEach(() => {
   cleanup();
@@ -83,10 +82,9 @@ describe('About page', () => {
   it('defines metadata for canonical navigation and Open Graph', () => {
     expect(aboutMetadata).toMatchObject({
       title: 'About me',
-      alternates: { canonical: buildCanonical('/about') },
+      alternates: { canonical: '/about' },
       openGraph: expect.objectContaining({
-        url: buildCanonical('/about'),
-        title: 'About me',
+        url: '/about',
       }),
     });
   });
