@@ -23,6 +23,7 @@ declare module 'next-seo' {
     name: string;
     url: string;
     sameAs: string[];
+    useAppDir?: boolean;
   }
 
   export const DefaultSeo: ComponentType<DefaultSeoProps>;

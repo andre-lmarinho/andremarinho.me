@@ -13,6 +13,7 @@ export default function Index() {
         name="Andre Marinho"
         url={siteUrl}
         sameAs={getSocialSameAs()}
+        useAppDir={true}
       />
       <Home />
     </>

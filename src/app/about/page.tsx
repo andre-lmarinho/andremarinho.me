@@ -16,6 +16,7 @@ export default function About() {
         name="Andre Marinho"
         url={siteUrl}
         sameAs={getSocialSameAs()}
+        useAppDir={true}
       />
       <Intro />
       <Online />
