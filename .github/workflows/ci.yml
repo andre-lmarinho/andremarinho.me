@@ -21,5 +21,25 @@ jobs:
         env:
           NEXT_TELEMETRY_DISABLED: 1
         run: npm ci
-      - name: Run CI verification
-        run: npm run ci
+      - name: Run format check
+        run: npm run format:check
+      - name: Run lint (CI)
+        run: npm run lint:ci
+      - name: Run typecheck
+        run: npm run typecheck
+      - name: Run tests (CI)
+        run: npm run test:ci
+      - name: Run production build
+        run: npm run build:prod
+      - name: Run coverage tests
+        run: npm run test:coverage
+      - name: Upload coverage artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage-lcov
+          path: coverage/lcov.info
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v4
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          files: coverage/lcov.info

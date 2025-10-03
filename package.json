@@ -15,6 +15,7 @@
         "start": "next start",
         "test": "jest",
         "test:ci": "jest --ci",
+        "test:coverage": "jest --ci --coverage",
         "typecheck": "tsc --noEmit",
         "verify": "npm run format:check && npm run lint:ci && npm run typecheck && npm run test:ci && npm run build:prod",
         "ci": "npm run verify",
