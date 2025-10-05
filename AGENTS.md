@@ -6,13 +6,10 @@
 
 ### Essential Commands
 
-- `npm run dev` - Start the Next.js development server with hot reload
-- `npm run build` - Create a production-ready build
-- `npm run format` - Format the codebase with Prettier and Tailwind sorting
-- `npm run lint` - Run ESLint across `src` and shared config files
-- `npm run typecheck` - Execute the TypeScript compiler in `--noEmit` mode
-- `npm run test` - Run the Jest and Testing Library suite
-- `npm run vercel:build` - Replicate the Vercel deployment build locally
+- `npm run dev` - Start development server
+- `npm run build` - Build all packages
+- `npm run lint -- --fix` - Lint and fix code
+- `npm run typecheck` - TypeScript checking
 
 ## Tool Preferences
 
@@ -20,9 +17,9 @@
 
 Use tools in this order of preference:
 
-1. **rg (ripgrep)** - For fast, project-wide text searches
-2. **find** - For locating files by pattern when directory context matters
-3. **grep** - As a fallback for simple inline matches when ripgrep is unavailable
+1. **ast-grep** - For AST-based code searches (if available)
+2. **rg (ripgrep)** - For fast text searches
+3. **grep** - As fallback for text searches
 
 ## 📚 Detailed Documentation
 
