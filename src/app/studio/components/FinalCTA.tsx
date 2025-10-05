@@ -1,7 +1,7 @@
 'use client';
 
 import type React from 'react';
-import { useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 
 import StudioButton from './StudioButton';
 import cn from '@/utils';
@@ -11,14 +11,18 @@ const FinalCTA = () => {
   const [copied, setCopied] = useState(false);
   const timerRef = useRef<number | null>(null);
 
+  const clearCopyTimeout = useCallback(() => {
+    if (timerRef.current !== null) {
+      window.clearTimeout(timerRef.current);
+      timerRef.current = null;
+    }
+  }, []);
+
   useEffect(() => {
     return () => {
-      if (timerRef.current) {
-        window.clearTimeout(timerRef.current);
-        timerRef.current = null;
-      }
+      clearCopyTimeout();
     };
-  }, []);
+  }, [clearCopyTimeout]);
 
   const handleCopy = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
@@ -31,10 +35,7 @@ const FinalCTA = () => {
       .writeText(email)
       .then(() => {
         setCopied(true);
-        if (timerRef.current) {
-          window.clearTimeout(timerRef.current);
-          timerRef.current = null;
-        }
+        clearCopyTimeout();
         timerRef.current = window.setTimeout(() => {
           setCopied(false);
           timerRef.current = null;
