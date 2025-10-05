@@ -8,7 +8,6 @@ import cn from '@/utils';
 import {
   defaultDescription,
   defaultTitle,
-  googleVerification,
   siteName,
   siteUrl,
   titleTemplate,
@@ -33,7 +32,6 @@ export const metadata: Metadata = {
   twitter: {
     card: 'summary_large_image',
   },
-  verification: googleVerification ? { google: googleVerification } : undefined,
 };
 
 const inter = Inter({

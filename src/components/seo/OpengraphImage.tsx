@@ -1,10 +1,15 @@
-import { readFile } from 'node:fs/promises';
-
-import type { Font } from 'satori';
+import { ImageResponse } from 'next/og';
 
 import { siteName, siteUrl } from '@/config/metadata';
 
-type FontCacheKey = 'inter-medium' | 'inter-extrabold' | 'roboto-mono';
+type FontWeight = 100 | 200 | 300 | 400 | 500 | 600 | 700 | 800 | 900;
+
+type Font = {
+  name: string;
+  data: ArrayBuffer;
+  style: 'normal' | 'italic';
+  weight: FontWeight;
+};
 
 type Props = {
   description: string;
@@ -12,77 +17,51 @@ type Props = {
   url?: string;
 };
 
-const buildFontUrl = (path: string) => new URL(`../../../public${path}`, import.meta.url);
-
-type FontConfig = {
-  cacheKey: FontCacheKey;
-  name: string;
-  style: 'normal' | 'italic';
-  weight: NonNullable<Font['weight']>;
-  url: URL;
+type FontDefinition = {
+  name: Font['name'];
+  path: string;
+  style?: Font['style'];
+  weight: Font['weight'];
 };
 
-const fontConfigs: FontConfig[] = [
+const fontDefinitions: ReadonlyArray<FontDefinition> = [
   {
-    cacheKey: 'inter-medium',
     name: 'Inter',
-    style: 'normal',
+    path: '/fonts/opengraph/Inter-Medium.woff',
     weight: 500,
-    url: buildFontUrl('/fonts/opengraph/Inter-Medium.woff'),
   },
   {
-    cacheKey: 'inter-extrabold',
     name: 'Inter',
-    style: 'normal',
+    path: '/fonts/opengraph/Inter-ExtraBold.woff',
     weight: 800,
-    url: buildFontUrl('/fonts/opengraph/Inter-ExtraBold.woff'),
   },
   {
-    cacheKey: 'roboto-mono',
     name: 'Roboto Mono',
-    style: 'normal',
+    path: '/fonts/opengraph/RobotoMono-Regular.woff',
     weight: 400,
-    url: buildFontUrl('/fonts/opengraph/RobotoMono-Regular.woff'),
   },
 ];
 
-const fontDataPromises = new Map<FontCacheKey, Promise<ArrayBuffer>>();
+const loadFont = async (path: string): Promise<ArrayBuffer> => {
+  const response = await fetch(new URL(path, siteUrl));
 
-const bufferToArrayBuffer = (buffer: Buffer): ArrayBuffer => Uint8Array.from(buffer).buffer;
-
-const fetchFont = async ({ cacheKey, url }: FontConfig): Promise<ArrayBuffer> => {
-  const cached = fontDataPromises.get(cacheKey);
-
-  if (cached) {
-    return cached;
+  if (!response.ok) {
+    throw new Error(`Failed to load font at ${path}`);
   }
 
-  const promise = (async () => {
-    const buffer = await readFile(url);
-
-    return bufferToArrayBuffer(buffer);
-  })();
-
-  fontDataPromises.set(cacheKey, promise);
-
-  return promise;
+  return response.arrayBuffer();
 };
 
-export const getFonts = async (): Promise<Font[]> => {
-  const entries = await Promise.all(
-    fontConfigs.map(async (config) => ({
-      config,
-      data: await fetchFont(config),
-    }))
-  );
+const fontsPromise: Promise<Font[]> = Promise.all(
+  fontDefinitions.map(async ({ name, path, style, weight }) => ({
+    data: await loadFont(path),
+    name,
+    style: style ?? 'normal',
+    weight,
+  }))
+);
 
-  return entries.map(({ config, data }) => ({
-    data,
-    name: config.name,
-    style: config.style,
-    weight: config.weight,
-  }));
-};
+export const getFonts = async (): Promise<Font[]> => fontsPromise;
 
 export const ogImageSize = {
   width: 1200,
@@ -91,14 +70,10 @@ export const ogImageSize = {
 
 export const ogImageDynamic = 'force-static' as const;
 
-export const createOgImageResponse = async (props: Props) => {
-  const { ImageResponse: NextImageResponse } = await import('next/og');
-  const fonts = await getFonts();
-
-  return new NextImageResponse(<OpengraphImage {...props} />, {
-    fonts,
+export const createOgImageResponse = async (props: Props) =>
+  new ImageResponse(<OpengraphImage {...props} />, {
+    fonts: await getFonts(),
   });
-};
 
 const domain = new URL(siteUrl).host;
 

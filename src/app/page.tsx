@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
-import Home from './home';
-
 import { siteUrl } from '@/config/metadata';
+
+import Home from './home';
 
 export const metadata: Metadata = {
   alternates: { canonical: siteUrl },

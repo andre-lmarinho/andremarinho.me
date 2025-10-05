@@ -1,13 +1,54 @@
 import StudioButton from './StudioButton';
 
-interface PricingCardProps {
+export type StudioPricingPlan = {
   tier: string;
-  price: string;
   description: string;
-  features?: string[];
+  price: {
+    display: string;
+    value: string;
+    currency: string;
+    billingType: 'one-time';
+  };
+  features: string[];
+};
+
+export const studioPricingPlans: StudioPricingPlan[] = [
+  {
+    tier: 'Website',
+    description: 'For companies that want a new approach on their website.',
+    price: {
+      display: '$ 1.000',
+      value: '1000',
+      currency: 'USD',
+      billingType: 'one-time',
+    },
+    features: ['Landing page', 'UI/UX Design', 'Front-end development'],
+  },
+  {
+    tier: 'Growth',
+    description: 'For early-stage companies aiming to transform their idea into a product.',
+    price: {
+      display: '$ 3.000',
+      value: '3000',
+      currency: 'USD',
+      billingType: 'one-time',
+    },
+    features: ['End-to-end MVP', 'Product design', 'Full-stack development'],
+  },
+];
+
+interface PricingCardProps {
+  plan: StudioPricingPlan;
 }
 
-const PricingCard = ({ tier, price, description, features = [] }: PricingCardProps) => (
+const PricingCard = ({
+  plan: {
+    tier,
+    price: { display: priceDisplay, billingType },
+    description,
+    features = [],
+  },
+}: PricingCardProps) => (
   <div className="relative rounded-3xl border border-zinc-200 p-10 dark:border-zinc-800">
     <div className="flex flex-row items-center justify-between gap-x-2">
       <h3 className="text-lg font-semibold">{tier}</h3>
@@ -23,8 +64,10 @@ const PricingCard = ({ tier, price, description, features = [] }: PricingCardPro
     <div className="mb-4">
       <p className="m-0 text-xs leading-6 text-zinc-600 dark:text-zinc-400">Starting at</p>
       <p className="mt-0 flex items-baseline gap-1 text-zinc-900 dark:text-zinc-100">
-        <span className="text-3xl font-bold">{price}</span>
-        {price !== 'Custom' && <span className="text-zinc-500 dark:text-zinc-400">/ one-time</span>}
+        <span className="text-3xl font-bold">{priceDisplay}</span>
+        {billingType === 'one-time' && (
+          <span className="text-zinc-500 dark:text-zinc-400">/ one-time</span>
+        )}
       </p>
     </div>
     <StudioButton className="block w-full text-center">Start a project</StudioButton>
@@ -53,18 +96,9 @@ const PricingCard = ({ tier, price, description, features = [] }: PricingCardPro
 const Pricing = () => (
   <section id="pricing">
     <div className="mt-10 mb-6 grid grid-cols-1 gap-6 md:grid-cols-2">
-      <PricingCard
-        tier="Website"
-        price="$ 1.000"
-        description="For companies that want a new approach on their website."
-        features={['Landing page', 'UI/UX Design', 'Front-end development']}
-      />
-      <PricingCard
-        tier="Growth"
-        price="$ 3.000"
-        description="For early-stage companies aiming to transform their idea into a product."
-        features={['End-to-end MVP', 'Product design', 'Full-stack development']}
-      />
+      {studioPricingPlans.map((plan) => (
+        <PricingCard key={plan.tier} plan={plan} />
+      ))}
     </div>
     <div className="flex flex-col gap-x-20 rounded-3xl border border-zinc-200 p-10 sm:flex-row sm:items-center dark:border-zinc-800">
       <div className="flex-1">
