@@ -1,5 +1,3 @@
-import { ImageResponse } from 'next/og';
-
 import { siteName, siteUrl } from '@/config/metadata';
 
 type FontWeight = 100 | 200 | 300 | 400 | 500 | 600 | 700 | 800 | 900;
@@ -52,16 +50,25 @@ const loadFont = async (path: string): Promise<ArrayBuffer> => {
   return response.arrayBuffer();
 };
 
-const fontsPromise: Promise<Font[]> = Promise.all(
-  fontDefinitions.map(async ({ name, path, style, weight }) => ({
-    data: await loadFont(path),
-    name,
-    style: style ?? 'normal',
-    weight,
-  }))
-);
+const loadFonts = () =>
+  Promise.all(
+    fontDefinitions.map(async ({ name, path, style, weight }) => ({
+      data: await loadFont(path),
+      name,
+      style: style ?? 'normal',
+      weight,
+    }))
+  );
 
-export const getFonts = async (): Promise<Font[]> => fontsPromise;
+let fontsPromise: Promise<Font[]> | undefined;
+
+export const getFonts = async (): Promise<Font[]> => {
+  if (!fontsPromise) {
+    fontsPromise = loadFonts();
+  }
+
+  return fontsPromise;
+};
 
 export const ogImageSize = {
   width: 1200,
@@ -70,10 +77,25 @@ export const ogImageSize = {
 
 export const ogImageDynamic = 'force-static' as const;
 
-export const createOgImageResponse = async (props: Props) =>
-  new ImageResponse(<OpengraphImage {...props} />, {
+type ImageResponseConstructor = (typeof import('next/og'))['ImageResponse'];
+
+let imageResponseConstructor: ImageResponseConstructor | undefined;
+
+const loadImageResponse = async (): Promise<ImageResponseConstructor> => {
+  if (!imageResponseConstructor) {
+    ({ ImageResponse: imageResponseConstructor } = await import('next/og'));
+  }
+
+  return imageResponseConstructor;
+};
+
+export const createOgImageResponse = async (props: Props) => {
+  const ImageResponse = await loadImageResponse();
+
+  return new ImageResponse(<OpengraphImage {...props} />, {
     fonts: await getFonts(),
   });
+};
 
 const domain = new URL(siteUrl).host;
 
