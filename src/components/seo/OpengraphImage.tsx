@@ -41,7 +41,7 @@ const fontDefinitions: ReadonlyArray<FontDefinition> = [
 ];
 
 const loadFont = async (path: string): Promise<ArrayBuffer> => {
-  const response = await fetch(new URL(path, siteUrl));
+  const response = await fetch(new URL(`../../../public${path}`, import.meta.url));
 
   if (!response.ok) {
     throw new Error(`Failed to load font at ${path}`);
