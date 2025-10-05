@@ -1,3 +1,5 @@
+import { readFile } from 'node:fs/promises';
+
 import { siteName, siteUrl } from '@/config/metadata';
 
 type FontWeight = 100 | 200 | 300 | 400 | 500 | 600 | 700 | 800 | 900;
@@ -15,75 +17,79 @@ type Props = {
   url?: string;
 };
 
-type FontDefinition = {
+type FontCacheKey = 'inter-medium' | 'inter-extrabold' | 'roboto-mono';
+
+const buildFontUrl = (path: string) => new URL(`../../../public${path}`, import.meta.url);
+
+type FontConfig = {
+  cacheKey: FontCacheKey;
   name: Font['name'];
-  path: string;
-  style?: Font['style'];
+  style: Font['style'];
   weight: Font['weight'];
+  url: URL;
 };
 
-const fontDefinitions: ReadonlyArray<FontDefinition> = [
+const fontConfigs: FontConfig[] = [
   {
+    cacheKey: 'inter-medium',
     name: 'Inter',
-    path: '/fonts/opengraph/Inter-Medium.woff',
+    style: 'normal',
     weight: 500,
+    url: buildFontUrl('/fonts/opengraph/Inter-Medium.woff'),
   },
   {
+    cacheKey: 'inter-extrabold',
     name: 'Inter',
-    path: '/fonts/opengraph/Inter-ExtraBold.woff',
+    style: 'normal',
     weight: 800,
+    url: buildFontUrl('/fonts/opengraph/Inter-ExtraBold.woff'),
   },
   {
+    cacheKey: 'roboto-mono',
     name: 'Roboto Mono',
-    path: '/fonts/opengraph/RobotoMono-Regular.woff',
+    style: 'normal',
     weight: 400,
+    url: buildFontUrl('/fonts/opengraph/RobotoMono-Regular.woff'),
   },
 ];
 
-const loadFont = async (path: string): Promise<ArrayBuffer> => {
-  const url = new URL(`../../../public${path}`, import.meta.url);
+const fontDataPromises = new Map<FontCacheKey, Promise<ArrayBuffer>>();
 
-  try {
-    const response = await fetch(url);
+const bufferToArrayBuffer = (buffer: Buffer): ArrayBuffer =>
+  buffer.buffer.slice(buffer.byteOffset, buffer.byteOffset + buffer.byteLength) as ArrayBuffer;
 
-    if (!response.ok) {
-      throw new Error(`Failed to load font at ${path}`);
-    }
+const fetchFont = async ({ cacheKey, url }: FontConfig): Promise<ArrayBuffer> => {
+  const cached = fontDataPromises.get(cacheKey);
 
-    return response.arrayBuffer();
-  } catch (error) {
-    if (url.protocol !== 'file:') {
-      throw error;
-    }
+  if (cached) {
+    return cached;
+  }
 
-    const { readFile } = await import('node:fs/promises');
+  const promise = (async () => {
     const buffer = await readFile(url);
 
-    return buffer.buffer.slice(
-      buffer.byteOffset,
-      buffer.byteOffset + buffer.byteLength
-    ) as ArrayBuffer;
-  }
+    return bufferToArrayBuffer(buffer);
+  })();
+
+  fontDataPromises.set(cacheKey, promise);
+
+  return promise;
 };
 
-const loadFonts = () =>
-  Promise.all(
-    fontDefinitions.map(async ({ name, path, style, weight }) => ({
-      data: await loadFont(path),
-      name,
-      style: style ?? 'normal',
-      weight,
+export const getFonts = async (): Promise<Font[]> => {
+  const entries = await Promise.all(
+    fontConfigs.map(async (config) => ({
+      config,
+      data: await fetchFont(config),
     }))
   );
 
-let fontsPromise: Promise<Font[]> | undefined;
-
-export const getFonts = async (): Promise<Font[]> => {
-  if (!fontsPromise) {
-    fontsPromise = loadFonts();
-  }
-
-  return fontsPromise;
+  return entries.map(({ config, data }) => ({
+    data,
+    name: config.name,
+    style: config.style,
+    weight: config.weight,
+  }));
 };
 
 export const ogImageSize = {
@@ -93,20 +99,8 @@ export const ogImageSize = {
 
 export const ogImageDynamic = 'force-static' as const;
 
-type ImageResponseConstructor = (typeof import('next/og'))['ImageResponse'];
-
-let imageResponseConstructor: ImageResponseConstructor | undefined;
-
-const loadImageResponse = async (): Promise<ImageResponseConstructor> => {
-  if (!imageResponseConstructor) {
-    ({ ImageResponse: imageResponseConstructor } = await import('next/og'));
-  }
-
-  return imageResponseConstructor;
-};
-
 export const createOgImageResponse = async (props: Props) => {
-  const ImageResponse = await loadImageResponse();
+  const { ImageResponse } = await import('next/og');
 
   return new ImageResponse(<OpengraphImage {...props} />, {
     fonts: await getFonts(),

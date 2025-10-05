@@ -3,6 +3,7 @@ import { createOgImageResponse, ogImageSize } from '@/components/seo/OpengraphIm
 export const dynamic = 'force-static';
 export const size = ogImageSize;
 export const alt = 'Duonorth Studio';
+export const runtime = 'nodejs';
 
 export default async function Image() {
   return createOgImageResponse({
