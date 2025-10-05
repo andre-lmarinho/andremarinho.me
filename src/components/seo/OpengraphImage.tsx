@@ -41,13 +41,29 @@ const fontDefinitions: ReadonlyArray<FontDefinition> = [
 ];
 
 const loadFont = async (path: string): Promise<ArrayBuffer> => {
-  const response = await fetch(new URL(`../../../public${path}`, import.meta.url));
+  const url = new URL(`../../../public${path}`, import.meta.url);
 
-  if (!response.ok) {
-    throw new Error(`Failed to load font at ${path}`);
+  try {
+    const response = await fetch(url);
+
+    if (!response.ok) {
+      throw new Error(`Failed to load font at ${path}`);
+    }
+
+    return response.arrayBuffer();
+  } catch (error) {
+    if (url.protocol !== 'file:') {
+      throw error;
+    }
+
+    const { readFile } = await import('node:fs/promises');
+    const buffer = await readFile(url);
+
+    return buffer.buffer.slice(
+      buffer.byteOffset,
+      buffer.byteOffset + buffer.byteLength
+    ) as ArrayBuffer;
   }
-
-  return response.arrayBuffer();
 };
 
 const loadFonts = () =>
