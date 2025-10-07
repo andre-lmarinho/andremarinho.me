@@ -9,7 +9,6 @@ export default async function Image() {
   return createOgImageResponse({
     title: 'Duonorth Studio',
     url: 'studio',
-    description:
-      "Discover Duonorth Studio, Andre Marinho's product partnership for ambitious teams and experiences.",
+    description: 'World-class software, design and product partner for your business',
   });
 }

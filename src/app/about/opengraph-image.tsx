@@ -9,7 +9,6 @@ export default async function Image() {
   return createOgImageResponse({
     title: 'About me',
     url: 'about',
-    description:
-      'Get to know Andre Marinho, a front-end developer crafting digital products from Salvador, Brazil.',
+    description: 'Front-End Engineer based in Salvador, that loves building things for the web',
   });
 }
