@@ -1,13 +1,14 @@
 import type { Metadata } from 'next';
+import { ProductJsonLd } from '@/components/seo/ProductJsonLd';
+
+import Hero from './components/Hero';
 import HomeProjects from '../home/components/Projects';
 import Copy from './components/Copy';
-import FinalCTA from './components/FinalCTA';
-import Hero from './components/Hero';
 import Pricing from './components/Pricing';
+import FinalCTA from './components/FinalCTA';
 
-const studioTitle = 'Duonorth Studio';
 export const metadata: Metadata = {
-  title: studioTitle,
+  title: 'Duonorth Studio',
   alternates: {
     canonical: '/studio',
   },
@@ -19,6 +20,7 @@ export const metadata: Metadata = {
 export default function Studio() {
   return (
     <>
+      <ProductJsonLd />
       <Hero />
       <HomeProjects />
       <Copy />

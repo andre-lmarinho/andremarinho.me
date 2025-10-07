@@ -2,6 +2,8 @@ import { cleanup, render, screen } from '@testing-library/react';
 import type { ComponentProps, ElementType, ReactNode } from 'react';
 
 import StudioPage, { metadata as studioMetadata } from '@/app/studio/page';
+import { studioPricingPlans } from '@/app/studio/components/Pricing';
+import { studioName } from '@/config/metadata';
 
 afterEach(() => {
   cleanup();
@@ -92,6 +94,41 @@ describe('Studio page', () => {
       openGraph: expect.objectContaining({
         url: '/studio',
       }),
+    });
+  });
+
+  it('renders structured data describing the studio plans', async () => {
+    await renderServerComponent(StudioPage);
+
+    const scripts = Array.from(
+      document.querySelectorAll<HTMLScriptElement>('script[type="application/ld+json"]')
+    );
+    const productSchemas = scripts
+      .map((script) => {
+        try {
+          return JSON.parse(script.textContent ?? '{}');
+        } catch (error) {
+          return {};
+        }
+      })
+      .filter((data) => data['@type'] === 'Product');
+
+    expect(productSchemas).toHaveLength(studioPricingPlans.length);
+    studioPricingPlans.forEach((plan) => {
+      expect(productSchemas).toEqual(
+        expect.arrayContaining([
+          expect.objectContaining({
+            name: `${studioName} ${plan.tier} plan`,
+            offers: expect.objectContaining({
+              price: plan.price.value,
+              priceCurrency: plan.price.currency,
+              seller: expect.objectContaining({
+                name: studioName,
+              }),
+            }),
+          }),
+        ])
+      );
     });
   });
 });
