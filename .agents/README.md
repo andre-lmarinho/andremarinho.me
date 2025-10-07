@@ -34,7 +34,6 @@ AndreMarinho.me is a statically personal/portfolio site.
 - **Next.js 14+** with App Router in some areas
 - **React 18** with TypeScript
 - **Tailwind CSS** for styling
-- Internationalization with `next-i18next`
 
 ## Common Patterns
 
@@ -59,7 +58,6 @@ AndreMarinho.me is a statically personal/portfolio site.
 
 - **Unit tests** with Jest
 - **Integration tests** for complex workflows
-- **E2E tests** with Playwright
 - Test files use `.test.ts` or `.spec.ts` extensions
 
 ## Pull Request Guidelines
