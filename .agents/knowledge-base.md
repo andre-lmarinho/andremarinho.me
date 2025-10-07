@@ -101,27 +101,12 @@ When asked to move changes to a different branch, use git commands to commit exi
 
 When reviewing CI check failures:
 
-1. E2E tests can be flaky and may fail intermittently
-2. Focus only on CI failures that are directly related to your code changes
-3. Infrastructure-related failures (like dependency installation issues) can be disregarded if all code-specific checks (type checking, linting, unit tests) are passing
+- Focus on CI failures that are directly related to your code changes
+- Infrastructure-related failures (like dependency installation issues) can be disregarded if all code-specific checks (type checking, linting, unit tests) are passing
 
 ## When working with git and CI systems
 
 Always push committed changes to the remote repository before waiting for or checking CI status. Waiting for CI checks on unpushed local commits is backwards - the CI runs on the remote repository state, not local commits. The proper sequence is: commit locally, run local checks, push to remote, then monitor CI status.
-
-## When adding new UI elements or text strings
-
-All UI strings must be properly translated using the i18n system. This includes:
-
-- Labels for new UI elements (like dropdown labels, settings headers)
-- Option values that are displayed to users
-- Any text that appears in the interface
-
-Even if some related strings are already translated (like "Planning" and "Insights"), new strings must be explicitly added to the translation system.
-
-## When developing Playwright tests
-
-Always ensure Playwright tests pass locally before pushing code. The user requires fast local e2e feedback loops instead of relying on CI, which is too slow for development iteration. Never push test code until those tests are passing locally first.
 
 ## When fixing failing tests
 
