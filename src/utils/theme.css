@@ -41,6 +41,10 @@
     color-scheme: light;
   }
 
+  html:focus-within {
+    scroll-behavior: auto;
+  }
+
   body {
     min-height: 100%;
     overflow-x: hidden;
