@@ -1,7 +1,5 @@
 import Image from 'next/image';
-
 import { SectionTitle } from '@/components/Heading';
-import Section from '@/components/Section';
 import cn from '@/utils/cn';
 
 type WorkRole = {
@@ -69,7 +67,7 @@ const workEntries = workPlaces
   });
 
 const Work = () => (
-  <Section id="work" aria-label="Work">
+  <section id="work" aria-label="Work">
     <SectionTitle>Work</SectionTitle>
     <ul className="space-y-2">
       {workEntries.map(({ place, role }, index) => {
@@ -126,7 +124,7 @@ const Work = () => (
         );
       })}
     </ul>
-  </Section>
+  </section>
 );
 
 export default Work;

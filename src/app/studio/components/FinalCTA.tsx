@@ -2,9 +2,7 @@
 
 import type React from 'react';
 import { useRef, useState } from 'react';
-
 import Button from '@/components/Button';
-import Section from '@/components/Section';
 import cn from '@/utils/cn';
 
 const FinalCTA = () => {
@@ -34,7 +32,7 @@ const FinalCTA = () => {
   };
 
   return (
-    <Section id="contact">
+    <section id="contact">
       <div className="rounded-3xl bg-zinc-50 p-10 sm:p-16 dark:bg-zinc-900/50 dark:shadow-[inset_0px_1px_0px_rgb(255_255_255_/_0.04),_inset_0px_0px_0px_0.5px_rgb(255_255_255_/_0.02),_0px_1px_2px_rgb(0_0_0_/_0.4),_0px_2px_4px_rgb(0_0_0_/_0.08),_0px_0px_0px_0.5px_rgb(0_0_0_/_0.24)]">
         <h2 className="inline-block text-3xl font-semibold md:text-4xl">
           Your duonorth starts here
@@ -86,7 +84,7 @@ const FinalCTA = () => {
 
         <Button>Get started</Button>
       </div>
-    </Section>
+    </section>
   );
 };
 

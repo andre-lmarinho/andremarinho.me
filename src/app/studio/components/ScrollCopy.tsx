@@ -1,7 +1,6 @@
 'use client';
 
 import React, { CSSProperties, useCallback, useLayoutEffect, useMemo, useRef } from 'react';
-
 import { calculateWordOpacities, createBridges, tokenize } from './scrollCopyUtils';
 
 type Props = {

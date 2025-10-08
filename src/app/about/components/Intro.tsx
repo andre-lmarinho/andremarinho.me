@@ -1,5 +1,4 @@
 import { PageTitle } from '@/components/Heading';
-import Section from '@/components/Section';
 
 const aboutParagraphs = [
   'Hey there! \u{1F44B} I\u2019m Andr\u00E9, a Front-End Developer from Salvador, passionate about building digital experiences where code, design, and strategy work together to create real impact.',
@@ -10,7 +9,7 @@ const aboutParagraphs = [
 ] as const;
 
 const Intro = () => (
-  <Section id="about">
+  <section id="about">
     <div>
       <PageTitle>About me</PageTitle>
       {aboutParagraphs.map((paragraph) => (
@@ -19,7 +18,7 @@ const Intro = () => (
         </p>
       ))}
     </div>
-  </Section>
+  </section>
 );
 
 export default Intro;

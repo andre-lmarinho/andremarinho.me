@@ -1,8 +1,6 @@
 import Image from 'next/image';
 import React from 'react';
-
 import { SectionTitle } from '@/components/Heading';
-import Section from '@/components/Section';
 
 type TechMeta = {
   name: string;
@@ -25,6 +23,7 @@ const techs: TechMeta[] = [
   { name: 'TypeScript', icon: 'typescript', color: '3178C6' },
   { name: 'JavaScript', icon: 'javascript', color: 'F7DF1E' },
   { name: 'WordPress', icon: 'wordpress', color: '21759B' },
+  { name: 'php', icon: 'php', color: '474A8A' },
 ];
 
 const techMap: Record<string, TechMeta> = techs.reduce(
@@ -41,17 +40,17 @@ const getTechIconUrl = ({ icon, color }: TechMeta) =>
 const projects: ProjectMeta[] = [
   {
     title: 'Travel planner',
-    ariaLabel: 'Turistar travel planner',
-    description: 'Interactive trip planner with drag-and-drop scheduling.',
-    siteLink: 'https://travel-planner-orpin.vercel.app/',
+    ariaLabel: 'Travel planner',
+    description: 'A travel planner for absolutely everyone.',
+    siteLink: 'https://github.com/andre-lmarinho/travel-planner',
     tag: 'Selected',
     stacks: ['Next.js', 'TypeScript'],
   },
   {
-    title: 'Personal Portfolio',
-    ariaLabel: 'Personal portfolio',
-    description: 'Clean single-page portfolio with smooth motion and theming.',
-    siteLink: '#',
+    title: 'andremarinho.me',
+    ariaLabel: 'andremarinho.me',
+    description: 'The code behind this portfolio site.',
+    siteLink: 'https://github.com/andre-lmarinho/andremarinho.me',
     stacks: ['React', 'TypeScript'],
   },
   {
@@ -62,17 +61,17 @@ const projects: ProjectMeta[] = [
     stacks: ['React', 'TypeScript'],
   },
   {
-    title: 'TD Advocacia',
-    ariaLabel: 'TD Advocacia & Consultoria Empresarial website',
-    description: 'Corporate website for a law and data protection firm.',
+    title: 'doreaadv.com',
+    ariaLabel: 'doreaadv.com',
+    description: 'Corporate website with some custom php.',
     siteLink: 'https://doreaadv.com/',
-    stacks: ['WordPress', 'JavaScript'],
+    stacks: ['WordPress', 'JavaScript', 'php'],
   },
 ];
 
 export default function Projects() {
   return (
-    <Section id="projects" aria-label="Projects">
+    <section id="projects" aria-label="Projects">
       <SectionTitle>Projects</SectionTitle>
       <ul className="grid grid-cols-1 items-stretch gap-5 sm:grid-cols-2">
         {projects.map((project) => {
@@ -129,6 +128,6 @@ export default function Projects() {
           );
         })}
       </ul>
-    </Section>
+    </section>
   );
 }

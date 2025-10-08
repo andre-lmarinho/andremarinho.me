@@ -1,10 +1,8 @@
 import Button from '@/components/Button';
-import Section from '@/components/Section';
-
 import TextType from './TextType';
 
 const Hero = () => (
-  <Section id="hero" className="pt-16 pb-20 md:pt-24 md:pb-28">
+  <section id="hero" className="pt-16 pb-20 md:pt-24 md:pb-28">
     <h1 className="text-extrabold pb-6 text-4xl tracking-tight sm:text-5xl md:text-6xl">
       {'World-class '}
       <TextType
@@ -19,7 +17,7 @@ const Hero = () => (
     </p>
 
     <Button>Book a call</Button>
-  </Section>
+  </section>
 );
 
 export default Hero;

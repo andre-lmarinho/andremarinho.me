@@ -9,7 +9,9 @@ type Props = { children: ReactNode };
 const Layout = (props: Props) => (
   <>
     <Header />
-    <main id="main">{props.children}</main>
+    <main id="main" className="page-content">
+      {props.children}
+    </main>
     <Footer />
     <Background />
   </>

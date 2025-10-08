@@ -1,5 +1,4 @@
 import Button from '@/components/Button';
-import Section from '@/components/Section';
 
 export type StudioPricingPlan = {
   tier: string;
@@ -51,7 +50,7 @@ const PricingCard = ({
   },
 }: PricingCardProps) => (
   <div className="relative rounded-3xl border border-zinc-200 p-10 dark:border-zinc-800">
-    <div className="flex flex-row items-center justify-between gap-x-2">
+    <div className="mb-4 flex flex-row items-center justify-between gap-x-2">
       <h3 className="text-lg font-semibold">{tier}</h3>
       <div className="flex cursor-default items-center gap-x-1.5 rounded-lg bg-zinc-200 px-2 py-1 text-xs font-medium tracking-tight select-none dark:bg-zinc-800">
         <span className="relative flex h-1 w-1">
@@ -95,13 +94,13 @@ const PricingCard = ({
 );
 
 const Pricing = () => (
-  <Section id="pricing">
+  <section id="pricing">
     <div className="mt-10 mb-6 grid grid-cols-1 gap-6 md:grid-cols-2">
       {studioPricingPlans.map((plan) => (
         <PricingCard key={plan.tier} plan={plan} />
       ))}
     </div>
-    <div className="flex flex-col gap-x-20 rounded-3xl border border-zinc-200 p-10 sm:flex-row sm:items-center dark:border-zinc-800">
+    <div className="flex flex-col gap-x-20 gap-y-4 rounded-3xl border border-zinc-200 p-10 sm:flex-row sm:items-center dark:border-zinc-800">
       <div className="flex-1">
         <h3 className="text-lg font-semibold">Custom</h3>
         <p className="mb-0 text-sm text-zinc-600 dark:text-zinc-400">
@@ -111,7 +110,7 @@ const Pricing = () => (
       </div>
       <Button variant="muted">Book a call</Button>
     </div>
-  </Section>
+  </section>
 );
 
 export default Pricing;
