@@ -2,9 +2,10 @@ import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import React from 'react';
 
-import './globals.css';
+import '@/utils/theme.css';
+
 import Layout from '@/components/layout';
-import cn from '@/utils';
+import cn from '@/utils/cn';
 import {
   defaultDescription,
   defaultTitle,

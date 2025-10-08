@@ -1,6 +1,7 @@
 import { Github, Linkedin, Mail } from 'lucide-react';
+
 import { SOCIAL_LINKS } from '@/config/social';
-import cn from '@/utils';
+import cn from '@/utils/cn';
 
 const ICONS = {
   github: Github,

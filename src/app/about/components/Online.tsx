@@ -1,10 +1,12 @@
+import { SectionTitle } from '@/components/Heading';
+import Section from '@/components/Section';
 import SocialLinks from '@/components/layout/Footer/SocialLinks';
 
 const Online = () => (
-  <section id="online">
-    <h2 className="pb-6">Online</h2>
+  <Section id="online">
+    <SectionTitle>Online</SectionTitle>
     <SocialLinks variant="about" />
-  </section>
+  </Section>
 );
 
 export default Online;

@@ -7,7 +7,7 @@ import React, { useState } from 'react';
 import MenuLinks from './MenuLinks';
 import Hamburger from './Hamburger';
 import ThemeSelector from './ThemeSelector';
-import cn from '@/utils';
+import cn from '@/utils/cn';
 
 const NavigationMenu = () => {
   const [isHamburgerOpen, setIsHamburgerOpen] = useState(false);
