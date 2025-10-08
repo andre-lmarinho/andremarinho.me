@@ -47,7 +47,7 @@ const normalizePathname = (pathname: string | null) => {
   return `/${firstSegment ?? ''}`;
 };
 
-const MenuLinks = ({ variant = 'desktop', className }: MenuLinksProps) => {
+const NavigationLink = ({ variant = 'desktop', className }: MenuLinksProps) => {
   const pathname = usePathname();
   const normalizedPath = normalizePathname(pathname);
 
@@ -88,5 +88,4 @@ const MenuLinks = ({ variant = 'desktop', className }: MenuLinksProps) => {
   );
 };
 
-export type { MenuLinksVariant };
-export default MenuLinks;
+export default NavigationLink;

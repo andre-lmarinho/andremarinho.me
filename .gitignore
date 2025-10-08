@@ -8,3 +8,7 @@ coverage
 .lighthouseci
 public/robots.txt
 public/sitemap*.xml
+.vscode/
+.idea/
+.DS_Store
+*.pem

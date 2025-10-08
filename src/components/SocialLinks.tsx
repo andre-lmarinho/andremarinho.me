@@ -58,5 +58,4 @@ const SocialLinks = ({ variant = 'footer', className }: SocialLinksProps) => (
   </ul>
 );
 
-export type { SocialLinksVariant };
 export default SocialLinks;
