@@ -1,5 +1,8 @@
 import Image from 'next/image';
 
+import { PageTitle } from '@/components/Heading';
+import Section from '@/components/Section';
+
 const heroTexts = [
   'I am a Front-End Developer based in Salvador. I create digital experiences that connect design, strategy and business growth.',
   'I run Duonorth Studio, where I turn ideas into products that are fast, meaningful and focused on results.',
@@ -9,15 +12,15 @@ const waveEmoji = String.fromCodePoint(0x1f44b);
 
 export default function Hero() {
   return (
-    <section id="hero" className="mb-20">
+    <Section id="hero" className="mb-20">
       <div className="flex justify-between gap-8">
         <div>
-          <h1 className="flex gap-2">
+          <PageTitle className="flex gap-2">
             <span>Hey! I&apos;m Andre Marinho</span>
             <span aria-hidden="true" className="animate-wave inline-block origin-[70%_70%]">
               {waveEmoji}
             </span>
-          </h1>
+          </PageTitle>
           {heroTexts.map((text) => (
             <p key={text} className="mt-6 sm:max-w-md">
               {text}
@@ -34,6 +37,6 @@ export default function Hero() {
           priority
         />
       </div>
-    </section>
+    </Section>
   );
 }

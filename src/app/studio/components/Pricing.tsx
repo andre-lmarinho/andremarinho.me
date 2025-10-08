@@ -1,4 +1,5 @@
-import StudioButton from './StudioButton';
+import Button from '@/components/Button';
+import Section from '@/components/Section';
 
 export type StudioPricingPlan = {
   tier: string;
@@ -70,7 +71,7 @@ const PricingCard = ({
         )}
       </p>
     </div>
-    <StudioButton className="block w-full text-center">Start a project</StudioButton>
+    <Button size="full">Start a project</Button>
     <ul className="mt-6 space-y-2 text-sm text-zinc-700 dark:text-zinc-300">
       {features.map((feature, index) => (
         <li key={index} className="flex items-center gap-2">
@@ -94,7 +95,7 @@ const PricingCard = ({
 );
 
 const Pricing = () => (
-  <section id="pricing">
+  <Section id="pricing">
     <div className="mt-10 mb-6 grid grid-cols-1 gap-6 md:grid-cols-2">
       {studioPricingPlans.map((plan) => (
         <PricingCard key={plan.tier} plan={plan} />
@@ -108,9 +109,9 @@ const Pricing = () => (
           chat and see how we can help you.
         </p>
       </div>
-      <StudioButton variant="secondary">Book a call</StudioButton>
+      <Button variant="muted">Book a call</Button>
     </div>
-  </section>
+  </Section>
 );
 
 export default Pricing;

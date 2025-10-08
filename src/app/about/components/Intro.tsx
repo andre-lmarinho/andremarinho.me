@@ -1,3 +1,6 @@
+import { PageTitle } from '@/components/Heading';
+import Section from '@/components/Section';
+
 const aboutParagraphs = [
   'Hey there! \u{1F44B} I\u2019m Andr\u00E9, a Front-End Developer from Salvador, passionate about building digital experiences where code, design, and strategy work together to create real impact.',
   'I lead Duonorth Studio, where I craft solutions that merge React, Next.js, and TypeScript with data automation. My projects go beyond clean interfaces\u2014they\u2019re designed to boost performance, conversions, and business growth.',
@@ -7,16 +10,16 @@ const aboutParagraphs = [
 ] as const;
 
 const Intro = () => (
-  <section id="about">
+  <Section id="about">
     <div>
-      <h1>About me</h1>
+      <PageTitle>About me</PageTitle>
       {aboutParagraphs.map((paragraph) => (
         <p key={paragraph} className="mt-6">
           {paragraph}
         </p>
       ))}
     </div>
-  </section>
+  </Section>
 );
 
 export default Intro;

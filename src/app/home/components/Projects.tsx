@@ -1,6 +1,9 @@
 import Image from 'next/image';
 import React from 'react';
 
+import { SectionTitle } from '@/components/Heading';
+import Section from '@/components/Section';
+
 type TechMeta = {
   name: string;
   icon: string;
@@ -69,8 +72,8 @@ const projects: ProjectMeta[] = [
 
 export default function Projects() {
   return (
-    <section id="projects" aria-label="Projects">
-      <h2 className="pb-6">Projects</h2>
+    <Section id="projects" aria-label="Projects">
+      <SectionTitle>Projects</SectionTitle>
       <ul className="grid grid-cols-1 items-stretch gap-5 sm:grid-cols-2">
         {projects.map((project) => {
           const isExternal = project.siteLink.startsWith('http');
@@ -126,6 +129,6 @@ export default function Projects() {
           );
         })}
       </ul>
-    </section>
+    </Section>
   );
 }

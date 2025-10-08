@@ -6,7 +6,7 @@ import { Menu, X } from 'lucide-react';
 import { usePathname } from 'next/navigation';
 
 import MenuLinks from './MenuLinks';
-import cn from '@/utils';
+import cn from '@/utils/cn';
 
 const focusableSelector =
   'a[href]:not([tabindex="-1"]), button:not([disabled]):not([tabindex="-1"]), [tabindex]:not([tabindex="-1"])';
