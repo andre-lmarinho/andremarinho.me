@@ -23,10 +23,10 @@ const NavigationMenu = () => {
         <Link
           className="grid grid-flow-col items-center overflow-hidden rounded-full"
           href="/"
-          aria-label="Visit Andre Marinho's website"
+          aria-label="Visit André Marinho's website"
         >
           <Image
-            alt="Andre Marinho"
+            alt="André Marinho"
             width={32}
             height={32}
             className="rounded-full"

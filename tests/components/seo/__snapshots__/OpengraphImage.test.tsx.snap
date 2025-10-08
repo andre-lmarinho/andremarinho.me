@@ -16,12 +16,12 @@ exports[`OpengraphImage matches the expected structure for the default card 1`] 
     <span
       style="font-size: 5.25rem; font-weight: 700; letter-spacing: -2px; line-height: 1;"
     >
-      Andre Marinho - Front-End Developer
+      André Marinho
     </span>
     <span
       style="font-size: 2.5rem; font-weight: 400;"
     >
-      I am a Front-End Developer based in Salvador. I create digital experiences that connect design, strategy and business growth.
+      This is a description test.
     </span>
   </div>
   <div

@@ -2,7 +2,7 @@ import { createOgImageResponse, ogImageSize } from '@/components/seo/OpengraphIm
 
 export const dynamic = 'force-static';
 export const size = ogImageSize;
-export const alt = 'Andre Marinho';
+export const alt = 'André Marinho';
 export const runtime = 'nodejs';
 
 export default async function Image() {

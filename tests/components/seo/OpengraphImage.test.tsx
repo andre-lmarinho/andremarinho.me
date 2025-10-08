@@ -5,10 +5,7 @@ import OpengraphImage from '@/components/seo/OpengraphImage';
 describe('OpengraphImage', () => {
   it('matches the expected structure for the default card', () => {
     const { container } = render(
-      <OpengraphImage
-        title="Andre Marinho - Front-End Developer"
-        description="I am a Front-End Developer based in Salvador. I create digital experiences that connect design, strategy and business growth."
-      />
+      <OpengraphImage title="André Marinho" description="This is a description test." />
     );
 
     expect(container.firstChild).toMatchSnapshot();
