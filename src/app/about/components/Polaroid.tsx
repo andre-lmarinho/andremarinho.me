@@ -1,6 +1,5 @@
 import Image, { type ImageProps } from 'next/image';
-
-import cn from 'src/utils/cn';
+import cn from '@/utils/cn';
 
 const rotation = {
   '+1': '+rotate-1',
@@ -26,11 +25,12 @@ const Polaroid = (props: Props) => (
     <div className="relative h-fit w-fit overflow-hidden rounded-sm">
       <Image
         alt={props.label}
-        height="240"
+        height={240}
+        width={240}
+        sizes="240px"
         loading="eager"
-        placeholder="data:image/gif;base64,R0lGODlhAQABAPAAANTU1P///yH5BAAAAAAALAAAAAABAAEAAAICRAEAOw=="
+        placeholder="blur"
         src={props.src}
-        width="240"
       />
       <div className="absolute inset-0 shadow-[inset_0_0_4px_rgba(0,0,0,.3)]" />
     </div>

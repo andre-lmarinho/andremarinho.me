@@ -31,9 +31,9 @@ export default function Hero() {
           alt="André Marinho"
           width={176}
           height={176}
+          sizes="176px"
           className="hidden h-44 w-44 transform-gpu rounded-full sm:block"
           src="/images/Me.webp"
-          sizes="176px"
           priority
         />
       </div>
