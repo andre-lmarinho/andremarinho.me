@@ -83,7 +83,9 @@ describe('Studio page', () => {
       expect(link).toHaveAttribute('href', 'https://wa.me/5571984770061');
     });
 
-    expect(screen.getByRole('heading', { level: 2, name: 'Projects' })).toBeInTheDocument();
+    expect(
+      screen.getByRole('heading', { level: 2, name: 'Selected Projects' })
+    ).toBeInTheDocument();
     expect(screen.getByTestId('mock-scroll-copy')).toBeInTheDocument();
   });
 

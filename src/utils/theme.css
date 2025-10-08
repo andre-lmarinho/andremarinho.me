@@ -13,7 +13,6 @@
 
   display: grid;
   row-gap: var(--y-spacing);
-  margin-block: var(--y-spacing);
   grid-template-columns:
     [full-width-start] minmax(var(--padding-inline), 1fr)
     [content-start] min(100% - (var(--padding-inline) * 2), var(--content-max-width))

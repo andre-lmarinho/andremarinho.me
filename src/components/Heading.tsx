@@ -1,5 +1,4 @@
 import type { ReactNode } from 'react';
-
 import cn from '@/utils/cn';
 
 type TitleProps = {
@@ -8,11 +7,13 @@ type TitleProps = {
 };
 
 const PageTitle = ({ children, className }: TitleProps) => (
-  <h1 className={cn('text-3xl font-bold tracking-tight sm:text-4xl', className)}>{children}</h1>
+  <h1 className={cn('mb-6 text-3xl font-bold tracking-tight sm:text-4xl', className)}>
+    {children}
+  </h1>
 );
 
 const SectionTitle = ({ children, className }: TitleProps) => (
-  <h2 className={cn('my-6 block text-xl font-semibold', className)}>{children}</h2>
+  <h2 className={cn('mb-6 block text-xl font-semibold', className)}>{children}</h2>
 );
 
 export { PageTitle, SectionTitle };
