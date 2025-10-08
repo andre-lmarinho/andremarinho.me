@@ -2,7 +2,6 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-
 import cn from '@/utils/cn';
 
 type NavigationLink = {
@@ -24,7 +23,7 @@ const listStyles = {
 
 const anchorStyles = {
   desktop:
-    'transition-opacity data-[active=indeterminate]:hover:opacity-60 data-[active=true]:opacity-100 data-[active=false]:opacity-50 data-[active=false]:hover:opacity-100',
+    'transition-opacity rounded-xs data-[active=indeterminate]:hover:opacity-60 data-[active=true]:opacity-100 data-[active=false]:opacity-50 data-[active=false]:hover:opacity-100',
   mobile:
     'transition-opacity data-[active=indeterminate]:hover:opacity-60 data-[active=true]:opacity-100 data-[active=false]:opacity-50 data-[active=false]:hover:opacity-100',
   notFound:

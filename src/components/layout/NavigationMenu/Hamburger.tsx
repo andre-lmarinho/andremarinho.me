@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
+import { useEffect, useId, useRef } from 'react';
 import type { MouseEvent as ReactMouseEvent } from 'react';
 import { Menu, X } from 'lucide-react';
 import { usePathname } from 'next/navigation';
@@ -22,6 +22,8 @@ const buttonClassName =
 export default function Hamburger({ isOpen, setIsOpen }: Props) {
   const pathname = usePathname();
   const navRef = useRef<HTMLElement | null>(null);
+  const dialogId = useId();
+  const labelId = useId();
 
   // Close the menu immediately when the current page is selected again or an external link opens.
   const handleNavClick = (event: ReactMouseEvent<HTMLElement>) => {
@@ -106,6 +108,9 @@ export default function Hamburger({ isOpen, setIsOpen }: Props) {
     <div className="sm:hidden">
       <button
         aria-label="Open navigation menu"
+        aria-controls={isOpen ? dialogId : undefined}
+        aria-expanded={isOpen}
+        aria-haspopup="dialog"
         onClick={() => setIsOpen(true)}
         className={cn(buttonClassName, isOpen && 'pointer-events-none opacity-0')}
         type="button"
@@ -119,9 +124,14 @@ export default function Hamburger({ isOpen, setIsOpen }: Props) {
           className="fixed inset-0 z-50 bg-white text-zinc-900 dark:bg-zinc-950 dark:text-zinc-100"
           role="dialog"
           aria-modal="true"
+          aria-labelledby={labelId}
+          id={dialogId}
           tabIndex={-1}
           onClick={handleNavClick}
         >
+          <h2 id={labelId} className="sr-only">
+            Mobile navigation menu
+          </h2>
           <div className="absolute right-0 px-6 py-2">
             <button
               aria-label="Close navigation menu"

@@ -1,6 +1,5 @@
 import type { ComponentProps } from 'react';
 import { SocialProfileJsonLd as NextSeoSocialProfileJsonLd } from 'next-seo';
-
 import { siteName, siteUrl } from '@/config/metadata';
 import { getSocialSameAs } from '@/config/social';
 

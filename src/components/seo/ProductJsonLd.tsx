@@ -1,5 +1,4 @@
 import { ProductJsonLd as NextSeoProductJsonLd } from 'next-seo';
-
 import { siteUrl, studioName } from '@/config/metadata';
 import { studioPricingPlans } from '@/app/studio/components/Pricing';
 

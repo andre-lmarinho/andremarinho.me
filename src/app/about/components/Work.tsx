@@ -79,7 +79,7 @@ const Work = () => (
         return (
           <li key={entryKey} className="h-full">
             <a
-              className="group flex gap-4 transition-colors focus-visible:outline focus-visible:outline-offset-2 focus-visible:outline-zinc-500 dark:focus-visible:outline-zinc-400"
+              className="group flex gap-4 rounded-xs transition-colors focus-visible:outline focus-visible:outline-offset-2 focus-visible:outline-zinc-500 dark:focus-visible:outline-zinc-400"
               href={href}
               target={isExternal ? '_blank' : undefined}
               rel={isExternal ? 'noreferrer noopener' : undefined}

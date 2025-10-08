@@ -13,7 +13,6 @@ type ProjectMeta = {
   ariaLabel: string;
   description: string;
   siteLink: string;
-  tag?: string;
   stacks: string[];
 };
 
@@ -43,7 +42,6 @@ const projects: ProjectMeta[] = [
     ariaLabel: 'Travel planner',
     description: 'A travel planner for absolutely everyone.',
     siteLink: 'https://github.com/andre-lmarinho/travel-planner',
-    tag: 'Selected',
     stacks: ['Next.js', 'TypeScript'],
   },
   {
@@ -54,48 +52,42 @@ const projects: ProjectMeta[] = [
     stacks: ['React', 'TypeScript'],
   },
   {
-    title: 'Quiz Mini Game',
-    ariaLabel: 'Trivia App quiz game',
-    description: 'Live quiz experience with themed rounds and a responsive timer.',
-    siteLink: 'https://andre-lmarinho.github.io/Trivia/',
-    stacks: ['React', 'TypeScript'],
-  },
-  {
     title: 'doreaadv.com',
     ariaLabel: 'doreaadv.com',
-    description: 'Corporate website with some custom php.',
+    description: 'Tailored WordPress powered by a custom plugin and JS.',
     siteLink: 'https://doreaadv.com/',
-    stacks: ['WordPress', 'JavaScript', 'php'],
+    stacks: ['php', 'JavaScript'],
   },
 ];
 
 export default function Projects() {
   return (
     <section id="projects" aria-label="Projects">
-      <SectionTitle>Projects</SectionTitle>
-      <ul className="grid grid-cols-1 items-stretch gap-5 sm:grid-cols-2">
+      <a
+        className="group my-6 flex cursor-pointer items-center justify-between gap-3 rounded-xs"
+        href="https://github.com/andre-lmarinho"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <SectionTitle className="m-0 underline-offset-4 group-hover:underline">
+          Selected Projects
+        </SectionTitle>
+        <span className="cursor-pointer rounded-lg border bg-white px-2 py-[3px] text-center text-xs dark:border-neutral-700 dark:bg-neutral-900">
+          View all →
+        </span>
+      </a>
+      <ul className="grid grid-cols-1 items-stretch gap-5 sm:grid-cols-3">
         {projects.map((project) => {
-          const isExternal = project.siteLink.startsWith('http');
-
           return (
             <li key={project.title} className="h-full">
               <a
                 className="flex h-full flex-col overflow-hidden rounded-xl border border-zinc-200 px-5 py-4 transition-colors outline-none hover:bg-zinc-100 focus-visible:border-zinc-300 focus-visible:bg-zinc-100 active:bg-zinc-100 lg:group-hover/list:opacity-50 lg:hover:opacity-100 dark:border-zinc-800 dark:hover:bg-zinc-900 dark:focus-visible:border-zinc-700 dark:focus-visible:bg-zinc-900 dark:active:bg-zinc-900"
                 href={project.siteLink}
-                target={isExternal ? '_blank' : undefined}
-                rel={isExternal ? 'noreferrer noopener' : undefined}
-                aria-label={
-                  isExternal ? `${project.ariaLabel} (opens in a new tab)` : project.ariaLabel
-                }
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={`${project.ariaLabel} (opens in a new tab)`}
               >
-                <h3 className="leading-snug font-medium">
-                  {project.title}
-                  {project.tag && (
-                    <span className="mb-2 ml-5 inline-block rounded-full bg-zinc-200 px-2 py-0.5 text-xs font-medium text-zinc-800 dark:bg-zinc-700 dark:text-zinc-200">
-                      {project.tag}
-                    </span>
-                  )}
-                </h3>
+                <h3 className="leading-snug font-medium">{project.title}</h3>
                 <p className="my-2 text-sm leading-normal text-zinc-600 dark:text-zinc-400">
                   {project.description}
                 </p>

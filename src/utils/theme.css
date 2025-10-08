@@ -13,7 +13,6 @@
 
   display: grid;
   row-gap: var(--y-spacing);
-  margin-block: var(--y-spacing);
   grid-template-columns:
     [full-width-start] minmax(var(--padding-inline), 1fr)
     [content-start] min(100% - (var(--padding-inline) * 2), var(--content-max-width))
@@ -40,6 +39,10 @@
     -moz-osx-font-smoothing: grayscale;
     min-height: 100%;
     color-scheme: light;
+  }
+
+  html:focus-within {
+    scroll-behavior: auto;
   }
 
   body {

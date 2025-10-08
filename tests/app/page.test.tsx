@@ -77,7 +77,9 @@ describe('Home page', () => {
     await renderServerComponent(HomePage);
 
     expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent("Hey! I'm André Marinho");
-    expect(screen.getByRole('heading', { level: 2, name: 'Projects' })).toBeInTheDocument();
+    expect(
+      screen.getByRole('heading', { level: 2, name: 'Selected Projects' })
+    ).toBeInTheDocument();
     expect(screen.getByRole('heading', { level: 2, name: 'Work' })).toBeInTheDocument();
   });
 

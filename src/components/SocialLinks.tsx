@@ -1,5 +1,4 @@
 import { Github, Linkedin, Mail } from 'lucide-react';
-
 import { SOCIAL_LINKS } from '@/config/social';
 import cn from '@/utils/cn';
 
@@ -16,7 +15,7 @@ const listStyles = {
 
 const linkStyles = {
   footer:
-    'inline-flex items-center justify-center p-3 text-zinc-600 transition-colors hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-100',
+    'inline-flex rounded-xl items-center justify-center p-3 text-zinc-600 transition-colors hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-100',
   about:
     'flex items-center justify-center rounded-full border border-zinc-200 px-5 py-2 text-sm font-medium text-zinc-700 transition-colors hover:border-zinc-300 hover:bg-zinc-100 dark:border-zinc-700 dark:text-zinc-200 dark:hover:border-zinc-500 dark:hover:bg-zinc-900',
 } as const;
