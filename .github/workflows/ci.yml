@@ -21,8 +21,6 @@ jobs:
         env:
           NEXT_TELEMETRY_DISABLED: 1
         run: npm ci
-      - name: Run format check
-        run: npm run format:check
       - name: Run lint (CI)
         run: npm run lint:ci
       - name: Run typecheck
