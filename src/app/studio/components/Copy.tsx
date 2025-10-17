@@ -1,6 +1,6 @@
-import ScrollCopy from './ScrollCopy';
+import { ScrollCopy } from './ScrollCopy';
 
-const Copy = () => (
+export const Copy = () => (
   <section
     id="copy"
     className="prose prose-zinc dark:prose-invert text-xl font-semibold whitespace-pre-wrap text-zinc-700 sm:text-2xl dark:text-zinc-300"
@@ -8,5 +8,3 @@ const Copy = () => (
     <ScrollCopy className="space-y-8" />
   </section>
 );
-
-export default Copy;

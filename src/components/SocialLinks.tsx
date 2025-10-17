@@ -1,6 +1,7 @@
 import { Github, Linkedin, Mail } from 'lucide-react';
+
 import { SOCIAL_LINKS } from '@/config/social';
-import cn from '@/utils/cn';
+import { cn } from '@/utils/cn';
 
 const ICONS = {
   github: Github,
@@ -27,7 +28,7 @@ type SocialLinksProps = {
   className?: string;
 };
 
-const SocialLinks = ({ variant = 'footer', className }: SocialLinksProps) => (
+export const SocialLinks = ({ variant = 'footer', className }: SocialLinksProps) => (
   <ul className={cn(listStyles[variant], className)}>
     {SOCIAL_LINKS.map(({ href, label, ariaLabel, icon }) => {
       const Icon = icon ? ICONS[icon] : undefined;
@@ -56,5 +57,3 @@ const SocialLinks = ({ variant = 'footer', className }: SocialLinksProps) => (
     })}
   </ul>
 );
-
-export default SocialLinks;

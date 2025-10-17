@@ -5,8 +5,8 @@ import type { MouseEvent as ReactMouseEvent } from 'react';
 import { Menu, X } from 'lucide-react';
 import { usePathname } from 'next/navigation';
 
-import MenuLinks from '../../NavigationLink';
-import cn from '@/utils/cn';
+import { NavigationLink as MenuLinks } from '../../NavigationLink';
+import { cn } from '@/utils/cn';
 
 const focusableSelector =
   'a[href]:not([tabindex="-1"]), button:not([disabled]):not([tabindex="-1"]), [tabindex]:not([tabindex="-1"])';
@@ -19,7 +19,7 @@ type Props = {
 const buttonClassName =
   'inline-flex items-center justify-center rounded-lg p-2 text-zinc-900 transition-colors hover:text-zinc-600 focus-visible:ring-1 focus-visible:ring-neutral-300 dark:text-zinc-100 dark:hover:text-zinc-300 dark:focus-visible:ring-neutral-500';
 
-export default function Hamburger({ isOpen, setIsOpen }: Props) {
+export function Hamburger({ isOpen, setIsOpen }: Props) {
   const pathname = usePathname();
   const navRef = useRef<HTMLElement | null>(null);
   const dialogId = useId();

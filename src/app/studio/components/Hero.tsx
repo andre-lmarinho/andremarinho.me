@@ -1,7 +1,8 @@
-import Button from '@/components/Button';
-import TextType from './TextType';
+import { Button } from '@/components/Button';
 
-const Hero = () => (
+import { TextType } from './TextType';
+
+export const Hero = () => (
   <section id="hero" className="pt-16 pb-20 md:pt-24 md:pb-28">
     <h1 className="text-extrabold pb-6 text-4xl tracking-tight sm:text-5xl md:text-6xl">
       {'World-class '}
@@ -19,5 +20,3 @@ const Hero = () => (
     <Button>Book a call</Button>
   </section>
 );
-
-export default Hero;

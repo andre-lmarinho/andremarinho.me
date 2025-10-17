@@ -7,7 +7,7 @@ const LINE_BASE = 'absolute inset-0 from-transparent to-transparent';
 const PARTICLE_BASE =
   'particle motion-safe:animate-float absolute rounded-full motion-reduce:animate-none';
 
-const AnimationBG: React.FC = () => (
+export const Background: React.FC = () => (
   <div className={WRAPPER} aria-hidden="true">
     {/* Orbs */}
     {[
@@ -53,5 +53,3 @@ const AnimationBG: React.FC = () => (
     </div>
   </div>
 );
-
-export default AnimationBG;

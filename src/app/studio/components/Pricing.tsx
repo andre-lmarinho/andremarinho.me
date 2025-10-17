@@ -1,4 +1,4 @@
-import Button from '@/components/Button';
+import { Button } from '@/components/Button';
 
 export type StudioPricingPlan = {
   tier: string;
@@ -93,7 +93,7 @@ const PricingCard = ({
   </div>
 );
 
-const Pricing = () => (
+export const Pricing = () => (
   <section id="pricing">
     <div className="mt-10 mb-6 grid grid-cols-1 gap-6 md:grid-cols-2">
       {studioPricingPlans.map((plan) => (
@@ -112,5 +112,3 @@ const Pricing = () => (
     </div>
   </section>
 );
-
-export default Pricing;

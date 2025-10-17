@@ -2,7 +2,7 @@ import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import type { UseThemeProps } from 'next-themes';
 
-import ThemeSelector from '@/components/layout/NavigationMenu/ThemeSelector';
+import { ThemeSelector } from '@/components/layout/NavigationMenu/ThemeSelector';
 
 const useThemeMock = jest.fn<UseThemeProps, []>();
 

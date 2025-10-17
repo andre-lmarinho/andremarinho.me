@@ -21,7 +21,7 @@ const CONTENT: string[] = [
   "Together, we'll build something duonorth.",
 ];
 
-const ScrollCopy: React.FC<Props> = ({
+export const ScrollCopy: React.FC<Props> = ({
   className = '',
   baseOpacity = 0.35,
   maxOpacity = 1,
@@ -174,5 +174,3 @@ const ScrollCopy: React.FC<Props> = ({
     </div>
   );
 };
-
-export default ScrollCopy;

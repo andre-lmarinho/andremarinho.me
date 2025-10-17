@@ -1,14 +1,14 @@
 import type { ReactNode } from 'react';
 
-import Background from './Background';
-import Footer from './Footer';
-import Header from './NavigationMenu';
+import { Background } from './Background';
+import { Footer } from './Footer';
+import { NavigationMenu } from './NavigationMenu';
 
 type Props = { children: ReactNode };
 
-const Layout = (props: Props) => (
+export const Layout = (props: Props) => (
   <>
-    <Header />
+    <NavigationMenu />
     <main id="main" className="page-content">
       {props.children}
     </main>
@@ -16,5 +16,3 @@ const Layout = (props: Props) => (
     <Background />
   </>
 );
-
-export default Layout;

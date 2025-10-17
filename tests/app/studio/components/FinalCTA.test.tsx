@@ -1,6 +1,6 @@
 import { act, fireEvent, render, screen, waitFor } from '@testing-library/react';
 
-import FinalCTA from '@/app/studio/components/FinalCTA';
+import { FinalCTA } from '@/app/studio/components/FinalCTA';
 
 const originalClipboard = navigator.clipboard;
 
@@ -39,7 +39,7 @@ describe('FinalCTA', () => {
     const writeText = jest.fn<Promise<void>, [string]>().mockResolvedValue();
 
     assignClipboard(writeText);
-    expect(navigator.clipboard?.writeText).toBe(writeText);
+    expect(navigator.clipboard).toHaveProperty('writeText', writeText);
 
     render(<FinalCTA />);
 
@@ -64,7 +64,7 @@ describe('FinalCTA', () => {
     const writeText = jest.fn<Promise<void>, [string]>().mockRejectedValue(new Error('fail'));
 
     assignClipboard(writeText);
-    expect(navigator.clipboard?.writeText).toBe(writeText);
+    expect(navigator.clipboard).toHaveProperty('writeText', writeText);
 
     render(<FinalCTA />);
 

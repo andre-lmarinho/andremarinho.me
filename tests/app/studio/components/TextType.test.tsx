@@ -1,8 +1,8 @@
 import { act, render, waitFor } from '@testing-library/react';
 
-import TextType from '@/app/studio/components/TextType';
+import { TextType } from '@/app/studio/components/TextType';
 
-const originalAnimate = HTMLElement.prototype.animate;
+const originalAnimate = HTMLElement.prototype.animate?.bind(HTMLElement.prototype) ?? null;
 
 const flushPending = () => {
   act(() => {
@@ -113,8 +113,12 @@ describe('TextType', () => {
 
   it('animates the cursor when the feature is enabled', async () => {
     const cancel = jest.fn<void, []>();
-    const animateMock = jest.fn<Animation, Parameters<typeof HTMLElement.prototype.animate>>(
-      () => ({ cancel }) as unknown as Animation
+    type AnimateParams = Parameters<NonNullable<typeof HTMLElement.prototype.animate>>;
+    const animateMock = jest.fn<Animation, AnimateParams>(
+      () =>
+        ({
+          cancel,
+        }) as unknown as Animation
     );
 
     Object.defineProperty(HTMLElement.prototype, 'animate', {
@@ -131,11 +135,17 @@ describe('TextType', () => {
 
     expect(cursor?.style.opacity).toBe('1');
 
-    const [frames, options] = animateMock.mock.calls[0];
+    const animateCall = animateMock.mock.calls[0];
+    expect(animateCall).toBeDefined();
+    if (!animateCall) {
+      throw new Error('Animation was not called');
+    }
+    const [frames, options] = animateCall;
     expect(frames).toEqual([{ opacity: 1 }, { opacity: 0 }]);
-    expect(options).toMatchObject({
-      duration: expect.any(Number),
-      iterations: Infinity,
-    });
+    if (typeof options !== 'object' || options === null) {
+      throw new Error('Unexpected animation options');
+    }
+    expect(typeof options.duration).toBe('number');
+    expect(options.iterations).toBe(Infinity);
   });
 });
