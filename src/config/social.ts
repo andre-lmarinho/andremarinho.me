@@ -1,38 +1,43 @@
-type SocialLinkIcon = 'github' | 'linkedin' | 'email';
+type SocialIcon = 'github' | 'linkedin' | 'email';
 
-type SocialLink = {
+type WebLink = {
+  kind: 'web';
   label: string;
-  href: string;
-  ariaLabel: string;
-  icon?: SocialLinkIcon;
+  href: `https://${string}`;
+  ariaLabel?: string;
+  icon?: Exclude<SocialIcon, 'email'>;
 };
 
-const SOCIAL_LINKS: SocialLink[] = [
+type MailLink = {
+  kind: 'email';
+  label: string;
+  href: `mailto:${string}`;
+  ariaLabel?: string;
+  icon?: 'email';
+};
+
+type SocialLink = Readonly<WebLink | MailLink>;
+
+export const SOCIAL_LINKS = [
   {
+    kind: 'web',
     label: 'GitHub',
     href: 'https://github.com/andre-lmarinho',
-    ariaLabel: 'GitHub profile (opens in a new tab)',
     icon: 'github',
   },
   {
+    kind: 'web',
     label: 'LinkedIn',
     href: 'https://www.linkedin.com/in/andre-marinho-3318ab1aa/',
-    ariaLabel: 'LinkedIn profile (opens in a new tab)',
     icon: 'linkedin',
   },
   {
+    kind: 'email',
     label: 'Email',
     href: 'mailto:hey@andremarinho.me',
-    ariaLabel: 'Send an email to hey@andremarinho.me',
     icon: 'email',
   },
-];
+] as const satisfies ReadonlyArray<SocialLink>;
 
-const SOCIAL_PROFILE_URLS = SOCIAL_LINKS.filter(({ href }) => !href.startsWith('mailto:')).map(
-  ({ href }) => href
-);
-
-const getSocialSameAs = (): string[] => [...SOCIAL_PROFILE_URLS];
-
-export type { SocialLink, SocialLinkIcon };
-export { SOCIAL_LINKS, getSocialSameAs };
+export const getSocialSameAs = (): string[] =>
+  SOCIAL_LINKS.filter((l) => l.kind === 'web').map((l) => l.href);

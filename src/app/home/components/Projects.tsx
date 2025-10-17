@@ -1,8 +1,6 @@
 import Image from 'next/image';
 import React from 'react';
 
-import { SectionTitle } from '@/components/Heading';
-
 type TechMeta = {
   name: string;
   icon: string;
@@ -70,9 +68,7 @@ export const Projects = () => {
         target="_blank"
         rel="noopener noreferrer"
       >
-        <SectionTitle className="m-0 underline-offset-4 group-hover:underline">
-          Selected Projects
-        </SectionTitle>
+        <h2 className="m-0 underline-offset-4 group-hover:underline">Selected Projects</h2>
         <span className="cursor-pointer rounded-lg border bg-white px-2 py-[3px] text-center text-xs dark:border-neutral-700 dark:bg-neutral-900">
           View all →
         </span>

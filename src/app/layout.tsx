@@ -4,31 +4,28 @@ import React from 'react';
 
 import { cn } from '@/utils/cn';
 import '@/utils/theme.css';
-import { Layout } from '@/components/layout';
 
-import {
-  defaultDescription,
-  defaultTitle,
-  siteName,
-  siteUrl,
-  titleTemplate,
-} from '@/config/metadata';
 import { Providers } from './providers';
+
+import { NavigationMenu } from '@/components/layout/NavigationMenu';
+import { Footer } from '@/components/layout/Footer';
+
 import { Analytics } from '@vercel/analytics/next';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 
 export const metadata: Metadata = {
-  metadataBase: new URL(siteUrl),
+  metadataBase: new URL('https://andremarinho.me'),
   title: {
-    absolute: defaultTitle,
-    template: titleTemplate,
+    absolute: 'André Marinho - Front-End Developer',
+    template: 'André Marinho - %s',
   },
-  description: defaultDescription,
+  description:
+    "I'm a Front-End Developer based in Salvador. I create digital experiences that connect design, strategy and business growth.",
   openGraph: {
     type: 'website',
-    locale: 'en-US',
-    siteName,
-    url: siteUrl,
+    locale: 'en_US',
+    siteName: 'André Marinho',
+    url: 'https://andremarinho.me',
   },
   twitter: {
     card: 'summary_large_image',
@@ -55,7 +52,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       </head>
       <body className={cn(inter.variable, 'font-sans antialiased')}>
         <Providers>
-          <Layout>{children}</Layout>
+          <NavigationMenu />
+          <main id="main" className="page-content">
+            {children}
+          </main>
+          <Footer />
         </Providers>
         <SpeedInsights />
         <Analytics />

@@ -1,6 +1,5 @@
 import Image from 'next/image';
 
-import { SectionTitle } from '@/components/Heading';
 import { cn } from '@/utils/cn';
 
 type WorkRole = {
@@ -69,7 +68,7 @@ const workEntries = workPlaces
 
 export const Work = () => (
   <section id="work" aria-label="Work">
-    <SectionTitle>Work</SectionTitle>
+    <h2>Work</h2>
     <ul className="space-y-2">
       {workEntries.map(({ place, role }, index) => {
         const href = place.website;

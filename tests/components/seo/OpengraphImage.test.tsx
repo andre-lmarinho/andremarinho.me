@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react';
 
-import { OpengraphImage } from '@/components/seo/OpengraphImage';
+import { OpengraphImage } from '@/components/OpengraphImage';
 
 describe('OpengraphImage', () => {
   it('matches the expected structure for the default card', () => {

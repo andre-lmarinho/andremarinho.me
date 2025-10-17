@@ -4,12 +4,12 @@ import React, { CSSProperties, useCallback, useLayoutEffect, useMemo, useRef } f
 import { calculateWordOpacities, createBridges, tokenize } from './scrollCopyUtils';
 
 type Props = {
-  className?: string; // container classes (e.g., space-y-8)
-  baseOpacity?: number; // 0..1
-  maxOpacity?: number; // 0..1
-  thresholdRatioStart?: number; // 0..1 of viewport height (e.g., 0.55)
-  thresholdRatioEnd?: number; // 0..1 of viewport height (e.g., 0.65)
-  wordGap?: number; // px spacing between words
+  className?: string;
+  baseOpacity?: number;
+  maxOpacity?: number;
+  thresholdRatioStart?: number;
+  thresholdRatioEnd?: number;
+  wordGap?: number;
 };
 
 const CONTENT: string[] = [

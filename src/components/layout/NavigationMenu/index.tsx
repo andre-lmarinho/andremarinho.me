@@ -4,7 +4,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import React, { useState } from 'react';
 
-import { NavigationLink as MenuLinks } from '../../NavigationLink';
+import { NavigationLink as MenuLinks } from './NavigationLink';
 import { Hamburger } from './Hamburger';
 import { ThemeSelector } from './ThemeSelector';
 import { cn } from '@/utils/cn';

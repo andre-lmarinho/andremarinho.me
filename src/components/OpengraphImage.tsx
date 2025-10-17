@@ -1,6 +1,5 @@
 import { readFile } from 'node:fs/promises';
 import type { Font } from 'next/dist/compiled/@vercel/og/satori';
-import { siteUrl } from '@/config/metadata';
 
 type Props = {
   description: string;
@@ -8,7 +7,7 @@ type Props = {
   url?: string;
 };
 
-const buildFontUrl = (path: string) => new URL(`../../../public${path}`, import.meta.url);
+const buildFontUrl = (path: string) => new URL(`../../public${path}`, import.meta.url);
 
 type FontConfig = {
   name: Font['name'];
@@ -64,7 +63,7 @@ export const createOgImageResponse = async (props: Props) => {
   });
 };
 
-const domain = new URL(siteUrl).host;
+const domain = new URL('https://andremarinho.me').host;
 
 export const OpengraphImage = ({ description, title, url }: Props) => {
   const displayUrl = url ? `${domain}${url.startsWith('/') ? url : `/${url}`}` : domain;

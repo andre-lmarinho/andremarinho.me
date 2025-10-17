@@ -3,7 +3,7 @@
 import type React from 'react';
 import { useRef, useState } from 'react';
 
-import { Button } from '@/components/Button';
+import { Button } from '@/app/studio/components/CTAButton';
 import { cn } from '@/utils/cn';
 
 export const FinalCTA = () => {

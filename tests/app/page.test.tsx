@@ -2,7 +2,6 @@ import { cleanup, render, screen } from '@testing-library/react';
 import type { ComponentProps, ElementType, ReactNode } from 'react';
 
 import HomePage, { metadata as homeMetadata } from '@/app/page';
-import { siteUrl } from '@/config/metadata';
 
 afterEach(() => {
   cleanup();
@@ -85,7 +84,7 @@ describe('Home page', () => {
 
   it('exposes the canonical metadata for the homepage', () => {
     expect(homeMetadata).toMatchObject({
-      alternates: { canonical: siteUrl },
+      alternates: { canonical: 'https://andremarinho.me' },
     });
   });
 });

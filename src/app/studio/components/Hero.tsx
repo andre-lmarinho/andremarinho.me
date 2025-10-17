@@ -1,4 +1,4 @@
-import { Button } from '@/components/Button';
+import { Button } from '@/app/studio/components/CTAButton';
 
 import { TextType } from './TextType';
 

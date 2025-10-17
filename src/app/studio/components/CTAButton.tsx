@@ -1,7 +1,6 @@
 import type { ComponentPropsWithoutRef, ForwardedRef, ReactNode } from 'react';
 import { forwardRef } from 'react';
 import { cva, type VariantProps } from 'class-variance-authority';
-
 import { cn } from '@/utils/cn';
 
 const buttonStyles = cva(
@@ -99,5 +98,3 @@ export const Button = forwardRef<HTMLButtonElement | HTMLAnchorElement, ButtonPr
 );
 
 Button.displayName = 'Button';
-
-export { buttonStyles as buttonVariants };

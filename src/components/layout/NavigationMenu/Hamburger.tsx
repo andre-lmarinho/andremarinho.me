@@ -5,7 +5,7 @@ import type { MouseEvent as ReactMouseEvent } from 'react';
 import { Menu, X } from 'lucide-react';
 import { usePathname } from 'next/navigation';
 
-import { NavigationLink as MenuLinks } from '../../NavigationLink';
+import { NavigationLink as MenuLinks } from './NavigationLink';
 import { cn } from '@/utils/cn';
 
 const focusableSelector =

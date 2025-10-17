@@ -3,7 +3,6 @@ import type { ComponentProps, ElementType, ReactNode } from 'react';
 
 import StudioPage, { metadata as studioMetadata } from '@/app/studio/page';
 import { studioPricingPlans } from '@/app/studio/components/Pricing';
-import { studioName } from '@/config/metadata';
 
 afterEach(() => {
   cleanup();
@@ -128,48 +127,5 @@ describe('Studio page', () => {
     expect(studioMetadata.title).toBe('Duonorth Studio');
     expect(studioMetadata.alternates?.canonical).toBe('/studio');
     expect(studioMetadata.openGraph?.url).toBe('/studio');
-  });
-
-  it('renders structured data describing the studio plans', async () => {
-    await renderServerComponent(StudioPage);
-
-    const scripts = Array.from(
-      document.querySelectorAll<HTMLScriptElement>('script[type="application/ld+json"]')
-    );
-    const productSchemas = scripts
-      .map((script) => parseJsonObject(script.textContent ?? null))
-      .filter(isProductSchema);
-
-    const schemaEntries = productSchemas
-      .map((schema) => {
-        const nameValue = schema.name;
-        return typeof nameValue === 'string' ? ([nameValue, schema] as const) : null;
-      })
-      .filter((entry): entry is readonly [string, JsonObject] => entry !== null);
-
-    const schemasByName = new Map(schemaEntries);
-
-    expect(schemasByName.size).toBe(studioPricingPlans.length);
-
-    studioPricingPlans.forEach((plan) => {
-      const schemaName = `${studioName} ${plan.tier} plan`;
-      const schema = schemasByName.get(schemaName);
-      expect(schema).toBeDefined();
-      if (!schema) {
-        return;
-      }
-
-      const offers = toJsonObject(schema.offers);
-      expect(offers).not.toBeNull();
-      if (!offers) {
-        return;
-      }
-
-      expect(offers.price).toBe(plan.price.value);
-      expect(offers.priceCurrency).toBe(plan.price.currency);
-
-      const seller = toJsonObject(offers.seller);
-      expect(seller?.name).toBe(studioName);
-    });
   });
 });

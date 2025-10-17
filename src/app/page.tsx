@@ -1,10 +1,8 @@
 import type { Metadata } from 'next';
-import { siteUrl } from '@/config/metadata';
-
 import { Home } from './home';
 
 export const metadata: Metadata = {
-  alternates: { canonical: siteUrl },
+  alternates: { canonical: 'https://andremarinho.me' },
 };
 
 export default function Index() {

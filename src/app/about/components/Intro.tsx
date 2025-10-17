@@ -1,8 +1,8 @@
 import localFont from 'next/font/local';
 
-import { SmartLink as A } from '@/components/Link';
-import { PageTitle } from '@/components/Heading';
+import { TextLink } from '@/components/TextLink';
 import { cn } from '@/utils/cn';
+
 import { Polaroid } from './Polaroid';
 import dog from './images/doggy.jpg';
 import beach from './images/beach.jpg';
@@ -28,7 +28,7 @@ const gloria = localFont({
 
 export const Intro = () => (
   <section id="about" className="mt-6">
-    <PageTitle>About me</PageTitle>
+    <h1>About me</h1>
     <div className="mb-6 space-y-5">
       <p>
         <em>Hey!</em> 👋🏼
@@ -39,7 +39,8 @@ export const Intro = () => (
       </p>
 
       <p>
-        Currently working at <A href="/studio">Duonorth Studio</A> as a Front End Developer.
+        Currently working at <TextLink href="/studio">Duonorth Studio</TextLink> as a Front End
+        Developer.
       </p>
 
       <p>
@@ -50,15 +51,18 @@ export const Intro = () => (
 
       <p>
         I was born and raised in salvador next to the beach and I&apos;m studying Computer Science
-        at <A href="https://github.com/ossu/computer-science">OSSU</A> with some Harvard&apos;s
-        courses like{' '}
-        <A href="https://certificates.cs50.io/d7d5d5d9-8e76-4b4d-b324-9ed0fee6f9f5.pdf">CS50</A> and{' '}
-        <A href="https://github.com/andre-lmarinho/cs50w">CS50W</A>.
+        at <TextLink href="https://github.com/ossu/computer-science">OSSU</TextLink> with some
+        Harvard&apos;s courses like{' '}
+        <TextLink href="https://certificates.cs50.io/d7d5d5d9-8e76-4b4d-b324-9ed0fee6f9f5.pdf">
+          CS50
+        </TextLink>{' '}
+        and <TextLink href="https://github.com/andre-lmarinho/cs50w">CS50W</TextLink>.
       </p>
 
       <p>
         Outside work, I&apos;m into training, building small tools, and{' '}
-        <A href="https://travel-planner-orpin.vercel.app/">exploring new places</A> with my family.
+        <TextLink href="https://travel-planner-orpin.vercel.app/">exploring new places</TextLink>{' '}
+        with my family.
       </p>
     </div>
 

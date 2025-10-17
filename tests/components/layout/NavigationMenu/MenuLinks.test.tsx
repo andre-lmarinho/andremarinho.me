@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react';
 import type { AnchorHTMLAttributes, ReactNode } from 'react';
 
-import { NavigationLink as MenuLinks } from '@/components/NavigationLink';
+import { NavigationLink as MenuLinks } from '@/components/layout/NavigationMenu/NavigationLink';
 
 type NextLinkProps = AnchorHTMLAttributes<HTMLAnchorElement> & {
   href: string;

@@ -1,4 +1,4 @@
-import { createOgImageResponse, ogImageSize } from '@/components/seo/OpengraphImage';
+import { createOgImageResponse, ogImageSize } from '@/components/OpengraphImage';
 
 export const dynamic = 'force-static';
 export const size = ogImageSize;

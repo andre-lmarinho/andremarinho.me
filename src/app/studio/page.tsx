@@ -1,5 +1,4 @@
 import type { Metadata } from 'next';
-import { ProductJsonLd } from '@/components/seo/ProductJsonLd';
 
 import { Hero } from './components/Hero';
 import { Projects as HomeProjects } from '../home/components/Projects';
@@ -20,7 +19,6 @@ export const metadata: Metadata = {
 export default function Studio() {
   return (
     <>
-      <ProductJsonLd />
       <Hero />
       <HomeProjects />
       <Copy />
