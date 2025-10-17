@@ -3,7 +3,7 @@ import type { ComponentProps } from 'react';
 
 type Props = ComponentProps<'a'> & { href: string };
 
-export default function SmartLink({ href, className = '', ...props }: Props) {
+export function SmartLink({ href, className = '', ...props }: Props) {
   const isInternal = href.startsWith('/') && !href.startsWith('//');
 
   const base = 'rounded-xs underline underline-offset-2 transition-colors hover:opacity-90';

@@ -3,13 +3,14 @@
 import { useEffect, useState } from 'react';
 import { useTheme } from 'next-themes';
 import { Moon, Sun } from 'lucide-react';
-import cn from '@/utils/cn';
+
+import { cn } from '@/utils/cn';
 
 interface ThemeSelectorProps {
   hidden?: boolean;
 }
 
-export default function ThemeSelector({ hidden = false }: ThemeSelectorProps) {
+export function ThemeSelector({ hidden = false }: ThemeSelectorProps) {
   const theme = useTheme();
   const isDark = theme.resolvedTheme === 'dark';
   const [isMounted, setIsMounted] = useState(false);

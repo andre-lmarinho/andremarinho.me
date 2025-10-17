@@ -1,8 +1,9 @@
 import Image from 'next/image';
-import A from '@/components/Link';
+
+import { SmartLink as A } from '@/components/Link';
 import { PageTitle } from '@/components/Heading';
 
-export default function Hero() {
+export const Hero = () => {
   return (
     <section id="hero" className="pt-16 pb-20 md:pt-24 md:pb-28">
       <div className="flex justify-between gap-8">
@@ -39,4 +40,4 @@ export default function Hero() {
       </div>
     </section>
   );
-}
+};

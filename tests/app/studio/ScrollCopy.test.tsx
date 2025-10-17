@@ -1,6 +1,6 @@
 import { act, render } from '@testing-library/react';
 
-import ScrollCopy from '@/app/studio/components/ScrollCopy';
+import { ScrollCopy } from '@/app/studio/components/ScrollCopy';
 import {
   calculateWordOpacities,
   createBridges,

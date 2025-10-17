@@ -2,7 +2,8 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import cn from '@/utils/cn';
+
+import { cn } from '@/utils/cn';
 
 type NavigationLink = {
   text: string;
@@ -46,7 +47,7 @@ const normalizePathname = (pathname: string | null) => {
   return `/${firstSegment ?? ''}`;
 };
 
-const NavigationLink = ({ variant = 'desktop', className }: MenuLinksProps) => {
+export const NavigationLink = ({ variant = 'desktop', className }: MenuLinksProps) => {
   const pathname = usePathname();
   const normalizedPath = normalizePathname(pathname);
 
@@ -86,5 +87,3 @@ const NavigationLink = ({ variant = 'desktop', className }: MenuLinksProps) => {
     </ul>
   );
 };
-
-export default NavigationLink;

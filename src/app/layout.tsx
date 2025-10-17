@@ -1,9 +1,10 @@
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import React from 'react';
-import cn from '@/utils/cn';
+
+import { cn } from '@/utils/cn';
 import '@/utils/theme.css';
-import Layout from '@/components/layout';
+import { Layout } from '@/components/layout';
 
 import {
   defaultDescription,

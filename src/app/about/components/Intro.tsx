@@ -1,8 +1,9 @@
-import A from '@/components/Link';
-import { PageTitle } from '@/components/Heading';
 import localFont from 'next/font/local';
-import cn from '@/utils/cn';
-import Polaroid from './Polaroid';
+
+import { SmartLink as A } from '@/components/Link';
+import { PageTitle } from '@/components/Heading';
+import { cn } from '@/utils/cn';
+import { Polaroid } from './Polaroid';
 import dog from './images/doggy.jpg';
 import beach from './images/beach.jpg';
 import whitesand from './images/whitesand.jpg';
@@ -25,7 +26,7 @@ const gloria = localFont({
   ],
 });
 
-const Intro = () => (
+export const Intro = () => (
   <section id="about" className="mt-6">
     <PageTitle>About me</PageTitle>
     <div className="mb-6 space-y-5">
@@ -70,5 +71,3 @@ const Intro = () => (
     </div>
   </section>
 );
-
-export default Intro;

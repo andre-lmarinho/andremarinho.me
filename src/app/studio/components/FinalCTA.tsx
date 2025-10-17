@@ -2,10 +2,11 @@
 
 import type React from 'react';
 import { useRef, useState } from 'react';
-import Button from '@/components/Button';
-import cn from '@/utils/cn';
 
-const FinalCTA = () => {
+import { Button } from '@/components/Button';
+import { cn } from '@/utils/cn';
+
+export const FinalCTA = () => {
   const email = 'hey@andremarinho.me';
   const [copied, setCopied] = useState(false);
   const timerRef = useRef<number | null>(null);
@@ -87,5 +88,3 @@ const FinalCTA = () => {
     </section>
   );
 };
-
-export default FinalCTA;

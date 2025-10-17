@@ -1,7 +1,8 @@
 import type { ComponentPropsWithoutRef, ForwardedRef, ReactNode } from 'react';
 import { forwardRef } from 'react';
 import { cva, type VariantProps } from 'class-variance-authority';
-import cn from '@/utils/cn';
+
+import { cn } from '@/utils/cn';
 
 const buttonStyles = cva(
   'inline-flex items-center justify-center px-6 py-2 font-semibold antialiased transition-transform will-change-transform focus-visible:outline-2 focus-visible:outline-offset-2',
@@ -45,7 +46,7 @@ type NativeButtonProps = CommonButtonProps &
 
 type ButtonProps = AnchorButtonProps | NativeButtonProps;
 
-const Button = forwardRef<HTMLButtonElement | HTMLAnchorElement, ButtonProps>(
+export const Button = forwardRef<HTMLButtonElement | HTMLAnchorElement, ButtonProps>(
   (props, forwardedRef) => {
     if (props.as === 'button') {
       const {
@@ -100,4 +101,3 @@ const Button = forwardRef<HTMLButtonElement | HTMLAnchorElement, ButtonProps>(
 Button.displayName = 'Button';
 
 export { buttonStyles as buttonVariants };
-export default Button;

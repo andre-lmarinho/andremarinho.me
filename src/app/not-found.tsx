@@ -1,5 +1,5 @@
 import { PageTitle } from '@/components/Heading';
-import NavigationLink from '@/components/NavigationLink';
+import { NavigationLink } from '@/components/NavigationLink';
 
 export default function NotFound() {
   return (

@@ -66,7 +66,7 @@ export const createOgImageResponse = async (props: Props) => {
 
 const domain = new URL(siteUrl).host;
 
-const OpengraphImage = ({ description, title, url }: Props) => {
+export const OpengraphImage = ({ description, title, url }: Props) => {
   const displayUrl = url ? `${domain}${url.startsWith('/') ? url : `/${url}`}` : domain;
 
   return (
@@ -140,5 +140,3 @@ const OpengraphImage = ({ description, title, url }: Props) => {
     </div>
   );
 };
-
-export default OpengraphImage;

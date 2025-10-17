@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import React from 'react';
+
 import { SectionTitle } from '@/components/Heading';
 
 type TechMeta = {
@@ -60,7 +61,7 @@ const projects: ProjectMeta[] = [
   },
 ];
 
-export default function Projects() {
+export const Projects = () => {
   return (
     <section id="projects" aria-label="Projects">
       <a
@@ -122,4 +123,4 @@ export default function Projects() {
       </ul>
     </section>
   );
-}
+};

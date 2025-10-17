@@ -1,11 +1,11 @@
 import type { Metadata } from 'next';
 import { ProductJsonLd } from '@/components/seo/ProductJsonLd';
 
-import Hero from './components/Hero';
-import HomeProjects from '../home/components/Projects';
-import Copy from './components/Copy';
-import Pricing from './components/Pricing';
-import FinalCTA from './components/FinalCTA';
+import { Hero } from './components/Hero';
+import { Projects as HomeProjects } from '../home/components/Projects';
+import { Copy } from './components/Copy';
+import { Pricing } from './components/Pricing';
+import { FinalCTA } from './components/FinalCTA';
 
 export const metadata: Metadata = {
   title: 'Duonorth Studio',

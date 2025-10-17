@@ -1,5 +1,5 @@
 import Image, { type ImageProps } from 'next/image';
-import cn from '@/utils/cn';
+import { cn } from '@/utils/cn';
 
 const rotation = {
   '+1': '+rotate-1',
@@ -13,7 +13,7 @@ type Props = {
   rotation: keyof typeof rotation;
 };
 
-const Polaroid = (props: Props) => (
+export const Polaroid = (props: Props) => (
   <div
     className={cn(
       'rounded-lg bg-linear-to-b from-white to-neutral-100 p-4 shadow-2xl select-none',
@@ -37,5 +37,3 @@ const Polaroid = (props: Props) => (
     <p className="text-md mt-3 text-center text-neutral-600 dark:text-neutral-800">{props.label}</p>
   </div>
 );
-
-export default Polaroid;

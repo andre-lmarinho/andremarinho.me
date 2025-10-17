@@ -3,7 +3,7 @@ import userEvent from '@testing-library/user-event';
 import type { AnchorHTMLAttributes, ReactNode } from 'react';
 import { useState } from 'react';
 
-import Hamburger from '@/components/layout/NavigationMenu/Hamburger';
+import { Hamburger } from '@/components/layout/NavigationMenu/Hamburger';
 
 type NextLinkProps = AnchorHTMLAttributes<HTMLAnchorElement> & {
   href: string;

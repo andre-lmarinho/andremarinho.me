@@ -1,6 +1,7 @@
 import Image from 'next/image';
+
 import { SectionTitle } from '@/components/Heading';
-import cn from '@/utils/cn';
+import { cn } from '@/utils/cn';
 
 type WorkRole = {
   title: string;
@@ -66,7 +67,7 @@ const workEntries = workPlaces
     return b.role.startYear - a.role.startYear;
   });
 
-const Work = () => (
+export const Work = () => (
   <section id="work" aria-label="Work">
     <SectionTitle>Work</SectionTitle>
     <ul className="space-y-2">
@@ -126,5 +127,3 @@ const Work = () => (
     </ul>
   </section>
 );
-
-export default Work;

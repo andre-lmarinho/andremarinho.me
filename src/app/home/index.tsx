@@ -2,11 +2,11 @@ import React from 'react';
 
 import { SocialProfileJsonLd } from '@/components/seo/SocialProfileJsonLd';
 
-import Hero from './components/Hero';
-import Work from '../about/components/Work';
-import Projects from './components/Projects';
+import { Hero } from './components/Hero';
+import { Work } from '../about/components/Work';
+import { Projects } from './components/Projects';
 
-const Home = () => {
+export const Home = () => {
   return (
     <>
       <SocialProfileJsonLd />
@@ -16,5 +16,3 @@ const Home = () => {
     </>
   );
 };
-
-export default Home;
