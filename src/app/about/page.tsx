@@ -1,5 +1,4 @@
 import type { Metadata } from 'next';
-import { SocialProfileJsonLd } from '@/components/seo/SocialProfileJsonLd';
 
 import { Intro } from './components/Intro';
 import { Online } from './components/Online';
@@ -18,7 +17,6 @@ export const metadata: Metadata = {
 export default function About() {
   return (
     <>
-      <SocialProfileJsonLd />
       <Intro />
       <Online />
       <Work />
