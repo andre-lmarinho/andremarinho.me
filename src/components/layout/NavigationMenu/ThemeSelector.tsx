@@ -1,6 +1,5 @@
 'use client';
 
-import { useEffect, useState } from 'react';
 import { useTheme } from 'next-themes';
 import { Moon, Sun } from 'lucide-react';
 
@@ -12,12 +11,8 @@ interface ThemeSelectorProps {
 
 export function ThemeSelector({ hidden = false }: ThemeSelectorProps) {
   const theme = useTheme();
+  const isThemeResolved = typeof theme.resolvedTheme === 'string';
   const isDark = theme.resolvedTheme === 'dark';
-  const [isMounted, setIsMounted] = useState(false);
-
-  useEffect(() => {
-    setIsMounted(true);
-  }, []);
 
   const handleToggleTheme = () => {
     theme.setTheme(isDark ? 'light' : 'dark');
@@ -31,7 +26,7 @@ export function ThemeSelector({ hidden = false }: ThemeSelectorProps) {
         hidden && 'pointer-events-none opacity-0 md:pointer-events-auto md:opacity-100'
       )}
       aria-label="Toggle dark mode"
-      aria-pressed={isMounted ? isDark : undefined}
+      aria-pressed={isThemeResolved ? isDark : undefined}
       type="button"
     >
       <span className="relative flex h-5 w-5 items-center justify-center">
@@ -39,16 +34,16 @@ export function ThemeSelector({ hidden = false }: ThemeSelectorProps) {
           aria-hidden="true"
           className={cn(
             'absolute inset-0 h-5 w-5 shrink-0 transition-all duration-300 group-hover:rotate-12',
-            !isMounted && 'opacity-0',
-            isMounted && (isDark ? 'text-zinc-300 opacity-0' : 'text-zinc-700 opacity-100')
+            !isThemeResolved && 'opacity-0',
+            isThemeResolved && (isDark ? 'text-zinc-300 opacity-0' : 'text-zinc-700 opacity-100')
           )}
         />
         <Sun
           aria-hidden="true"
           className={cn(
             'absolute inset-0 h-5 w-5 shrink-0 text-zinc-100 transition-all duration-300 group-hover:rotate-180',
-            !isMounted && 'opacity-0',
-            isMounted && (isDark ? 'opacity-100' : 'opacity-0')
+            !isThemeResolved && 'opacity-0',
+            isThemeResolved && (isDark ? 'opacity-100' : 'opacity-0')
           )}
         />
       </span>

@@ -55,6 +55,7 @@ describe('TextType', () => {
     advanceTimers(10);
     expect(textSpan()?.textContent).toBe('Hi');
 
+    flushPending();
     advanceTimers(20);
     advanceTimers(10);
     expect(textSpan()?.textContent).toBe('H');
@@ -62,6 +63,7 @@ describe('TextType', () => {
     advanceTimers(10);
     expect(textSpan()?.textContent).toBe('');
 
+    flushPending();
     advanceTimers(10);
     expect(textSpan()?.textContent).toBe('B');
 
