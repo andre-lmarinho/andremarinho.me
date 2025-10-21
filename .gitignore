@@ -1,13 +1,32 @@
+# Dependencies directory
 node_modules
-/dist
-.vercel
+
+# Next
 .next
-coverage
-*.tsbuildinfo
-.swc
-.lighthouseci
+.vercel
+out
+
+# next-pwa
 public/robots.txt
 public/sitemap*.xml
+
+# ESLint
+.eslintcache
+
+# Coverage
+coverage
+
+# Environment vars
+.env
+.env.*
+.lighthouseci
+
+# ts
+*.tsbuildinfo
+
+# Others
+/dist
+.swc
 .vscode/
 .idea/
 .DS_Store

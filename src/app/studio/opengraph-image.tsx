@@ -1,14 +1,13 @@
-import { createOgImageResponse, ogImageSize } from '@/components/OpengraphImage';
-
-export const dynamic = 'force-static';
-export const size = ogImageSize;
-export const alt = 'Duonorth Studio';
 export const runtime = 'nodejs';
+import { ImageResponse } from 'next/og';
+
+import { buildOg } from '@/components/OpengraphImage';
 
 export default async function Image() {
-  return createOgImageResponse({
+  const [el, init] = await buildOg({
     title: 'Duonorth Studio',
     url: 'studio',
     description: 'World-class software, design and product partner for your business',
   });
+  return new ImageResponse(el, init);
 }
