@@ -51,9 +51,13 @@ export const TextType = ({
   const [phase, setPhase] = useState<TypingPhase>('initial');
 
   useEffect(() => {
-    setDisplayedText('');
-    setTextIndex(0);
-    setPhase('initial');
+    const timeout = setTimeout(() => {
+      setDisplayedText('');
+      setTextIndex(0);
+      setPhase('initial');
+    }, 0);
+
+    return () => clearTimeout(timeout);
   }, [textArray]);
 
   useEffect(() => {
@@ -96,7 +100,7 @@ export const TextType = ({
     }
 
     const currentText = textArray[textIndex] ?? '';
-    let timeout: NodeJS.Timeout | undefined;
+    let timeout: ReturnType<typeof setTimeout> | undefined;
 
     if (phase === 'typing') {
       if (displayedText === currentText) {
@@ -105,7 +109,9 @@ export const TextType = ({
           return;
         }
 
-        setPhase('pausing');
+        timeout = setTimeout(() => {
+          setPhase('pausing');
+        }, 0);
         return;
       }
 
@@ -119,12 +125,16 @@ export const TextType = ({
         const nextIndex = (textIndex + 1) % textArray.length;
 
         if (nextIndex === 0 && !loop) {
-          setPhase('typing');
+          timeout = setTimeout(() => {
+            setPhase('typing');
+          }, 0);
           return;
         }
 
-        setTextIndex(nextIndex);
-        setPhase('typing');
+        timeout = setTimeout(() => {
+          setTextIndex(nextIndex);
+          setPhase('typing');
+        }, 0);
       } else {
         timeout = setTimeout(() => {
           setDisplayedText((value) => value.slice(0, -1));
