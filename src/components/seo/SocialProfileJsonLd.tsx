@@ -1,25 +1,21 @@
-import type { ComponentProps } from 'react';
-import { SocialProfileJsonLd as NextSeoSocialProfileJsonLd } from 'next-seo';
+import type { ProfilePageJsonLdProps } from 'next-seo';
+import { ProfilePageJsonLd as NextSeoProfilePageJsonLd } from 'next-seo';
+
 import { getSocialSameAs } from '@/config/social';
 
-type NextSeoSocialProfileJsonLdProps = ComponentProps<typeof NextSeoSocialProfileJsonLd>;
+type PersonMainEntity = Extract<ProfilePageJsonLdProps['mainEntity'], { '@type': 'Person' }>;
 
-type SocialProfileJsonLdProps = Omit<
-  NextSeoSocialProfileJsonLdProps,
-  'useAppDir' | 'type' | 'url' | 'sameAs' | 'name'
-> & {
-  sameAs?: NextSeoSocialProfileJsonLdProps['sameAs'];
+type SocialProfileJsonLdProps = Omit<ProfilePageJsonLdProps, 'mainEntity'> & {
+  sameAs?: PersonMainEntity['sameAs'];
 };
 
 export const SocialProfileJsonLd = ({ sameAs, ...props }: SocialProfileJsonLdProps) => {
-  return (
-    <NextSeoSocialProfileJsonLd
-      {...props}
-      name={'André Marinho'}
-      type={'Person'}
-      url={'https://andremarinho.me'}
-      sameAs={sameAs ?? getSocialSameAs()}
-      useAppDir
-    />
-  );
+  const mainEntity: PersonMainEntity = {
+    '@type': 'Person',
+    name: 'André Marinho',
+    url: 'https://andremarinho.me',
+    sameAs: sameAs ?? getSocialSameAs(),
+  };
+
+  return <NextSeoProfilePageJsonLd {...props} mainEntity={mainEntity} />;
 };
