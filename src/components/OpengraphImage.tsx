@@ -5,9 +5,12 @@ type Props = {
   description: string;
   title: string;
   url?: string;
+  avatarSrc?: string;
 };
 
-const buildFontUrl = (path: string) => new URL(`../../public${path}`, import.meta.url);
+const defaultAvatarSrc = 'https://andremarinho.me/images/Me.jpeg';
+
+const buildPublicUrl = (path: string) => new URL(`../../public${path}`, import.meta.url);
 
 type FontConfig = {
   name: Font['name'];
@@ -21,19 +24,19 @@ const fontConfigs: FontConfig[] = [
     name: 'Inter',
     style: 'normal',
     weight: 600,
-    url: buildFontUrl('/fonts/opengraph/Inter-Medium.woff'),
+    url: buildPublicUrl('/fonts/opengraph/Inter-Medium.woff'),
   },
   {
     name: 'Inter',
     style: 'normal',
     weight: 700,
-    url: buildFontUrl('/fonts/opengraph/Inter-ExtraBold.woff'),
+    url: buildPublicUrl('/fonts/opengraph/Inter-ExtraBold.woff'),
   },
   {
     name: 'Roboto Mono',
     style: 'normal',
     weight: 300,
-    url: buildFontUrl('/fonts/opengraph/RobotoMono-Regular.woff'),
+    url: buildPublicUrl('/fonts/opengraph/RobotoMono-Regular.woff'),
   },
 ];
 
@@ -48,6 +51,12 @@ const fontsPromise: Promise<Font[]> = Promise.all(
 
 export const getFonts = (): Promise<Font[]> => fontsPromise;
 
+const avatarImagePromise: Promise<string> = readFile(buildPublicUrl('/images/Me.jpeg')).then(
+  (file) => `data:image/jpeg;base64,${file.toString('base64')}`
+);
+
+export const getAvatarImageSrc = (): Promise<string> => avatarImagePromise;
+
 export const ogImageSize = {
   width: 1200,
   height: 630,
@@ -55,18 +64,24 @@ export const ogImageSize = {
 
 export const ogImageDynamic = 'force-static' as const;
 
-export const createOgImageResponse = async (props: Props) => {
+export const createOgImageResponse = async ({ avatarSrc, ...props }: Props) => {
   const { ImageResponse } = await import('next/og');
 
-  return new ImageResponse(<OpengraphImage {...props} />, {
-    fonts: await getFonts(),
+  const [fonts, resolvedAvatarSrc] = await Promise.all([
+    getFonts(),
+    avatarSrc ? Promise.resolve(avatarSrc) : getAvatarImageSrc(),
+  ]);
+
+  return new ImageResponse(<OpengraphImage {...props} avatarSrc={resolvedAvatarSrc} />, {
+    fonts,
   });
 };
 
 const domain = new URL('https://andremarinho.me').host;
 
-export const OpengraphImage = ({ description, title, url }: Props) => {
+export const OpengraphImage = ({ description, title, url, avatarSrc }: Props) => {
   const displayUrl = url ? `${domain}${url.startsWith('/') ? url : `/${url}`}` : domain;
+  const imageSource = avatarSrc ?? defaultAvatarSrc;
 
   return (
     <div
@@ -82,7 +97,7 @@ export const OpengraphImage = ({ description, title, url }: Props) => {
       }}
     >
       <img
-        src="https://andremarinho.me/images/Me.jpeg"
+        src={imageSource}
         width="115"
         height="115"
         style={{
