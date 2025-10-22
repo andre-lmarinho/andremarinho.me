@@ -1,7 +1,5 @@
 import Image from 'next/image';
 
-import { cn } from '@/utils/cn';
-
 type WorkRole = {
   title: string;
   startYear: number;
@@ -21,104 +19,75 @@ const workPlaces: WorkPlace[] = [
     website: '/studio',
     logo: '/images/work/duonorth.webp',
     roles: [
-      {
-        title: 'Frontend Developer',
-        startYear: 2025,
-        endYear: 'Now',
-      },
-      {
-        title: 'Web and WordPress Developer',
-        startYear: 2020,
-        endYear: 2024,
-      },
-      {
-        title: 'Digital Marketing & Web Consultant',
-        startYear: 2017,
-        endYear: 2019,
-      },
+      { title: 'Frontend Developer', startYear: 2025, endYear: 'Now' },
+      { title: 'Web and WordPress Developer', startYear: 2020, endYear: 2024 },
+      { title: 'Digital Marketing & Web Consultant', startYear: 2017, endYear: 2019 },
     ],
   },
 ];
 
-const slugify = (value: string) =>
-  value
-    .normalize('NFD')
-    .replace(/[\u0300-\u036f]/g, '')
-    .toLowerCase()
-    .replace(/[^a-z0-9]+/g, '-')
-    .replace(/(^-|-$)/g, '');
+const NOW = new Date().getFullYear();
 
-const toEndValue = (end: WorkRole['endYear']) => {
-  if (end === undefined || end === 'Now') return Number.MAX_SAFE_INTEGER;
-  return end;
-};
-
-const formatPeriod = (role: WorkRole) => {
-  const endLabel = role.endYear ?? 'Now';
-  return `${role.startYear} - ${endLabel}`;
+const yearsOf = (role: WorkRole) => {
+  const end = role.endYear === 'Now' ? NOW : (role.endYear ?? NOW);
+  const years: number[] = [];
+  for (let y = role.startYear; y <= end; y++) years.push(y);
+  return years;
 };
 
 const workEntries = workPlaces
-  .flatMap((place) => place.roles.map((role) => ({ place, role })))
+  .flatMap((place) => place.roles.map((role) => ({ place, role, years: yearsOf(role) })))
   .sort((a, b) => {
-    const endDiff = toEndValue(b.role.endYear) - toEndValue(a.role.endYear);
-    if (endDiff !== 0) return endDiff;
-    return b.role.startYear - a.role.startYear;
+    const endA =
+      a.role.endYear === 'Now' || a.role.endYear === undefined
+        ? Number.MAX_SAFE_INTEGER
+        : a.role.endYear;
+    const endB =
+      b.role.endYear === 'Now' || b.role.endYear === undefined
+        ? Number.MAX_SAFE_INTEGER
+        : b.role.endYear;
+    return endB - endA || b.role.startYear - a.role.startYear;
   });
 
 export const Work = () => (
   <section id="work" aria-label="Work">
     <h2>Work</h2>
-    <ul className="space-y-2">
-      {workEntries.map(({ place, role }, index) => {
-        const href = place.website;
-        const isExternal = /^https?:\/\//.test(href);
-        const entryKey = `${slugify(place.name)}-${slugify(role.title)}-${role.startYear}`;
-        const showLogo = index === 0;
+
+    <ul className="space-y-4">
+      {workEntries.map(({ place, role }, i) => {
+        const isExternal = /^https?:\/\//.test(place.website);
+        const periodLabel = `${role.startYear} - ${role.endYear ?? 'Now'}`;
 
         return (
-          <li key={entryKey} className="h-full">
+          <li
+            key={`${place.name}:${role.title}:${role.startYear}`}
+            className="flex items-start gap-4"
+          >
+            <span className="hidden h-12 w-12 sm:inline-flex" aria-hidden="true">
+              {i === 0 ? (
+                <Image
+                  src={place.logo}
+                  alt=""
+                  width={48}
+                  height={48}
+                  className="h-full w-full object-contain"
+                  sizes="48px"
+                  priority
+                />
+              ) : null}
+            </span>
+
             <a
-              className="group flex gap-4 rounded-xs transition-colors focus-visible:outline focus-visible:outline-offset-2 focus-visible:outline-zinc-500 dark:focus-visible:outline-zinc-400"
-              href={href}
-              target={isExternal ? '_blank' : undefined}
-              rel={isExternal ? 'noreferrer noopener' : undefined}
+              href={place.website}
+              {...(isExternal ? { target: '_blank', rel: 'noreferrer noopener' } : {})}
+              className="flex flex-1 gap-3 rounded-xs transition-opacity hover:opacity-50"
               aria-label={`${role.title} at ${place.name}`}
             >
-              <span
-                className={cn(
-                  'hidden h-12 w-12 shrink-0 items-center justify-center sm:flex',
-                  showLogo
-                    ? 'overflow-hidden rounded-xl bg-white/90 shadow-sm dark:bg-zinc-900/70'
-                    : 'opacity-0'
-                )}
-                aria-hidden="true"
-              >
-                {showLogo ? (
-                  <Image
-                    src={place.logo}
-                    alt=""
-                    className="h-full w-full object-contain"
-                    width={48}
-                    height={48}
-                    sizes="48px"
-                    priority
-                  />
-                ) : null}
-              </span>
-              <div className="flex flex-1 gap-3 sm:gap-4">
-                <div className="flex flex-1 flex-col">
-                  <span className="leading-tight font-medium text-zinc-900 transition-colors group-hover:text-zinc-600 dark:text-zinc-100 dark:group-hover:text-zinc-400">
-                    {role.title}
-                  </span>
-                  <span className="text-sm text-zinc-600 transition-colors group-hover:text-zinc-500 dark:text-zinc-400 dark:group-hover:text-zinc-500">
-                    {place.name}
-                  </span>
-                </div>
-                <span className="ml-auto text-sm font-medium text-zinc-900 transition-colors group-hover:text-zinc-600 dark:text-zinc-100 dark:group-hover:text-zinc-400">
-                  {formatPeriod(role)}
-                </span>
+              <div className="flex flex-col">
+                <h3 className="font-medium">{role.title}</h3>
+                <p className="opacity-50">{place.name}</p>
               </div>
+              <time className="ml-auto opacity-90">{periodLabel}</time>
             </a>
           </li>
         );

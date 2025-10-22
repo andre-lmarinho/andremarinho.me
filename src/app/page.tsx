@@ -6,5 +6,28 @@ export const metadata: Metadata = {
 };
 
 export default function Index() {
-  return <Home />;
+  const SocialProfileJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'ProfilePage',
+    mainEntity: {
+      '@type': 'Person',
+      name: 'André Marinho',
+      url: 'https://andremarinho.me/',
+      image: 'https://andremarinho.me/images/Me.jpeg',
+      sameAs: [
+        'https://github.com/andre-lmarinho',
+        'https://www.linkedin.com/in/andre-marinho-3318ab1aa',
+      ],
+    },
+  } as const;
+
+  return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(SocialProfileJsonLd) }}
+      />
+      <Home />
+    </>
+  );
 }

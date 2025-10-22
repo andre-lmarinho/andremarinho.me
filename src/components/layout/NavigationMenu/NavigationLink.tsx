@@ -20,7 +20,7 @@ const listStyles = {
   desktop: 'group hidden grid-flow-col gap-6 text-sm font-medium sm:grid',
   mobile: 'flex h-full flex-1 flex-col items-center justify-center space-y-5 text-2xl',
   notFound: 'mt-4 list-inside list-disc space-y-2 px-4 text-lg',
-} as const;
+};
 
 const anchorStyles = {
   desktop:
@@ -29,7 +29,7 @@ const anchorStyles = {
     'transition-opacity data-[active=indeterminate]:hover:opacity-60 data-[active=true]:opacity-100 data-[active=false]:opacity-50 data-[active=false]:hover:opacity-100',
   notFound:
     'underline underline-offset-2 transition-colors hover:text-zinc-900 dark:hover:text-zinc-100',
-} as const;
+};
 
 type MenuLinksVariant = keyof typeof listStyles;
 

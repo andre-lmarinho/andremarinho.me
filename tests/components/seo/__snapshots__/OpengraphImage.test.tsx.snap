@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`OpengraphImage matches the expected structure for the default card 1`] = `
+exports[`buildOg (OpengraphImage) builds the element and init (fonts) correctly 1`] = `
 <div
   style="background-color: white; width: 100%; height: 100%; display: flex; position: relative; font-family: Inter; background-image: radial-gradient(at 10px 10px, #d4d4d4, #d4d4d4 5%, white 5%); background-size: 20px 20px;"
 >

@@ -2,7 +2,6 @@
 
 import { useTheme } from 'next-themes';
 import { Moon, Sun } from 'lucide-react';
-
 import { cn } from '@/utils/cn';
 
 interface ThemeSelectorProps {
@@ -11,10 +10,8 @@ interface ThemeSelectorProps {
 
 export function ThemeSelector({ hidden = false }: ThemeSelectorProps) {
   const theme = useTheme();
-  const isThemeResolved = typeof theme.resolvedTheme === 'string';
-  const isDark = theme.resolvedTheme === 'dark';
-
   const handleToggleTheme = () => {
+    const isDark = document.documentElement.classList.contains('dark');
     theme.setTheme(isDark ? 'light' : 'dark');
   };
 
@@ -26,25 +23,16 @@ export function ThemeSelector({ hidden = false }: ThemeSelectorProps) {
         hidden && 'pointer-events-none opacity-0 md:pointer-events-auto md:opacity-100'
       )}
       aria-label="Toggle dark mode"
-      aria-pressed={isThemeResolved ? isDark : undefined}
       type="button"
     >
       <span className="relative flex h-5 w-5 items-center justify-center">
         <Moon
           aria-hidden="true"
-          className={cn(
-            'absolute inset-0 h-5 w-5 shrink-0 transition-all duration-300 group-hover:rotate-12',
-            !isThemeResolved && 'opacity-0',
-            isThemeResolved && (isDark ? 'text-zinc-300 opacity-0' : 'text-zinc-700 opacity-100')
-          )}
+          className="absolute inset-0 h-5 w-5 shrink-0 text-zinc-700 opacity-100 transition-all duration-300 group-hover:rotate-12 dark:text-zinc-300 dark:opacity-0"
         />
         <Sun
           aria-hidden="true"
-          className={cn(
-            'absolute inset-0 h-5 w-5 shrink-0 text-zinc-100 transition-all duration-300 group-hover:rotate-180',
-            !isThemeResolved && 'opacity-0',
-            isThemeResolved && (isDark ? 'opacity-100' : 'opacity-0')
-          )}
+          className="absolute inset-0 h-5 w-5 shrink-0 text-zinc-100 opacity-0 transition-all duration-300 group-hover:rotate-180 dark:opacity-100"
         />
       </span>
     </button>

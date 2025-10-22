@@ -1,7 +1,7 @@
 import { readFile } from 'node:fs/promises';
 import type { Font } from 'next/dist/compiled/@vercel/og/satori';
 
-type Props = {
+type OGProps = {
   description: string;
   title: string;
   url?: string;
@@ -20,19 +20,19 @@ const fontConfigs: FontConfig[] = [
   {
     name: 'Inter',
     style: 'normal',
-    weight: 600,
+    weight: 500,
     url: buildFontUrl('/fonts/opengraph/Inter-Medium.woff'),
   },
   {
     name: 'Inter',
     style: 'normal',
-    weight: 700,
+    weight: 800,
     url: buildFontUrl('/fonts/opengraph/Inter-ExtraBold.woff'),
   },
   {
     name: 'Roboto Mono',
     style: 'normal',
-    weight: 300,
+    weight: 400,
     url: buildFontUrl('/fonts/opengraph/RobotoMono-Regular.woff'),
   },
 ];
@@ -46,28 +46,9 @@ const fontsPromise: Promise<Font[]> = Promise.all(
   }))
 );
 
-export const getFonts = (): Promise<Font[]> => fontsPromise;
+const getFonts = (): Promise<Font[]> => fontsPromise;
 
-export const ogImageSize = {
-  width: 1200,
-  height: 630,
-} as const;
-
-export const ogImageDynamic = 'force-static' as const;
-
-export const createOgImageResponse = async (props: Props) => {
-  const { ImageResponse } = await import('next/og');
-
-  return new ImageResponse(<OpengraphImage {...props} />, {
-    fonts: await getFonts(),
-  });
-};
-
-const domain = new URL('https://andremarinho.me').host;
-
-export const OpengraphImage = ({ description, title, url }: Props) => {
-  const displayUrl = url ? `${domain}${url.startsWith('/') ? url : `/${url}`}` : domain;
-
+function OpengraphImage({ title, description, url }: OGProps) {
   return (
     <div
       style={{
@@ -134,8 +115,14 @@ export const OpengraphImage = ({ description, title, url }: Props) => {
           fontWeight: 600,
         }}
       >
-        {displayUrl}
+        {url ? `andremarinho.me/${url}` : 'andremarinho.me'}
       </div>
     </div>
   );
-};
+}
+
+export async function buildOg(props: OGProps) {
+  const fonts = await getFonts();
+  const el = <OpengraphImage {...props} />;
+  return [el, { fonts }] as const;
+}
