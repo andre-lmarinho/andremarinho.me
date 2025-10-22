@@ -1,12 +1,49 @@
 import localFont from 'next/font/local';
+import Image, { type ImageProps } from 'next/image';
 
 import { TextLink } from '@/components/TextLink';
 import { cn } from '@/utils/cn';
 
-import { Polaroid } from './Polaroid';
 import dog from './images/doggy.jpg';
 import beach from './images/beach.jpg';
 import whitesand from './images/whitesand.jpg';
+
+const rotation = {
+  '+1': '+rotate-1',
+  '-2': '-rotate-2',
+  '-3': '-rotate-3',
+};
+
+type PolaroidProps = {
+  label: string;
+  src: ImageProps['src'];
+  rotation: keyof typeof rotation;
+};
+
+const Polaroid = (props: PolaroidProps) => (
+  <div
+    className={cn(
+      'rounded-lg bg-linear-to-b from-white to-neutral-100 p-4 shadow-2xl select-none',
+      'text-center hover:scale-105 hover:rotate-0 dark:from-neutral-200 dark:to-neutral-200',
+      'transition-transform ease-out',
+      rotation[props.rotation]
+    )}
+  >
+    <div className="relative h-fit w-fit overflow-hidden rounded-sm">
+      <Image
+        alt={props.label}
+        height={240}
+        width={240}
+        sizes="240px"
+        loading="eager"
+        placeholder="blur"
+        src={props.src}
+      />
+      <div className="absolute inset-0 shadow-[inset_0_0_4px_rgba(0,0,0,.3)]" />
+    </div>
+    <p className="text-md mt-3 text-center text-neutral-600 dark:text-neutral-800">{props.label}</p>
+  </div>
+);
 
 const gloria = localFont({
   src: [
@@ -28,8 +65,8 @@ const gloria = localFont({
 
 export const Intro = () => (
   <section id="about" className="mt-6">
-    <h1>About me</h1>
     <div className="mb-6 space-y-5">
+      <h1>About me</h1>
       <p>
         <em>Hey!</em> 👋🏼
       </p>

@@ -64,7 +64,7 @@ export const ScrollCopy: React.FC<Props> = ({
       spansByParagraph.map((wordSpans) => wordSpans.map((span) => span.id))
     );
 
-    const spanById = new Map(spans.map((span) => [span.id, span] as const));
+    const spanById = new Map(spans.map((span) => [span.id, span]));
     bridgeMap.forEach(({ fromId, toId }) => {
       const fromSpan = spanById.get(fromId);
       const toSpan = spanById.get(toId);
@@ -95,7 +95,7 @@ export const ScrollCopy: React.FC<Props> = ({
       thresholdRatioEnd,
     });
 
-    const spanById = new Map(spans.map((span) => [span.id, span] as const));
+    const spanById = new Map(spans.map((span) => [span.id, span]));
     spans.forEach((span, index) => {
       const opacity = opacities[index];
       span.dataset.scActive = opacity === maxOpacity ? 'true' : 'false';
