@@ -1,4 +1,5 @@
 import { readFile } from 'node:fs/promises';
+import { join } from 'node:path';
 import type { Font } from 'next/dist/compiled/@vercel/og/satori';
 
 type OGProps = {
@@ -7,13 +8,13 @@ type OGProps = {
   url?: string;
 };
 
-const buildFontUrl = (path: string) => new URL(`../../public${path}`, import.meta.url);
+const buildFontPath = (path: string) => join(process.cwd(), 'public', path.replace(/^\/+/, ''));
 
 type FontConfig = {
   name: Font['name'];
   style: NonNullable<Font['style']>;
   weight: NonNullable<Font['weight']>;
-  url: URL;
+  path: string;
 };
 
 const fontConfigs: FontConfig[] = [
@@ -21,25 +22,25 @@ const fontConfigs: FontConfig[] = [
     name: 'Inter',
     style: 'normal',
     weight: 500,
-    url: buildFontUrl('/fonts/opengraph/Inter-Medium.woff'),
+    path: buildFontPath('/fonts/opengraph/Inter-Medium.woff'),
   },
   {
     name: 'Inter',
     style: 'normal',
     weight: 800,
-    url: buildFontUrl('/fonts/opengraph/Inter-ExtraBold.woff'),
+    path: buildFontPath('/fonts/opengraph/Inter-ExtraBold.woff'),
   },
   {
     name: 'Roboto Mono',
     style: 'normal',
     weight: 400,
-    url: buildFontUrl('/fonts/opengraph/RobotoMono-Regular.woff'),
+    path: buildFontPath('/fonts/opengraph/RobotoMono-Regular.woff'),
   },
 ];
 
 const fontsPromise: Promise<Font[]> = Promise.all(
-  fontConfigs.map(async ({ name, style, weight, url }) => ({
-    data: await readFile(url),
+  fontConfigs.map(async ({ name, style, weight, path }) => ({
+    data: await readFile(path),
     name,
     style,
     weight,
