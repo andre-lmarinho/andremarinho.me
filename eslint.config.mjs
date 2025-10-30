@@ -79,5 +79,11 @@ export default tseslint.config(
         { argsIgnorePattern: '^_', varsIgnorePattern: '^_' },
       ],
     },
+  },
+  {
+    files: ['src/components/OpengraphImage.tsx'],
+    rules: {
+      '@next/next/no-img-element': 'off',
+    },
   }
 );
