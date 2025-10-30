@@ -88,3 +88,9 @@
     @apply mb-6 block text-xl font-semibold;
   }
 }
+
+@layer utilities {
+  .text-muted {
+    @apply text-zinc-600 dark:text-zinc-400;
+  }
+}
