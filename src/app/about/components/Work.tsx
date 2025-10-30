@@ -2,8 +2,7 @@ import Image from 'next/image';
 
 type WorkRole = {
   title: string;
-  startYear: number;
-  endYear?: number | 'Now';
+  period: string;
 };
 
 type WorkPlace = {
@@ -19,35 +18,14 @@ const workPlaces: WorkPlace[] = [
     website: '/studio',
     logo: '/images/work/duonorth.webp',
     roles: [
-      { title: 'Frontend Developer', startYear: 2025, endYear: 'Now' },
-      { title: 'Web and WordPress Developer', startYear: 2020, endYear: 2024 },
-      { title: 'Digital Marketing & Web Consultant', startYear: 2017, endYear: 2019 },
+      { title: 'Frontend Developer', period: '2025 - Now' },
+      { title: 'Web and WordPress Developer', period: '2020 - 2024' },
+      { title: 'Digital Marketing & Web Consultant', period: '2017 - 2019' },
     ],
   },
 ];
 
-const NOW = new Date().getFullYear();
-
-const yearsOf = (role: WorkRole) => {
-  const end = role.endYear === 'Now' ? NOW : (role.endYear ?? NOW);
-  const years: number[] = [];
-  for (let y = role.startYear; y <= end; y++) years.push(y);
-  return years;
-};
-
-const workEntries = workPlaces
-  .flatMap((place) => place.roles.map((role) => ({ place, role, years: yearsOf(role) })))
-  .sort((a, b) => {
-    const endA =
-      a.role.endYear === 'Now' || a.role.endYear === undefined
-        ? Number.MAX_SAFE_INTEGER
-        : a.role.endYear;
-    const endB =
-      b.role.endYear === 'Now' || b.role.endYear === undefined
-        ? Number.MAX_SAFE_INTEGER
-        : b.role.endYear;
-    return endB - endA || b.role.startYear - a.role.startYear;
-  });
+const workEntries = workPlaces.flatMap((place) => place.roles.map((role) => ({ place, role })));
 
 export const Work = () => (
   <section id="work" aria-label="Work">
@@ -56,13 +34,9 @@ export const Work = () => (
     <ul className="space-y-4">
       {workEntries.map(({ place, role }, i) => {
         const isExternal = /^https?:\/\//.test(place.website);
-        const periodLabel = `${role.startYear} - ${role.endYear ?? 'Now'}`;
 
         return (
-          <li
-            key={`${place.name}:${role.title}:${role.startYear}`}
-            className="flex items-start gap-4"
-          >
+          <li key={`${place.name}:${role.title}:${role.period}`} className="flex items-start gap-4">
             <span className="hidden h-12 w-12 sm:inline-flex" aria-hidden="true">
               {i === 0 ? (
                 <Image
@@ -87,7 +61,7 @@ export const Work = () => (
                 <h3 className="font-medium">{role.title}</h3>
                 <p className="opacity-50">{place.name}</p>
               </div>
-              <time className="ml-auto opacity-90">{periodLabel}</time>
+              <time className="ml-auto opacity-90">{role.period}</time>
             </a>
           </li>
         );
