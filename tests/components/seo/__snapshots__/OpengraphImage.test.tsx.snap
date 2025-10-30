@@ -6,7 +6,7 @@ exports[`buildOg (OpengraphImage) builds the element and init (fonts) correctly 
 >
   <img
     height="115"
-    src="https://andremarinho.me/images/Me.jpeg"
+    src="data:image/jpeg;base64,AAAAAAAAAAA="
     style="border-radius: 100%; position: absolute; left: 60px; top: 60px;"
     width="115"
   />

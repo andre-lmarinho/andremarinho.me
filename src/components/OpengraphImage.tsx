@@ -7,48 +7,30 @@ type OGProps = {
   url?: string;
 };
 
-const buildFontUrl = (path: string) => new URL(`../../public${path}`, import.meta.url);
+const assetUrl = (path: string) => new URL(`../../public${path}`, import.meta.url);
 
-type FontConfig = {
-  name: Font['name'];
-  style: NonNullable<Font['style']>;
-  weight: NonNullable<Font['weight']>;
-  url: URL;
-};
-
-const fontConfigs: FontConfig[] = [
-  {
-    name: 'Inter',
-    style: 'normal',
-    weight: 500,
-    url: buildFontUrl('/fonts/opengraph/Inter-Medium.woff'),
-  },
-  {
-    name: 'Inter',
-    style: 'normal',
-    weight: 800,
-    url: buildFontUrl('/fonts/opengraph/Inter-ExtraBold.woff'),
-  },
-  {
-    name: 'Roboto Mono',
-    style: 'normal',
-    weight: 400,
-    url: buildFontUrl('/fonts/opengraph/RobotoMono-Regular.woff'),
-  },
+const fontSpecs: Array<[Font['name'], NonNullable<Font['weight']>, string]> = [
+  ['Inter', 500, '/fonts/opengraph/Inter-Medium.woff'],
+  ['Inter', 800, '/fonts/opengraph/Inter-ExtraBold.woff'],
+  ['Roboto Mono', 400, '/fonts/opengraph/RobotoMono-Regular.woff'],
 ];
 
 const fontsPromise: Promise<Font[]> = Promise.all(
-  fontConfigs.map(async ({ name, style, weight, url }) => ({
-    data: await readFile(url),
+  fontSpecs.map(async ([name, weight, path]) => ({
+    data: await readFile(assetUrl(path)),
     name,
-    style,
+    style: 'normal',
     weight,
   }))
 );
 
-const getFonts = (): Promise<Font[]> => fontsPromise;
+const profileImageSrcPromise = readFile(assetUrl('/images/Me.jpeg')).then(
+  (buffer) => `data:image/jpeg;base64,${buffer.toString('base64')}`
+);
 
-function OpengraphImage({ title, description, url }: OGProps) {
+type OpengraphImageProps = OGProps & { profileImageSrc: string };
+
+function OpengraphImage({ title, description, url, profileImageSrc }: OpengraphImageProps) {
   return (
     <div
       style={{
@@ -63,7 +45,7 @@ function OpengraphImage({ title, description, url }: OGProps) {
       }}
     >
       <img
-        src="https://andremarinho.me/images/Me.jpeg"
+        src={profileImageSrc}
         width="115"
         height="115"
         style={{
@@ -122,7 +104,7 @@ function OpengraphImage({ title, description, url }: OGProps) {
 }
 
 export async function buildOg(props: OGProps) {
-  const fonts = await getFonts();
-  const el = <OpengraphImage {...props} />;
+  const [fonts, profileImageSrc] = await Promise.all([fontsPromise, profileImageSrcPromise]);
+  const el = <OpengraphImage {...props} profileImageSrc={profileImageSrc} />;
   return [el, { fonts }] as const;
 }

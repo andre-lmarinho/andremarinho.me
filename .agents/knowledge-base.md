@@ -14,7 +14,7 @@ The whole thing is a monorepo. You need to be working in the src/app folder.
 ### PR Requirements
 
 - PR title must follow Conventional Commits specification
-- For most PRs, you only need to run linting, format and type checking
+- Always run the full CI workflow locally with `npm run verify` (runs lint, typecheck, tests and build) before sharing any suggestion or change. No recommendation should be made without all CI checks passing locally.
 
 ## Basic Performance Guidelines
 

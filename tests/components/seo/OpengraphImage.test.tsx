@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react';
 
 jest.mock('node:fs/promises', () => ({
-  readFile: jest.fn(async () => Buffer.alloc(8)),
+  readFile: jest.fn(() => Promise.resolve(Buffer.alloc(8))),
 }));
 
 beforeEach(() => {
@@ -20,7 +20,7 @@ describe('buildOg (OpengraphImage)', () => {
     expect(Array.isArray(init.fonts)).toBe(true);
     expect(init.fonts).toHaveLength(3);
     const { readFile } = await import('node:fs/promises');
-    expect((readFile as unknown as jest.Mock).mock.calls.length).toBe(3);
+    expect((readFile as unknown as jest.Mock).mock.calls.length).toBe(4);
 
     const { container } = render(element);
     expect(container.firstChild).toMatchSnapshot();
