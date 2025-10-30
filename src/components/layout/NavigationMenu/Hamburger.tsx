@@ -1,15 +1,12 @@
 'use client';
 
-import { useEffect, useId, useRef } from 'react';
+import { useEffect, useId } from 'react';
 import type { MouseEvent as ReactMouseEvent } from 'react';
 import { Menu, X } from 'lucide-react';
 import { usePathname } from 'next/navigation';
 
 import { NavigationLink as MenuLinks } from './NavigationLink';
 import { cn } from '@/utils/cn';
-
-const focusableSelector =
-  'a[href]:not([tabindex="-1"]), button:not([disabled]):not([tabindex="-1"]), [tabindex]:not([tabindex="-1"])';
 
 type Props = {
   isOpen: boolean;
@@ -21,7 +18,6 @@ const buttonClassName =
 
 export function Hamburger({ isOpen, setIsOpen }: Props) {
   const pathname = usePathname();
-  const navRef = useRef<HTMLElement | null>(null);
   const dialogId = useId();
   const labelId = useId();
 
@@ -53,57 +49,6 @@ export function Hamburger({ isOpen, setIsOpen }: Props) {
     };
   }, [isOpen]);
 
-  useEffect(() => {
-    if (!isOpen) {
-      return;
-    }
-    const navEl = navRef.current;
-    if (!navEl) return;
-
-    const getFocusable = () => Array.from(navEl.querySelectorAll<HTMLElement>(focusableSelector));
-    const focusFirst = () => {
-      const [first] = getFocusable();
-      (first ?? navEl).focus();
-    };
-    const frameId = requestAnimationFrame(focusFirst);
-
-    const onKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') {
-        e.preventDefault();
-        setIsOpen(false);
-        return;
-      }
-      if (e.key !== 'Tab') return;
-      const els = getFocusable();
-      if (els.length === 0) {
-        e.preventDefault();
-        navEl.focus();
-        return;
-      }
-      const [first] = els;
-      const last = els[els.length - 1];
-      const active = document.activeElement as HTMLElement | null;
-      const inside = active ? navEl.contains(active) : false;
-      if (e.shiftKey) {
-        if (!inside || active === first) {
-          e.preventDefault();
-          last.focus();
-        }
-        return;
-      }
-      if (!inside || active === last) {
-        e.preventDefault();
-        first.focus();
-      }
-    };
-
-    document.addEventListener('keydown', onKeyDown);
-    return () => {
-      cancelAnimationFrame(frameId);
-      document.removeEventListener('keydown', onKeyDown);
-    };
-  }, [isOpen, setIsOpen]);
-
   return (
     <div className="sm:hidden">
       <button
@@ -120,7 +65,6 @@ export function Hamburger({ isOpen, setIsOpen }: Props) {
 
       {isOpen && (
         <nav
-          ref={navRef}
           className="fixed inset-0 z-50 bg-white text-zinc-900 dark:bg-zinc-950 dark:text-zinc-100"
           role="dialog"
           aria-modal="true"
