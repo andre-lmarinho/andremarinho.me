@@ -60,9 +60,9 @@ const PricingCard = ({
         1 spot left
       </div>
     </div>
-    <p className="mb-4 text-sm text-zinc-600 dark:text-zinc-400">{description}</p>
+    <p className="text-muted mb-4 text-sm">{description}</p>
     <div className="mb-4">
-      <p className="m-0 text-xs leading-6 text-zinc-600 dark:text-zinc-400">Starting at</p>
+      <p className="text-muted m-0 text-xs leading-6">Starting at</p>
       <p className="mt-0 flex items-baseline gap-1 text-zinc-900 dark:text-zinc-100">
         <span className="text-3xl font-bold">{priceDisplay}</span>
         {billingType === 'one-time' && (
@@ -103,7 +103,7 @@ export const Pricing = () => (
     <div className="flex flex-col gap-x-20 gap-y-4 rounded-3xl border border-zinc-200 p-10 sm:flex-row sm:items-center dark:border-zinc-800">
       <div className="flex-1">
         <h3 className="text-lg font-semibold">Custom</h3>
-        <p className="mb-0 text-sm text-zinc-600 dark:text-zinc-400">
+        <p className="text-muted mb-0 text-sm">
           If your needs don&apos;t fit any of our packages, we can work something out. Let&apos;s
           chat and see how we can help you.
         </p>

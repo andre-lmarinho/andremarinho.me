@@ -15,7 +15,7 @@ const SocialLinks = [
 
 export const Footer = () => (
   <footer id="footer" className="page-content pt-8 text-sm">
-    <div className="flex items-center justify-between py-6 text-zinc-600 dark:text-zinc-400">
+    <div className="text-muted flex items-center justify-between py-6">
       <span>André Marinho © {new Date().getFullYear()}</span>
       <nav aria-label="Online profiles">
         <ul className="flex items-center gap-0">

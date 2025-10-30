@@ -85,9 +85,7 @@ export const Projects = () => {
                 aria-label={`${project.ariaLabel} (opens in a new tab)`}
               >
                 <h3 className="leading-snug font-medium">{project.title}</h3>
-                <p className="my-2 text-sm leading-normal text-zinc-600 dark:text-zinc-400">
-                  {project.description}
-                </p>
+                <p className="text-muted my-2 text-sm leading-normal">{project.description}</p>
                 <ul className="mt-auto flex flex-wrap" aria-label="Technologies used:">
                   {project.stacks.map((stack) => {
                     const tech = techMap[stack];
@@ -106,7 +104,7 @@ export const Projects = () => {
                               unoptimized
                             />
                           )}
-                          <span className="text-zinc-600 dark:text-zinc-400">{stack}</span>
+                          <span className="text-muted">{stack}</span>
                         </div>
                       </li>
                     );
