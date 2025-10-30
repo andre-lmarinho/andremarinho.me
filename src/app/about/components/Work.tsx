@@ -59,7 +59,7 @@ export const Work = () => (
             >
               <div className="flex flex-col">
                 <h3 className="font-medium">{role.title}</h3>
-                <p className="text-muted opacity-50">{place.name}</p>
+                <p className="text-muted">{place.name}</p>
               </div>
               <time className="ml-auto opacity-90">{role.period}</time>
             </a>
