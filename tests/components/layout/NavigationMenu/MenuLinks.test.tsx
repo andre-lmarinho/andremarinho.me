@@ -60,16 +60,4 @@ describe('MenuLinks', () => {
       expect(link).not.toHaveAttribute('aria-current');
     });
   });
-
-  it('does not apply state attributes on the not-found variant', () => {
-    usePathnameMock.mockImplementation(() => '/studio');
-
-    render(<MenuLinks variant="notFound" />);
-
-    ['Home', 'Studio', 'About'].forEach((name) => {
-      const link = screen.getByRole('link', { name });
-      expect(link.getAttribute('data-active')).toBeNull();
-      expect(link).not.toHaveAttribute('aria-current');
-    });
-  });
 });

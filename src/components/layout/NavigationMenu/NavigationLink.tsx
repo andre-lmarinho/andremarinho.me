@@ -10,72 +10,51 @@ type NavigationLink = {
   href: `/${string}`;
 };
 
-const MENU_LINKS: NavigationLink[] = [
-  { text: 'Home', href: '/' },
-  { text: 'Studio', href: '/studio' },
-  { text: 'About', href: '/about' },
-];
+const LINKS_BY_VARIANT = {
+  desktop: [
+    { text: 'Studio', href: '/studio' },
+    { text: 'About', href: '/about' },
+  ],
+  mobile: [
+    { text: 'Home', href: '/' },
+    { text: 'Studio', href: '/studio' },
+    { text: 'About', href: '/about' },
+  ],
+} as const satisfies Record<string, readonly NavigationLink[]>;
 
-const listStyles = {
+type MenuLinksVariant = keyof typeof LINKS_BY_VARIANT;
+
+const listStyles: Record<MenuLinksVariant, string> = {
   desktop: 'group hidden grid-flow-col gap-6 text-sm font-medium sm:grid',
   mobile: 'flex h-full flex-1 flex-col items-center justify-center space-y-5 text-2xl',
-  notFound: 'mt-4 list-inside list-disc space-y-2 px-4 text-lg',
 };
-
-const anchorStyles = {
-  desktop:
-    'transition-opacity rounded-xs data-[active=indeterminate]:hover:opacity-60 data-[active=true]:opacity-100 data-[active=false]:opacity-50 data-[active=false]:hover:opacity-100',
-  mobile:
-    'transition-opacity data-[active=indeterminate]:hover:opacity-60 data-[active=true]:opacity-100 data-[active=false]:opacity-50 data-[active=false]:hover:opacity-100',
-  notFound:
-    'underline underline-offset-2 transition-colors hover:text-zinc-900 dark:hover:text-zinc-100',
-};
-
-type MenuLinksVariant = keyof typeof listStyles;
 
 type MenuLinksProps = {
   variant?: MenuLinksVariant;
   className?: string;
 };
 
-const normalizePathname = (pathname: string | null) => {
-  if (!pathname) {
-    return '/';
-  }
-
-  const [, firstSegment] = pathname.split('/');
-  return `/${firstSegment ?? ''}`;
-};
-
 export const NavigationLink = ({ variant = 'desktop', className }: MenuLinksProps) => {
   const pathname = usePathname();
-  const normalizedPath = normalizePathname(pathname);
+  const normalizedPath = pathname ? `/${pathname.split('/')[1] ?? ''}` : '/';
 
-  const resolvedLinks =
-    variant === 'desktop' ? MENU_LINKS.filter(({ href }) => href !== '/') : MENU_LINKS;
-
-  const showActiveState = variant !== 'notFound';
-  const isIndeterminate = showActiveState
-    ? resolvedLinks.every((link) => link.href !== normalizedPath)
-    : false;
+  const resolvedLinks = LINKS_BY_VARIANT[variant];
+  const activeLink = resolvedLinks.find((link) => link.href === normalizedPath);
 
   return (
     <ul className={cn(listStyles[variant], className)}>
       {resolvedLinks.map(({ href, text }) => {
-        const isActive = showActiveState && href === normalizedPath;
-        const state: 'true' | 'false' | 'indeterminate' | undefined = showActiveState
-          ? isIndeterminate
-            ? 'indeterminate'
-            : isActive
-              ? 'true'
-              : 'false'
-          : undefined;
+        const state: 'true' | 'false' | 'indeterminate' = activeLink
+          ? activeLink.href === href
+            ? 'true'
+            : 'false'
+          : 'indeterminate';
 
         return (
           <li key={href}>
             <Link
               href={href}
-              className={anchorStyles[variant]}
+              className="rounded-xs transition-opacity data-[active=false]:opacity-50 data-[active=false]:hover:opacity-100 data-[active=indeterminate]:hover:opacity-60 data-[active=true]:opacity-100"
               data-active={state}
               aria-current={state === 'true' ? 'page' : undefined}
             >
