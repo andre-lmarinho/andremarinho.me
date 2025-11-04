@@ -1,6 +1,8 @@
 import { LinkButton } from '@/components/LinkButton';
 import { plansForUI, customForUI } from '../offers';
 
+export const studioPricingPlans = plansForUI;
+
 export const Pricing = () => (
   <section id="pricing">
     <div className="mt-10 mb-6 grid grid-cols-1 gap-6 md:grid-cols-2">
