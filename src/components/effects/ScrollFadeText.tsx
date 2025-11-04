@@ -159,9 +159,11 @@ export const ScrollFadeText: React.FC<Props> = ({
     window.addEventListener('scroll', onScroll, { passive: true });
     window.addEventListener('resize', onResize);
 
-    if (document?.fonts?.ready) {
-      // @ts-expect-error
-      (document.fonts.ready as Promise<void>).then(() => {
+    const documentFonts = document?.fonts;
+    if (documentFonts && 'ready' in documentFonts) {
+      // @ts-expect-error -- Safari does not type document.fonts.ready as a Promise yet.
+      const ready = documentFonts.ready as Promise<void>;
+      void ready.then(() => {
         recalcCenters();
         schedule(run);
       });
@@ -203,7 +205,14 @@ export const ScrollFadeText: React.FC<Props> = ({
                 id={`scw-${paragraphIndex}-${wordIndex}`}
                 key={`${paragraphIndex}-${wordIndex}`}
                 className={[
-                  'sc-word [margin-right:var(--scroll-copy-word-gap)]transition-opacity [will-change:opacity]opacity-[var(--scroll-copy-base-opacity)]data-[sc-active=true]:opacity-[var(--scroll-copy-max-opacity)] duration-[120ms] ease-linear',
+                  'sc-word',
+                  '[margin-right:var(--scroll-copy-word-gap)]',
+                  'transition-opacity',
+                  '[will-change:opacity]',
+                  'opacity-[var(--scroll-copy-base-opacity)]',
+                  'data-[sc-active=true]:opacity-[var(--scroll-copy-max-opacity)]',
+                  'duration-[120ms]',
+                  'ease-linear',
                 ].join(' ')}
               >
                 {token}

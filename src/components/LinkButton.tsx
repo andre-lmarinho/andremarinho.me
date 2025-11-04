@@ -34,14 +34,22 @@ type LinkButtonProps = {
   Omit<ComponentPropsWithoutRef<'a'>, 'className' | 'children'>;
 
 export const LinkButton = forwardRef<HTMLAnchorElement, LinkButtonProps>(
-  ({ children, className, variant = 'default', size = 'default' }, ref) => {
+  (
+    { children, className, variant = 'default', size = 'default', href, target, rel, ...rest },
+    ref
+  ) => {
+    const finalHref = href ?? STUDIO_CONTACT_URL;
+    const finalTarget = target ?? (href ? undefined : '_blank');
+    const finalRel = rel ?? (finalTarget === '_blank' ? 'noopener noreferrer' : undefined);
+
     return (
       <a
-        href={STUDIO_CONTACT_URL}
-        target="_blank"
-        rel="noopener noreferrer"
+        href={finalHref}
+        target={finalTarget}
+        rel={finalRel}
         ref={ref}
         className={cn(linkButtonStyles({ variant, size }), className)}
+        {...rest}
       >
         {children}
       </a>
