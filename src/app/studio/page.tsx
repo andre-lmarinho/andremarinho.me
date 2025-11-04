@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 
 import { Hero } from './components/Hero';
-import { Projects } from '../home/components/Projects';
+import { Work } from './components/Work';
 import { Copy } from './components/Copy';
 import { Pricing } from './components/Pricing';
 import { FinalCTA } from './components/FinalCTA';
@@ -80,7 +80,7 @@ export default function Studio() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
       />
       <Hero />
-      <Projects />
+      <Work />
       <Copy />
       <Pricing />
       <FinalCTA />
