@@ -2,7 +2,7 @@ import { cleanup, render, screen } from '@testing-library/react';
 import type { ComponentProps, ElementType, ReactNode } from 'react';
 
 import StudioPage, { metadata as studioMetadata } from '@/app/studio/page';
-import { studioPricingPlans } from '@/app/studio/components/Pricing';
+import { plansForUI } from '@/app/studio/offers';
 
 afterEach(() => {
   cleanup();
@@ -36,7 +36,10 @@ jest.mock('next/image', () => ({
     unoptimized: _unoptimized,
     alt = '',
     ...props
-  }: NextImageProps) => <img alt={alt} {...props} />,
+  }: NextImageProps) => (
+    // eslint-disable-next-line @next/next/no-img-element -- Mocked component for tests only.
+    <img alt={alt} {...props} />
+  ),
 }));
 
 type TextTypeMockProps = {
@@ -104,18 +107,19 @@ const parseJsonObject = (payload: string | null): JsonObject | null => {
   return null;
 };
 
-const isProductSchema = (data: JsonObject | null): data is JsonObject => {
-  if (!data) {
-    return false;
-  }
-
-  const type = data['@type'];
-  return typeof type === 'string' && type === 'Product';
-};
-
 const toJsonObject = (value: unknown): JsonObject | null => {
   return typeof value === 'object' && value !== null ? (value as JsonObject) : null;
 };
+
+const toJsonObjectArray = (value: unknown): JsonObject[] => {
+  if (!Array.isArray(value)) {
+    return [];
+  }
+
+  return value.map(toJsonObject).filter((item): item is JsonObject => item !== null);
+};
+
+const toString = (value: unknown) => (typeof value === 'string' ? value : null);
 
 describe('Studio page', () => {
   it('renders the studio marketing content without crashing', async () => {
@@ -137,5 +141,30 @@ describe('Studio page', () => {
     expect(studioMetadata.title).toBe('Duonorth Studio');
     expect(studioMetadata.alternates?.canonical).toBe('/studio');
     expect(studioMetadata.openGraph?.url).toBe('/studio');
+  });
+
+  it('exposes structured offers for each pricing plan', async () => {
+    await renderServerComponent(StudioPage);
+
+    const schemaScript = document.querySelector('script[type="application/ld+json"]');
+    expect(schemaScript).not.toBeNull();
+
+    const schema = parseJsonObject(schemaScript?.textContent ?? null);
+    expect(schema?.['@type']).toBe('ProfessionalService');
+
+    const offers = toJsonObjectArray(schema?.makesOffer);
+    expect(offers).toHaveLength(plansForUI.length + 1);
+
+    offers.slice(0, plansForUI.length).forEach((offer, index) => {
+      const plan = plansForUI[index];
+      const itemOffered = toJsonObject(offer['itemOffered']);
+      expect(toString(itemOffered?.['name'])).toBe(plan.seo?.serviceName ?? plan.tier);
+      expect(toString(itemOffered?.['description'])).toBe(
+        plan.seo?.schemaDescription ?? plan.description
+      );
+    });
+
+    const customOffer = offers[offers.length - 1];
+    expect(toString(customOffer?.['category'])).toBe('Custom');
   });
 });
