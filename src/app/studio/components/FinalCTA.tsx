@@ -3,7 +3,7 @@
 import type React from 'react';
 import { useRef, useState } from 'react';
 
-import { Button } from '@/app/studio/components/CTAButton';
+import { LinkButton } from '@/components/LinkButton';
 import { cn } from '@/utils/cn';
 
 export const FinalCTA = () => {
@@ -83,7 +83,7 @@ export const FinalCTA = () => {
           to see if we&apos;re a match.
         </p>
 
-        <Button>Get started</Button>
+        <LinkButton>Get started</LinkButton>
       </div>
     </section>
   );

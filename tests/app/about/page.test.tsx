@@ -41,13 +41,12 @@ type TextTypeMockProps = {
   className?: string;
 };
 
-type ScrollCopyMockProps = {
+type ScrollFadeTextMockProps = {
   className?: string;
 };
 
-jest.mock('@/app/studio/components/TextType', () => ({
-  __esModule: true,
-  default: ({
+jest.mock('@/components/effects/TypeText', () => {
+  const TypeText = ({
     text,
     as: Component = 'span',
     className = '',
@@ -59,17 +58,28 @@ jest.mock('@/app/studio/components/TextType', () => ({
         {content}
       </Component>
     );
-  },
-}));
+  };
 
-jest.mock('@/app/studio/components/ScrollCopy', () => ({
-  __esModule: true,
-  default: ({ className = '' }: ScrollCopyMockProps) => (
+  return {
+    __esModule: true,
+    TypeText,
+    default: TypeText,
+  };
+});
+
+jest.mock('@/components/effects/ScrollFadeText', () => {
+  const ScrollFadeText = ({ className = '' }: ScrollFadeTextMockProps) => (
     <div className={className} data-testid="mock-scroll-copy">
       Duonorth is an independent studio.
     </div>
-  ),
-}));
+  );
+
+  return {
+    __esModule: true,
+    ScrollFadeText,
+    default: ScrollFadeText,
+  };
+});
 
 describe('About page', () => {
   it('renders the about content from the default export', async () => {
