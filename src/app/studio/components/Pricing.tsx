@@ -1,8 +1,13 @@
+'use client';
+
 import { LinkButton } from '@/components/LinkButton';
 import { StudioAvailability } from '@/components/StudioAvailability';
+import { useStudioAvailability } from '@/hooks/useStudioAvailability';
 import { plansForUI, customForUI } from '../offers';
 
 export const Pricing = () => {
+  const slots = useStudioAvailability();
+
   return (
     <section id="pricing">
       <div className="mt-10 mb-6 grid grid-cols-1 gap-6 md:grid-cols-2">
@@ -14,7 +19,7 @@ export const Pricing = () => {
           >
             <div className="mb-4 flex items-center justify-between gap-x-2">
               <h3 className="text-lg font-semibold">{plan.tier}</h3>
-              <StudioAvailability />
+              <StudioAvailability slots={slots} />
             </div>
             <p className="text-muted mb-4 text-sm">{plan.description}</p>
             <div className="mb-4">

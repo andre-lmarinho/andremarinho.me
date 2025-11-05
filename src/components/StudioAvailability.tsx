@@ -1,9 +1,8 @@
-'use client';
+type StudioAvailabilityProps = {
+  slots: number;
+};
 
-import { useStudioAvailability } from '@/hooks/useStudioAvailability';
-
-export const StudioAvailability = () => {
-  const slots = useStudioAvailability();
+export const StudioAvailability = ({ slots }: StudioAvailabilityProps) => {
   const status = slots > 0 ? `${slots} ${slots === 1 ? 'spot' : 'spots'} left` : 'Waitlist';
 
   return (
