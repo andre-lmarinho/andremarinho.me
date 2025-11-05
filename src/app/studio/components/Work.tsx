@@ -28,7 +28,7 @@ const IMAGES: ReadonlyArray<{ src: StaticImageData; alt: string }> = [
   },
   {
     src: budget,
-    alt: 'A screenshot of the travel planning web application Budget feature with expense categories, totals by traveler, currency selector, and a spending-over-time chart.',
+    alt: 'A screenshot of the travel planning web application Budget feature with expense categories, totals by traveler, and a spending-over-time chart.',
   },
   {
     src: budgetMobile,

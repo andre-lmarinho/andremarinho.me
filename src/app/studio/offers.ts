@@ -1,10 +1,10 @@
-export type Currency = 'USD' | 'BRL';
-export type AvailabilityURL =
+type Currency = 'USD' | 'BRL';
+type AvailabilityURL =
   | 'https://schema.org/InStock'
   | 'https://schema.org/LimitedAvailability'
   | 'https://schema.org/PreOrder';
 
-export type StudioPricingPlan = {
+type StudioPricingPlan = {
   tier: string;
   slug: string;
   description: string;
@@ -150,6 +150,7 @@ export const customForUI = {
   title: customConfig.titleForUI,
   description: customConfig.description,
   href: customHref('/studio'), // '/studio#custom'
+  anchorId: customConfig.anchorId,
 };
 
 export const buildOffers = (baseUrl: string) => {

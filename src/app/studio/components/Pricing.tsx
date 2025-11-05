@@ -1,9 +1,8 @@
 import { LinkButton } from '@/components/LinkButton';
+import { StudioAvailability } from '@/components/StudioAvailability';
 import { plansForUI, customForUI } from '../offers';
 
 export const Pricing = () => {
-  const customAnchorId = customForUI.href.split('#')[1] ?? customForUI.href;
-
   return (
     <section id="pricing">
       <div className="mt-10 mb-6 grid grid-cols-1 gap-6 md:grid-cols-2">
@@ -13,7 +12,10 @@ export const Pricing = () => {
             id={plan.slug}
             className="relative rounded-3xl border border-zinc-200 p-10 dark:border-zinc-800"
           >
-            <h3 className="text-lg font-semibold">{plan.tier}</h3>
+            <div className="mb-4 flex items-center justify-between gap-x-2">
+              <h3 className="text-lg font-semibold">{plan.tier}</h3>
+              <StudioAvailability />
+            </div>
             <p className="text-muted mb-4 text-sm">{plan.description}</p>
             <div className="mb-4">
               <p className="text-muted m-0 text-xs leading-6">Starting at</p>
@@ -24,10 +26,24 @@ export const Pricing = () => {
                 )}
               </p>
             </div>
-            <LinkButton size="full">Start a project</LinkButton>
+
+            <LinkButton size="full">Book a call</LinkButton>
+
             <ul className="mt-6 space-y-2 text-sm text-zinc-700 dark:text-zinc-300">
               {plan.features.map((f, i) => (
                 <li key={i} className="flex items-center gap-2">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 16 16"
+                    fill="currentColor"
+                    className="h-4 w-4 fill-orange-500"
+                  >
+                    <path
+                      fillRule="evenodd"
+                      d="M12.416 3.376a.75.75 0 0 1 .208 1.04l-5 7.5a.75.75 0 0 1-1.154.114l-3-3a.75.75 0 0 1 1.06-1.06l2.353 2.353 4.493-6.74a.75.75 0 0 1 1.04-.207Z"
+                      clipRule="evenodd"
+                    ></path>
+                  </svg>
                   {f}
                 </li>
               ))}
@@ -37,7 +53,7 @@ export const Pricing = () => {
       </div>
 
       <div
-        id={customAnchorId}
+        id={customForUI.anchorId}
         className="flex flex-col gap-x-20 gap-y-4 rounded-3xl border border-zinc-200 p-10 sm:flex-row sm:items-center dark:border-zinc-800"
       >
         <div className="flex-1">

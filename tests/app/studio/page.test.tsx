@@ -1,12 +1,8 @@
-import { cleanup, render, screen } from '@testing-library/react';
+import { cleanup, render, screen, waitFor } from '@testing-library/react';
 import type { ComponentProps, ElementType, ReactNode } from 'react';
 
 import StudioPage, { metadata as studioMetadata } from '@/app/studio/page';
 import { plansForUI } from '@/app/studio/offers';
-
-afterEach(() => {
-  cleanup();
-});
 
 const renderServerComponent = async (Component: () => ReactNode | Promise<ReactNode>) => {
   const element = await Component();
@@ -121,19 +117,35 @@ const toJsonObjectArray = (value: unknown): JsonObject[] => {
 
 const toString = (value: unknown) => (typeof value === 'string' ? value : null);
 
+const originalFetch = global.fetch;
+
+beforeEach(() => {
+  global.fetch = jest.fn().mockResolvedValue({
+    ok: true,
+    json: async () => ({ slots: 0 }),
+  }) as typeof global.fetch;
+});
+
+afterEach(() => {
+  cleanup();
+  jest.clearAllMocks();
+});
+
+afterAll(() => {
+  global.fetch = originalFetch;
+});
+
 describe('Studio page', () => {
   it('renders the studio marketing content without crashing', async () => {
     await renderServerComponent(StudioPage);
 
-    const callLinks = screen.getAllByRole('link', { name: 'Book a call' });
+    const callLinks = await screen.findAllByRole('link', { name: 'Book a call' });
     expect(callLinks.length).toBeGreaterThan(0);
     callLinks.forEach((link) => {
       expect(link).toHaveAttribute('href', 'https://wa.me/5571984770061');
     });
 
-    expect(
-      screen.getByRole('heading', { level: 2, name: 'Selected Projects' })
-    ).toBeInTheDocument();
+    expect(screen.getByRole('heading', { level: 2, name: 'Work' })).toBeInTheDocument();
     expect(screen.getByTestId('mock-scroll-copy')).toBeInTheDocument();
   });
 
@@ -146,9 +158,12 @@ describe('Studio page', () => {
   it('exposes structured offers for each pricing plan', async () => {
     await renderServerComponent(StudioPage);
 
+    await waitFor(() => {
+      expect(document.querySelector('script[type="application/ld+json"]')).not.toBeNull();
+    });
+
     const schemaScript = document.querySelector('script[type="application/ld+json"]');
     expect(schemaScript).not.toBeNull();
-
     const schema = parseJsonObject(schemaScript?.textContent ?? null);
     expect(schema?.['@type']).toBe('ProfessionalService');
 
