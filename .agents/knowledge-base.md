@@ -16,6 +16,14 @@ The whole thing is a monorepo. You need to be working in the src/app folder.
 - PR title must follow Conventional Commits specification
 - For most PRs, you only need to run linting, format and type checking
 
+### Test Execution Expectations
+
+- Every task response **must** document the exact test and check commands that were executed.
+- Run all checks that are relevant to the surface you changed. At minimum, run `npm run typecheck` whenever TypeScript is touched and `npm run lint` when modifying linted files.
+- When working on logic or UI that has Jest coverage, run the nearest focused Jest command (single file, directory, or pattern) instead of skipping tests entirely.
+- If a relevant automated check cannot be run (for example due to environment limits), clearly explain why and outline what would normally be executed.
+- Returning a task without demonstrating the necessary checks is unacceptable—even for documentation work, state explicitly that no tests were required.
+
 ## Basic Performance Guidelines
 
 - Aim for O(n) or O(n log n) complexity, avoid O(n²)
