@@ -2,14 +2,10 @@
 
 import { useEffect, useState } from 'react';
 
-const toSlots = (value: unknown): number => {
-  if (typeof value === 'number') return Number.isFinite(value) ? Math.max(0, Math.trunc(value)) : 0;
-  if (typeof value === 'string') return toSlots(Number.parseInt(value, 10));
-  return 0;
-};
+import { toSlots } from '@/utils/availability';
 
-export const useStudioAvailability = () => {
-  const [slots, setSlots] = useState(0);
+export const useStudioAvailability = (initialSlots = 0) => {
+  const [slots, setSlots] = useState(initialSlots);
   useEffect(() => {
     fetch('/api/availability')
       .then((res) => (res.ok ? res.json() : null))

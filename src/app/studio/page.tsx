@@ -5,6 +5,7 @@ import { Work } from './components/Work';
 import { Copy } from './components/Copy';
 import { Pricing } from './components/Pricing';
 import { FinalCTA } from './components/FinalCTA';
+import { getStudioSlots } from './availability';
 
 import { buildProfessionalServiceJsonLd } from './offers';
 
@@ -72,7 +73,9 @@ const structuredData = buildProfessionalServiceJsonLd({
   },
 });
 
-export default function Studio() {
+export default async function Studio() {
+  const slots = await getStudioSlots();
+
   return (
     <>
       <script
@@ -82,7 +85,7 @@ export default function Studio() {
       <Hero />
       <Work />
       <Copy />
-      <Pricing />
+      <Pricing initialSlots={slots} />
       <FinalCTA />
     </>
   );
