@@ -7,14 +7,18 @@ type StudioConfig = {
 };
 
 const hasAvailability = (config: unknown): config is StudioConfig =>
-  Boolean(config) && typeof config === 'object' && 'availability' in config;
-
-const readStudioConfig = get as (key: string) => Promise<unknown>;
+  typeof config === 'object' && config !== null && 'availability' in config;
 
 export const getStudioSlots = async () => {
-  const edgeConfig: unknown = await readStudioConfig('studio');
+  try {
+    const edgeConfig = await get<StudioConfig | null>('studio');
 
-  if (hasAvailability(edgeConfig)) return toSlots(edgeConfig.availability);
+    if (hasAvailability(edgeConfig)) return toSlots(edgeConfig.availability);
+  } catch (error) {
+    if (process.env.NODE_ENV !== 'production') {
+      console.warn('Failed to read studio availability from Edge Config.', error);
+    }
+  }
 
   return 0;
 };
