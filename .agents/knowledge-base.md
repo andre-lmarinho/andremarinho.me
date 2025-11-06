@@ -2,7 +2,7 @@
 
 ## Repo note for andremarinho.me
 
-The whole thing is a monorepo. You need to be working in the src/app folder.
+This repository is a single Next.js application. While routing logic lives in `src/app`, shared UI and utilities are spread across directories like `src/components`, `src/utils`, and other feature folders. Expect tasks to touch whichever combination of these areas makes sense for the change instead of limiting updates to `src/app` alone.
 
 ### Linting and Formatting
 
@@ -15,6 +15,14 @@ The whole thing is a monorepo. You need to be working in the src/app folder.
 
 - PR title must follow Conventional Commits specification
 - For most PRs, you only need to run linting, format and type checking
+
+### Test Execution Expectations
+
+- Every task response **must** document the exact test and check commands that were executed.
+- Run all checks that are relevant to the surface you changed. At minimum, run `npm run typecheck` whenever TypeScript is touched and `npm run lint` when modifying linted files.
+- When working on logic or UI that has Jest coverage, run the nearest focused Jest command (single file, directory, or pattern) instead of skipping tests entirely.
+- If a relevant automated check cannot be run (for example due to environment limits), clearly explain why and outline what would normally be executed.
+- Returning a task without demonstrating the necessary checks is unacceptable—even for documentation work, state explicitly that no tests were required.
 
 ## Basic Performance Guidelines
 
@@ -39,10 +47,10 @@ import { BookingService } from './services/BookingService';
 import { UserService } from './services/UserService';
 
 // ❌ Bad
-import { Button } from '@src/ui';
+import { TextLink } from '@/components';
 
 // ✅ Good - Import directly from source files
-import { Button } from '@src/ui/components/button';
+import { TextLink } from '@/components/TextLink';
 ```
 
 ## When creating pull requests

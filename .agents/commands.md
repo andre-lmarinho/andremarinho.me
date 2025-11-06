@@ -6,7 +6,7 @@
 
 ## Build Commands
 
-- `npm run build` - Build all packages and apps
+- `npm run build` - Run `next build` for the site (followed by sitemap generation via `postbuild`)
 - `npm run vercel:build` - Run the same build used by Vercel
 - `npm run postbuild` - Generate the sitemap after a successful build
 
@@ -33,14 +33,8 @@
 
 ```bash
 # Run a specific test file
-npm run test -- __tests__/components/layout.test.tsx
+npm run test -- tests/app/page.test.tsx
 
 # Run a single test by name using Jest's -t flag
-npm run test -- __tests__/components/layout.test.tsx -t "renders navigation links"
-
-# E2E test specific file
-e2e is not implemented
-
-# Run specific test by name
-e2e is not implemented
+npm run test -- tests/app/page.test.tsx -t "renders navigation links"
 ```
