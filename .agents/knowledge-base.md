@@ -2,7 +2,7 @@
 
 ## Repo note for andremarinho.me
 
-The whole thing is a monorepo. You need to be working in the src/app folder.
+This repository is a single Next.js application. While routing logic lives in `src/app`, shared UI and utilities are spread across directories like `src/components`, `src/utils`, and other feature folders. Expect tasks to touch whichever combination of these areas makes sense for the change instead of limiting updates to `src/app` alone.
 
 ### Linting and Formatting
 
@@ -47,10 +47,10 @@ import { BookingService } from './services/BookingService';
 import { UserService } from './services/UserService';
 
 // ❌ Bad
-import { Button } from '@src/ui';
+import { TextLink } from '@/components';
 
 // ✅ Good - Import directly from source files
-import { Button } from '@src/ui/components/button';
+import { TextLink } from '@/components/TextLink';
 ```
 
 ## When creating pull requests
