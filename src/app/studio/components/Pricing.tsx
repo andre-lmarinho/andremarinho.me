@@ -4,8 +4,12 @@ import { LinkButton } from '@/components/LinkButton';
 import { useStudioAvailability } from '@/hooks/useStudioAvailability';
 import { plansForUI, customForUI } from '../offers';
 
-export const Pricing = () => {
-  const slots = useStudioAvailability();
+type PricingProps = {
+  initialSlots: number;
+};
+
+export const Pricing = ({ initialSlots }: PricingProps) => {
+  const slots = useStudioAvailability(initialSlots);
   const hasAvailableSlots = slots > 0;
   const spotsLabel = slots === 1 ? 'spot' : 'spots';
   const status = hasAvailableSlots ? `${slots} ${spotsLabel} left` : 'Waitlist';

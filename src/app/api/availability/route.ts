@@ -1,13 +1,9 @@
 export const runtime = 'edge';
-import { get } from '@vercel/edge-config';
 
-type StudioConfig = {
-  availability?: number | string | null;
-};
+import { getStudioSlots } from '@/app/studio/availability';
 
 export async function GET() {
-  const edgeConfig = (await get<StudioConfig>('studio')) ?? {};
-  const slots = Number(edgeConfig.availability ?? 0);
+  const slots = await getStudioSlots();
 
   return Response.json(
     { slots },
