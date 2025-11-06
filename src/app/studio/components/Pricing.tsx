@@ -1,11 +1,9 @@
-'use client';
-
 import { LinkButton } from '@/components/LinkButton';
-import { useStudioAvailability } from '@/hooks/useStudioAvailability';
+import { getStudioAvailability } from '@/app/studio/getStudioAvailability';
 import { plansForUI, customForUI } from '../offers';
 
-export const Pricing = () => {
-  const slots = useStudioAvailability();
+export const Pricing = async () => {
+  const slots = await getStudioAvailability();
   const hasAvailableSlots = slots > 0;
   const spotsLabel = slots === 1 ? 'spot' : 'spots';
   const status = hasAvailableSlots ? `${slots} ${spotsLabel} left` : 'Waitlist';
