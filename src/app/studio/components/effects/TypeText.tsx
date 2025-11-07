@@ -49,26 +49,28 @@ export const TypeText = ({
   const [displayedText, setDisplayedText] = useState('');
   const [textIndex, setTextIndex] = useState(0);
   const [phase, setPhase] = useState<TypingPhase>('initial');
+  const [isCompleted, setIsCompleted] = useState(false);
 
   useEffect(() => {
     const timeout = setTimeout(() => {
       setDisplayedText('');
       setTextIndex(0);
       setPhase('initial');
+      setIsCompleted(false);
     }, 0);
 
     return () => clearTimeout(timeout);
   }, [textArray]);
 
   useEffect(() => {
-    if (phase !== 'initial') {
+    if (phase !== 'initial' || isCompleted) {
       return;
     }
 
     const timeout = setTimeout(() => setPhase('typing'), initialDelay);
 
     return () => clearTimeout(timeout);
-  }, [phase, initialDelay]);
+  }, [phase, initialDelay, isCompleted]);
 
   useEffect(() => {
     if (!showCursor) {
@@ -95,7 +97,7 @@ export const TypeText = ({
   }, [showCursor, cursorBlinkDuration]);
 
   useEffect(() => {
-    if (phase === 'initial') {
+    if (phase === 'initial' || isCompleted) {
       return;
     }
 
@@ -125,9 +127,7 @@ export const TypeText = ({
         const nextIndex = (textIndex + 1) % textArray.length;
 
         if (nextIndex === 0 && !loop) {
-          timeout = setTimeout(() => {
-            setPhase('typing');
-          }, 0);
+          setIsCompleted(true);
           return;
         }
 
@@ -147,7 +147,17 @@ export const TypeText = ({
         clearTimeout(timeout);
       }
     };
-  }, [phase, textArray, textIndex, displayedText, typingSpeed, deletingSpeed, pauseDuration, loop]);
+  }, [
+    phase,
+    textArray,
+    textIndex,
+    displayedText,
+    typingSpeed,
+    deletingSpeed,
+    pauseDuration,
+    loop,
+    isCompleted,
+  ]);
 
   const currentText = textArray[textIndex] ?? '';
   const isTyping = phase === 'typing' && displayedText.length < currentText.length;

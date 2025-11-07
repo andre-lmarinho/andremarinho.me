@@ -74,6 +74,69 @@ describe('TypeText', () => {
     expect(textSpan()?.textContent).toBe('Bye');
   });
 
+  it('stops cycling once all strings are shown when looping is disabled', () => {
+    const { container } = render(
+      <TypeText
+        text={['One', 'Two']}
+        typingSpeed={10}
+        deletingSpeed={10}
+        pauseDuration={20}
+        loop={false}
+      />
+    );
+
+    const textSpan = () => container.querySelector<HTMLSpanElement>('span.inline');
+
+    flushPending();
+
+    advanceTimers(10);
+    expect(textSpan()?.textContent).toBe('O');
+
+    advanceTimers(10);
+    expect(textSpan()?.textContent).toBe('On');
+
+    advanceTimers(10);
+    expect(textSpan()?.textContent).toBe('One');
+
+    flushPending();
+    advanceTimers(20);
+
+    advanceTimers(10);
+    expect(textSpan()?.textContent).toBe('On');
+
+    advanceTimers(10);
+    expect(textSpan()?.textContent).toBe('O');
+
+    advanceTimers(10);
+    expect(textSpan()?.textContent).toBe('');
+
+    flushPending();
+
+    advanceTimers(10);
+    expect(textSpan()?.textContent).toBe('T');
+
+    advanceTimers(10);
+    expect(textSpan()?.textContent).toBe('Tw');
+
+    advanceTimers(10);
+    expect(textSpan()?.textContent).toBe('Two');
+
+    flushPending();
+    advanceTimers(20);
+
+    advanceTimers(10);
+    expect(textSpan()?.textContent).toBe('Tw');
+
+    advanceTimers(10);
+    expect(textSpan()?.textContent).toBe('T');
+
+    advanceTimers(10);
+    expect(textSpan()?.textContent).toBe('');
+
+    advanceTimers(1000);
+    expect(textSpan()?.textContent).toBe('');
+  });
+
   it('stops after typing once when looping is disabled', () => {
     const { container } = render(<TypeText text="Done" typingSpeed={10} loop={false} />);
 
