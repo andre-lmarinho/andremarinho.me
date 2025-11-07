@@ -29,9 +29,14 @@ type NextImageProps = ComponentProps<'img'> & {
 
 jest.mock('next/image', () => ({
   __esModule: true,
-  default: ({ priority: _priority, unoptimized: _unoptimized, ...props }: NextImageProps) => {
-    // eslint-disable-next-line jsx-a11y/alt-text
-    return <img {...props} />;
+  default: ({
+    priority: _priority,
+    unoptimized: _unoptimized,
+    alt = '',
+    ...props
+  }: NextImageProps) => {
+    // eslint-disable-next-line @next/next/no-img-element -- Mocked component for tests only.
+    return <img alt={alt} {...props} />;
   },
 }));
 
@@ -45,7 +50,7 @@ type ScrollFadeTextMockProps = {
   className?: string;
 };
 
-jest.mock('@/components/effects/TypeText', () => {
+jest.mock('@/app/studio/components/effects/TypeText', () => {
   const TypeText = ({
     text,
     as: Component = 'span',
@@ -67,7 +72,7 @@ jest.mock('@/components/effects/TypeText', () => {
   };
 });
 
-jest.mock('@/components/effects/ScrollFadeText', () => {
+jest.mock('@/app/studio/components/effects/ScrollFadeText', () => {
   const ScrollFadeText = ({ className = '' }: ScrollFadeTextMockProps) => (
     <div className={className} data-testid="mock-scroll-copy">
       Duonorth is an independent studio.
