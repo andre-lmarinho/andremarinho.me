@@ -1,7 +1,6 @@
 'use client';
 
 import React, { CSSProperties, useCallback, useLayoutEffect, useMemo, useRef } from 'react';
-import { tokenize, createBridges } from '../../utils/tokenize';
 
 type Props = {
   content: string[];
@@ -225,3 +224,36 @@ export const ScrollFadeText: React.FC<Props> = ({
     </div>
   );
 };
+
+export function tokenize(text: string): string[] {
+  return text.trim().split(/\s+/).filter(Boolean);
+}
+
+type Bridge = {
+  fromId: string;
+  toId: string;
+};
+
+export function createBridges(paragraphWordIds: string[][]): Bridge[] {
+  const bridges: Bridge[] = [];
+
+  for (let i = 0; i < paragraphWordIds.length; i += 1) {
+    const current = paragraphWordIds[i];
+    if (current.length === 0) continue;
+
+    // Find the next non-empty paragraph
+    let j = i + 1;
+    while (j < paragraphWordIds.length && paragraphWordIds[j].length === 0) {
+      j += 1;
+    }
+    if (j >= paragraphWordIds.length) continue;
+
+    const next = paragraphWordIds[j];
+    bridges.push({
+      fromId: current[current.length - 1],
+      toId: next[0],
+    });
+  }
+
+  return bridges;
+}

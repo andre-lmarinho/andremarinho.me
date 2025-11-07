@@ -1,4 +1,4 @@
-import { ScrollFadeText } from '@/components/effects/ScrollFadeText';
+import { ScrollFadeText } from './effects/ScrollFadeText';
 
 const DESCRIPTION: string[] = [
   'Building digital products is hard.',

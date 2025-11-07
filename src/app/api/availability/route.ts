@@ -1,6 +1,6 @@
 export const runtime = 'edge';
 
-import { getStudioSlots } from '@/app/studio/availability';
+import { getStudioSlots } from '@/app/studio/components/configs/availability';
 
 export async function GET() {
   const slots = await getStudioSlots();

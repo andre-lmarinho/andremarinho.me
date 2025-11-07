@@ -1,6 +1,6 @@
 import { get } from '@vercel/edge-config';
 
-import { toSlots } from '@/utils/availability';
+import { toSlots } from '@/app/studio/components/utils/availability';
 
 type StudioConfig = {
   availability?: unknown;

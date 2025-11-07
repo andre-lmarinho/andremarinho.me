@@ -39,7 +39,7 @@ const IMAGES: ReadonlyArray<{ src: StaticImageData; alt: string }> = [
 export const Work = () => (
   <section id="work" className="full-width">
     <div className="page-content" aria-labelledby="work-title" aria-describedby="work-credit">
-      <h2 id="work-title" className="text-2xl">
+      <h2 id="work-title" className="text-2xl font-bold tracking-tight sm:text-3xl">
         Work
       </h2>
       <p id="work-credit" className="sr-only">

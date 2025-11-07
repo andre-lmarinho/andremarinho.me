@@ -5,9 +5,9 @@ import { Work } from './components/Work';
 import { Copy } from './components/Copy';
 import { Pricing } from './components/Pricing';
 import { FinalCTA } from './components/FinalCTA';
-import { getStudioSlots } from './availability';
+import { getStudioSlots } from './components/configs/availability';
 
-import { buildProfessionalServiceJsonLd } from './offers';
+import { buildProfessionalServiceJsonLd } from './components/configs/offers';
 
 const BASE_URL = 'https://andremarinho.me';
 

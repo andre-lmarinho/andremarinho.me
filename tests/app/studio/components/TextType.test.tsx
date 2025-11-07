@@ -1,6 +1,6 @@
 import { act, render, waitFor } from '@testing-library/react';
 
-import { TypeText } from '@/components/effects/TypeText';
+import { TypeText } from '@/app/studio/components/effects/TypeText';
 
 const originalAnimate = HTMLElement.prototype.animate?.bind(HTMLElement.prototype) ?? null;
 

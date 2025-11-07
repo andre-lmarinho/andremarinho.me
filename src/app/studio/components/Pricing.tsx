@@ -1,8 +1,8 @@
 'use client';
 
-import { LinkButton } from '@/components/LinkButton';
-import { useStudioAvailability } from '@/hooks/useStudioAvailability';
-import { plansForUI, customForUI } from '../offers';
+import { LinkButton } from './ui/LinkButton';
+import { useStudioAvailability } from './hooks/useStudioAvailability';
+import { plansForUI, customForUI } from './configs/offers';
 
 type PricingProps = {
   initialSlots: number;
@@ -11,10 +11,6 @@ type PricingProps = {
 export const Pricing = ({ initialSlots }: PricingProps) => {
   const slots = useStudioAvailability(initialSlots);
   const hasAvailableSlots = slots > 0;
-  const spotsLabel = slots === 1 ? 'spot' : 'spots';
-  const status = hasAvailableSlots ? `${slots} ${spotsLabel} left` : 'Waitlist';
-  const pingColor = hasAvailableSlots ? 'bg-green-400' : 'bg-red-400';
-  const dotColor = hasAvailableSlots ? 'bg-green-500' : 'bg-red-500';
 
   return (
     <section id="pricing">
@@ -25,22 +21,24 @@ export const Pricing = ({ initialSlots }: PricingProps) => {
             id={plan.slug}
             className="relative rounded-3xl border border-zinc-200 p-10 dark:border-zinc-800"
           >
-            <div className="mb-4 flex items-center justify-between gap-x-2">
+            <div className="flex items-center justify-between gap-x-2">
               <h3 className="text-lg font-semibold">{plan.tier}</h3>
               <div className="flex items-center gap-x-1.5 rounded-lg bg-zinc-200 px-2 py-1 text-xs font-medium select-none dark:bg-zinc-800">
                 <span className="relative flex h-1 w-1">
                   <span
-                    className={`absolute inline-flex h-full w-full animate-ping rounded-full opacity-75 ${pingColor}`}
+                    className={`absolute inline-flex h-full w-full animate-ping rounded-full opacity-75 ${hasAvailableSlots ? 'bg-green-400' : 'bg-red-400'}`}
                   />
-                  <span className={`relative inline-flex h-1 w-1 rounded-full ${dotColor}`} />
+                  <span
+                    className={`relative inline-flex h-1 w-1 rounded-full ${hasAvailableSlots ? 'bg-green-500' : 'bg-red-500'}`}
+                  />
                 </span>
-                {status}
+                {hasAvailableSlots ? `${slots} ${slots === 1 ? 'spot' : 'spots'} left` : 'Waitlist'}
               </div>
             </div>
-            <p className="text-muted mb-4 text-sm">{plan.description}</p>
-            <div className="mb-4">
-              <p className="text-muted m-0 text-xs leading-6">Starting at</p>
-              <p className="mt-0 flex items-baseline gap-1 text-zinc-900 dark:text-zinc-100">
+            <p className="text-muted mt-5 text-sm">{plan.description}</p>
+            <div className="my-4">
+              <p className="text-muted text-xs leading-6">Starting at</p>
+              <p className="flex items-baseline gap-1 text-zinc-900 dark:text-zinc-100">
                 <span className="text-3xl font-bold">{plan.price.display}</span>
                 {plan.price.billingType === 'one-time' && (
                   <span className="text-zinc-500 dark:text-zinc-400">/ one-time</span>
@@ -75,11 +73,11 @@ export const Pricing = ({ initialSlots }: PricingProps) => {
 
       <div
         id={customForUI.anchorId}
-        className="flex flex-col gap-x-20 gap-y-4 rounded-3xl border border-zinc-200 p-10 sm:flex-row sm:items-center dark:border-zinc-800"
+        className="flex flex-col gap-x-20 rounded-3xl border border-zinc-200 p-10 sm:flex-row sm:items-center dark:border-zinc-800"
       >
         <div className="flex-1">
           <h3 className="text-lg font-semibold">{customForUI.title}</h3>
-          <p className="text-muted mb-0 text-sm">{customForUI.description}</p>
+          <p className="text-muted pt-5 pb-5 text-sm sm:pt-2 sm:pb-0">{customForUI.description}</p>
         </div>
         <LinkButton variant="muted">Book a call</LinkButton>
       </div>

@@ -1,6 +1,6 @@
 import Image from 'next/image';
 
-import { TextLink } from '@/components/TextLink';
+import { TextLink } from '@/app/studio/components/ui/TextLink';
 
 export const Hero = () => {
   return (

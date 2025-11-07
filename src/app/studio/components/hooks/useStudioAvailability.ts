@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 
-import { toSlots } from '@/utils/availability';
+import { toSlots } from '@/app/studio/components/utils/availability';
 
 export const useStudioAvailability = (initialSlots = 0) => {
   const [slots, setSlots] = useState(initialSlots);

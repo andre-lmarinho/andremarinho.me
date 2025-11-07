@@ -1,7 +1,10 @@
 import { act, render } from '@testing-library/react';
 
-import { ScrollFadeText } from '@/components/effects/ScrollFadeText';
-import { createBridges, tokenize } from '@/utils/tokenize';
+import {
+  ScrollFadeText,
+  createBridges,
+  tokenize,
+} from '@/app/studio/components/effects/ScrollFadeText';
 
 type FrameCallback = Parameters<typeof requestAnimationFrame>[0];
 

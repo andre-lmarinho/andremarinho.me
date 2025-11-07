@@ -42,3 +42,9 @@ declare module 'next-themes' {
 
   export function useTheme(): UseThemeProps;
 }
+
+declare module '@vercel/edge-config' {
+  export type EdgeConfigValue = unknown;
+
+  export function get<T = EdgeConfigValue>(key: string): Promise<T | null>;
+}
