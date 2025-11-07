@@ -9,6 +9,10 @@ const renderServerComponent = async (Component: () => ReactNode | Promise<ReactN
   render(<>{element}</>);
 };
 
+jest.mock('@/app/studio/components/configs/availability', () => ({
+  getStudioSlots: jest.fn(() => Promise.resolve(0)),
+}));
+
 jest.mock('next/navigation', () => ({
   usePathname: jest.fn(() => '/studio'),
   useSearchParams: jest.fn(() => new URLSearchParams()),
@@ -48,7 +52,7 @@ type ScrollFadeTextMockProps = {
   className?: string;
 };
 
-jest.mock('@/components/effects/TypeText', () => {
+jest.mock('@/app/studio/components/effects/TypeText', () => {
   const TypeText = ({
     text,
     as: Component = 'span',
@@ -70,7 +74,7 @@ jest.mock('@/components/effects/TypeText', () => {
   };
 });
 
-jest.mock('@/components/effects/ScrollFadeText', () => {
+jest.mock('@/app/studio/components/effects/ScrollFadeText', () => {
   const ScrollFadeText = ({ className = '' }: ScrollFadeTextMockProps) => (
     <div className={className} data-testid="mock-scroll-copy">
       Duonorth is an independent studio.
@@ -122,7 +126,7 @@ const originalFetch = global.fetch;
 beforeEach(() => {
   global.fetch = jest.fn().mockResolvedValue({
     ok: true,
-    json: async () => ({ slots: 0 }),
+    json: () => Promise.resolve({ slots: 0 }),
   }) as typeof global.fetch;
 });
 
