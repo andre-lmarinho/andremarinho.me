@@ -8,22 +8,23 @@ import { usePathname } from 'next/navigation';
 import { NavigationLink as MenuLinks } from './NavigationLink';
 import { cn } from '@/utils/cn';
 
-const focusableSelector =
-  'a[href]:not([tabindex="-1"]), button:not([disabled]):not([tabindex="-1"]), [tabindex]:not([tabindex="-1"])';
-
-type Props = {
-  isOpen: boolean;
-  setIsOpen: (open: boolean) => void;
-};
+import { useFocusTrap } from './hooks/useFocusTrap';
 
 const buttonClassName =
   'inline-flex items-center justify-center rounded-lg p-2 text-zinc-900 transition-colors hover:text-zinc-600 focus-visible:ring-1 focus-visible:ring-neutral-300 dark:text-zinc-100 dark:hover:text-zinc-300 dark:focus-visible:ring-neutral-500';
+
+type Props = {
+  isOpen: boolean;
+  setIsOpen: (isOpen: boolean) => void;
+};
 
 export function Hamburger({ isOpen, setIsOpen }: Props) {
   const pathname = usePathname();
   const navRef = useRef<HTMLElement | null>(null);
   const dialogId = useId();
   const labelId = useId();
+
+  useFocusTrap(navRef, isOpen, setIsOpen);
 
   // Close the menu immediately when the current page is selected again or an external link opens.
   const handleNavClick = (event: ReactMouseEvent<HTMLElement>) => {
@@ -47,62 +48,21 @@ export function Hamburger({ isOpen, setIsOpen }: Props) {
   }, [pathname, setIsOpen]);
 
   useEffect(() => {
-    document.body.style.overflow = isOpen ? 'hidden' : '';
-    return () => {
-      document.body.style.overflow = '';
-    };
-  }, [isOpen]);
-
-  useEffect(() => {
     if (!isOpen) {
       return;
     }
-    const navEl = navRef.current;
-    if (!navEl) return;
 
-    const getFocusable = () => Array.from(navEl.querySelectorAll<HTMLElement>(focusableSelector));
-    const focusFirst = () => {
-      const [first] = getFocusable();
-      (first ?? navEl).focus();
-    };
-    const frameId = requestAnimationFrame(focusFirst);
+    // Store the original overflow value before modifying it
+    const originalOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
 
-    const onKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') {
-        e.preventDefault();
-        setIsOpen(false);
-        return;
-      }
-      if (e.key !== 'Tab') return;
-      const els = getFocusable();
-      if (els.length === 0) {
-        e.preventDefault();
-        navEl.focus();
-        return;
-      }
-      const [first] = els;
-      const last = els[els.length - 1];
-      const active = document.activeElement as HTMLElement | null;
-      const inside = active ? navEl.contains(active) : false;
-      if (e.shiftKey) {
-        if (!inside || active === first) {
-          e.preventDefault();
-          last.focus();
-        }
-        return;
-      }
-      if (!inside || active === last) {
-        e.preventDefault();
-        first.focus();
-      }
-    };
-
-    document.addEventListener('keydown', onKeyDown);
     return () => {
-      cancelAnimationFrame(frameId);
-      document.removeEventListener('keydown', onKeyDown);
+      // Restore the original overflow value
+      document.body.style.overflow = originalOverflow;
     };
-  }, [isOpen, setIsOpen]);
+  }, [isOpen]);
+
+
 
   return (
     <div className="sm:hidden">

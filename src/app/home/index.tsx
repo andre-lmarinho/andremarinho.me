@@ -1,6 +1,6 @@
-import { Hero } from './sections/Hero';
+import { Hero } from './components/Hero';
 import { Work } from '../about/components/Work';
-import { Projects } from './sections/Projects';
+import { Projects } from './components/Projects';
 
 export const Home = () => {
   return (
