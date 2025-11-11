@@ -71,7 +71,7 @@ export const Intro = () => (
         <em>Hey!</em> 👋🏼
       </p>
       <p>
-        I&apos;m André, a Front End Developer based in Salvador, that loves to code and build
+        I&apos;m André, a <code className="px-1 rounded-sm font-mono dark:hover:bg-zinc-900 hover:bg-zinc-100">{'<Front-End Developer />'}</code> based in Salvador, that loves to code and build
         products with a delightful user experience.
       </p>
 

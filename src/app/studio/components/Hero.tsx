@@ -1,12 +1,11 @@
-import { Button } from '@/app/studio/components/CTAButton';
-
-import { TextType } from './TextType';
+import { LinkButton } from './ui/LinkButton';
+import { TypeText } from './effects/TypeText';
 
 export const Hero = () => (
   <section id="hero" className="pt-16 pb-20 md:pt-24 md:pb-28">
     <h1 className="text-extrabold pb-6 text-4xl tracking-tight sm:text-5xl md:text-6xl">
       {'World-class '}
-      <TextType
+      <TypeText
         as="span"
         className="text-zinc-900 dark:text-zinc-100"
         text={['design', 'software', 'product']}
@@ -17,6 +16,6 @@ export const Hero = () => (
       We help business build high-quality products and delightful digital experiences.
     </p>
 
-    <Button>Book a call</Button>
+    <LinkButton>Book a call</LinkButton>
   </section>
 );

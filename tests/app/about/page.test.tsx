@@ -29,9 +29,14 @@ type NextImageProps = ComponentProps<'img'> & {
 
 jest.mock('next/image', () => ({
   __esModule: true,
-  default: ({ priority: _priority, unoptimized: _unoptimized, ...props }: NextImageProps) => {
-    // eslint-disable-next-line jsx-a11y/alt-text
-    return <img {...props} />;
+  default: ({
+    priority: _priority,
+    unoptimized: _unoptimized,
+    alt = '',
+    ...props
+  }: NextImageProps) => {
+    // eslint-disable-next-line @next/next/no-img-element -- Mocked component for tests only.
+    return <img alt={alt} {...props} />;
   },
 }));
 
@@ -41,13 +46,12 @@ type TextTypeMockProps = {
   className?: string;
 };
 
-type ScrollCopyMockProps = {
+type ScrollFadeTextMockProps = {
   className?: string;
 };
 
-jest.mock('@/app/studio/components/TextType', () => ({
-  __esModule: true,
-  default: ({
+jest.mock('@/app/studio/components/effects/TypeText', () => {
+  const TypeText = ({
     text,
     as: Component = 'span',
     className = '',
@@ -59,17 +63,28 @@ jest.mock('@/app/studio/components/TextType', () => ({
         {content}
       </Component>
     );
-  },
-}));
+  };
 
-jest.mock('@/app/studio/components/ScrollCopy', () => ({
-  __esModule: true,
-  default: ({ className = '' }: ScrollCopyMockProps) => (
+  return {
+    __esModule: true,
+    TypeText,
+    default: TypeText,
+  };
+});
+
+jest.mock('@/app/studio/components/effects/ScrollFadeText', () => {
+  const ScrollFadeText = ({ className = '' }: ScrollFadeTextMockProps) => (
     <div className={className} data-testid="mock-scroll-copy">
       Duonorth is an independent studio.
     </div>
-  ),
-}));
+  );
+
+  return {
+    __esModule: true,
+    ScrollFadeText,
+    default: ScrollFadeText,
+  };
+});
 
 describe('About page', () => {
   it('renders the about content from the default export', async () => {
@@ -80,12 +95,8 @@ describe('About page', () => {
   });
 
   it('defines metadata for canonical navigation and Open Graph', () => {
-    expect(aboutMetadata).toMatchObject({
-      title: 'About me',
-      alternates: { canonical: '/about' },
-      openGraph: expect.objectContaining({
-        url: '/about',
-      }),
-    });
+    expect(aboutMetadata.title).toBe('About me');
+    expect(aboutMetadata.alternates?.canonical).toBe('/about');
+    expect(aboutMetadata.openGraph?.url).toBe('/about');
   });
 });

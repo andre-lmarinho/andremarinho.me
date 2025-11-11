@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+
 import { Home } from './home';
 
 export const metadata: Metadata = {
@@ -19,7 +20,7 @@ export default function Index() {
         'https://www.linkedin.com/in/andre-marinho-3318ab1aa',
       ],
     },
-  } as const;
+  };
 
   return (
     <>

@@ -28,7 +28,7 @@ interface Props extends HTMLAttributes<HTMLElement> {
   cursorBlinkDuration?: number;
 }
 
-export const TextType = ({
+export const TypeText = ({
   text,
   as: Component = 'div',
   className = '',

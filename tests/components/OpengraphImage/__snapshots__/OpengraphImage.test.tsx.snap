@@ -25,7 +25,7 @@ exports[`buildOg (OpengraphImage) builds the element and init (fonts) correctly 
     </span>
   </div>
   <div
-    style="position: absolute; bottom: 60px; left: 60px; border-radius: 100px; font-family: RobotoMono; font-size: 1.75rem; line-height: 1; font-weight: 600;"
+    style="position: absolute; bottom: 60px; left: 60px; border-radius: 100px; font-family: Roboto Mono; font-size: 1.75rem; line-height: 1; font-weight: 400;"
   >
     andremarinho.me
   </div>

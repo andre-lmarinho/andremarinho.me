@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
+import { Inter, Roboto_Mono } from 'next/font/google';
 import React from 'react';
 
 import { cn } from '@/utils/cn';
@@ -40,6 +40,13 @@ const inter = Inter({
   display: 'swap',
 });
 
+const robotoMono = Roboto_Mono({
+  subsets: ['latin'],
+  variable: '--font-roboto-mono',
+  weight: ['400', '700'],
+  display: 'swap',
+});
+
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" suppressHydrationWarning>
@@ -50,7 +57,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <link rel="icon" href="/favicon/icon.png" type="image/png" />
         <link rel="manifest" href="/site.webmanifest" />
       </head>
-      <body className={cn(inter.variable, 'font-sans antialiased')}>
+      <body className={cn(inter.variable, robotoMono.variable, 'font-sans antialiased')}>
         <Providers>
           <NavigationMenu />
           <main id="main" className="page-content">

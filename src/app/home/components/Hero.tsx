@@ -14,13 +14,14 @@ export const Hero = () => {
             </span>
           </h1>
           <p>
-            I&apos;m a Front End Developer based in Salvador. I{' '}
+            I&apos;m a <code className="px-1 rounded-sm font-mono dark:hover:bg-zinc-900 hover:bg-zinc-100">{'<Front-End Developer />'}</code> based in Salvador. 
+          </p>
+          <p>I{' '}
             <TextLink href="https://github.com/andre-lmarinho">code</TextLink>
             {', '}
             <TextLink href="https://travel-planner-orpin.vercel.app/">travel</TextLink>
             {' and run '}
-            <TextLink href="/studio">Duenorth Studio</TextLink>.
-          </p>
+            <TextLink href="/studio">Duenorth Studio</TextLink>.</p>
           <p>
             I work where product, UX and analytics meet, turning clean interfaces into measurable
             results, currently at <TextLink href="/studio">Duenorth</TextLink>.
@@ -28,9 +29,9 @@ export const Hero = () => {
         </div>
         <Image
           alt="André Marinho"
-          width={176}
-          height={176}
-          sizes="176px"
+          width={200}
+          height={200}
+          sizes="200px"
           className="hidden h-44 w-44 transform-gpu rounded-full sm:block"
           src="/images/Me.webp"
           priority

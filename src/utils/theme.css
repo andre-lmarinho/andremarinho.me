@@ -26,9 +26,7 @@
 }
 
 .page-content > .full-width {
-  grid-column: full-width;
-  display: grid;
-  grid-template-columns: inherit;
+  grid-column: full-width-start / full-width-end;
 }
 
 /* Global Base Styles */
@@ -92,5 +90,16 @@
 @layer utilities {
   .text-muted {
     @apply text-zinc-600 dark:text-zinc-400;
+  }
+}
+
+@layer utilities {
+  /* Chrome, Safari, and Opera */
+  .scrollbar-hidden::-webkit-scrollbar {
+    display: none;
+  }
+  .scrollbar-hidden {
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE and Edge */
   }
 }

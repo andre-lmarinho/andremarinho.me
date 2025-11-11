@@ -1,19 +1,34 @@
 import { act, render } from '@testing-library/react';
 
-import { ScrollCopy } from '@/app/studio/components/ScrollCopy';
 import {
-  calculateWordOpacities,
+  ScrollFadeText,
   createBridges,
   tokenize,
-} from '@/app/studio/components/scrollCopyUtils';
+} from '@/app/studio/components/effects/ScrollFadeText';
 
 type FrameCallback = Parameters<typeof requestAnimationFrame>[0];
 
 const originalRequestAnimationFrame = globalThis.requestAnimationFrame;
 const originalCancelAnimationFrame = globalThis.cancelAnimationFrame;
 const originalInnerHeight = window.innerHeight;
+const originalResizeObserver = globalThis.ResizeObserver;
 
 let rafQueue: FrameCallback[] = [];
+
+class ResizeObserverMock {
+  callback: ResizeObserverCallback;
+  observe = jest.fn();
+  unobserve = jest.fn();
+  disconnect = jest.fn();
+
+  constructor(callback: ResizeObserverCallback) {
+    this.callback = callback;
+  }
+
+  trigger(entries: ResizeObserverEntry[] = []) {
+    this.callback(entries, this as unknown as ResizeObserver);
+  }
+}
 
 const flushRaf = () => {
   const callbacks = [...rafQueue];
@@ -52,19 +67,6 @@ describe('scrollCopyUtils', () => {
       { fromId: 'p2w1', toId: 'p3w0' },
     ]);
   });
-
-  it('calculates opacities based on word centers and thresholds', () => {
-    const centers = [100, 300, 900];
-    const viewportHeight = 1000;
-    const opacities = calculateWordOpacities(centers, viewportHeight, {
-      baseOpacity: 0.25,
-      maxOpacity: 0.85,
-      thresholdRatioStart: 0.2,
-      thresholdRatioEnd: 0.8,
-    });
-
-    expect(opacities).toEqual([0.85, 0.85, 0.25]);
-  });
 });
 
 describe('ScrollCopy component', () => {
@@ -94,6 +96,14 @@ describe('ScrollCopy component', () => {
       configurable: true,
       writable: true,
       value: cancelMock,
+    });
+
+    Object.defineProperty(globalThis, 'ResizeObserver', {
+      configurable: true,
+      writable: true,
+      value: jest
+        .fn((cb: ResizeObserverCallback) => new ResizeObserverMock(cb) as unknown as ResizeObserver)
+        .mockName('ResizeObserverMock') as unknown as typeof ResizeObserver,
     });
   });
 
@@ -127,45 +137,69 @@ describe('ScrollCopy component', () => {
       delete (globalThis as { cancelAnimationFrame?: typeof globalThis.cancelAnimationFrame })
         .cancelAnimationFrame;
     }
+
+    if (originalResizeObserver) {
+      Object.defineProperty(globalThis, 'ResizeObserver', {
+        configurable: true,
+        writable: true,
+        value: originalResizeObserver,
+      });
+    } else {
+      delete (globalThis as { ResizeObserver?: typeof ResizeObserver }).ResizeObserver;
+    }
   });
 
   it('builds paragraph bridges and synchronises active spans', () => {
-    const { container } = render(<ScrollCopy baseOpacity={0.2} maxOpacity={0.8} />);
+    const paragraphs = ['This is a content test.', 'Another paragraph right after.'];
+    const getBoundingRectSpy = jest
+      .spyOn(HTMLElement.prototype, 'getBoundingClientRect')
+      .mockImplementation(() => setRect(1200));
 
-    const paragraphs = container.querySelectorAll('p');
-    const firstParagraph = paragraphs[0];
-    const secondParagraph = paragraphs[1];
+    try {
+      const { container } = render(
+        <ScrollFadeText content={paragraphs} baseOpacity={0.2} maxOpacity={0.8} />
+      );
 
-    const firstParagraphWords = firstParagraph.querySelectorAll<HTMLSpanElement>('.sc-word');
-    const lastWord = firstParagraphWords[firstParagraphWords.length - 1];
-    const nextFirstWord = secondParagraph.querySelector<HTMLSpanElement>('.sc-word');
+      const renderedParagraphs = container.querySelectorAll('p');
+      const firstParagraph = renderedParagraphs[0];
+      const secondParagraph = renderedParagraphs[1];
 
-    expect(lastWord?.dataset.scBridgeTarget).toBe(nextFirstWord?.id);
-    expect(nextFirstWord?.dataset.scBridgeSource).toBe(lastWord?.id);
+      const firstParagraphWords = firstParagraph.querySelectorAll<HTMLSpanElement>('.sc-word');
+      const lastWord = firstParagraphWords[firstParagraphWords.length - 1];
+      const nextFirstWord = secondParagraph.querySelector<HTMLSpanElement>('.sc-word');
 
-    const allWords = Array.from(container.querySelectorAll<HTMLSpanElement>('.sc-word'));
-    allWords.forEach((word) => {
-      if (word === lastWord) {
-        word.getBoundingClientRect = () => setRect(100);
-      } else if (word === nextFirstWord) {
-        word.getBoundingClientRect = () => setRect(900);
-      } else {
-        word.getBoundingClientRect = () => setRect(1200);
-      }
-    });
+      const allWords = Array.from(container.querySelectorAll<HTMLSpanElement>('.sc-word'));
+      allWords.forEach((word) => {
+        if (firstParagraph.contains(word)) {
+          word.getBoundingClientRect = () => setRect(100);
+        } else if (word === nextFirstWord) {
+          word.getBoundingClientRect = () => setRect(900);
+        } else {
+          word.getBoundingClientRect = () => setRect(1200);
+        }
+      });
 
-    act(() => {
-      window.dispatchEvent(new Event('scroll'));
-      flushRaf();
-    });
+      act(() => {
+        window.dispatchEvent(new Event('resize'));
+        flushRaf();
+      });
 
-    expect(lastWord?.dataset.scActive).toBe('true');
-    expect(nextFirstWord?.dataset.scActive).toBe('true');
+      act(() => {
+        window.dispatchEvent(new Event('scroll'));
+        flushRaf();
+      });
+
+      expect(lastWord?.dataset.scActive).toBe('true');
+      expect(nextFirstWord?.dataset.scActive).toBe('true');
+    } finally {
+      getBoundingRectSpy.mockRestore();
+    }
   });
 
   it('applies custom opacity thresholds and spacing variables', () => {
     const { container } = render(
-      <ScrollCopy
+      <ScrollFadeText
+        content={['This is a sample paragraph for custom styling.']}
         baseOpacity={0.25}
         maxOpacity={0.95}
         thresholdRatioStart={0.1}

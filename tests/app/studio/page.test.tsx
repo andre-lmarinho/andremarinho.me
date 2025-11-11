@@ -1,17 +1,17 @@
-import { cleanup, render, screen } from '@testing-library/react';
+import { cleanup, render, screen, waitFor } from '@testing-library/react';
 import type { ComponentProps, ElementType, ReactNode } from 'react';
 
 import StudioPage, { metadata as studioMetadata } from '@/app/studio/page';
-import { studioPricingPlans } from '@/app/studio/components/Pricing';
-
-afterEach(() => {
-  cleanup();
-});
+import { plansForUI } from '@/app/studio/components/configs/offers';
 
 const renderServerComponent = async (Component: () => ReactNode | Promise<ReactNode>) => {
   const element = await Component();
   render(<>{element}</>);
 };
+
+jest.mock('@/app/studio/components/configs/availability', () => ({
+  getStudioSlots: jest.fn(() => Promise.resolve(0)),
+}));
 
 jest.mock('next/navigation', () => ({
   usePathname: jest.fn(() => '/studio'),
@@ -36,7 +36,10 @@ jest.mock('next/image', () => ({
     unoptimized: _unoptimized,
     alt = '',
     ...props
-  }: NextImageProps) => <img alt={alt} {...props} />,
+  }: NextImageProps) => (
+    // eslint-disable-next-line @next/next/no-img-element -- Mocked component for tests only.
+    <img alt={alt} {...props} />
+  ),
 }));
 
 type TextTypeMockProps = {
@@ -45,13 +48,12 @@ type TextTypeMockProps = {
   className?: string;
 };
 
-type ScrollCopyMockProps = {
+type ScrollFadeTextMockProps = {
   className?: string;
 };
 
-jest.mock('@/app/studio/components/TextType', () => ({
-  __esModule: true,
-  TextType: ({
+jest.mock('@/app/studio/components/effects/TypeText', () => {
+  const TypeText = ({
     text,
     as: Component = 'span',
     className = '',
@@ -63,17 +65,28 @@ jest.mock('@/app/studio/components/TextType', () => ({
         {content}
       </Component>
     );
-  },
-}));
+  };
 
-jest.mock('@/app/studio/components/ScrollCopy', () => ({
-  __esModule: true,
-  ScrollCopy: ({ className = '' }: ScrollCopyMockProps) => (
+  return {
+    __esModule: true,
+    TypeText,
+    default: TypeText,
+  };
+});
+
+jest.mock('@/app/studio/components/effects/ScrollFadeText', () => {
+  const ScrollFadeText = ({ className = '' }: ScrollFadeTextMockProps) => (
     <div className={className} data-testid="mock-scroll-copy">
       Duonorth is an independent studio.
     </div>
-  ),
-}));
+  );
+
+  return {
+    __esModule: true,
+    ScrollFadeText,
+    default: ScrollFadeText,
+  };
+});
 
 type JsonObject = Record<string, unknown>;
 
@@ -94,32 +107,49 @@ const parseJsonObject = (payload: string | null): JsonObject | null => {
   return null;
 };
 
-const isProductSchema = (data: JsonObject | null): data is JsonObject => {
-  if (!data) {
-    return false;
-  }
-
-  const type = data['@type'];
-  return typeof type === 'string' && type === 'Product';
-};
-
 const toJsonObject = (value: unknown): JsonObject | null => {
   return typeof value === 'object' && value !== null ? (value as JsonObject) : null;
 };
+
+const toJsonObjectArray = (value: unknown): JsonObject[] => {
+  if (!Array.isArray(value)) {
+    return [];
+  }
+
+  return value.map(toJsonObject).filter((item): item is JsonObject => item !== null);
+};
+
+const toString = (value: unknown) => (typeof value === 'string' ? value : null);
+
+const originalFetch = global.fetch;
+
+beforeEach(() => {
+  global.fetch = jest.fn().mockResolvedValue({
+    ok: true,
+    json: () => Promise.resolve({ slots: 0 }),
+  }) as typeof global.fetch;
+});
+
+afterEach(() => {
+  cleanup();
+  jest.clearAllMocks();
+});
+
+afterAll(() => {
+  global.fetch = originalFetch;
+});
 
 describe('Studio page', () => {
   it('renders the studio marketing content without crashing', async () => {
     await renderServerComponent(StudioPage);
 
-    const callLinks = screen.getAllByRole('link', { name: 'Book a call' });
+    const callLinks = await screen.findAllByRole('link', { name: 'Book a call' });
     expect(callLinks.length).toBeGreaterThan(0);
     callLinks.forEach((link) => {
       expect(link).toHaveAttribute('href', 'https://wa.me/5571984770061');
     });
 
-    expect(
-      screen.getByRole('heading', { level: 2, name: 'Selected Projects' })
-    ).toBeInTheDocument();
+    expect(screen.getByRole('heading', { level: 2, name: 'Work' })).toBeInTheDocument();
     expect(screen.getByTestId('mock-scroll-copy')).toBeInTheDocument();
   });
 
@@ -127,5 +157,33 @@ describe('Studio page', () => {
     expect(studioMetadata.title).toBe('Duonorth Studio');
     expect(studioMetadata.alternates?.canonical).toBe('/studio');
     expect(studioMetadata.openGraph?.url).toBe('/studio');
+  });
+
+  it('exposes structured offers for each pricing plan', async () => {
+    await renderServerComponent(StudioPage);
+
+    await waitFor(() => {
+      expect(document.querySelector('script[type="application/ld+json"]')).not.toBeNull();
+    });
+
+    const schemaScript = document.querySelector('script[type="application/ld+json"]');
+    expect(schemaScript).not.toBeNull();
+    const schema = parseJsonObject(schemaScript?.textContent ?? null);
+    expect(schema?.['@type']).toBe('ProfessionalService');
+
+    const offers = toJsonObjectArray(schema?.makesOffer);
+    expect(offers).toHaveLength(plansForUI.length + 1);
+
+    offers.slice(0, plansForUI.length).forEach((offer, index) => {
+      const plan = plansForUI[index];
+      const itemOffered = toJsonObject(offer['itemOffered']);
+      expect(toString(itemOffered?.['name'])).toBe(plan.seo?.serviceName ?? plan.tier);
+      expect(toString(itemOffered?.['description'])).toBe(
+        plan.seo?.schemaDescription ?? plan.description
+      );
+    });
+
+    const customOffer = offers[offers.length - 1];
+    expect(toString(customOffer?.['category'])).toBe('Custom');
   });
 });

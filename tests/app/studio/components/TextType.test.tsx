@@ -1,6 +1,6 @@
 import { act, render, waitFor } from '@testing-library/react';
 
-import { TextType } from '@/app/studio/components/TextType';
+import { TypeText } from '@/app/studio/components/effects/TypeText';
 
 const originalAnimate = HTMLElement.prototype.animate?.bind(HTMLElement.prototype) ?? null;
 
@@ -16,7 +16,7 @@ const advanceTimers = (ms: number) => {
   });
 };
 
-describe('TextType', () => {
+describe('TypeText', () => {
   beforeEach(() => {
     jest.useFakeTimers();
   });
@@ -41,7 +41,7 @@ describe('TextType', () => {
 
   it('cycles through typing, pausing and deleting phases when multiple strings are provided', () => {
     const { container } = render(
-      <TextType text={['Hi', 'Bye']} typingSpeed={10} deletingSpeed={10} pauseDuration={20} />
+      <TypeText text={['Hi', 'Bye']} typingSpeed={10} deletingSpeed={10} pauseDuration={20} />
     );
 
     const textSpan = () => container.querySelector<HTMLSpanElement>('span.inline');
@@ -75,7 +75,7 @@ describe('TextType', () => {
   });
 
   it('stops after typing once when looping is disabled', () => {
-    const { container } = render(<TextType text="Done" typingSpeed={10} loop={false} />);
+    const { container } = render(<TypeText text="Done" typingSpeed={10} loop={false} />);
 
     const textSpan = () => container.querySelector<HTMLSpanElement>('span.inline');
 
@@ -99,7 +99,7 @@ describe('TextType', () => {
 
   it('hides the cursor while typing and renders custom characters', () => {
     const { container } = render(
-      <TextType text="OK" typingSpeed={10} loop={false} hideCursorWhileTyping cursorCharacter="|" />
+      <TypeText text="OK" typingSpeed={10} loop={false} hideCursorWhileTyping cursorCharacter="|" />
     );
 
     const cursor = () => container.querySelector<HTMLSpanElement>('span.inline-block');
@@ -129,7 +129,7 @@ describe('TextType', () => {
       value: animateMock,
     });
 
-    const { container } = render(<TextType text="Animate" typingSpeed={5} />);
+    const { container } = render(<TypeText text="Animate" typingSpeed={5} />);
     const cursor = container.querySelector<HTMLSpanElement>('span.inline-block');
     expect(cursor).not.toBeNull();
 

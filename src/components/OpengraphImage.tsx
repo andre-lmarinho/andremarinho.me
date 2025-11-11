@@ -110,10 +110,10 @@ function OpengraphImage({ title, description, url }: OGProps) {
           bottom: 60,
           left: 60,
           borderRadius: 100,
-          fontFamily: 'RobotoMono',
+          fontFamily: 'Roboto Mono',
           fontSize: '1.75rem',
           lineHeight: 1,
-          fontWeight: 600,
+          fontWeight: 400,
         }}
       >
         {url ? `andremarinho.me/${url}` : 'andremarinho.me'}
