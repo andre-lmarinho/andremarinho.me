@@ -58,13 +58,13 @@ const securityHeaders = [
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  async headers() {
-    return [
+  headers() {
+    return Promise.resolve([
       {
         source: '/:path*',
         headers: securityHeaders,
       },
-    ];
+    ]);
   },
   images: {
     remotePatterns: [
