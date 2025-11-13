@@ -1,5 +1,3 @@
-import type { NextConfig } from 'next';
-
 const isDev = process.env.NODE_ENV !== 'production';
 
 const scriptSrc = `'self' 'unsafe-inline'${isDev ? " 'unsafe-eval'" : ''}`;
@@ -15,7 +13,7 @@ const cspDirectives = [
   "frame-ancestors 'none'",
 ].join('; ');
 
-const securityHeaders: Array<{ key: string; value: string }> = [
+const securityHeaders = [
   {
     key: 'Strict-Transport-Security',
     value: 'max-age=63072000; includeSubDomains; preload',
@@ -58,7 +56,8 @@ const securityHeaders: Array<{ key: string; value: string }> = [
   },
 ];
 
-const nextConfig: NextConfig = {
+/** @type {import('next').NextConfig} */
+const nextConfig = {
   headers() {
     return Promise.resolve([
       {
@@ -90,4 +89,4 @@ const nextConfig: NextConfig = {
   },
 };
 
-export default nextConfig;
+module.exports = nextConfig;
