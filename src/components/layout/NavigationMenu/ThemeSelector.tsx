@@ -11,8 +11,7 @@ interface ThemeSelectorProps {
 export function ThemeSelector({ hidden = false }: ThemeSelectorProps) {
   const theme = useTheme();
   const handleToggleTheme = () => {
-    const isDark = document.documentElement.classList.contains('dark');
-    theme.setTheme(isDark ? 'light' : 'dark');
+    theme.setTheme(theme.resolvedTheme === 'dark' ? 'light' : 'dark');
   };
 
   return (

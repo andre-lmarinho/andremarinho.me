@@ -1,8 +1,9 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import type { UseThemeProps } from 'next-themes';
 import { ThemeSelector } from '@/components/layout/NavigationMenu/ThemeSelector';
 
-const useThemeMock = jest.fn();
+const useThemeMock = jest.fn<UseThemeProps, []>();
 
 jest.mock('next-themes', () => ({
   useTheme: () => useThemeMock(),
@@ -11,14 +12,15 @@ jest.mock('next-themes', () => ({
 describe('ThemeSelector', () => {
   beforeEach(() => {
     useThemeMock.mockReset();
-    document.documentElement.classList.remove('dark');
   });
 
-  it('requests dark mode when the current theme (via <html>) is light', async () => {
+  it('requests dark mode when the current theme is resolved to light', async () => {
     const setTheme = jest.fn();
-    useThemeMock.mockReturnValue({ setTheme });
-
-    document.documentElement.classList.remove('dark');
+    useThemeMock.mockReturnValue({
+      themes: [],
+      setTheme: setTheme as UseThemeProps['setTheme'],
+      resolvedTheme: 'light',
+    });
 
     render(<ThemeSelector />);
     const user = userEvent.setup();
@@ -29,11 +31,13 @@ describe('ThemeSelector', () => {
     expect(setTheme).toHaveBeenCalledWith('dark');
   });
 
-  it('requests light mode when the current theme (via <html>) is dark', async () => {
+  it('requests light mode when the current theme is resolved to dark', async () => {
     const setTheme = jest.fn();
-    useThemeMock.mockReturnValue({ setTheme });
-
-    document.documentElement.classList.add('dark');
+    useThemeMock.mockReturnValue({
+      themes: [],
+      setTheme: setTheme as UseThemeProps['setTheme'],
+      resolvedTheme: 'dark',
+    });
 
     render(<ThemeSelector />);
     const user = userEvent.setup();
