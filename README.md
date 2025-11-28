@@ -5,8 +5,6 @@
 
 This repository powers my personal's portfolio [`andremarinho.me`](https://andremarinho.me)
 
-The site mirrors your operating system's preferred color scheme automatically; there is no manual theme toggle or persisted preference.
-
 ## Development
 
 To run the project locally, clone the repository, install the dependencies and run the dev server.
