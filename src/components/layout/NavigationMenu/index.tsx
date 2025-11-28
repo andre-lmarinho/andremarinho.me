@@ -6,7 +6,6 @@ import React, { useState } from 'react';
 
 import { NavigationLink as MenuLinks } from './NavigationLink';
 import { Hamburger } from './Hamburger';
-import { ThemeSelector } from './ThemeSelector';
 import { cn } from '@/utils/cn';
 
 export const NavigationMenu = () => {
@@ -35,10 +34,9 @@ export const NavigationMenu = () => {
           />
         </Link>
 
-        <div className="flex flex-row-reverse items-center gap-3 sm:flex-row sm:gap-4">
+        <div className="flex items-center gap-3 sm:gap-4">
           <MenuLinks variant="desktop" />
           <Hamburger isOpen={isHamburgerOpen} setIsOpen={setIsHamburgerOpen} />
-          <ThemeSelector />
         </div>
       </div>
     </header>

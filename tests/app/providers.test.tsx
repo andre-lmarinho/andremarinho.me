@@ -22,8 +22,7 @@ describe('Providers', () => {
     jest.restoreAllMocks();
   });
 
-  it('forwards configuration to next-themes without mutating legacy keys', () => {
-    const removeSpy = jest.spyOn(Storage.prototype, 'removeItem');
+  it('configures next-themes to follow the system without persisting manual choices', () => {
     render(
       <Providers>
         <span>content</span>
@@ -33,9 +32,9 @@ describe('Providers', () => {
     expect(themeProviderMock).toHaveBeenCalled();
     const props = themeProviderMock.mock.calls[0][0];
     expect(props.attribute).toBe('class');
-    expect(props.storageKey).toBe('theme');
-
-    expect(removeSpy).not.toHaveBeenCalled();
+    expect(props.defaultTheme).toBe('system');
+    expect(props.enableSystem).toBe(true);
+    expect(props.storageKey).toBeUndefined();
 
     expect(screen.getByText('content')).toBeInTheDocument();
   });
