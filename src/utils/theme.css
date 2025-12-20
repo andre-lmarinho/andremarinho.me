@@ -91,9 +91,38 @@
   .text-muted {
     @apply text-zinc-600 dark:text-zinc-400;
   }
-}
 
-@layer utilities {
+  .small-button {
+    @apply cursor-pointer rounded-lg border bg-white px-2 py-[3px] text-center text-xs dark:border-neutral-700 dark:bg-neutral-900;
+  }
+
+  .language-project-javascript {
+    background-color: #fbdd51;
+  }
+
+  .language-project-typescript {
+    background-color: #3178c6;
+  }
+
+  .language-project-shell {
+    background-color: #89e051;
+  }
+
+  .language-project-css {
+    background-color: #7e57c2;
+  }
+
+  .language-project-html {
+    background-color: #ff7043;
+  }
+
+  .language-project-python {
+    background-color: #3572a5;
+  }
+
+  .language-project-c {
+    background-color: #a8b9cc;
+  }
   /* Chrome, Safari, and Opera */
   .scrollbar-hidden::-webkit-scrollbar {
     display: none;
