@@ -2,8 +2,6 @@ import type { Metadata } from 'next';
 
 import Link from 'next/link';
 
-import './work.css';
-
 import { Hero } from '../shared/Hero';
 import { ProjectLinks } from '../shared/ProjectLinks';
 
