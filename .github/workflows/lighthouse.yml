@@ -37,13 +37,13 @@ jobs:
         continue-on-error: true
         run: |
           set +e
-          npx start-server-and-test "npm run serve:prod" http://127.0.0.1:3000 "npm run warmup && npm run lhci"
+          npx start-server-and-test "npm run serve:prod" http://127.0.0.1:3000 "npm run lhci"
           status=$?
           echo "exit_code=$status" >> "$GITHUB_OUTPUT"
           if [ -f ".lighthouseci/assertion-results.json" ]; then
             echo "assertion_results=.lighthouseci/assertion-results.json" >> "$GITHUB_OUTPUT"
-          elif [ -f "lhci-reports/assertion-results.json" ]; then
-            echo "assertion_results=lhci-reports/assertion-results.json" >> "$GITHUB_OUTPUT"
+          elif [ -f ".lighthouseci/lhci-reports/assertion-results.json" ]; then
+            echo "assertion_results=.lighthouseci/lhci-reports/assertion-results.json" >> "$GITHUB_OUTPUT"
           fi
           exit $status
 
@@ -52,7 +52,7 @@ jobs:
         uses: actions/upload-artifact@v5
         with:
           name: lhci-reports
-          path: lhci-reports
+          path: .lighthouseci/lhci-reports
           if-no-files-found: ignore
 
       - name: Check Lighthouse assertions

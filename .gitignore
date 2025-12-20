@@ -20,7 +20,6 @@ coverage
 .env
 .env.*
 .lighthouseci
-lhci-reports/
 
 # ts
 *.tsbuildinfo

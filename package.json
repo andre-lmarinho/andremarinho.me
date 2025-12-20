@@ -19,9 +19,8 @@
     "verify": "npm run lint:ci && npm run typecheck && npm run test:ci && npm run build:prod",
     "ci": "npm run verify",
     "vercel:build": "next build",
-    "warmup": "bash ./scripts/warmup.sh",
     "lhci": "npx --yes @lhci/cli autorun --config=./lighthouserc.json",
-    "prepare": "node ./scripts/install-husky.mjs"
+    "prepare": "husky"
   },
   "dependencies": {
     "@vercel/analytics": "^1.5.0",
