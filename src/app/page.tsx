@@ -1,9 +1,11 @@
 import type { Metadata } from 'next';
 
 import { Home } from './home';
+import { socialLinkUrls } from '@/configs/social-links';
+import { SITE_NAME, SITE_URL } from '@/configs/site';
 
 export const metadata: Metadata = {
-  alternates: { canonical: 'https://andremarinho.me' },
+  alternates: { canonical: SITE_URL },
 };
 
 export default function Index() {
@@ -12,13 +14,10 @@ export default function Index() {
     '@type': 'ProfilePage',
     mainEntity: {
       '@type': 'Person',
-      name: 'André Marinho',
-      url: 'https://andremarinho.me/',
-      image: 'https://andremarinho.me/images/Me.jpeg',
-      sameAs: [
-        'https://github.com/andre-lmarinho',
-        'https://www.linkedin.com/in/andre-marinho-3318ab1aa',
-      ],
+      name: SITE_NAME,
+      url: `${SITE_URL}/`,
+      image: `${SITE_URL}/images/Me.jpeg`,
+      sameAs: socialLinkUrls,
     },
   };
 

@@ -1,14 +1,10 @@
-const SocialLinks = [
-  { label: 'GitHub', href: 'https://github.com/andre-lmarinho' },
-  { label: 'LinkedIn', href: 'https://www.linkedin.com/in/andre-marinho-3318ab1aa' },
-  { label: 'Email', href: 'mailto:hey@andremarinho.me' },
-];
+import { onlineLinks } from '@/configs/social-links';
 
 export const Online = () => (
   <section id="online">
     <h2>Online</h2>
     <ul className="flex flex-wrap items-center gap-3">
-      {SocialLinks.map(({ href, label }) => (
+      {onlineLinks.map(({ href, label }) => (
         <li key={href}>
           <a
             href={href}
