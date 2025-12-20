@@ -26,7 +26,7 @@ export const FinalCTA = () => {
           <button
             type="button"
             onClick={() => void handleCopy()}
-            aria-label="Copy email to clipboard"
+            aria-label={`Copy ${email} to clipboard`}
             title="Click to copy email"
             className="relative m-0 inline-flex translate-y-0.5 cursor-pointer items-center bg-transparent p-0 align-baseline text-lg font-medium text-zinc-700 after:absolute after:-inset-0.5 after:rounded-lg after:border after:border-orange-500 after:opacity-0 after:ring-2 after:ring-orange-500/20 after:transition-opacity hover:text-neutral-900 focus-visible:outline-none focus-visible:after:opacity-100 active:text-orange-500 dark:text-zinc-300 dark:hover:text-white dark:active:text-orange-400"
           >
