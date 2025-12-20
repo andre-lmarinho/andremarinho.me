@@ -91,9 +91,11 @@
   .text-muted {
     @apply text-zinc-600 dark:text-zinc-400;
   }
-}
 
-@layer utilities {
+  .small-button {
+    @apply cursor-pointer rounded-lg border bg-white px-2 py-[3px] text-center text-xs dark:border-neutral-700 dark:bg-neutral-900;
+  }
+
   /* Chrome, Safari, and Opera */
   .scrollbar-hidden::-webkit-scrollbar {
     display: none;
