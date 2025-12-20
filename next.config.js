@@ -1,5 +1,8 @@
 const withMDX = require('@next/mdx')({
   extension: /\.mdx?$/,
+  options: {
+    providerImportSource: '@/mdx-components',
+  },
 });
 
 const isDev = process.env.NODE_ENV !== 'production';
