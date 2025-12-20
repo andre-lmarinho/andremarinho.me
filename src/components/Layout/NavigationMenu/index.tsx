@@ -1,0 +1,36 @@
+import Image from 'next/image';
+import Link from 'next/link';
+
+import { MenuLinks } from './NavigationLink';
+import { Hamburger } from './Hamburger';
+import { NAV_LINKS } from './links';
+
+export const NavigationMenu = () => {
+  return (
+    <header className="page-content full-width sticky top-0 z-40 bg-white/75 py-2 backdrop-blur-xl sm:py-3 dark:bg-zinc-950/75">
+      <nav className="flex items-center justify-between font-semibold">
+        <div className="flex items-center">
+          <Link
+            className="grid grid-flow-col items-center overflow-hidden rounded-full"
+            href="/"
+            aria-label="Visit André Marinho's website"
+          >
+            <Image
+              alt="André Marinho"
+              width={32}
+              height={32}
+              className="rounded-full"
+              src="/images/Me.webp"
+              sizes="32px"
+            />
+          </Link>
+        </div>
+
+        <div className="flex items-center gap-3 sm:gap-4">
+          <MenuLinks links={NAV_LINKS.desktop} />
+          <Hamburger />
+        </div>
+      </nav>
+    </header>
+  );
+};
