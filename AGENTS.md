@@ -1,4 +1,4 @@
-Developer: # andremarinho.me Development Guide for AI Agents
+# andremarinho.me Development Guide for AI Agents
 
 Follow these instructions when working as an AI coding agent on this project.
 
@@ -45,7 +45,7 @@ Use these npm scripts:
 - Do not use `any` types.
 - Follow configured **ESLint** and **Prettier** rules.
 - Use functional components with hooks.
-- Prefer default exports for components.
+- Prefer named exports for components.
 - Before pushing changes, run: `lint`, `typecheck`, and `test`.
 
 #### Testing

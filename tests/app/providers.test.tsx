@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react';
 import type { ReactNode } from 'react';
 
-import { Providers } from '@/app/providers';
+import Providers from '@/app/providers';
 
 type ThemeProviderProps = { children: ReactNode } & Record<string, unknown>;
 

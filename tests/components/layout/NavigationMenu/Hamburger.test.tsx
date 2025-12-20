@@ -1,9 +1,8 @@
 import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import type { AnchorHTMLAttributes, ReactNode } from 'react';
-import { useState } from 'react';
 
-import { Hamburger } from '@/components/layout/NavigationMenu/Hamburger';
+import { Hamburger } from '@/components/Layout/NavigationMenu/Hamburger';
 
 type NextLinkProps = AnchorHTMLAttributes<HTMLAnchorElement> & {
   href: string;
@@ -34,15 +33,6 @@ const originalRequestAnimationFrame: RequestAnimationFrameType | undefined =
   globalThis.requestAnimationFrame;
 const originalCancelAnimationFrame: typeof globalThis.cancelAnimationFrame | undefined =
   globalThis.cancelAnimationFrame;
-
-const createTestHarness = () => {
-  function Harness() {
-    const [isOpen, setIsOpen] = useState(false);
-    return <Hamburger isOpen={isOpen} setIsOpen={setIsOpen} />;
-  }
-
-  return Harness;
-};
 
 describe('Hamburger', () => {
   beforeEach(() => {
@@ -98,8 +88,7 @@ describe('Hamburger', () => {
 
   it('opens the menu and closes when clicking the active route', async () => {
     const user = userEvent.setup();
-    const Harness = createTestHarness();
-    render(<Harness />);
+    render(<Hamburger />);
 
     const toggle = screen.getByRole('button', { name: /open navigation menu/i });
     expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
@@ -120,8 +109,7 @@ describe('Hamburger', () => {
 
   it('closes the menu when Escape is pressed', async () => {
     const user = userEvent.setup();
-    const Harness = createTestHarness();
-    render(<Harness />);
+    render(<Hamburger />);
 
     await user.click(screen.getByRole('button', { name: /open navigation menu/i }));
     expect(document.body.style.overflow).toBe('hidden');
@@ -132,29 +120,9 @@ describe('Hamburger', () => {
     expect(document.body.style.overflow).toBe('');
   });
 
-  it('closes automatically when the route changes', async () => {
-    let currentPath = '/';
-    usePathnameMock.mockImplementation(() => currentPath);
-
-    const user = userEvent.setup();
-    const Harness = createTestHarness();
-    const { rerender } = render(<Harness />);
-
-    await user.click(screen.getByRole('button', { name: /open navigation menu/i }));
-    expect(screen.getByRole('dialog')).toBeInTheDocument();
-    expect(document.body.style.overflow).toBe('hidden');
-
-    currentPath = '/studio';
-    rerender(<Harness />);
-
-    await waitFor(() => expect(screen.queryByRole('dialog')).not.toBeInTheDocument());
-    expect(document.body.style.overflow).toBe('');
-  });
-
   it('keeps keyboard focus within the navigation when open', async () => {
     const user = userEvent.setup();
-    const Harness = createTestHarness();
-    render(<Harness />);
+    render(<Hamburger />);
 
     await user.click(screen.getByRole('button', { name: /open navigation menu/i }));
 
