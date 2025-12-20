@@ -128,7 +128,7 @@ export const SurveyDonutCard = ({
     '--survey-chart-size': string;
     '--survey-scale': string;
   } = {
-    '--survey-chart-size': `${CHART_SIZE}px`,
+    '--survey-chart-size': CHART_SIZE,
     '--survey-scale': `calc(var(--survey-chart-size) / ${SCALE_REFERENCE}px)`,
   };
 
