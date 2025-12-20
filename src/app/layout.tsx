@@ -5,27 +5,26 @@ import React from 'react';
 import { cn } from '@/utils/cn';
 import '@/utils/theme.css';
 
-import { Providers } from './providers';
-
-import { NavigationMenu } from '@/components/layout/NavigationMenu';
-import { Footer } from '@/components/layout/Footer';
+import { Layout } from '@/components/Layout';
+import { SITE_NAME, SITE_URL } from '@/configs/site';
+import Providers from './providers';
 
 import { Analytics } from '@vercel/analytics/next';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://andremarinho.me'),
+  metadataBase: new URL(SITE_URL),
   title: {
-    absolute: 'André Marinho - Front-End Developer',
-    template: 'André Marinho - %s',
+    absolute: `${SITE_NAME} - Front-End Engineer`,
+    template: `${SITE_NAME} - %s`,
   },
   description:
-    "I'm a Front-End Developer based in Salvador. I create digital experiences that connect design, strategy and business growth.",
+    "I'm a Front-End Engineer based in Salvador. I create digital experiences that connect design, strategy and business growth.",
   openGraph: {
     type: 'website',
     locale: 'en_US',
-    siteName: 'André Marinho',
-    url: 'https://andremarinho.me',
+    siteName: SITE_NAME,
+    url: SITE_URL,
   },
   twitter: {
     card: 'summary_large_image',
@@ -35,8 +34,7 @@ export const metadata: Metadata = {
 const inter = Inter({
   subsets: ['latin'],
   variable: '--font-inter',
-  weight: ['100', '200', '300', '400', '500', '600', '700', '800', '900'],
-  style: ['normal', 'italic'],
+  weight: ['400', '500', '600', '700'],
   display: 'swap',
 });
 
@@ -59,11 +57,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       </head>
       <body className={cn(inter.variable, robotoMono.variable, 'font-sans antialiased')}>
         <Providers>
-          <NavigationMenu />
-          <main id="main" className="page-content">
-            {children}
-          </main>
-          <Footer />
+          <Layout>{children}</Layout>
         </Providers>
         <SpeedInsights />
         <Analytics />

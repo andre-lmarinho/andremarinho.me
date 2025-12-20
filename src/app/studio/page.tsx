@@ -5,11 +5,11 @@ import { Work } from './components/Work';
 import { Copy } from './components/Copy';
 import { Pricing } from './components/Pricing';
 import { FinalCTA } from './components/FinalCTA';
+
 import { getStudioSlots } from './components/configs/availability';
-
 import { buildProfessionalServiceJsonLd } from './components/configs/offers';
-
-const BASE_URL = 'https://andremarinho.me';
+import { socialLinkUrls } from '@/configs/social-links';
+import { SITE_URL } from '@/configs/site';
 
 const title = 'Duonorth Studio';
 const description =
@@ -57,7 +57,7 @@ export const metadata: Metadata = {
 };
 
 const structuredData = buildProfessionalServiceJsonLd({
-  baseUrl: BASE_URL,
+  baseUrl: SITE_URL,
   name: 'Duonorth Studio',
   description:
     'Product strategy, design and engineering support to launch, scale and iterate outstanding digital experiences.',
@@ -65,11 +65,8 @@ const structuredData = buildProfessionalServiceJsonLd({
   imagePath: '/studio/opengraph-image',
   provider: {
     name: 'André Marinho',
-    jobTitle: 'Front-End Developer',
-    sameAs: [
-      'https://github.com/andre-lmarinho',
-      'https://www.linkedin.com/in/andre-marinho-3318ab1aa',
-    ],
+    jobTitle: 'Front-End Engineer',
+    sameAs: socialLinkUrls,
   },
 });
 

@@ -7,8 +7,8 @@ const withMDX = require('@next/mdx')({
 
 const isDev = process.env.NODE_ENV !== 'production';
 
-const scriptSrc = `'self' 'unsafe-inline'${isDev ? " 'unsafe-eval'" : ''}`;
-const connectSrc = `'self'${isDev ? ' ws:' : ''}`;
+const scriptSrc = `'self' 'unsafe-inline' https://va.vercel-scripts.com${isDev ? " 'unsafe-eval'" : ''}`;
+const connectSrc = `'self' https://vitals.vercel-insights.com${isDev ? ' ws:' : ''}`;
 
 const cspDirectives = [
   "default-src 'self'",

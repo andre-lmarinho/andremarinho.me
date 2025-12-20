@@ -1,7 +1,8 @@
 import { render, screen } from '@testing-library/react';
 import type { AnchorHTMLAttributes, ReactNode } from 'react';
 
-import { NavigationLink as MenuLinks } from '@/components/layout/NavigationMenu/NavigationLink';
+import { MenuLinks } from '@/components/Layout/NavigationMenu/NavigationLink';
+import { NAV_LINKS } from '@/components/Layout/NavigationMenu/links';
 
 type NextLinkProps = AnchorHTMLAttributes<HTMLAnchorElement> & {
   href: string;
@@ -33,30 +34,27 @@ describe('MenuLinks', () => {
     usePathnameMock.mockImplementation(() => '/');
   });
 
-  it('filters the homepage link on desktop and marks the active entry', () => {
+  it('renders desktop links and marks the active entry', () => {
     usePathnameMock.mockImplementation(() => '/studio/case');
 
-    render(<MenuLinks variant="desktop" />);
+    render(<MenuLinks links={NAV_LINKS.desktop} />);
 
     expect(screen.queryByRole('link', { name: 'Home' })).not.toBeInTheDocument();
 
     const studioLink = screen.getByRole('link', { name: 'Studio' });
-    expect(studioLink).toHaveAttribute('data-active', 'true');
     expect(studioLink).toHaveAttribute('aria-current', 'page');
 
     const aboutLink = screen.getByRole('link', { name: 'About' });
-    expect(aboutLink).toHaveAttribute('data-active', 'false');
     expect(aboutLink).not.toHaveAttribute('aria-current');
   });
 
-  it('flags all items as indeterminate on mobile when no route matches', () => {
+  it('does not set aria-current when no route matches', () => {
     usePathnameMock.mockImplementation(() => '/contact');
 
-    render(<MenuLinks variant="mobile" />);
+    render(<MenuLinks links={NAV_LINKS.mobile} isHamburger />);
 
     ['Home', 'Studio', 'About'].forEach((name) => {
       const link = screen.getByRole('link', { name });
-      expect(link).toHaveAttribute('data-active', 'indeterminate');
       expect(link).not.toHaveAttribute('aria-current');
     });
   });

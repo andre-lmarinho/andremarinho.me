@@ -1,7 +1,5 @@
-'use client';
-
 import { LinkButton } from './ui/LinkButton';
-import { useStudioAvailability } from './hooks/useStudioAvailability';
+import { AvailabilityBadge } from './AvailabilityBadge';
 import { plansForUI, customForUI } from './configs/offers';
 
 type PricingProps = {
@@ -9,9 +7,6 @@ type PricingProps = {
 };
 
 export const Pricing = ({ initialSlots }: PricingProps) => {
-  const slots = useStudioAvailability(initialSlots);
-  const hasAvailableSlots = slots > 0;
-
   return (
     <section id="pricing">
       <div className="mt-10 mb-6 grid grid-cols-1 gap-6 md:grid-cols-2">
@@ -23,17 +18,7 @@ export const Pricing = ({ initialSlots }: PricingProps) => {
           >
             <div className="flex items-center justify-between gap-x-2">
               <h3 className="text-lg font-semibold">{plan.tier}</h3>
-              <div className="flex items-center gap-x-1.5 rounded-lg bg-zinc-200 px-2 py-1 text-xs font-medium select-none dark:bg-zinc-800">
-                <span className="relative flex h-1 w-1">
-                  <span
-                    className={`absolute inline-flex h-full w-full animate-ping rounded-full opacity-75 ${hasAvailableSlots ? 'bg-green-400' : 'bg-red-400'}`}
-                  />
-                  <span
-                    className={`relative inline-flex h-1 w-1 rounded-full ${hasAvailableSlots ? 'bg-green-500' : 'bg-red-500'}`}
-                  />
-                </span>
-                {hasAvailableSlots ? `${slots} ${slots === 1 ? 'spot' : 'spots'} left` : 'Waitlist'}
-              </div>
+              <AvailabilityBadge initialSlots={initialSlots} />
             </div>
             <p className="text-muted mt-5 text-sm">{plan.description}</p>
             <div className="my-4">

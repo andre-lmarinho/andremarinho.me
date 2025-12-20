@@ -41,7 +41,13 @@ describe('TypeText', () => {
 
   it('cycles through typing, pausing and deleting phases when multiple strings are provided', () => {
     const { container } = render(
-      <TypeText text={['Hi', 'Bye']} typingSpeed={10} deletingSpeed={10} pauseDuration={20} />
+      <TypeText
+        text={['Hi', 'Bye']}
+        typingSpeed={10}
+        deletingSpeed={10}
+        pauseDuration={20}
+        initialText=""
+      />
     );
 
     const textSpan = () => container.querySelector<HTMLSpanElement>('span.inline');
@@ -75,7 +81,9 @@ describe('TypeText', () => {
   });
 
   it('stops after typing once when looping is disabled', () => {
-    const { container } = render(<TypeText text="Done" typingSpeed={10} loop={false} />);
+    const { container } = render(
+      <TypeText text="Done" typingSpeed={10} loop={false} initialText="" />
+    );
 
     const textSpan = () => container.querySelector<HTMLSpanElement>('span.inline');
 
@@ -99,7 +107,14 @@ describe('TypeText', () => {
 
   it('hides the cursor while typing and renders custom characters', () => {
     const { container } = render(
-      <TypeText text="OK" typingSpeed={10} loop={false} hideCursorWhileTyping cursorCharacter="|" />
+      <TypeText
+        text="OK"
+        typingSpeed={10}
+        loop={false}
+        hideCursorWhileTyping
+        cursorCharacter="|"
+        initialText=""
+      />
     );
 
     const cursor = () => container.querySelector<HTMLSpanElement>('span.inline-block');

@@ -1,6 +1,7 @@
 import { readFile } from 'node:fs/promises';
 import { join } from 'node:path';
 import type { Font } from 'next/dist/compiled/@vercel/og/satori';
+import { SITE_URL } from '@/configs/site';
 
 type OGProps = {
   description: string;
@@ -50,6 +51,7 @@ const fontsPromise: Promise<Font[]> = Promise.all(
 const getFonts = (): Promise<Font[]> => fontsPromise;
 
 function OpengraphImage({ title, description, url }: OGProps) {
+  const siteHost = SITE_URL.replace(/^https?:\/\//, '');
   return (
     <div
       style={{
@@ -64,7 +66,7 @@ function OpengraphImage({ title, description, url }: OGProps) {
       }}
     >
       <img
-        src="https://andremarinho.me/images/Me.jpeg"
+        src={`${SITE_URL}/images/Me.jpeg`}
         width="115"
         height="115"
         style={{
@@ -116,7 +118,7 @@ function OpengraphImage({ title, description, url }: OGProps) {
           fontWeight: 400,
         }}
       >
-        {url ? `andremarinho.me/${url}` : 'andremarinho.me'}
+        {url ? `${siteHost}/${url}` : siteHost}
       </div>
     </div>
   );

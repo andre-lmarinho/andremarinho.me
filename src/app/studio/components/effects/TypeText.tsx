@@ -16,6 +16,7 @@ interface Props extends HTMLAttributes<HTMLElement> {
   text: string | string[];
   as?: ElementType;
   className?: string;
+  initialText?: string;
   typingSpeed?: number;
   deletingSpeed?: number;
   pauseDuration?: number;
@@ -32,6 +33,7 @@ export const TypeText = ({
   text,
   as: Component = 'div',
   className = '',
+  initialText,
   typingSpeed = 70,
   deletingSpeed = 30,
   pauseDuration = 2400,
@@ -45,20 +47,30 @@ export const TypeText = ({
   ...props
 }: Props) => {
   const textArray = useMemo(() => (Array.isArray(text) ? text : [text]), [text]);
+  const resolvedInitialText = initialText ?? textArray[0] ?? '';
+  const resolvedInitialIndex = Math.max(
+    0,
+    textArray.findIndex((value) => value === resolvedInitialText)
+  );
   const cursorRef = useRef<HTMLSpanElement>(null);
-  const [displayedText, setDisplayedText] = useState('');
-  const [textIndex, setTextIndex] = useState(0);
-  const [phase, setPhase] = useState<TypingPhase>('initial');
+  const [displayedText, setDisplayedText] = useState(resolvedInitialText);
+  const [textIndex, setTextIndex] = useState(resolvedInitialIndex);
+  const [phase, setPhase] = useState<TypingPhase>(resolvedInitialText ? 'pausing' : 'initial');
 
   useEffect(() => {
     const timeout = setTimeout(() => {
-      setDisplayedText('');
-      setTextIndex(0);
-      setPhase('initial');
+      const nextText = initialText ?? textArray[0] ?? '';
+      const nextIndex = Math.max(
+        0,
+        textArray.findIndex((value) => value === nextText)
+      );
+      setDisplayedText(nextText);
+      setTextIndex(nextIndex);
+      setPhase(nextText ? 'pausing' : 'initial');
     }, 0);
 
     return () => clearTimeout(timeout);
-  }, [textArray]);
+  }, [textArray, initialText]);
 
   useEffect(() => {
     if (phase !== 'initial') {

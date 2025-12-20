@@ -1,6 +1,14 @@
 'use client';
 
-import React, { CSSProperties, useCallback, useLayoutEffect, useMemo, useRef } from 'react';
+import React, {
+  CSSProperties,
+  useCallback,
+  useEffect,
+  useLayoutEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react';
 
 type Props = {
   content: string[];
@@ -23,6 +31,7 @@ export const ScrollFadeText: React.FC<Props> = ({
 }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const rafRef = useRef<number | null>(null);
+  const [isActive, setIsActive] = useState(() => typeof IntersectionObserver === 'undefined');
 
   // Caches for fast reads/writes at scroll time
   const spansRef = useRef<HTMLSpanElement[]>([]);
@@ -133,7 +142,31 @@ export const ScrollFadeText: React.FC<Props> = ({
     prevActiveRef.current = nextActive;
   }, [computeActiveIndex, setRangeActive]);
 
+  useEffect(() => {
+    if (!containerRef.current || typeof IntersectionObserver === 'undefined') {
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries.some((entry) => entry.isIntersecting)) {
+          setIsActive(true);
+          observer.disconnect();
+        }
+      },
+      { rootMargin: '0px 0px -20% 0px' }
+    );
+
+    observer.observe(containerRef.current);
+
+    return () => observer.disconnect();
+  }, []);
+
   useLayoutEffect(() => {
+    if (!isActive) {
+      return;
+    }
+
     const run = () => updateOpacity();
 
     buildDomCaches();
@@ -174,7 +207,7 @@ export const ScrollFadeText: React.FC<Props> = ({
       window.removeEventListener('resize', onResize);
       if (rafRef.current != null) cancelAnimationFrame(rafRef.current);
     };
-  }, [content, applyBridges, buildDomCaches, recalcCenters, schedule, updateOpacity]);
+  }, [content, isActive, applyBridges, buildDomCaches, recalcCenters, schedule, updateOpacity]);
 
   const styleVariables = useMemo(
     () =>
@@ -205,12 +238,12 @@ export const ScrollFadeText: React.FC<Props> = ({
                 key={`${paragraphIndex}-${wordIndex}`}
                 className={[
                   'sc-word',
-                  '[margin-right:var(--scroll-copy-word-gap)]',
+                  'mr-(--scroll-copy-word-gap)',
                   'transition-opacity',
-                  '[will-change:opacity]',
-                  'opacity-[var(--scroll-copy-base-opacity)]',
-                  'data-[sc-active=true]:opacity-[var(--scroll-copy-max-opacity)]',
-                  'duration-[120ms]',
+                  'will-change-[opacity]',
+                  'opacity-(--scroll-copy-base-opacity)',
+                  'data-[sc-active=true]:opacity-(--scroll-copy-max-opacity)',
+                  'duration-120',
                   'ease-linear',
                 ].join(' ')}
               >
