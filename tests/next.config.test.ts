@@ -51,10 +51,12 @@ describe('security headers helper', () => {
       "img-src 'self' data: https:",
       "style-src 'self' 'unsafe-inline'",
       "font-src 'self' https: data:",
-      `script-src 'self' 'unsafe-inline'${
+      `script-src 'self' 'unsafe-inline' https://va.vercel-scripts.com${
         process.env.NODE_ENV !== 'production' ? " 'unsafe-eval'" : ''
       }`,
-      `connect-src 'self'${process.env.NODE_ENV !== 'production' ? ' ws:' : ''}`,
+      `connect-src 'self' https://vitals.vercel-insights.com${
+        process.env.NODE_ENV !== 'production' ? ' ws:' : ''
+      }`,
       "frame-ancestors 'none'",
     ].join('; ');
 
