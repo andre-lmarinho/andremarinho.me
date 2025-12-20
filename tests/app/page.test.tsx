@@ -44,6 +44,7 @@ type TextTypeMockProps = {
   text: string | string[];
   as?: ElementType;
   className?: string;
+  initialText?: string;
 };
 
 type ScrollFadeTextMockProps = {
@@ -51,18 +52,9 @@ type ScrollFadeTextMockProps = {
 };
 
 jest.mock('@/app/studio/components/effects/TypeText', () => {
-  const TypeText = ({
-    text,
-    as: Component = 'span',
-    className = '',
-    ...rest
-  }: TextTypeMockProps & Record<string, unknown>) => {
+  const TypeText = ({ text, as: Component = 'span', className = '' }: TextTypeMockProps) => {
     const content = Array.isArray(text) ? text[0] : text;
-    return (
-      <Component className={className} {...rest}>
-        {content}
-      </Component>
-    );
+    return <Component className={className}>{content}</Component>;
   };
 
   return {

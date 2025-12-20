@@ -5,7 +5,11 @@ import { useEffect, RefObject } from 'react';
 const focusableSelector =
   'a[href]:not([tabindex="-1"]), button:not([disabled]):not([tabindex="-1"]), [tabindex]:not([tabindex="-1"])';
 
-export function useFocusTrap(ref: RefObject<HTMLElement | null>, isOpen: boolean, setIsOpen: (isOpen: boolean) => void) {
+export function useFocusTrap(
+  ref: RefObject<HTMLElement | null>,
+  isOpen: boolean,
+  setIsOpen: (isOpen: boolean) => void
+) {
   useEffect(() => {
     if (!isOpen) {
       return;

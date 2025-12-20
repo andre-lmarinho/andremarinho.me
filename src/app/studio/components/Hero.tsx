@@ -8,6 +8,7 @@ export const Hero = () => (
       <TypeText
         as="span"
         className="text-zinc-900 dark:text-zinc-100"
+        initialText="design"
         text={['design', 'software', 'product']}
       />
       <span className="block">partner for your business</span>

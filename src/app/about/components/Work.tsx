@@ -1,29 +1,6 @@
 import Image from 'next/image';
 
-type WorkRole = {
-  title: string;
-  period: string;
-};
-
-type WorkPlace = {
-  name: string;
-  website: string;
-  logo: string;
-  roles: WorkRole[];
-};
-
-const workPlaces: WorkPlace[] = [
-  {
-    name: 'Duonorth Studio',
-    website: '/studio',
-    logo: '/images/work/duonorth.webp',
-    roles: [
-      { title: 'Frontend Developer', period: '2025 - Now' },
-      { title: 'Web and WordPress Developer', period: '2020 - 2024' },
-      { title: 'Digital Marketing & Web Consultant', period: '2017 - 2019' },
-    ],
-  },
-];
+import { workPlaces } from '@/configs/work';
 
 const workEntries = workPlaces.flatMap((place) => place.roles.map((role) => ({ place, role })));
 
