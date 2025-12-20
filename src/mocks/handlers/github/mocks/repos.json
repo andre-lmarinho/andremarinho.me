@@ -1,0 +1,23 @@
+[
+  {
+    "name": "andremarinho.me",
+    "description": "Personal portfolio built with Next.js.",
+    "language": "TypeScript",
+    "stargazers_count": 42,
+    "html_url": "https://github.com/andre-lmarinho/andremarinho.me"
+  },
+  {
+    "name": "design-system-lab",
+    "description": "UI experiments and components.",
+    "language": "JavaScript",
+    "stargazers_count": 18,
+    "html_url": "https://github.com/andre-lmarinho/design-system-lab"
+  },
+  {
+    "name": "api-playground",
+    "description": "Small API experiments and tooling.",
+    "language": "Python",
+    "stargazers_count": 7,
+    "html_url": "https://github.com/andre-lmarinho/api-playground"
+  }
+]

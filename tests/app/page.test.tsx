@@ -64,6 +64,20 @@ jest.mock('@/app/studio/components/effects/TypeText', () => {
   };
 });
 
+jest.mock('@/app/home/components/Projects', () => {
+  const Projects = () => (
+    <section aria-label="Projects">
+      <h2>Projects</h2>
+    </section>
+  );
+
+  return {
+    __esModule: true,
+    Projects,
+    default: Projects,
+  };
+});
+
 jest.mock('@/app/studio/components/effects/ScrollFadeText', () => {
   const ScrollFadeText = ({ className = '' }: ScrollFadeTextMockProps) => (
     <div className={className} data-testid="mock-scroll-copy">
@@ -83,6 +97,7 @@ describe('Home page', () => {
     await renderServerComponent(HomePage);
 
     expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent("Hey! I'm André Marinho");
+    expect(screen.getByRole('heading', { level: 2, name: 'Projects' })).toBeInTheDocument();
     expect(
       screen.getByRole('heading', { level: 2, name: "Work I'm Proud Of" })
     ).toBeInTheDocument();

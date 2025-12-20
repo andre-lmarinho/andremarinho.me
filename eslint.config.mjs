@@ -85,5 +85,13 @@ export default tseslint.config(
     rules: {
       '@next/next/no-img-element': 'off',
     },
+  },
+  {
+    files: ['src/mocks/**/*.{ts,tsx}'],
+    rules: {
+      '@typescript-eslint/no-unsafe-call': 'off',
+      '@typescript-eslint/no-unsafe-member-access': 'off',
+      '@typescript-eslint/no-unsafe-return': 'off',
+    },
   }
 );

@@ -45,6 +45,10 @@ const robotoMono = Roboto_Mono({
   display: 'swap',
 });
 
+if (process.env.NEXT_PUBLIC_API_MOCKING === 'enabled') {
+  void import('../mocks');
+}
+
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" suppressHydrationWarning>
