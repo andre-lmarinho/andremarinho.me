@@ -1,3 +1,5 @@
+import type { StaticImageData } from 'next/image';
+
 export type WorkStoryLink = {
   label: string;
   href: string;
@@ -9,6 +11,6 @@ export type WorkStoryMetadata = {
   role: string;
   time: string;
   date: string;
-  image?: string;
+  image?: StaticImageData | string;
   links?: WorkStoryLink[];
 };

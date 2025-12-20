@@ -34,10 +34,11 @@ export const Hero = () => {
           alt="André Marinho"
           width={200}
           height={200}
-          sizes="200px"
+          sizes="(max-width: 640px) 1px, 200px"
           className="hidden h-44 w-44 transform-gpu rounded-full sm:block"
           src="/images/Me.webp"
-          priority
+          loading="lazy"
+          fetchPriority="low"
         />
       </div>
     </section>
