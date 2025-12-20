@@ -2,6 +2,7 @@ import localFont from 'next/font/local';
 import Image, { type ImageProps } from 'next/image';
 
 import { TextLink } from '@/components/TextLink';
+import { workPlaces } from '@/configs/work';
 import { cn } from '@/utils/cn';
 
 import dog from './images/doggy.jpg';
@@ -18,9 +19,10 @@ type PolaroidProps = {
   label: string;
   src: ImageProps['src'];
   rotation: keyof typeof rotation;
+  priority?: boolean;
 };
 
-const Polaroid = (props: PolaroidProps) => (
+const Polaroid = ({ priority = false, ...props }: PolaroidProps) => (
   <div
     className={cn(
       'rounded-lg bg-linear-to-b from-white to-neutral-100 p-4 shadow-2xl select-none',
@@ -35,7 +37,8 @@ const Polaroid = (props: PolaroidProps) => (
         height={240}
         width={240}
         sizes="240px"
-        loading="eager"
+        loading={priority ? 'eager' : 'lazy'}
+        priority={priority}
         placeholder="blur"
         src={props.src}
       />
@@ -71,13 +74,17 @@ export const Intro = () => (
         <em>Hey!</em> 👋🏼
       </p>
       <p>
-        I&apos;m André, a <code className="px-1 rounded-sm font-mono dark:hover:bg-zinc-900 hover:bg-zinc-100">{'<Front-End Developer />'}</code> based in Salvador, that loves to code and build
-        products with a delightful user experience.
+        I&apos;m André, a{' '}
+        <code className="rounded-sm px-1 font-mono hover:bg-zinc-100 dark:hover:bg-zinc-900">
+          {'<Front-End Engineer />'}
+        </code>{' '}
+        based in Salvador 🇧🇷, that loves to code and build products with a delightful user
+        experience.
       </p>
 
       <p>
-        Currently working at <TextLink href="/studio">Duonorth Studio</TextLink> as a Front End
-        Developer.
+        Currently working at <TextLink href={workPlaces[0].website}>{workPlaces[0].name}</TextLink>{' '}
+        as a Front End Engineer 💻.
       </p>
 
       <p>
@@ -104,7 +111,7 @@ export const Intro = () => (
     </div>
 
     <div className={cn('flex gap-0 py-6 lg:flex-wrap lg:gap-6', gloria.className)}>
-      <Polaroid label="Doggy ❣️" src={dog} rotation="-2" />
+      <Polaroid label="Doggy ❣️" src={dog} rotation="-2" priority />
       <Polaroid label="Beach '22 🏖️" src={beach} rotation="+1" />
       <div className="hidden sm:block">
         <Polaroid label="White peace 🧘🏼" src={whitesand} rotation="-3" />

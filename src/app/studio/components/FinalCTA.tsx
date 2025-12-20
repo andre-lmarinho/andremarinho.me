@@ -1,9 +1,10 @@
 'use client';
 
 import { LinkButton } from '@/app/studio/components/ui/LinkButton';
+import { CONTACT_EMAIL } from '@/configs/contact';
 
 export const FinalCTA = () => {
-  const email = 'hey@andremarinho.me';
+  const email = CONTACT_EMAIL;
 
   async function handleCopy() {
     try {
@@ -11,13 +12,13 @@ export const FinalCTA = () => {
         await navigator.clipboard.writeText(email);
       }
     } catch {
-      // opcional: logar erro
+      // optional: error log
     }
   }
 
   return (
     <section id="contact">
-      <div className="rounded-3xl bg-zinc-50 p-10 sm:p-16 dark:bg-zinc-900/50 dark:shadow-[inset_0px_1px_0px_rgb(255_255_255_/_0.04),_inset_0px_0px_0px_0.5px_rgb(255_255_255_/_0.02),_0px_1px_2px_rgb(0_0_0_/_0.4),_0px_2px_4px_rgb(0_0_0_/_0.08),_0px_0px_0px_0.5px_rgb(0_0_0_/_0.24)]">
+      <div className="rounded-3xl bg-zinc-50 p-10 sm:p-16 dark:bg-zinc-900/50 dark:shadow-[inset_0px_1px_0px_rgb(255_255_255/0.04),inset_0px_0px_0px_0.5px_rgb(255_255_255/0.02),0px_1px_2px_rgb(0_0_0/0.4),0px_2px_4px_rgb(0_0_0/0.08),0px_0px_0px_0.5px_rgb(0_0_0/0.24)]">
         <h2 className="text-2xl font-bold tracking-tight sm:text-3xl">Your duonorth starts here</h2>
 
         <p className="mt-6 mb-8 max-w-sm text-lg font-medium text-zinc-700 dark:text-zinc-300">
@@ -27,7 +28,7 @@ export const FinalCTA = () => {
             onClick={() => void handleCopy()}
             aria-label="Copy email to clipboard"
             title="Click to copy email"
-            className="relative m-0 inline-flex translate-y-[2px] cursor-pointer items-center bg-transparent p-0 align-baseline text-lg font-medium text-zinc-700 after:absolute after:-inset-[2px] after:rounded-lg after:border after:border-orange-500 after:opacity-0 after:ring-2 after:ring-orange-500/20 after:transition-opacity hover:text-neutral-900 focus-visible:outline-none focus-visible:after:opacity-100 active:text-orange-500 dark:text-zinc-300 dark:hover:text-white dark:active:text-orange-400"
+            className="relative m-0 inline-flex translate-y-0.5 cursor-pointer items-center bg-transparent p-0 align-baseline text-lg font-medium text-zinc-700 after:absolute after:-inset-0.5 after:rounded-lg after:border after:border-orange-500 after:opacity-0 after:ring-2 after:ring-orange-500/20 after:transition-opacity hover:text-neutral-900 focus-visible:outline-none focus-visible:after:opacity-100 active:text-orange-500 dark:text-zinc-300 dark:hover:text-white dark:active:text-orange-400"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
