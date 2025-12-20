@@ -1,3 +1,7 @@
+const withMDX = require('@next/mdx')({
+  extension: /\.mdx?$/,
+});
+
 const isDev = process.env.NODE_ENV !== 'production';
 
 const scriptSrc = `'self' 'unsafe-inline'${isDev ? " 'unsafe-eval'" : ''}`;
@@ -58,6 +62,7 @@ const securityHeaders = [
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  pageExtensions: ['ts', 'tsx', 'mdx'],
   headers() {
     return Promise.resolve([
       {
@@ -89,4 +94,4 @@ const nextConfig = {
   },
 };
 
-module.exports = nextConfig;
+module.exports = withMDX(nextConfig);
