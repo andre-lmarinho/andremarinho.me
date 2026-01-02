@@ -1,22 +1,22 @@
-import { get } from '@vercel/edge-config';
+import { get } from "@vercel/edge-config";
 
-import { toSlots } from '@/app/studio/components/utils/availability';
+import { toSlots } from "@/app/studio/components/utils/availability";
 
 type StudioConfig = {
   availability?: unknown;
 };
 
 const hasAvailability = (config: unknown): config is StudioConfig =>
-  typeof config === 'object' && config !== null && 'availability' in config;
+  typeof config === "object" && config !== null && "availability" in config;
 
 export const getStudioSlots = async () => {
   try {
-    const edgeConfig = await get<StudioConfig | null>('studio');
+    const edgeConfig = await get<StudioConfig | null>("studio");
 
     if (hasAvailability(edgeConfig)) return toSlots(edgeConfig.availability);
   } catch (error) {
-    if (process.env.NODE_ENV !== 'production') {
-      console.warn('Failed to read studio availability from Edge Config.', error);
+    if (process.env.NODE_ENV !== "production") {
+      console.warn("Failed to read studio availability from Edge Config.", error);
     }
   }
 

@@ -1,11 +1,11 @@
-import { GithubIcon } from '@/components/icons/GithubIcon';
-import { LinkedinIcon } from '@/components/icons/LinkedinIcon';
+import { GithubIcon } from "@/components/icons/GithubIcon";
+import { LinkedinIcon } from "@/components/icons/LinkedinIcon";
 
-import { socialLinks } from '@/configs/social-links';
-import { cn } from '@/utils/cn';
+import { socialLinks } from "@/configs/social-links";
+import { cn } from "@/utils/cn";
 
 const linkClassName = cn(
-  'inline-flex items-center justify-center rounded-xl p-3 text-zinc-600 transition-colors hover:text-zinc-900 focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none dark:text-zinc-400 dark:hover:text-zinc-100'
+  "inline-flex items-center justify-center rounded-xl p-3 text-zinc-600 transition-colors hover:text-zinc-900 focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none dark:text-zinc-400 dark:hover:text-zinc-100"
 );
 
 export const Footer = () => {
@@ -23,8 +23,7 @@ export const Footer = () => {
                 aria-label={githubLink.label}
                 target="_blank"
                 rel="noopener noreferrer"
-                className={linkClassName}
-              >
+                className={linkClassName}>
                 <GithubIcon />
                 <span className="sr-only">{githubLink.label}</span>
               </a>
@@ -35,8 +34,7 @@ export const Footer = () => {
                 aria-label={linkedinLink.label}
                 target="_blank"
                 rel="noopener noreferrer"
-                className={linkClassName}
-              >
+                className={linkClassName}>
                 <LinkedinIcon />
                 <span className="sr-only">{linkedinLink.label}</span>
               </a>

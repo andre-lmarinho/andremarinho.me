@@ -1,7 +1,7 @@
-import Image from 'next/image';
-import Link from 'next/link';
+import Image from "next/image";
+import Link from "next/link";
 
-import turistarAppMock from '@/app/work/turistar/components/images/turistar-app-mock.webp';
+import turistarAppMock from "@/app/work/turistar/components/images/turistar-app-mock.webp";
 
 export const ProudWork = () => {
   return (

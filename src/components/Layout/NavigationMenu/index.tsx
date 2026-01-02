@@ -1,9 +1,9 @@
-import Image from 'next/image';
-import Link from 'next/link';
+import Image from "next/image";
+import Link from "next/link";
 
-import { Hamburger } from './Hamburger';
-import { MenuLinks } from './NavigationLink';
-import { NAV_LINKS } from './links';
+import { Hamburger } from "./Hamburger";
+import { NAV_LINKS } from "./links";
+import { MenuLinks } from "./NavigationLink";
 
 export const NavigationMenu = () => {
   return (
@@ -13,8 +13,7 @@ export const NavigationMenu = () => {
           <Link
             className="grid grid-flow-col items-center overflow-hidden rounded-full"
             href="/"
-            aria-label="Visit André Marinho's website"
-          >
+            aria-label="Visit André Marinho's website">
             <Image
               alt="André Marinho"
               width={32}

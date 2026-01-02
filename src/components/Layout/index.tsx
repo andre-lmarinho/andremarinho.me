@@ -1,5 +1,5 @@
-import { Footer } from './Footer';
-import { NavigationMenu } from './NavigationMenu';
+import { Footer } from "./Footer";
+import { NavigationMenu } from "./NavigationMenu";
 
 type Props = { children: React.ReactNode };
 

@@ -1,7 +1,7 @@
-'use client';
+"use client";
 
-import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 type NavigationLink = {
   text: string;
@@ -14,17 +14,16 @@ type MenuLinksProps = {
 };
 
 export const MenuLinks = ({ links, isHamburger = false }: MenuLinksProps) => {
-  const pathname = `/${usePathname()?.split('/')[1] ?? ''}`;
+  const pathname = `/${usePathname()?.split("/")[1] ?? ""}`;
   const isIndeterminate = links.every((link) => link.href !== pathname);
 
   return (
     <ul
       className={
         isHamburger
-          ? 'flex h-full flex-1 flex-col items-center justify-center space-y-5 text-2xl'
-          : 'group hidden grid-flow-col gap-6 text-sm font-medium sm:grid'
-      }
-    >
+          ? "flex h-full flex-1 flex-col items-center justify-center space-y-5 text-2xl"
+          : "group hidden grid-flow-col gap-6 text-sm font-medium sm:grid"
+      }>
       {links.map((link) => (
         <li key={link.href}>
           <MenuLink
@@ -40,7 +39,7 @@ export const MenuLinks = ({ links, isHamburger = false }: MenuLinksProps) => {
 };
 
 type MenuLinkProps = {
-  href: NavigationLink['href'];
+  href: NavigationLink["href"];
   text: string;
   isActive: boolean;
   isIndeterminate: boolean;
@@ -48,11 +47,11 @@ type MenuLinkProps = {
 
 const MenuLink = ({ href, text, isActive, isIndeterminate }: MenuLinkProps) => {
   const className = `${
-    isIndeterminate ? 'hover:opacity-60' : isActive ? 'opacity-100' : 'opacity-50 hover:opacity-100'
+    isIndeterminate ? "hover:opacity-60" : isActive ? "opacity-100" : "opacity-50 hover:opacity-100"
   } transition-opacity`;
 
   return (
-    <Link href={href} className={className} aria-current={isActive ? 'page' : undefined}>
+    <Link href={href} className={className} aria-current={isActive ? "page" : undefined}>
       {text}
     </Link>
   );

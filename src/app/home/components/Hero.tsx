@@ -1,7 +1,7 @@
-import Image from 'next/image';
+import Image from "next/image";
 
-import { TextLink } from '@/components/TextLink';
-import { currentJob } from '@/configs/work';
+import { TextLink } from "@/components/TextLink";
+import { currentJob } from "@/configs/work";
 
 export const Hero = () => {
   return (
@@ -15,19 +15,19 @@ export const Hero = () => {
             </span>
           </h1>
           <p>
-            I&apos;m a{' '}
+            I&apos;m a{" "}
             <code className="rounded-sm px-1 font-mono hover:bg-zinc-100 dark:hover:bg-zinc-900">
-              {'<Front End Engineer />'}
-            </code>{' '}
+              {"<Front End Engineer />"}
+            </code>{" "}
             based in Salvador. I <TextLink href="https://github.com/andre-lmarinho">code</TextLink>
-            {', '}
+            {", "}
             <TextLink href="https://travel-planner-orpin.vercel.app/">travel</TextLink>
-            {' and run '}
+            {" and run "}
             <TextLink href="/studio">Duonorth Studio</TextLink>.
           </p>
           <p>
-            I work where product, UX and analytics meet, turning clean interfaces into measurable
-            results, currently at <TextLink href={currentJob.href}>{currentJob.label}</TextLink>.
+            I work where product, UX and analytics meet, turning clean interfaces into measurable results,
+            currently at <TextLink href={currentJob.href}>{currentJob.label}</TextLink>.
           </p>
         </div>
         <Image
