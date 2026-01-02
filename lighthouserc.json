@@ -8,13 +8,7 @@
         "http://localhost:3000/work/turistar"
       ],
       "settings": {
-        "skipAudits": [
-          "is-on-https",
-          "canonical",
-          "uses-http2",
-          "uses-rel-preconnect",
-          "uses-rel-preload"
-        ]
+        "skipAudits": ["is-on-https", "canonical", "uses-http2", "uses-rel-preconnect", "uses-rel-preload"]
       }
     },
     "upload": {

@@ -1,5 +1,5 @@
-import { buildAvailabilityResponse } from '@/utils/api/studio/availability';
+import { buildAvailabilityResponse } from "@/utils/api/studio/availability";
 
-export const runtime = 'edge';
+export const runtime = "edge";
 
 export const GET = () => buildAvailabilityResponse();

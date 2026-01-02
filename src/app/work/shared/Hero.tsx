@@ -1,6 +1,6 @@
-import Image from 'next/image';
+import Image from "next/image";
 
-import type { WorkStoryMetadata } from '@/app/work/shared/types';
+import type { WorkStoryMetadata } from "@/app/work/shared/types";
 
 type HeroProps = {
   hero: WorkStoryMetadata;
@@ -8,9 +8,9 @@ type HeroProps = {
 
 export const Hero = ({ hero }: HeroProps) => {
   const meta = [
-    { label: 'Role', value: hero.role },
-    { label: 'Time', value: hero.time },
-    { label: 'Date', value: hero.date },
+    { label: "Role", value: hero.role },
+    { label: "Time", value: hero.time },
+    { label: "Date", value: hero.date },
   ];
 
   return (

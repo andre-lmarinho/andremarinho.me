@@ -1,7 +1,7 @@
-import { fetchRepositories } from '@/utils/api/github';
-import type { Repository } from '@/utils/api/github/mutators';
+import { fetchRepositories } from "@/utils/api/github";
+import type { Repository } from "@/utils/api/github/mutators";
 
-import { cn } from '@/utils/cn';
+import { cn } from "@/utils/cn";
 
 type ProjectProps = {
   project: Repository;
@@ -15,8 +15,7 @@ const Project = ({ project }: ProjectProps) => {
         href={project.url}
         target="_blank"
         rel="noopener noreferrer"
-        aria-label={`${project.name} (opens in a new tab)`}
-      >
+        aria-label={`${project.name} (opens in a new tab)`}>
         <h3 className="font-semibold">{project.name}</h3>
         <p className="text-sm opacity-70">{project.description}</p>
 
@@ -25,10 +24,9 @@ const Project = ({ project }: ProjectProps) => {
             <div className="flex items-center gap-1.5">
               <div
                 className={cn(
-                  'h-2 w-2 rounded-full',
+                  "h-2 w-2 rounded-full",
                   `language-project-${project.language.toLowerCase()}`
-                )}
-              ></div>
+                )}></div>
               <span className="opacity-70">{project.language}</span>
             </div>
           )}
@@ -40,7 +38,8 @@ const Project = ({ project }: ProjectProps) => {
                 width="16"
                 height="16"
                 fill="currentColor"
-              >
+                aria-hidden="true">
+                <title>Stars</title>
                 <path d="M8 .25a.75.75 0 01.673.418l1.882 3.815 4.21.612a.75.75 0 01.416 1.279l-3.046 2.97.719 4.192a.75.75 0 01-1.088.791L8 12.347l-3.766 1.98a.75.75 0 01-1.088-.79l.72-4.194L.818 6.374a.75.75 0 01.416-1.28l4.21-.611L7.327.668A.75.75 0 018 .25z" />
               </svg>
               <span className="opacity-70">{project.stars.format}</span>
@@ -53,9 +52,7 @@ const Project = ({ project }: ProjectProps) => {
 };
 
 export const Projects = async () => {
-  const projects = (await fetchRepositories())
-    .sort((a, b) => b.stars.value - a.stars.value)
-    .slice(0, 6);
+  const projects = (await fetchRepositories()).sort((a, b) => b.stars.value - a.stars.value).slice(0, 6);
 
   return (
     <section id="projects" aria-label="Projects">
@@ -63,8 +60,7 @@ export const Projects = async () => {
         className="group my-6 flex cursor-pointer items-center justify-between gap-3 rounded-xs"
         href="https://github.com/andre-lmarinho"
         target="_blank"
-        rel="noopener noreferrer"
-      >
+        rel="noopener noreferrer">
         <h2 className="m-0 underline-offset-4 group-hover:underline">Projects</h2>
         <span className="small-button">View all →</span>
       </a>

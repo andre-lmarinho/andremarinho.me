@@ -1,8 +1,8 @@
-import type { Metadata } from 'next';
+import type { Metadata } from "next";
 
-import { Home } from './home';
-import { socialLinkUrls } from '@/configs/social-links';
-import { SITE_NAME, SITE_URL } from '@/configs/site';
+import { SITE_NAME, SITE_URL } from "@/configs/site";
+import { socialLinkUrls } from "@/configs/social-links";
+import { Home } from "./home";
 
 export const metadata: Metadata = {
   alternates: { canonical: SITE_URL },
@@ -10,10 +10,10 @@ export const metadata: Metadata = {
 
 export default function Index() {
   const SocialProfileJsonLd = {
-    '@context': 'https://schema.org',
-    '@type': 'ProfilePage',
+    "@context": "https://schema.org",
+    "@type": "ProfilePage",
     mainEntity: {
-      '@type': 'Person',
+      "@type": "Person",
       name: SITE_NAME,
       url: `${SITE_URL}/`,
       image: `${SITE_URL}/images/Me.jpeg`,
@@ -25,6 +25,7 @@ export default function Index() {
     <>
       <script
         type="application/ld+json"
+        // biome-ignore lint/security/noDangerouslySetInnerHtml: JSON-LD is static and trusted.
         dangerouslySetInnerHTML={{ __html: JSON.stringify(SocialProfileJsonLd) }}
       />
       <Home />

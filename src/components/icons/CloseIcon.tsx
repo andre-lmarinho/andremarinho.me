@@ -5,8 +5,8 @@ export const CloseIcon = () => (
     height="24"
     fill="currentColor"
     aria-hidden
-    className="h-6 w-6"
-  >
+    className="h-6 w-6">
+    <title>Close</title>
     <path d="M18.984 6.422L13.406 12l5.578 5.578-1.406 1.406L12 13.406l-5.578 5.578-1.406-1.406L10.594 12 5.016 6.422l1.406-1.406L12 10.594l5.578-5.578z" />
   </svg>
 );

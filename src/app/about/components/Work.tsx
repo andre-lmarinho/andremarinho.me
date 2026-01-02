@@ -1,6 +1,6 @@
-import Image from 'next/image';
+import Image from "next/image";
 
-import { workPlaces } from '@/configs/work';
+import { workPlaces } from "@/configs/work";
 
 const workEntries = workPlaces.flatMap((place) => place.roles.map((role) => ({ place, role })));
 
@@ -30,10 +30,9 @@ export const Work = () => (
 
             <a
               href={place.website}
-              {...(isExternal ? { target: '_blank', rel: 'noreferrer noopener' } : {})}
+              {...(isExternal ? { target: "_blank", rel: "noreferrer noopener" } : {})}
               className="flex flex-1 gap-3 rounded-xs transition-opacity hover:opacity-50"
-              aria-label={`${role.title} at ${place.name}`}
-            >
+              aria-label={`${role.title} at ${place.name}`}>
               <div className="flex flex-col">
                 <h3 className="font-medium">{role.title}</h3>
                 <p className="text-muted">{place.name}</p>

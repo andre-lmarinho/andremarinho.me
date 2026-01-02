@@ -1,8 +1,8 @@
-type Currency = 'USD' | 'BRL';
+type Currency = "USD" | "BRL";
 type AvailabilityURL =
-  | 'https://schema.org/InStock'
-  | 'https://schema.org/LimitedAvailability'
-  | 'https://schema.org/PreOrder';
+  | "https://schema.org/InStock"
+  | "https://schema.org/LimitedAvailability"
+  | "https://schema.org/PreOrder";
 
 type StudioPricingPlan = {
   tier: string;
@@ -12,7 +12,7 @@ type StudioPricingPlan = {
     display: string;
     value: string; // numeric string for schema
     currency: Currency;
-    billingType: 'one-time';
+    billingType: "one-time";
   };
   features: string[];
   seo?: {
@@ -26,31 +26,31 @@ type StudioPricingPlan = {
 
 const plans: StudioPricingPlan[] = [
   {
-    tier: 'Website',
-    slug: 'website',
-    description: 'For companies that want a new approach on their website.',
-    price: { display: '$1,000', value: '1000', currency: 'USD', billingType: 'one-time' },
-    features: ['Landing page', 'UI/UX Design', 'Front-end development'],
+    tier: "Website",
+    slug: "website",
+    description: "For companies that want a new approach on their website.",
+    price: { display: "$1,000", value: "1000", currency: "USD", billingType: "one-time" },
+    features: ["Landing page", "UI/UX Design", "Front-end development"],
     seo: {
-      serviceName: 'Website design & build',
-      schemaDescription: 'Design and implementation of a modern, performant marketing website.',
-      availability: 'https://schema.org/InStock',
-      url: '/studio#website',
-      category: 'Website',
+      serviceName: "Website design & build",
+      schemaDescription: "Design and implementation of a modern, performant marketing website.",
+      availability: "https://schema.org/InStock",
+      url: "/studio#website",
+      category: "Website",
     },
   },
   {
-    tier: 'Growth',
-    slug: 'growth',
-    description: 'For early-stage companies aiming to transform their idea into a product.',
-    price: { display: '$3,000', value: '3000', currency: 'USD', billingType: 'one-time' },
-    features: ['End-to-end MVP', 'Product design', 'Full-stack development'],
+    tier: "Growth",
+    slug: "growth",
+    description: "For early-stage companies aiming to transform their idea into a product.",
+    price: { display: "$3,000", value: "3000", currency: "USD", billingType: "one-time" },
+    features: ["End-to-end MVP", "Product design", "Full-stack development"],
     seo: {
-      serviceName: 'MVP design & development',
-      schemaDescription: 'Discovery, UX/UI and engineering to launch a first version quickly.',
-      availability: 'https://schema.org/InStock',
-      url: '/studio#growth',
-      category: 'MVP',
+      serviceName: "MVP design & development",
+      schemaDescription: "Discovery, UX/UI and engineering to launch a first version quickly.",
+      availability: "https://schema.org/InStock",
+      url: "/studio#growth",
+      category: "MVP",
     },
   },
 ];
@@ -70,21 +70,21 @@ type CustomConfig = {
 };
 
 const customConfig: CustomConfig = {
-  name: 'Custom engagement',
-  titleForUI: 'Custom',
-  description: 'Tailored scope based on your needs. Get in touch for a quote.',
-  currency: 'USD',
-  availability: 'https://schema.org/InStock',
-  category: 'Custom',
-  anchorId: 'custom',
-  minPrice: '1500',
+  name: "Custom engagement",
+  titleForUI: "Custom",
+  description: "Tailored scope based on your needs. Get in touch for a quote.",
+  currency: "USD",
+  availability: "https://schema.org/InStock",
+  category: "Custom",
+  anchorId: "custom",
+  minPrice: "1500",
   // maxPrice: '10000',
 };
 
-const customHref = (basePath = '/studio') => `${basePath}#${customConfig.anchorId}`;
+const customHref = (basePath = "/studio") => `${basePath}#${customConfig.anchorId}`;
 
 const absolutize = (base: string, path?: string) =>
-  !path ? undefined : path.startsWith('http') ? path : new URL(path, base).toString();
+  !path ? undefined : path.startsWith("http") ? path : new URL(path, base).toString();
 
 const planToOffer = (plan: StudioPricingPlan, baseUrl: string) => {
   const serviceName = plan.seo?.serviceName ?? plan.tier;
@@ -95,14 +95,14 @@ const planToOffer = (plan: StudioPricingPlan, baseUrl: string) => {
   }
 
   return {
-    '@type': 'Offer',
-    availability: plan.seo?.availability ?? 'https://schema.org/InStock',
+    "@type": "Offer",
+    availability: plan.seo?.availability ?? "https://schema.org/InStock",
     priceCurrency: plan.price.currency,
     price: plan.price.value,
     url: absolutize(baseUrl, plan.seo?.url) ?? absolutize(baseUrl, `/studio#${plan.slug}`),
     category: plan.seo?.category ?? plan.tier,
     itemOffered: {
-      '@type': 'Service',
+      "@type": "Service",
       name: serviceName,
       description: schemaDescription,
     },
@@ -110,16 +110,16 @@ const planToOffer = (plan: StudioPricingPlan, baseUrl: string) => {
 };
 
 const customToOffer = (baseUrl: string) => {
-  const url = customConfig.url ?? customHref('/studio');
+  const url = customConfig.url ?? customHref("/studio");
 
   const offer: Record<string, unknown> = {
-    '@type': 'Offer',
+    "@type": "Offer",
     availability: customConfig.availability,
     priceCurrency: customConfig.currency,
     url: absolutize(baseUrl, url),
     category: customConfig.category,
     itemOffered: {
-      '@type': 'Service',
+      "@type": "Service",
       name: customConfig.name,
       description: customConfig.description,
     },
@@ -128,12 +128,12 @@ const customToOffer = (baseUrl: string) => {
   if (customConfig.minPrice || customConfig.maxPrice) {
     const { minPrice, maxPrice } = customConfig;
     if (minPrice && !/^\d+(\.\d+)?$/.test(minPrice))
-      throw new Error('[offers] custom.minPrice must be numeric.');
+      throw new Error("[offers] custom.minPrice must be numeric.");
     if (maxPrice && !/^\d+(\.\d+)?$/.test(maxPrice))
-      throw new Error('[offers] custom.maxPrice must be numeric.');
+      throw new Error("[offers] custom.maxPrice must be numeric.");
 
     offer.priceSpecification = {
-      '@type': 'PriceSpecification',
+      "@type": "PriceSpecification",
       priceCurrency: customConfig.currency,
       ...(minPrice ? { minPrice } : {}),
       ...(maxPrice ? { maxPrice } : {}),
@@ -149,12 +149,12 @@ export const plansForUI = plans;
 export const customForUI = {
   title: customConfig.titleForUI,
   description: customConfig.description,
-  href: customHref('/studio'), // '/studio#custom'
+  href: customHref("/studio"), // '/studio#custom'
   anchorId: customConfig.anchorId,
 };
 
 export const buildOffers = (baseUrl: string) => {
-  if (!/^https?:\/\//.test(baseUrl)) throw new Error('[offers] baseUrl must be absolute.');
+  if (!/^https?:\/\//.test(baseUrl)) throw new Error("[offers] baseUrl must be absolute.");
   return [...plans.map((p) => planToOffer(p, baseUrl)), customToOffer(baseUrl)];
 };
 
@@ -173,15 +173,15 @@ export const buildProfessionalServiceJsonLd = (params: {
     name,
     description,
     path,
-    imagePath = '/studio/opengraph-image',
-    areaServed = 'Worldwide',
-    serviceType = ['Product strategy', 'UX/UI design', 'Front-end development'],
+    imagePath = "/studio/opengraph-image",
+    areaServed = "Worldwide",
+    serviceType = ["Product strategy", "UX/UI design", "Front-end development"],
     provider,
   } = params;
 
   return {
-    '@context': 'https://schema.org',
-    '@type': 'ProfessionalService',
+    "@context": "https://schema.org",
+    "@type": "ProfessionalService",
     name,
     description,
     url: absolutize(baseUrl, path),
@@ -189,10 +189,10 @@ export const buildProfessionalServiceJsonLd = (params: {
     areaServed,
     serviceType,
     provider: {
-      '@type': 'Person',
+      "@type": "Person",
       name: provider.name,
       jobTitle: provider.jobTitle,
-      url: absolutize(baseUrl, provider.urlPath ?? '/'),
+      url: absolutize(baseUrl, provider.urlPath ?? "/"),
       ...(provider.sameAs?.length ? { sameAs: provider.sameAs } : {}),
     },
     makesOffer: buildOffers(baseUrl),

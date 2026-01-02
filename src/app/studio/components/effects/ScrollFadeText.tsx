@@ -1,14 +1,8 @@
-'use client';
+"use client";
 
-import React, {
-  CSSProperties,
-  useCallback,
-  useEffect,
-  useLayoutEffect,
-  useMemo,
-  useRef,
-  useState,
-} from 'react';
+import type React from "react";
+import type { CSSProperties } from "react";
+import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
 
 type Props = {
   content: string[];
@@ -22,7 +16,7 @@ type Props = {
 
 export const ScrollFadeText: React.FC<Props> = ({
   content,
-  className = '',
+  className = "",
   baseOpacity = 0.35,
   maxOpacity = 1,
   thresholdRatioStart = 0.65,
@@ -31,7 +25,7 @@ export const ScrollFadeText: React.FC<Props> = ({
 }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const rafRef = useRef<number | null>(null);
-  const [isActive, setIsActive] = useState(() => typeof IntersectionObserver === 'undefined');
+  const [isActive, setIsActive] = useState(() => typeof IntersectionObserver === "undefined");
 
   // Caches for fast reads/writes at scroll time
   const spansRef = useRef<HTMLSpanElement[]>([]);
@@ -51,7 +45,7 @@ export const ScrollFadeText: React.FC<Props> = ({
     const el = containerRef.current;
     if (!el) return;
 
-    const spans = Array.from(el.querySelectorAll<HTMLSpanElement>('.sc-word'));
+    const spans = Array.from(el.querySelectorAll<HTMLSpanElement>(".sc-word"));
     spansRef.current = spans;
   }, []);
 
@@ -66,9 +60,9 @@ export const ScrollFadeText: React.FC<Props> = ({
     const el = containerRef.current;
     if (!el) return;
 
-    const paragraphs = Array.from(el.querySelectorAll<HTMLParagraphElement>('p'));
+    const paragraphs = Array.from(el.querySelectorAll<HTMLParagraphElement>("p"));
     const spansByParagraph = paragraphs.map((p) =>
-      Array.from(p.querySelectorAll<HTMLSpanElement>('.sc-word'))
+      Array.from(p.querySelectorAll<HTMLSpanElement>(".sc-word"))
     );
 
     const flatSpans = spansByParagraph.flat();
@@ -115,7 +109,7 @@ export const ScrollFadeText: React.FC<Props> = ({
     const end = Math.min(spans.length - 1, Math.max(from, to));
     if (start > end || !spans.length) return;
 
-    const val = active ? 'true' : 'false';
+    const val = active ? "true" : "false";
 
     for (let k = start; k <= end; k++) {
       const span = spans[k];
@@ -143,7 +137,7 @@ export const ScrollFadeText: React.FC<Props> = ({
   }, [computeActiveIndex, setRangeActive]);
 
   useEffect(() => {
-    if (!containerRef.current || typeof IntersectionObserver === 'undefined') {
+    if (!containerRef.current || typeof IntersectionObserver === "undefined") {
       return;
     }
 
@@ -154,7 +148,7 @@ export const ScrollFadeText: React.FC<Props> = ({
           observer.disconnect();
         }
       },
-      { rootMargin: '0px 0px -20% 0px' }
+      { rootMargin: "0px 0px -20% 0px" }
     );
 
     observer.observe(containerRef.current);
@@ -164,6 +158,9 @@ export const ScrollFadeText: React.FC<Props> = ({
 
   useLayoutEffect(() => {
     if (!isActive) {
+      return;
+    }
+    if (content.length === 0) {
       return;
     }
 
@@ -188,11 +185,11 @@ export const ScrollFadeText: React.FC<Props> = ({
     });
     if (containerRef.current) ro.observe(containerRef.current);
 
-    window.addEventListener('scroll', onScroll, { passive: true });
-    window.addEventListener('resize', onResize);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onResize);
 
     const documentFonts = document?.fonts;
-    if (documentFonts && 'ready' in documentFonts) {
+    if (documentFonts && "ready" in documentFonts) {
       // @ts-expect-error -- Safari does not type document.fonts.ready as a Promise yet.
       const ready = documentFonts.ready as Promise<void>;
       void ready.then(() => {
@@ -203,8 +200,8 @@ export const ScrollFadeText: React.FC<Props> = ({
 
     return () => {
       ro.disconnect();
-      window.removeEventListener('scroll', onScroll);
-      window.removeEventListener('resize', onResize);
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onResize);
       if (rafRef.current != null) cancelAnimationFrame(rafRef.current);
     };
   }, [content, isActive, applyBridges, buildDomCaches, recalcCenters, schedule, updateOpacity]);
@@ -212,9 +209,9 @@ export const ScrollFadeText: React.FC<Props> = ({
   const styleVariables = useMemo(
     () =>
       ({
-        '--scroll-copy-base-opacity': baseOpacity.toString(),
-        '--scroll-copy-max-opacity': maxOpacity.toString(),
-        '--scroll-copy-word-gap': `${wordGap}px`,
+        "--scroll-copy-base-opacity": baseOpacity.toString(),
+        "--scroll-copy-max-opacity": maxOpacity.toString(),
+        "--scroll-copy-word-gap": `${wordGap}px`,
       }) as CSSProperties,
     [baseOpacity, maxOpacity, wordGap]
   );
@@ -222,33 +219,28 @@ export const ScrollFadeText: React.FC<Props> = ({
   return (
     <div
       ref={containerRef}
-      className={['scroll-copy space-y-8', className].filter(Boolean).join(' ')}
-      style={styleVariables}
-    >
+      className={["scroll-copy space-y-8", className].filter(Boolean).join(" ")}
+      style={styleVariables}>
       {content.map((text, paragraphIndex) => {
         const tokens = tokenize(text);
         return (
-          <p
-            key={paragraphIndex}
-            className="[contain-intrinsic-size:1px_500px] [content-visibility:auto]"
-          >
+          <p key={paragraphIndex} className="[contain-intrinsic-size:1px_500px] [content-visibility:auto]">
             {tokens.map((token, wordIndex) => (
               <span
                 id={`scw-${paragraphIndex}-${wordIndex}`}
                 key={`${paragraphIndex}-${wordIndex}`}
                 className={[
-                  'sc-word',
-                  'mr-(--scroll-copy-word-gap)',
-                  'transition-opacity',
-                  'will-change-[opacity]',
-                  'opacity-(--scroll-copy-base-opacity)',
-                  'data-[sc-active=true]:opacity-(--scroll-copy-max-opacity)',
-                  'duration-120',
-                  'ease-linear',
-                ].join(' ')}
-              >
+                  "sc-word",
+                  "mr-(--scroll-copy-word-gap)",
+                  "transition-opacity",
+                  "will-change-[opacity]",
+                  "opacity-(--scroll-copy-base-opacity)",
+                  "data-[sc-active=true]:opacity-(--scroll-copy-max-opacity)",
+                  "duration-120",
+                  "ease-linear",
+                ].join(" ")}>
                 {token}
-                {wordIndex < tokens.length - 1 ? ' ' : ''}
+                {wordIndex < tokens.length - 1 ? " " : ""}
               </span>
             ))}
           </p>

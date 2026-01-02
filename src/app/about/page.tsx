@@ -1,16 +1,16 @@
-import type { Metadata } from 'next';
+import type { Metadata } from "next";
 
-import { Intro } from './components/Intro';
-import { Online } from './components/Online';
-import { Work } from './components/Work';
+import { Intro } from "./components/Intro";
+import { Online } from "./components/Online";
+import { Work } from "./components/Work";
 
 export const metadata: Metadata = {
-  title: 'About me',
+  title: "About me",
   alternates: {
-    canonical: '/about',
+    canonical: "/about",
   },
   openGraph: {
-    url: '/about',
+    url: "/about",
   },
 };
 

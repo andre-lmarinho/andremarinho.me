@@ -1,9 +1,9 @@
-@config '../../tailwind.config.mjs';
-
 @layer theme, base, components, utilities;
-@import 'tailwindcss/theme.css' layer(theme);
-@import 'tailwindcss/preflight.css' layer(base);
-@import 'tailwindcss/utilities.css' layer(utilities);
+@import "tailwindcss/theme.css" layer(theme);
+@import "tailwindcss/preflight.css" layer(base);
+@import "tailwindcss/utilities.css" layer(utilities);
+
+@config "../../tailwind.config.mjs";
 
 /* Base Page Grid */
 .page-content {
@@ -75,7 +75,7 @@
     transition: opacity 200ms ease-out;
   }
 
-  .scroll-copy .sc-word[data-sc-active='true'] {
+  .scroll-copy .sc-word[data-sc-active="true"] {
     opacity: var(--scroll-copy-max-opacity);
   }
 

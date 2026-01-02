@@ -1,7 +1,7 @@
 const lintStagedConfig = {
-  '**/*.{js,ts,jsx,tsx}': ['prettier --write', 'eslint --fix --max-warnings=0 --no-warn-ignored'],
-  '**/*.{mjs,cjs}': ['prettier --write'],
-  '**/*.{json,md,css,scss}': ['prettier --write'],
+  "**/*.{js,ts,jsx,tsx,cjs,mjs,json,css,scss,md,mdx}": [
+    "biome check --write --files-ignore-unknown=true --no-errors-on-unmatched",
+  ],
 };
 
 export default lintStagedConfig;

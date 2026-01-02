@@ -1,10 +1,6 @@
-import { act, render } from '@testing-library/react';
+import { act, render } from "@testing-library/react";
 
-import {
-  ScrollFadeText,
-  createBridges,
-  tokenize,
-} from '@/app/studio/components/effects/ScrollFadeText';
+import { createBridges, ScrollFadeText, tokenize } from "@/app/studio/components/effects/ScrollFadeText";
 
 type FrameCallback = Parameters<typeof requestAnimationFrame>[0];
 
@@ -48,32 +44,32 @@ const setRect = (top: number): DOMRect => ({
   toJSON: () => ({}),
 });
 
-describe('scrollCopyUtils', () => {
-  it('tokenizes paragraphs into words preserving punctuation', () => {
-    expect(tokenize('Hello, world!  This is duonorth.')).toEqual([
-      'Hello,',
-      'world!',
-      'This',
-      'is',
-      'duonorth.',
+describe("scrollCopyUtils", () => {
+  it("tokenizes paragraphs into words preserving punctuation", () => {
+    expect(tokenize("Hello, world!  This is duonorth.")).toEqual([
+      "Hello,",
+      "world!",
+      "This",
+      "is",
+      "duonorth.",
     ]);
   });
 
-  it('creates bridges linking paragraph boundaries', () => {
-    const bridges = createBridges([['p0w0', 'p0w1'], [], ['p2w0', 'p2w1'], ['p3w0']]);
+  it("creates bridges linking paragraph boundaries", () => {
+    const bridges = createBridges([["p0w0", "p0w1"], [], ["p2w0", "p2w1"], ["p3w0"]]);
 
     expect(bridges).toEqual([
-      { fromId: 'p0w1', toId: 'p2w0' },
-      { fromId: 'p2w1', toId: 'p3w0' },
+      { fromId: "p0w1", toId: "p2w0" },
+      { fromId: "p2w1", toId: "p3w0" },
     ]);
   });
 });
 
-describe('ScrollCopy component', () => {
+describe("ScrollCopy component", () => {
   beforeEach(() => {
     rafQueue = [];
 
-    Object.defineProperty(window, 'innerHeight', {
+    Object.defineProperty(window, "innerHeight", {
       configurable: true,
       writable: true,
       value: 1000,
@@ -87,37 +83,37 @@ describe('ScrollCopy component', () => {
       rafQueue[id - 1] = () => undefined;
     });
 
-    Object.defineProperty(globalThis, 'requestAnimationFrame', {
+    Object.defineProperty(globalThis, "requestAnimationFrame", {
       configurable: true,
       writable: true,
       value: rafMock,
     });
-    Object.defineProperty(globalThis, 'cancelAnimationFrame', {
+    Object.defineProperty(globalThis, "cancelAnimationFrame", {
       configurable: true,
       writable: true,
       value: cancelMock,
     });
 
-    Object.defineProperty(globalThis, 'ResizeObserver', {
+    Object.defineProperty(globalThis, "ResizeObserver", {
       configurable: true,
       writable: true,
       value: jest
         .fn((cb: ResizeObserverCallback) => new ResizeObserverMock(cb) as unknown as ResizeObserver)
-        .mockName('ResizeObserverMock') as unknown as typeof ResizeObserver,
+        .mockName("ResizeObserverMock") as unknown as typeof ResizeObserver,
     });
   });
 
   afterEach(() => {
     rafQueue = [];
 
-    Object.defineProperty(window, 'innerHeight', {
+    Object.defineProperty(window, "innerHeight", {
       configurable: true,
       writable: true,
       value: originalInnerHeight,
     });
 
     if (originalRequestAnimationFrame) {
-      Object.defineProperty(globalThis, 'requestAnimationFrame', {
+      Object.defineProperty(globalThis, "requestAnimationFrame", {
         configurable: true,
         writable: true,
         value: originalRequestAnimationFrame,
@@ -128,7 +124,7 @@ describe('ScrollCopy component', () => {
     }
 
     if (originalCancelAnimationFrame) {
-      Object.defineProperty(globalThis, 'cancelAnimationFrame', {
+      Object.defineProperty(globalThis, "cancelAnimationFrame", {
         configurable: true,
         writable: true,
         value: originalCancelAnimationFrame,
@@ -139,7 +135,7 @@ describe('ScrollCopy component', () => {
     }
 
     if (originalResizeObserver) {
-      Object.defineProperty(globalThis, 'ResizeObserver', {
+      Object.defineProperty(globalThis, "ResizeObserver", {
         configurable: true,
         writable: true,
         value: originalResizeObserver,
@@ -149,10 +145,10 @@ describe('ScrollCopy component', () => {
     }
   });
 
-  it('builds paragraph bridges and synchronises active spans', () => {
-    const paragraphs = ['This is a content test.', 'Another paragraph right after.'];
+  it("builds paragraph bridges and synchronises active spans", () => {
+    const paragraphs = ["This is a content test.", "Another paragraph right after."];
     const getBoundingRectSpy = jest
-      .spyOn(HTMLElement.prototype, 'getBoundingClientRect')
+      .spyOn(HTMLElement.prototype, "getBoundingClientRect")
       .mockImplementation(() => setRect(1200));
 
     try {
@@ -160,15 +156,15 @@ describe('ScrollCopy component', () => {
         <ScrollFadeText content={paragraphs} baseOpacity={0.2} maxOpacity={0.8} />
       );
 
-      const renderedParagraphs = container.querySelectorAll('p');
+      const renderedParagraphs = container.querySelectorAll("p");
       const firstParagraph = renderedParagraphs[0];
       const secondParagraph = renderedParagraphs[1];
 
-      const firstParagraphWords = firstParagraph.querySelectorAll<HTMLSpanElement>('.sc-word');
+      const firstParagraphWords = firstParagraph.querySelectorAll<HTMLSpanElement>(".sc-word");
       const lastWord = firstParagraphWords[firstParagraphWords.length - 1];
-      const nextFirstWord = secondParagraph.querySelector<HTMLSpanElement>('.sc-word');
+      const nextFirstWord = secondParagraph.querySelector<HTMLSpanElement>(".sc-word");
 
-      const allWords = Array.from(container.querySelectorAll<HTMLSpanElement>('.sc-word'));
+      const allWords = Array.from(container.querySelectorAll<HTMLSpanElement>(".sc-word"));
       allWords.forEach((word) => {
         if (firstParagraph.contains(word)) {
           word.getBoundingClientRect = () => setRect(100);
@@ -180,26 +176,26 @@ describe('ScrollCopy component', () => {
       });
 
       act(() => {
-        window.dispatchEvent(new Event('resize'));
+        window.dispatchEvent(new Event("resize"));
         flushRaf();
       });
 
       act(() => {
-        window.dispatchEvent(new Event('scroll'));
+        window.dispatchEvent(new Event("scroll"));
         flushRaf();
       });
 
-      expect(lastWord?.dataset.scActive).toBe('true');
-      expect(nextFirstWord?.dataset.scActive).toBe('true');
+      expect(lastWord?.dataset.scActive).toBe("true");
+      expect(nextFirstWord?.dataset.scActive).toBe("true");
     } finally {
       getBoundingRectSpy.mockRestore();
     }
   });
 
-  it('applies custom opacity thresholds and spacing variables', () => {
+  it("applies custom opacity thresholds and spacing variables", () => {
     const { container } = render(
       <ScrollFadeText
-        content={['This is a sample paragraph for custom styling.']}
+        content={["This is a sample paragraph for custom styling."]}
         baseOpacity={0.25}
         maxOpacity={0.95}
         thresholdRatioStart={0.1}
@@ -209,11 +205,11 @@ describe('ScrollCopy component', () => {
     );
 
     const root = container.firstChild as HTMLElement;
-    expect(root.style.getPropertyValue('--scroll-copy-base-opacity')).toBe('0.25');
-    expect(root.style.getPropertyValue('--scroll-copy-max-opacity')).toBe('0.95');
-    expect(root.style.getPropertyValue('--scroll-copy-word-gap')).toBe('4px');
+    expect(root.style.getPropertyValue("--scroll-copy-base-opacity")).toBe("0.25");
+    expect(root.style.getPropertyValue("--scroll-copy-max-opacity")).toBe("0.95");
+    expect(root.style.getPropertyValue("--scroll-copy-word-gap")).toBe("4px");
 
-    const words = Array.from(container.querySelectorAll<HTMLSpanElement>('.sc-word'));
+    const words = Array.from(container.querySelectorAll<HTMLSpanElement>(".sc-word"));
     const [firstWord, secondWord] = words;
 
     words.forEach((word, index) => {
@@ -225,11 +221,11 @@ describe('ScrollCopy component', () => {
     });
 
     act(() => {
-      window.dispatchEvent(new Event('resize'));
+      window.dispatchEvent(new Event("resize"));
       flushRaf();
     });
 
-    expect(firstWord?.dataset.scActive).toBe('true');
-    expect(secondWord?.dataset.scActive).toBe('false');
+    expect(firstWord?.dataset.scActive).toBe("true");
+    expect(secondWord?.dataset.scActive).toBe("false");
   });
 });

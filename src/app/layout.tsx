@@ -1,16 +1,15 @@
-import type { Metadata } from 'next';
-import { Inter, Roboto_Mono } from 'next/font/google';
-import React from 'react';
+import type { Metadata } from "next";
+import { Inter, Roboto_Mono } from "next/font/google";
+import type React from "react";
 
-import { cn } from '@/utils/cn';
-import '@/utils/theme.css';
+import { cn } from "@/utils/cn";
+import "@/utils/theme.css";
 
-import { Layout } from '@/components/Layout';
-import { SITE_NAME, SITE_URL } from '@/configs/site';
-import Providers from './providers';
-
-import { Analytics } from '@vercel/analytics/next';
-import { SpeedInsights } from '@vercel/speed-insights/next';
+import { Analytics } from "@vercel/analytics/next";
+import { SpeedInsights } from "@vercel/speed-insights/next";
+import { Layout } from "@/components/Layout";
+import { SITE_NAME, SITE_URL } from "@/configs/site";
+import { Providers } from "./providers";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -21,32 +20,32 @@ export const metadata: Metadata = {
   description:
     "I'm a Front-End Engineer based in Salvador. I create digital experiences that connect design, strategy and business growth.",
   openGraph: {
-    type: 'website',
-    locale: 'en_US',
+    type: "website",
+    locale: "en_US",
     siteName: SITE_NAME,
     url: SITE_URL,
   },
   twitter: {
-    card: 'summary_large_image',
+    card: "summary_large_image",
   },
 };
 
 const inter = Inter({
-  subsets: ['latin'],
-  variable: '--font-inter',
-  weight: ['400', '500', '600', '700'],
-  display: 'swap',
+  subsets: ["latin"],
+  variable: "--font-inter",
+  weight: ["400", "500", "600", "700"],
+  display: "swap",
 });
 
 const robotoMono = Roboto_Mono({
-  subsets: ['latin'],
-  variable: '--font-roboto-mono',
-  weight: ['400', '700'],
-  display: 'swap',
+  subsets: ["latin"],
+  variable: "--font-roboto-mono",
+  weight: ["400", "700"],
+  display: "swap",
 });
 
-if (process.env.NEXT_PUBLIC_API_MOCKING === 'enabled') {
-  void import('../mocks');
+if (process.env.NEXT_PUBLIC_API_MOCKING === "enabled") {
+  void import("../mocks");
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
@@ -59,7 +58,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <link rel="icon" href="/favicon/icon.png" type="image/png" />
         <link rel="manifest" href="/site.webmanifest" />
       </head>
-      <body className={cn(inter.variable, robotoMono.variable, 'font-sans antialiased')}>
+      <body className={cn(inter.variable, robotoMono.variable, "font-sans antialiased")}>
         <Providers>
           <Layout>{children}</Layout>
         </Providers>

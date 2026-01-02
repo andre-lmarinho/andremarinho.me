@@ -1,14 +1,14 @@
-const withMDX = require('@next/mdx')({
+const withMDX = require("@next/mdx")({
   extension: /\.mdx?$/,
   options: {
-    providerImportSource: '@/mdx-components',
+    providerImportSource: "@/mdx-components",
   },
 });
 
-const isDev = process.env.NODE_ENV !== 'production';
+const isDev = process.env.NODE_ENV !== "production";
 
-const scriptSrc = `'self' 'unsafe-inline' https://va.vercel-scripts.com${isDev ? " 'unsafe-eval'" : ''}`;
-const connectSrc = `'self' https://vitals.vercel-insights.com${isDev ? ' ws:' : ''}`;
+const scriptSrc = `'self' 'unsafe-inline' https://va.vercel-scripts.com${isDev ? " 'unsafe-eval'" : ""}`;
+const connectSrc = `'self' https://vitals.vercel-insights.com${isDev ? " ws:" : ""}`;
 
 const cspDirectives = [
   "default-src 'self'",
@@ -18,58 +18,58 @@ const cspDirectives = [
   `script-src ${scriptSrc}`,
   `connect-src ${connectSrc}`,
   "frame-ancestors 'none'",
-].join('; ');
+].join("; ");
 
 const securityHeaders = [
   {
-    key: 'Strict-Transport-Security',
-    value: 'max-age=63072000; includeSubDomains; preload',
+    key: "Strict-Transport-Security",
+    value: "max-age=63072000; includeSubDomains; preload",
   },
   {
-    key: 'X-Content-Type-Options',
-    value: 'nosniff',
+    key: "X-Content-Type-Options",
+    value: "nosniff",
   },
   {
-    key: 'Referrer-Policy',
-    value: 'strict-origin-when-cross-origin',
+    key: "Referrer-Policy",
+    value: "strict-origin-when-cross-origin",
   },
   {
-    key: 'X-Frame-Options',
-    value: 'DENY',
+    key: "X-Frame-Options",
+    value: "DENY",
   },
   {
-    key: 'Permissions-Policy',
-    value: 'camera=(), microphone=(), geolocation=(), interest-cohort=()',
+    key: "Permissions-Policy",
+    value: "camera=(), microphone=(), geolocation=(), interest-cohort=()",
   },
   {
-    key: 'Content-Security-Policy',
+    key: "Content-Security-Policy",
     value: cspDirectives,
   },
   {
-    key: 'X-DNS-Prefetch-Control',
-    value: 'off',
+    key: "X-DNS-Prefetch-Control",
+    value: "off",
   },
   {
-    key: 'X-Permitted-Cross-Domain-Policies',
-    value: 'none',
+    key: "X-Permitted-Cross-Domain-Policies",
+    value: "none",
   },
   {
-    key: 'Cross-Origin-Opener-Policy',
-    value: 'same-origin',
+    key: "Cross-Origin-Opener-Policy",
+    value: "same-origin",
   },
   {
-    key: 'Cross-Origin-Resource-Policy',
-    value: 'same-origin',
+    key: "Cross-Origin-Resource-Policy",
+    value: "same-origin",
   },
 ];
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  pageExtensions: ['ts', 'tsx', 'mdx'],
+  pageExtensions: ["ts", "tsx", "mdx"],
   headers() {
     return Promise.resolve([
       {
-        source: '/:path*',
+        source: "/:path*",
         headers: securityHeaders,
       },
     ]);
@@ -77,19 +77,19 @@ const nextConfig = {
   images: {
     remotePatterns: [
       {
-        protocol: 'https',
-        hostname: 'cdn.simpleicons.org',
-        pathname: '/**',
+        protocol: "https",
+        hostname: "cdn.simpleicons.org",
+        pathname: "/**",
       },
       {
-        protocol: 'https',
-        hostname: 'github.com',
-        pathname: '/**',
+        protocol: "https",
+        hostname: "github.com",
+        pathname: "/**",
       },
       {
-        protocol: 'https',
-        hostname: 'avatars.githubusercontent.com',
-        pathname: '/**',
+        protocol: "https",
+        hostname: "avatars.githubusercontent.com",
+        pathname: "/**",
       },
     ],
     dangerouslyAllowSVG: true,

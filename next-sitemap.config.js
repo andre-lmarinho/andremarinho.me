@@ -1,7 +1,7 @@
 /** @type {import('next-sitemap').IConfig} */
 module.exports = {
-  siteUrl: 'https://andremarinho.me',
+  siteUrl: "https://andremarinho.me",
   generateRobotsTxt: true,
   generateIndexSitemap: false,
-  exclude: ['*/opengraph-image'],
+  exclude: ["*/opengraph-image"],
 };

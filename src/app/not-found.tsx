@@ -1,9 +1,9 @@
-import Link from 'next/link';
+import Link from "next/link";
 
 const links = [
-  { href: '/', label: 'Home' },
-  { href: '/studio', label: 'Studio' },
-  { href: '/about', label: 'About' },
+  { href: "/", label: "Home" },
+  { href: "/studio", label: "Studio" },
+  { href: "/about", label: "About" },
 ];
 
 export default function NotFound() {
@@ -19,8 +19,7 @@ export default function NotFound() {
           <li key={link.href}>
             <Link
               href={link.href}
-              className="underline underline-offset-2 transition-colors hover:text-zinc-900 dark:hover:text-zinc-100"
-            >
+              className="underline underline-offset-2 transition-colors hover:text-zinc-900 dark:hover:text-zinc-100">
               {link.label}
             </Link>
           </li>

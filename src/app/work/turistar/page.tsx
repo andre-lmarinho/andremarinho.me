@@ -1,12 +1,12 @@
-import type { Metadata } from 'next';
+import type { Metadata } from "next";
 
-import Link from 'next/link';
+import Link from "next/link";
 
-import { Hero } from '../shared/Hero';
-import { ProjectLinks } from '../shared/ProjectLinks';
+import { Hero } from "../shared/Hero";
+import { ProjectLinks } from "../shared/ProjectLinks";
 
-import StoryContent from './components/content.mdx';
-import { heroMetadata } from './components/metadata';
+import StoryContent from "./components/content.mdx";
+import { heroMetadata } from "./components/metadata";
 
 export const metadata: Metadata = {
   title: heroMetadata.title,

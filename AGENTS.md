@@ -35,7 +35,7 @@ Use these npm scripts:
 | ------------------- | ---------------------------------------------- |
 | `npm install`       | Install dependencies                           |
 | `npm run dev`       | Start the development server                   |
-| `npm run lint`      | Run ESLint over the source files               |
+| `npm run lint`      | Run Biome Lint over the source files           |
 | `npm run typecheck` | Run the TypeScript compiler in `--noEmit` mode |
 | `npm run test`      | Run Jest unit tests                            |
 
@@ -43,7 +43,7 @@ Use these npm scripts:
 
 - Write all code in **TypeScript**.
 - Do not use `any` types.
-- Follow configured **ESLint** and **Prettier** rules.
+- Follow configured **Biome** rules.
 - Use functional components with hooks.
 - Prefer named exports for components.
 - Before pushing changes, run: `lint`, `typecheck`, and `test`.

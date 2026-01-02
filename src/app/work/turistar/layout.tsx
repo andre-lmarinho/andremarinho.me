@@ -1,6 +1,6 @@
-import type { ReactNode } from 'react';
+import type { ReactNode } from "react";
 
-import './work.css';
+import "./work.css";
 
 type TuristarLayoutProps = {
   children: ReactNode;

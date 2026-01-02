@@ -1,17 +1,17 @@
-'use client';
+"use client";
 
-import { useEffect, useId, useRef, useState } from 'react';
-import type { MouseEvent } from 'react';
-import { createPortal } from 'react-dom';
+import type { KeyboardEvent, MouseEvent } from "react";
+import { useEffect, useId, useRef, useState } from "react";
+import { createPortal } from "react-dom";
 
-import { MenuLinks } from './NavigationLink';
-import { NAV_LINKS } from './links';
-import { CloseIcon } from '@/components/icons/CloseIcon';
-import { MenuIcon } from '@/components/icons/MenuIcon';
-import { useFocusTrap } from './hooks/useFocusTrap';
+import { CloseIcon } from "@/components/icons/CloseIcon";
+import { MenuIcon } from "@/components/icons/MenuIcon";
+import { useFocusTrap } from "./hooks/useFocusTrap";
+import { NAV_LINKS } from "./links";
+import { MenuLinks } from "./NavigationLink";
 
 const buttonClassName =
-  'inline-flex items-center justify-center rounded-lg p-2 text-zinc-900 transition-colors hover:text-zinc-600 focus-visible:ring-1 focus-visible:ring-neutral-300 dark:text-zinc-100 dark:hover:text-zinc-300 dark:focus-visible:ring-neutral-500';
+  "inline-flex items-center justify-center rounded-lg p-2 text-zinc-900 transition-colors hover:text-zinc-600 focus-visible:ring-1 focus-visible:ring-neutral-300 dark:text-zinc-100 dark:hover:text-zinc-300 dark:focus-visible:ring-neutral-500";
 
 export const Hamburger = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -21,9 +21,20 @@ export const Hamburger = () => {
 
   useFocusTrap(navRef, isOpen, setIsOpen);
 
+  const findAnchor = (target: EventTarget | null) =>
+    (target as HTMLElement | null)?.closest<HTMLAnchorElement>("a");
+
   const handleNavClick = (event: MouseEvent<HTMLElement>) => {
-    const anchor = (event.target as HTMLElement | null)?.closest<HTMLAnchorElement>('a');
-    if (anchor) {
+    if (findAnchor(event.target)) {
+      setIsOpen(false);
+    }
+  };
+
+  const handleNavKeyDown = (event: KeyboardEvent<HTMLElement>) => {
+    if (event.key !== "Enter" && event.key !== " ") {
+      return;
+    }
+    if (findAnchor(event.target)) {
       setIsOpen(false);
     }
   };
@@ -34,7 +45,7 @@ export const Hamburger = () => {
     }
 
     const originalOverflow = document.body.style.overflow;
-    document.body.style.overflow = 'hidden';
+    document.body.style.overflow = "hidden";
 
     return () => {
       document.body.style.overflow = originalOverflow;
@@ -50,8 +61,7 @@ export const Hamburger = () => {
         aria-haspopup="dialog"
         onClick={() => setIsOpen(true)}
         className={buttonClassName}
-        type="button"
-      >
+        type="button">
         <MenuIcon />
       </button>
 
@@ -66,7 +76,7 @@ export const Hamburger = () => {
               id={dialogId}
               tabIndex={-1}
               onClick={handleNavClick}
-            >
+              onKeyDown={handleNavKeyDown}>
               <h2 id={labelId} className="sr-only">
                 Mobile navigation menu
               </h2>
@@ -75,8 +85,7 @@ export const Hamburger = () => {
                   aria-label="Close navigation menu"
                   onClick={() => setIsOpen(false)}
                   className={buttonClassName}
-                  type="button"
-                >
+                  type="button">
                   <CloseIcon />
                 </button>
               </div>

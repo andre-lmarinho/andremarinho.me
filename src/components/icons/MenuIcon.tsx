@@ -5,8 +5,8 @@ export const MenuIcon = () => (
     height="24"
     fill="currentColor"
     aria-hidden
-    className="h-6 w-6"
-  >
+    className="h-6 w-6">
+    <title>Menu</title>
     <path d="M3 6h18v2.016H3V6zm0 6.984v-1.969h18v1.969H3zM3 18v-2.016h18V18H3z" />
   </svg>
 );

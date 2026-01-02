@@ -1,6 +1,4 @@
-import apiHandlers from './api';
-import githubHandlers from './github';
+import { apiHandlers } from "./api";
+import { githubHandlers } from "./github";
 
-const handlers = [...githubHandlers, ...apiHandlers];
-
-export default handlers;
+export const handlers = [...githubHandlers, ...apiHandlers];
