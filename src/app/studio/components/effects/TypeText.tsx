@@ -1,16 +1,9 @@
-'use client';
+"use client";
 
-import {
-  ElementType,
-  HTMLAttributes,
-  ReactNode,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-} from 'react';
+import type { ElementType, HTMLAttributes, ReactNode } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 
-type TypingPhase = 'initial' | 'typing' | 'pausing' | 'deleting';
+type TypingPhase = "initial" | "typing" | "pausing" | "deleting";
 
 interface Props extends HTMLAttributes<HTMLElement> {
   text: string | string[];
@@ -31,8 +24,8 @@ interface Props extends HTMLAttributes<HTMLElement> {
 
 export const TypeText = ({
   text,
-  as: Component = 'div',
-  className = '',
+  as: Component = "div",
+  className = "",
   initialText,
   typingSpeed = 70,
   deletingSpeed = 30,
@@ -41,43 +34,37 @@ export const TypeText = ({
   loop = true,
   showCursor = true,
   hideCursorWhileTyping = false,
-  cursorCharacter = '_',
-  cursorClassName = '',
+  cursorCharacter = "_",
+  cursorClassName = "",
   cursorBlinkDuration = 0.4,
   ...props
 }: Props) => {
   const textArray = useMemo(() => (Array.isArray(text) ? text : [text]), [text]);
-  const resolvedInitialText = initialText ?? textArray[0] ?? '';
-  const resolvedInitialIndex = Math.max(
-    0,
-    textArray.findIndex((value) => value === resolvedInitialText)
-  );
+  const resolvedInitialText = initialText ?? textArray[0] ?? "";
+  const resolvedInitialIndex = Math.max(0, textArray.indexOf(resolvedInitialText));
   const cursorRef = useRef<HTMLSpanElement>(null);
   const [displayedText, setDisplayedText] = useState(resolvedInitialText);
   const [textIndex, setTextIndex] = useState(resolvedInitialIndex);
-  const [phase, setPhase] = useState<TypingPhase>(resolvedInitialText ? 'pausing' : 'initial');
+  const [phase, setPhase] = useState<TypingPhase>(resolvedInitialText ? "pausing" : "initial");
 
   useEffect(() => {
     const timeout = setTimeout(() => {
-      const nextText = initialText ?? textArray[0] ?? '';
-      const nextIndex = Math.max(
-        0,
-        textArray.findIndex((value) => value === nextText)
-      );
+      const nextText = initialText ?? textArray[0] ?? "";
+      const nextIndex = Math.max(0, textArray.indexOf(nextText));
       setDisplayedText(nextText);
       setTextIndex(nextIndex);
-      setPhase(nextText ? 'pausing' : 'initial');
+      setPhase(nextText ? "pausing" : "initial");
     }, 0);
 
     return () => clearTimeout(timeout);
   }, [textArray, initialText]);
 
   useEffect(() => {
-    if (phase !== 'initial') {
+    if (phase !== "initial") {
       return;
     }
 
-    const timeout = setTimeout(() => setPhase('typing'), initialDelay);
+    const timeout = setTimeout(() => setPhase("typing"), initialDelay);
 
     return () => clearTimeout(timeout);
   }, [phase, initialDelay]);
@@ -88,33 +75,33 @@ export const TypeText = ({
     }
 
     const cursor = cursorRef.current;
-    if (!cursor || typeof cursor.animate !== 'function') {
+    if (!cursor || typeof cursor.animate !== "function") {
       return;
     }
 
-    cursor.style.opacity = '1';
+    cursor.style.opacity = "1";
     const animation = cursor.animate([{ opacity: 1 }, { opacity: 0 }], {
       duration: cursorBlinkDuration * 1000,
-      direction: 'alternate',
+      direction: "alternate",
       iterations: Infinity,
-      easing: 'ease-in-out',
+      easing: "ease-in-out",
     });
 
     return () => {
       animation.cancel();
-      cursor.style.removeProperty('opacity');
+      cursor.style.removeProperty("opacity");
     };
   }, [showCursor, cursorBlinkDuration]);
 
   useEffect(() => {
-    if (phase === 'initial') {
+    if (phase === "initial") {
       return;
     }
 
-    const currentText = textArray[textIndex] ?? '';
+    const currentText = textArray[textIndex] ?? "";
     let timeout: ReturnType<typeof setTimeout> | undefined;
 
-    if (phase === 'typing') {
+    if (phase === "typing") {
       if (displayedText === currentText) {
         const shouldContinue = textArray.length > 1 || loop;
         if (!shouldContinue) {
@@ -122,7 +109,7 @@ export const TypeText = ({
         }
 
         timeout = setTimeout(() => {
-          setPhase('pausing');
+          setPhase("pausing");
         }, 0);
         return;
       }
@@ -130,22 +117,22 @@ export const TypeText = ({
       timeout = setTimeout(() => {
         setDisplayedText(currentText.slice(0, displayedText.length + 1));
       }, typingSpeed);
-    } else if (phase === 'pausing') {
-      timeout = setTimeout(() => setPhase('deleting'), pauseDuration);
-    } else if (phase === 'deleting') {
-      if (displayedText === '') {
+    } else if (phase === "pausing") {
+      timeout = setTimeout(() => setPhase("deleting"), pauseDuration);
+    } else if (phase === "deleting") {
+      if (displayedText === "") {
         const nextIndex = (textIndex + 1) % textArray.length;
 
         if (nextIndex === 0 && !loop) {
           timeout = setTimeout(() => {
-            setPhase('typing');
+            setPhase("typing");
           }, 0);
           return;
         }
 
         timeout = setTimeout(() => {
           setTextIndex(nextIndex);
-          setPhase('typing');
+          setPhase("typing");
         }, 0);
       } else {
         timeout = setTimeout(() => {
@@ -161,24 +148,18 @@ export const TypeText = ({
     };
   }, [phase, textArray, textIndex, displayedText, typingSpeed, deletingSpeed, pauseDuration, loop]);
 
-  const currentText = textArray[textIndex] ?? '';
-  const isTyping = phase === 'typing' && displayedText.length < currentText.length;
-  const isDeleting = phase === 'deleting';
+  const currentText = textArray[textIndex] ?? "";
+  const isTyping = phase === "typing" && displayedText.length < currentText.length;
+  const isDeleting = phase === "deleting";
   const shouldHideCursor = hideCursorWhileTyping && (isTyping || isDeleting);
 
   return (
-    <Component
-      className={`inline-block tracking-tight whitespace-pre-wrap ${className}`}
-      {...props}
-    >
+    <Component className={`inline-block tracking-tight whitespace-pre-wrap ${className}`} {...props}>
       <span className="inline">{displayedText}</span>
       {showCursor && (
         <span
           ref={cursorRef}
-          className={`ml-1 inline-block opacity-100 ${
-            shouldHideCursor ? 'hidden' : ''
-          } ${cursorClassName}`}
-        >
+          className={`ml-1 inline-block opacity-100 ${shouldHideCursor ? "hidden" : ""} ${cursorClassName}`}>
           {cursorCharacter}
         </span>
       )}

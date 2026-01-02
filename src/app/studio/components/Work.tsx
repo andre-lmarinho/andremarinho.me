@@ -1,44 +1,43 @@
-import Image, { type StaticImageData } from 'next/image';
+import Image, { type StaticImageData } from "next/image";
+import budget from "./images/budget.webp";
+import budgetMobile from "./images/budget-mobile.webp";
+import home from "./images/home.webp";
+import homeMobile from "./images/home-mobile.webp";
+import planner from "./images/planner.webp";
+import plannerMobile from "./images/planner-mobile.webp";
 
-import budgetMobile from './images/budget-mobile.webp';
-import budget from './images/budget.webp';
-import homeMobile from './images/home-mobile.webp';
-import home from './images/home.webp';
-import plannerMobile from './images/planner-mobile.webp';
-import planner from './images/planner.webp';
-
-const SIGN = 'Made by andremarinho.me.';
+const SIGN = "Made by andremarinho.me.";
 
 const IMAGES: ReadonlyArray<{ src: StaticImageData; alt: string }> = [
   {
     src: home,
-    alt: 'A screenshot of a travel planning website homepage highlighting a hero section with a clear value proposition, primary call-to-action, feature highlights, and social proof.',
+    alt: "A screenshot of a travel planning website homepage highlighting a hero section with a clear value proposition, primary call-to-action, feature highlights, and social proof.",
   },
   {
     src: homeMobile,
-    alt: 'A mobile screenshot of the travel planning website homepage showcasing the hero, concise copy, and stacked calls-to-action optimized for small screens.',
+    alt: "A mobile screenshot of the travel planning website homepage showcasing the hero, concise copy, and stacked calls-to-action optimized for small screens.",
   },
   {
     src: planner,
-    alt: 'A screenshot of a travel planning web application home showing an itinerary overview with upcoming trip cards, a map preview, and quick actions to add days, activities, and notes.',
+    alt: "A screenshot of a travel planning web application home showing an itinerary overview with upcoming trip cards, a map preview, and quick actions to add days, activities, and notes.",
   },
   {
     src: plannerMobile,
-    alt: 'A mobile screenshot of the travel planning web application home with a scrollable itinerary, compact trip cards, and quick-add actions.',
+    alt: "A mobile screenshot of the travel planning web application home with a scrollable itinerary, compact trip cards, and quick-add actions.",
   },
   {
     src: budget,
-    alt: 'A screenshot of the travel planning web application Budget feature with expense categories, totals by traveler, and a spending-over-time chart.',
+    alt: "A screenshot of the travel planning web application Budget feature with expense categories, totals by traveler, and a spending-over-time chart.",
   },
   {
     src: budgetMobile,
-    alt: 'A mobile screenshot of the Budget feature showing categorized expenses, per-traveler totals, and a compact summary for quick review.',
+    alt: "A mobile screenshot of the Budget feature showing categorized expenses, per-traveler totals, and a compact summary for quick review.",
   },
 ];
 
 export const Work = () => (
-  <section id="work" className="full-width">
-    <div className="page-content" aria-labelledby="work-title" aria-describedby="work-credit">
+  <section id="work" className="full-width" aria-labelledby="work-title" aria-describedby="work-credit">
+    <div className="page-content">
       <h2 id="work-title" className="text-2xl font-bold tracking-tight sm:text-3xl">
         Work
       </h2>

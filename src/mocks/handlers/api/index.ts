@@ -1,7 +1,5 @@
-import { http, HttpResponse } from 'msw';
+import { HttpResponse, http } from "msw";
 
-import availability from './mocks/availability.json';
+import availability from "./mocks/availability.json";
 
-const apiHandlers = [http.get('/api/availability', () => HttpResponse.json(availability))];
-
-export default apiHandlers;
+export const apiHandlers = [http.get("/api/availability", () => HttpResponse.json(availability))];

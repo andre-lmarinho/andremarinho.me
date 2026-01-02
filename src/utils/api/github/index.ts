@@ -1,10 +1,11 @@
-import callApi, { type callApiOptions } from '@/utils/api/callApi';
-import { transformRepositories, transformUserInformation } from './mutators';
+import type { callApiOptions } from "@/utils/api/callApi";
+import { callApi } from "@/utils/api/callApi";
+import { transformRepositories, transformUserInformation } from "./mutators";
 
 const githubApiClient = <Response, Data>(options: callApiOptions<Response, Data>) => {
   const githubToken = process.env.GITHUB_API_TOKEN;
   const headers: Record<string, string> = {
-    Accept: 'application/vnd.github.v3+json',
+    Accept: "application/vnd.github.v3+json",
   };
 
   if (githubToken) {
@@ -23,11 +24,11 @@ const githubApiClient = <Response, Data>(options: callApiOptions<Response, Data>
 export const fetchRepositories = () =>
   githubApiClient({
     mutator: transformRepositories,
-    url: '/users/andre-lmarinho/repos',
+    url: "/users/andre-lmarinho/repos",
   });
 
 export const fetchUserInformation = () =>
   githubApiClient({
     mutator: transformUserInformation,
-    url: '/users/andre-lmarinho',
+    url: "/users/andre-lmarinho",
   });

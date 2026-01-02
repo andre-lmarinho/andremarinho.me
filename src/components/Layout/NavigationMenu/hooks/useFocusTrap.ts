@@ -1,6 +1,7 @@
-'use client';
+"use client";
 
-import { RefObject, useEffect } from 'react';
+import type { RefObject } from "react";
+import { useEffect } from "react";
 
 const focusableSelector =
   'a[href]:not([tabindex="-1"]), button:not([disabled]):not([tabindex="-1"]), [tabindex]:not([tabindex="-1"])';
@@ -25,12 +26,12 @@ export function useFocusTrap(
     const frameId = requestAnimationFrame(focusFirst);
 
     const onKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') {
+      if (e.key === "Escape") {
         e.preventDefault();
         setIsOpen(false);
         return;
       }
-      if (e.key !== 'Tab') return;
+      if (e.key !== "Tab") return;
       const els = getFocusable();
       if (els.length === 0) {
         e.preventDefault();
@@ -54,10 +55,10 @@ export function useFocusTrap(
       }
     };
 
-    document.addEventListener('keydown', onKeyDown);
+    document.addEventListener("keydown", onKeyDown);
     return () => {
       cancelAnimationFrame(frameId);
-      document.removeEventListener('keydown', onKeyDown);
+      document.removeEventListener("keydown", onKeyDown);
     };
   }, [isOpen, setIsOpen, ref]);
 }

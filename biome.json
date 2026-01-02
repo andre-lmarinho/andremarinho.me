@@ -1,75 +1,109 @@
 {
-  "$schema": "https://biomejs.dev/schemas/1.9.4/schema.json",
-  "vcs": {
-    "enabled": true,
-    "clientKind": "git",
-    "useIgnoreFile": true
-  },
-  "files": {
-    "ignore": [
-      "**/public/**",
-      "**/next-env.d.ts",
-      "**/jest.config.js",
-      "**/next.config.js",
-      "**/postcss.config.js",
-      "**/tailwind.config.mjs"
-    ]
+  "$schema": "https://biomejs.dev/schemas/2.3.10/schema.json",
+  "root": true,
+  "css": {
+    "parser": {
+      "tailwindDirectives": true
+    }
   },
   "formatter": {
-    "enabled": true,
+    "includes": ["**/*"],
+    "lineWidth": 110,
     "indentStyle": "space",
     "indentWidth": 2,
-    "lineWidth": 100
+    "lineEnding": "lf"
   },
-  "organizeImports": {
-    "enabled": true
-  },
-  "linter": {
-    "enabled": true,
-    "rules": {
-      "recommended": true,
-      "a11y": {
-        "noNoninteractiveTabindex": "off",
-        "noSvgWithoutTitle": "off",
-        "useAltText": "off",
-        "useKeyWithClickEvents": "off",
-        "useSemanticElements": "off"
-      },
-      "complexity": {
-        "noForEach": "off",
-        "noUselessFragments": "off",
-        "useLiteralKeys": "off"
-      },
-      "correctness": {
-        "noInvalidPositionAtImportRule": "off",
-        "noUnusedVariables": "warn",
-        "useExhaustiveDependencies": "off"
-      },
-      "performance": {
-        "noDelete": "off"
-      },
-      "security": {
-        "noDangerouslySetInnerHtml": "off"
-      },
-      "style": {
-        "useImportType": "off",
-        "useNumberNamespace": "off",
-        "useSelfClosingElements": "off"
-      },
-      "suspicious": {
-        "noArrayIndexKey": "off",
-        "noExplicitAny": "warn",
-        "noShadowRestrictedNames": "off"
-      }
-    }
+  "files": {
+    "includes": [
+      "**/*",
+      "!!**/node_modules",
+      "!!**/.next",
+      "!!**/public",
+      "!!**/*.d.ts",
+      "!!public",
+      "!!*.log",
+      "!!.gitignore",
+      "!!.npmignore",
+      "!!.lighthouseci"
+    ]
   },
   "javascript": {
     "formatter": {
-      "quoteStyle": "single",
+      "arrowParentheses": "always",
+      "bracketSpacing": true,
+      "bracketSameLine": true,
+      "quoteStyle": "double",
       "jsxQuoteStyle": "double",
       "semicolons": "always",
-      "trailingCommas": "es5",
-      "lineWidth": 100
+      "trailingCommas": "es5"
     }
-  }
+  },
+  "linter": {
+    "enabled": true,
+    "domains": {
+      "next": "recommended",
+      "react": "recommended"
+    },
+    "rules": {
+      "recommended": true,
+      "correctness": {
+        "useExhaustiveDependencies": "warn",
+        "noUnknownProperty": "warn",
+        "noUnreachable": "warn",
+        "noEmptyPattern": "warn",
+        "noSwitchDeclarations": "warn",
+        "useHookAtTopLevel": "warn",
+        "useJsxKeyInIterable": "warn",
+        "noUnsafeOptionalChaining": "warn"
+      },
+      "style": {
+        "noDefaultExport": "warn",
+        "useImportType": {
+          "level": "warn",
+          "options": {
+            "style": "separatedType"
+          }
+        }
+      },
+      "suspicious": {
+        "useIterableCallbackReturn": "off",
+        "noDoubleEquals": "warn",
+        "noAssignInExpressions": "warn",
+        "noExplicitAny": "warn",
+        "noImplicitAnyLet": "warn",
+        "noRedeclare": "warn",
+        "noControlCharactersInRegex": "warn",
+        "noAsyncPromiseExecutor": "warn",
+        "noArrayIndexKey": "off",
+        "noShadowRestrictedNames": "off"
+      },
+      "security": {
+        "noBlankTarget": "warn"
+      }
+    }
+  },
+  "overrides": [
+    {
+      "includes": ["**/*.tsx"],
+      "javascript": {
+        "jsxRuntime": "transparent"
+      }
+    },
+    {
+      "includes": [
+        "src/app/**/page.tsx",
+        "src/app/**/layout.tsx",
+        "src/app/**/not-found.tsx",
+        "src/app/**/opengraph-image.tsx",
+        "**/*.config.*"
+      ],
+      "linter": {
+        "rules": {
+          "style": {
+            "noDefaultExport": "off"
+          }
+        }
+      }
+    }
+  ]
 }

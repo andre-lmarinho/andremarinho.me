@@ -10,9 +10,6 @@ out
 public/robots.txt
 public/sitemap*.xml
 
-# ESLint
-.eslintcache
-
 # Coverage
 coverage
 

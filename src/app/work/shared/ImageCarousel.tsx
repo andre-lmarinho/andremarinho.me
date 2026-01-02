@@ -1,8 +1,8 @@
-'use client';
+"use client";
 
-import Image from 'next/image';
-import { useRef } from 'react';
-import type { CSSProperties, KeyboardEvent, PointerEvent } from 'react';
+import Image from "next/image";
+import type { CSSProperties, PointerEvent } from "react";
+import { useRef } from "react";
 
 type CarouselImage = {
   src: string;
@@ -18,18 +18,18 @@ type ImageCarouselProps = {
   priorityFirst?: boolean;
 };
 
-const BLEED_VAR = 'max(32px, calc((100vw - 100%) / 2))';
+const BLEED_VAR = "max(32px, calc((100vw - 100%) / 2))";
 // Bleed var widens the scroll track past the viewport while its padding keeps the first card aligned to the left margin.
-const trackStyles: CSSProperties & { '--carousel-bleed': string } = {
-  scrollbarWidth: 'none',
-  msOverflowStyle: 'none',
-  '--carousel-bleed': BLEED_VAR,
-  paddingLeft: 'var(--carousel-bleed)',
-  paddingRight: 'var(--carousel-bleed)',
-  marginLeft: 'calc(var(--carousel-bleed) * -1)',
-  marginRight: 'calc(var(--carousel-bleed) * -1)',
-  width: 'calc(100% + (var(--carousel-bleed) * 2))',
-  willChange: 'transform',
+const trackStyles: CSSProperties & { "--carousel-bleed": string } = {
+  scrollbarWidth: "none",
+  msOverflowStyle: "none",
+  "--carousel-bleed": BLEED_VAR,
+  paddingLeft: "var(--carousel-bleed)",
+  paddingRight: "var(--carousel-bleed)",
+  marginLeft: "calc(var(--carousel-bleed) * -1)",
+  marginRight: "calc(var(--carousel-bleed) * -1)",
+  width: "calc(100% + (var(--carousel-bleed) * 2))",
+  willChange: "transform",
 };
 
 export const ImageCarousel = ({
@@ -57,7 +57,7 @@ export const ImageCarousel = ({
     return null;
   }
 
-  const handlePointerDown = (event: PointerEvent<HTMLDivElement>) => {
+  const handlePointerDown = (event: PointerEvent<HTMLUListElement>) => {
     const state = drag.current;
     if (state.frame) {
       cancelAnimationFrame(state.frame);
@@ -72,11 +72,11 @@ export const ImageCarousel = ({
     state.velocity = 0;
     state.active = true;
     state.overscroll = 0;
-    event.currentTarget.style.transform = '';
+    event.currentTarget.style.transform = "";
     event.preventDefault();
   };
 
-  const handlePointerMove = (event: PointerEvent<HTMLDivElement>) => {
+  const handlePointerMove = (event: PointerEvent<HTMLUListElement>) => {
     const state = drag.current;
     if (!state.active) {
       return;
@@ -97,11 +97,11 @@ export const ImageCarousel = ({
     const resistance = 1 - Math.exp(-Math.abs(rawOver) / limit);
     const limitedOver = Math.sign(rawOver) * limit * resistance;
     state.overscroll = limitedOver;
-    track.style.transform = limitedOver ? `translateX(${-limitedOver}px)` : '';
+    track.style.transform = limitedOver ? `translateX(${-limitedOver}px)` : "";
     track.scrollLeft = clamped;
   };
 
-  const handlePointerEnd = (event: PointerEvent<HTMLDivElement>) => {
+  const handlePointerEnd = (event: PointerEvent<HTMLUListElement>) => {
     const state = drag.current;
     if (!state.active) {
       return;
@@ -115,7 +115,7 @@ export const ImageCarousel = ({
     const track = event.currentTarget;
     if (Math.abs(state.overscroll) > 0.05) {
       state.overscroll = 0;
-      track.style.transform = '';
+      track.style.transform = "";
       return;
     }
     const maxScroll = track.scrollWidth - track.clientWidth;
@@ -138,51 +138,29 @@ export const ImageCarousel = ({
     }
   };
 
-  const handleKeyDown = (event: KeyboardEvent<HTMLDivElement>) => {
-    if (event.key !== 'ArrowRight' && event.key !== 'ArrowLeft') {
-      return;
-    }
-    event.preventDefault();
-    const track = event.currentTarget;
-    const firstItem = track.querySelector<HTMLElement>('[data-carousel-item]');
-    const baseWidth = firstItem?.offsetWidth ?? track.clientWidth ?? 0;
-    const step = baseWidth + 16;
-    const direction = event.key === 'ArrowRight' ? 1 : -1;
-    track.scrollBy({ left: direction * step, behavior: 'auto' });
-  };
-
   return (
-    <div
-      role="region"
-      aria-label={ariaLabel?.trim() ? ariaLabel : 'Image carousel'}
-      className={`relative w-full ${className ?? ''}`}
-    >
-      <div role="group" className="w-full">
+    <section
+      aria-label={ariaLabel?.trim() ? ariaLabel : "Image carousel"}
+      className={`relative w-full ${className ?? ""}`}>
+      <div className="w-full">
         {/* Negative margins with bleed padding keep the carousel full-width while the first card stays at the layout margin. */}
-        <div
-          role="list"
-          tabIndex={0}
+        <ul
           className="flex cursor-grab gap-4 overflow-x-auto pr-2 pb-4 transition-[transform] duration-1000 ease-[cubic-bezier(0.22,1,0.36,1)] select-none active:cursor-grabbing active:transition-none [&::-webkit-scrollbar]:hidden"
           style={trackStyles}
           onPointerDown={handlePointerDown}
           onPointerMove={handlePointerMove}
           onPointerUp={handlePointerEnd}
           onPointerCancel={handlePointerEnd}
-          onPointerLeave={handlePointerEnd}
-          onKeyDown={handleKeyDown}
-        >
+          onPointerLeave={handlePointerEnd}>
           {validImages.map((image, index) => (
-            <div
+            <li
               key={`${image.src}-${index}`}
-              role="listitem"
-              data-carousel-item
               className="flex flex-none"
               style={{
-                minWidth: '276px',
-                maxWidth: '580px',
-                width: 'clamp(276px, 47vw, 580px)',
-              }}
-            >
+                minWidth: "276px",
+                maxWidth: "580px",
+                width: "clamp(276px, 47vw, 580px)",
+              }}>
               <div className="relative h-full w-full overflow-hidden rounded-2xl">
                 <Image
                   src={image.src}
@@ -196,10 +174,10 @@ export const ImageCarousel = ({
                   onDragStart={(event) => event.preventDefault()}
                 />
               </div>
-            </div>
+            </li>
           ))}
-        </div>
+        </ul>
       </div>
-    </div>
+    </section>
   );
 };
