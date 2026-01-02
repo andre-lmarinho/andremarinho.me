@@ -43,7 +43,7 @@ Use these npm scripts:
 
 - Write all code in **TypeScript**.
 - Do not use `any` types.
-- Follow configured **ESLint** and **Prettier** rules.
+- Follow configured **Biome** rules.
 - Use functional components with hooks.
 - Prefer named exports for components.
 - Before pushing changes, run: `lint`, `typecheck`, and `test`.
