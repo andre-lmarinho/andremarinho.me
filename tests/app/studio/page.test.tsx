@@ -1,8 +1,8 @@
 import { cleanup, render, screen, waitFor } from '@testing-library/react';
 import type { ComponentProps, ElementType, ReactNode } from 'react';
 
-import StudioPage, { metadata as studioMetadata } from '@/app/studio/page';
 import { plansForUI } from '@/app/studio/components/configs/offers';
+import StudioPage, { metadata as studioMetadata } from '@/app/studio/page';
 
 const renderServerComponent = async (Component: () => ReactNode | Promise<ReactNode>) => {
   const element = await Component();

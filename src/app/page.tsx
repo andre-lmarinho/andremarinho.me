@@ -1,8 +1,8 @@
 import type { Metadata } from 'next';
 
-import { Home } from './home';
-import { socialLinkUrls } from '@/configs/social-links';
 import { SITE_NAME, SITE_URL } from '@/configs/site';
+import { socialLinkUrls } from '@/configs/social-links';
+import { Home } from './home';
 
 export const metadata: Metadata = {
   alternates: { canonical: SITE_URL },

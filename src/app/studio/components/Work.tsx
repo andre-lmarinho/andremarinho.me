@@ -1,11 +1,11 @@
 import Image, { type StaticImageData } from 'next/image';
 
-import home from './images/home.webp';
-import homeMobile from './images/home-mobile.webp';
-import planner from './images/planner.webp';
-import plannerMobile from './images/planner-mobile.webp';
-import budget from './images/budget.webp';
 import budgetMobile from './images/budget-mobile.webp';
+import budget from './images/budget.webp';
+import homeMobile from './images/home-mobile.webp';
+import home from './images/home.webp';
+import plannerMobile from './images/planner-mobile.webp';
+import planner from './images/planner.webp';
 
 const SIGN = 'Made by andremarinho.me.';
 

@@ -1,6 +1,6 @@
-import { LinkButton } from './ui/LinkButton';
 import { AvailabilityBadge } from './AvailabilityBadge';
-import { plansForUI, customForUI } from './configs/offers';
+import { customForUI, plansForUI } from './configs/offers';
+import { LinkButton } from './ui/LinkButton';
 
 type PricingProps = {
   initialSlots: number;

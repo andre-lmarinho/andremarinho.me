@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import type { ComponentProps } from 'react';
+
 import { cn } from '@/utils/cn';
 
 type Props = ComponentProps<'a'> & { href: string };

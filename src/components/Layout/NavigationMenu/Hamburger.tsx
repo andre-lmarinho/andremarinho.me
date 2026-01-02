@@ -4,11 +4,11 @@ import { useEffect, useId, useRef, useState } from 'react';
 import type { MouseEvent } from 'react';
 import { createPortal } from 'react-dom';
 
-import { MenuLinks } from './NavigationLink';
-import { NAV_LINKS } from './links';
 import { CloseIcon } from '@/components/icons/CloseIcon';
 import { MenuIcon } from '@/components/icons/MenuIcon';
+import { MenuLinks } from './NavigationLink';
 import { useFocusTrap } from './hooks/useFocusTrap';
+import { NAV_LINKS } from './links';
 
 const buttonClassName =
   'inline-flex items-center justify-center rounded-lg p-2 text-zinc-900 transition-colors hover:text-zinc-600 focus-visible:ring-1 focus-visible:ring-neutral-300 dark:text-zinc-100 dark:hover:text-zinc-300 dark:focus-visible:ring-neutral-500';

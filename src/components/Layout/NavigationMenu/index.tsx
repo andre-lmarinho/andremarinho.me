@@ -1,8 +1,8 @@
 import Image from 'next/image';
 import Link from 'next/link';
 
-import { MenuLinks } from './NavigationLink';
 import { Hamburger } from './Hamburger';
+import { MenuLinks } from './NavigationLink';
 import { NAV_LINKS } from './links';
 
 export const NavigationMenu = () => {

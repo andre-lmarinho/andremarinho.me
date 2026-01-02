@@ -5,8 +5,8 @@ import { TextLink } from '@/components/TextLink';
 import { workPlaces } from '@/configs/work';
 import { cn } from '@/utils/cn';
 
-import dog from './images/doggy.jpg';
 import beach from './images/beach.jpg';
+import dog from './images/doggy.jpg';
 import whitesand from './images/whitesand.jpg';
 
 const rotation = {

@@ -1,5 +1,5 @@
-import { LinkButton } from './ui/LinkButton';
 import { TypeText } from './effects/TypeText';
+import { LinkButton } from './ui/LinkButton';
 
 export const Hero = () => (
   <section id="hero" className="pt-16 pb-20 md:pt-24 md:pb-28">

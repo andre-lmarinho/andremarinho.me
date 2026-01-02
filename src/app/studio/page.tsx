@@ -1,15 +1,15 @@
 import type { Metadata } from 'next';
 
-import { Hero } from './components/Hero';
-import { Work } from './components/Work';
 import { Copy } from './components/Copy';
-import { Pricing } from './components/Pricing';
 import { FinalCTA } from './components/FinalCTA';
+import { Hero } from './components/Hero';
+import { Pricing } from './components/Pricing';
+import { Work } from './components/Work';
 
+import { SITE_URL } from '@/configs/site';
+import { socialLinkUrls } from '@/configs/social-links';
 import { getStudioSlots } from './components/configs/availability';
 import { buildProfessionalServiceJsonLd } from './components/configs/offers';
-import { socialLinkUrls } from '@/configs/social-links';
-import { SITE_URL } from '@/configs/site';
 
 const title = 'Duonorth Studio';
 const description =

@@ -1,6 +1,6 @@
 import { Hero } from './components/Hero';
-import { ProudWork } from './components/ProudWork';
 import { Projects } from './components/Projects';
+import { ProudWork } from './components/ProudWork';
 
 export const Home = () => {
   return (
