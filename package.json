@@ -20,7 +20,7 @@
     "ci": "npm run verify",
     "vercel:build": "next build",
     "lhci": "npx --yes @lhci/cli autorun --config=./lighthouserc.json",
-    "prepare": "husky"
+    "postinstall": "husky install"
   },
   "dependencies": {
     "@vercel/analytics": "^1.6.1",
