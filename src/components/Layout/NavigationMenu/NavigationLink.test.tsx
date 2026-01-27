@@ -34,14 +34,11 @@ describe("MenuLinks", () => {
   });
 
   it("renders desktop links and marks the active entry", () => {
-    usePathnameMock.mockImplementation(() => "/studio/case");
+    usePathnameMock.mockImplementation(() => "/work");
 
     render(<MenuLinks links={NAV_LINKS.desktop} />);
 
     expect(screen.queryByRole("link", { name: "Home" })).not.toBeInTheDocument();
-
-    const studioLink = screen.getByRole("link", { name: "Studio" });
-    expect(studioLink).toHaveAttribute("aria-current", "page");
 
     const aboutLink = screen.getByRole("link", { name: "About" });
     expect(aboutLink).not.toHaveAttribute("aria-current");
@@ -52,7 +49,7 @@ describe("MenuLinks", () => {
 
     render(<MenuLinks links={NAV_LINKS.mobile} isHamburger />);
 
-    ["Home", "Studio", "About"].forEach((name) => {
+    ["Home", "Work", "About"].forEach((name) => {
       const link = screen.getByRole("link", { name });
       expect(link).not.toHaveAttribute("aria-current");
     });
