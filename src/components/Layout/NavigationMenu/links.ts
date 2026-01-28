@@ -5,12 +5,12 @@ type NavigationLink = {
 
 export const NAV_LINKS = {
   desktop: [
-    { text: "Studio", href: "/studio" },
+    { text: "Work", href: "/work" },
     { text: "About", href: "/about" },
   ],
   mobile: [
     { text: "Home", href: "/" },
-    { text: "Studio", href: "/studio" },
+    { text: "Work", href: "/work" },
     { text: "About", href: "/about" },
   ],
 } as const satisfies Record<string, readonly NavigationLink[]>;

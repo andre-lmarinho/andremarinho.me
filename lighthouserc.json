@@ -1,12 +1,7 @@
 {
   "ci": {
     "collect": {
-      "url": [
-        "http://localhost:3000/",
-        "http://localhost:3000/about",
-        "http://localhost:3000/studio",
-        "http://localhost:3000/work/turistar"
-      ],
+      "url": ["http://localhost:3000/", "http://localhost:3000/about", "http://localhost:3000/work/turistar"],
       "settings": {
         "skipAudits": ["is-on-https", "canonical", "uses-http2", "uses-rel-preconnect", "uses-rel-preload"]
       }
