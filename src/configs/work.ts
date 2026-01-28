@@ -11,7 +11,7 @@ export type WorkPlace = {
 export const workPlaces: WorkPlace[] = [
   {
     name: "Duonorth Studio",
-    website: "/studio",
+    website: "https://studio.andremarinho.me",
     logo: "/images/work/duonorth.webp",
     roles: [
       { title: "Front End Engineer", period: "2025 - Now" },

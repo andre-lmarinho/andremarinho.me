@@ -23,5 +23,3 @@ export const emailLink: SocialLink = {
 };
 
 export const onlineLinks: SocialLink[] = [...socialLinks, emailLink];
-
-export const onlineLinkUrls = onlineLinks.map(({ href }) => href);
