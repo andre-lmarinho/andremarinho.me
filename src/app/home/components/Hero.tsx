@@ -1,7 +1,7 @@
 import Image from "next/image";
 
 import { TextLink } from "@/components/TextLink";
-import { currentJob } from "@/configs/work";
+import { currentJob } from "@/configs";
 
 export const Hero = () => {
   return (

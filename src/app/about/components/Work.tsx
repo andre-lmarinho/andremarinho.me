@@ -1,6 +1,6 @@
 import Image from "next/image";
 
-import { workPlaces } from "@/configs/work";
+import { workPlaces } from "@/configs";
 
 const workEntries = workPlaces.flatMap((place) => place.roles.map((role) => ({ place, role })));
 
