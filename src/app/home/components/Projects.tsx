@@ -19,7 +19,7 @@ const Project = ({ project }: ProjectProps) => {
         <h3 className="font-semibold">{project.name}</h3>
         <p className="text-sm opacity-70">{project.description}</p>
 
-        <div className="flex items-center gap-2.5 text-sm">
+        <div className="flex items-center gap-2.5 text-sm font-mono">
           {project.language && (
             <div className="flex items-center gap-1.5">
               <div
