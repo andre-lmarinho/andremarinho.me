@@ -1,7 +1,5 @@
 import type { Metadata } from "next";
-
-import { SITE_NAME, SITE_URL } from "@/configs/site";
-import { socialLinkUrls } from "@/configs/social-links";
+import { SITE_NAME, SITE_URL, socialLinkUrls } from "@/configs";
 import { Home } from "./home";
 
 export const metadata: Metadata = {

@@ -1,7 +1,7 @@
 import { GithubIcon } from "@/components/icons/GithubIcon";
 import { LinkedinIcon } from "@/components/icons/LinkedinIcon";
 
-import { socialLinks } from "@/configs/social-links";
+import { socialLinks } from "@/configs";
 import { cn } from "@/utils/cn";
 
 const linkClassName = cn(

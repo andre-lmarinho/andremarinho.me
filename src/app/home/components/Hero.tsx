@@ -1,7 +1,7 @@
 import Image from "next/image";
 
 import { TextLink } from "@/components/TextLink";
-import { currentJob } from "@/configs/work";
+import { currentJob } from "@/configs";
 
 export const Hero = () => {
   return (
@@ -23,7 +23,7 @@ export const Hero = () => {
             {", "}
             <TextLink href="https://travel-planner-orpin.vercel.app/">travel</TextLink>
             {" and run "}
-            <TextLink href="/studio">Duonorth Studio</TextLink>.
+            <TextLink href="https://studio.andremarinho.me">Duonorth Studio</TextLink>.
           </p>
           <p>
             I work where product, UX and analytics meet, turning clean interfaces into measurable results,

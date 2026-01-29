@@ -2,7 +2,7 @@ import localFont from "next/font/local";
 import Image, { type ImageProps } from "next/image";
 
 import { TextLink } from "@/components/TextLink";
-import { workPlaces } from "@/configs/work";
+import { workPlaces } from "@/configs";
 import { cn } from "@/utils/cn";
 
 import beach from "./images/beach.jpg";

@@ -2,7 +2,7 @@ import { readFile } from "node:fs/promises";
 import { join } from "node:path";
 import type { Font } from "next/dist/compiled/@vercel/og/satori";
 
-import { SITE_URL } from "@/configs/site";
+import { SITE_URL } from "@/configs";
 
 type OGProps = {
   description: string;

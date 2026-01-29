@@ -7,8 +7,11 @@ import "@/utils/theme.css";
 
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
+
 import { Layout } from "@/components/Layout";
-import { SITE_NAME, SITE_URL } from "@/configs/site";
+
+import { SITE_NAME, SITE_URL } from "@/configs";
+
 import { Providers } from "./providers";
 
 export const metadata: Metadata = {

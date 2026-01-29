@@ -1,4 +1,4 @@
-import { onlineLinks } from "@/configs/social-links";
+import { onlineLinks } from "@/configs";
 
 export const Online = () => (
   <section id="online">
