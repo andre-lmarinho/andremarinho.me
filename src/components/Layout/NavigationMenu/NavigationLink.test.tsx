@@ -47,7 +47,7 @@ describe("MenuLinks", () => {
   it("does not set aria-current when no route matches", () => {
     usePathnameMock.mockImplementation(() => "/contact");
 
-    render(<MenuLinks links={NAV_LINKS.mobile} isHamburger />);
+    render(<MenuLinks links={NAV_LINKS.all} isHamburger />);
 
     ["Home", "Work", "About"].forEach((name) => {
       const link = screen.getByRole("link", { name });

@@ -1,10 +1,6 @@
 import Link from "next/link";
 
-const links = [
-  { href: "/", label: "Home" },
-  { href: "/work", label: "Work" },
-  { href: "/about", label: "About" },
-];
+import { NAV_LINKS } from "@/components/Layout/NavigationMenu/links";
 
 export default function NotFound() {
   return (
@@ -15,12 +11,13 @@ export default function NotFound() {
       </p>
       <h2 className="inline-block pb-6 text-lg">Here are some helpful links instead:</h2>
       <ul className="mt-4 list-inside list-disc space-y-2 px-4 text-lg">
-        {links.map((link) => (
+        {NAV_LINKS.all.map((link) => (
           <li key={link.href}>
             <Link
               href={link.href}
+              {...("target" in link && { target: link.target, rel: "noopener noreferrer" })}
               className="underline underline-offset-2 transition-colors hover:text-zinc-900 dark:hover:text-zinc-100">
-              {link.label}
+              {link.text}
             </Link>
           </li>
         ))}

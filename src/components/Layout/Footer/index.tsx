@@ -12,8 +12,8 @@ export const Footer = () => {
   const [githubLink, linkedinLink] = socialLinks;
 
   return (
-    <footer id="footer" className="page-content pt-8 text-sm">
-      <div className="text-muted flex items-center justify-between py-6">
+    <footer id="footer" className="page-content py-20 text-sm">
+      <div className="text-muted flex items-center justify-between">
         <span>André Marinho © {new Date().getFullYear()}</span>
         <nav aria-label="Online profiles">
           <ul className="flex items-center gap-0">

@@ -90,7 +90,7 @@ export const Hamburger = () => {
                 </button>
               </div>
 
-              <MenuLinks isHamburger links={NAV_LINKS.mobile} />
+              <MenuLinks isHamburger links={NAV_LINKS.all} />
             </nav>,
             document.body
           )

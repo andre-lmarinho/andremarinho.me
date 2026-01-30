@@ -6,7 +6,7 @@ type Props = { children: React.ReactNode };
 export const Layout = (props: Props) => (
   <>
     <NavigationMenu />
-    <main id="main" className="page-content">
+    <main id="main" className="page-content flex-1">
       {props.children}
     </main>
     <Footer />

@@ -6,19 +6,10 @@ export const SITE_NAME = "André Marinho";
 export const SOCIAL_GIT = "https://github.com/andre-lmarinho";
 export const SOCIAL_IN = "https://www.linkedin.com/in/andre-lmarinho/";
 
-export type WorkPlace = {
-  name: string;
-  website: string;
-  logo: string;
-  roles: {
-    title: string;
-    period: string;
-  }[];
-};
-
-export const workPlaces: WorkPlace[] = [
+export const workPlaces = [
   {
     name: "Duonorth Studio",
+    label: "Duonorth",
     website: "https://studio.andremarinho.me",
     logo: "/images/work/duonorth.webp",
     roles: [
@@ -29,28 +20,18 @@ export const workPlaces: WorkPlace[] = [
   },
 ];
 
-export const currentJob = {
-  label: "Duonorth",
-  href: workPlaces[0].website,
-};
-
-export type SocialLink = {
-  label: string;
-  href: string;
-  display?: string;
-};
-
-export const socialLinks: SocialLink[] = [
+// Helpers
+export const socialLinks = [
   { label: "GitHub", href: SOCIAL_GIT },
   { label: "LinkedIn", href: SOCIAL_IN },
 ];
 
 export const socialLinkUrls = socialLinks.map(({ href }) => href);
 
-export const emailLink: SocialLink = {
+export const emailLink = {
   label: "Email",
   href: `mailto:${CONTACT_EMAIL}`,
   display: CONTACT_EMAIL,
 };
 
-export const onlineLinks: SocialLink[] = [...socialLinks, emailLink];
+export const onlineLinks = [...socialLinks, emailLink];

@@ -20,6 +20,11 @@
     [full-width-end];
 }
 
+main.page-content {
+  align-content: center;
+  min-height: 100%;
+}
+
 .page-content > :not(.full-width),
 .full-width > :not(.full-width) {
   grid-column: content;
@@ -44,8 +49,10 @@
   }
 
   body {
-    min-height: 100%;
+    min-height: 100dvh;
     overflow-x: hidden;
+    display: flex;
+    flex-direction: column;
     @apply bg-white text-zinc-900 dark:bg-zinc-950 dark:text-zinc-100;
   }
 
@@ -80,7 +87,7 @@
   }
 
   h1 {
-    @apply mb-6 text-3xl font-bold tracking-tight;
+    @apply mb-6 text-4xl font-bold tracking-tight;
   }
   h2 {
     @apply mb-6 block text-xl font-semibold;

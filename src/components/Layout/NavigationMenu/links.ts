@@ -1,16 +1,16 @@
-type NavigationLink = {
+export type NavigationLink = {
   text: string;
   href: `/${string}`;
+  target?: "_blank";
 };
 
+const desktopLinks = [
+  { text: "Resume", href: "/resume/EN-Andre-Marinho-Resume.pdf", target: "_blank" },
+  { text: "Work", href: "/work" },
+  { text: "About", href: "/about" },
+] as const satisfies readonly NavigationLink[];
+
 export const NAV_LINKS = {
-  desktop: [
-    { text: "Work", href: "/work" },
-    { text: "About", href: "/about" },
-  ],
-  mobile: [
-    { text: "Home", href: "/" },
-    { text: "Work", href: "/work" },
-    { text: "About", href: "/about" },
-  ],
-} as const satisfies Record<string, readonly NavigationLink[]>;
+  desktop: desktopLinks,
+  all: [{ text: "Home", href: "/" }, ...desktopLinks] as const satisfies readonly NavigationLink[],
+} as const;
