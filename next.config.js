@@ -1,10 +1,3 @@
-const withMDX = require("@next/mdx")({
-  extension: /\.mdx?$/,
-  options: {
-    providerImportSource: "@/mdx-components",
-  },
-});
-
 const isDev = process.env.NODE_ENV !== "production";
 
 const scriptSrc = `'self' 'unsafe-inline' https://va.vercel-scripts.com${isDev ? " 'unsafe-eval'" : ""}`;
@@ -65,7 +58,6 @@ const securityHeaders = [
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  pageExtensions: ["ts", "tsx", "mdx"],
   headers() {
     return Promise.resolve([
       {
@@ -97,4 +89,4 @@ const nextConfig = {
   },
 };
 
-module.exports = withMDX(nextConfig);
+module.exports = nextConfig;

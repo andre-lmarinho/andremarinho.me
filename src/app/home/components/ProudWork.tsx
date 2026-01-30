@@ -1,11 +1,9 @@
 import Image from "next/image";
 import Link from "next/link";
 
-import turistarAppMock from "@/app/work/turistar/components/images/turistar-app-mock.webp";
-
 export const ProudWork = () => {
   return (
-    <section id="proud-work" aria-label="Work I'm proud of" className="pt-12 pb-12">
+    <section id="proud-work" aria-label="Work I'm proud of">
       <h2>Work I&apos;m Proud Of</h2>
       <Link
         href="/work/turistar"
@@ -16,7 +14,7 @@ export const ProudWork = () => {
           </div>
 
           <Image
-            src={turistarAppMock}
+            src="/images/projects/turistar-app-mock.webp"
             alt="Board of proud work"
             width={1003}
             height={522}
