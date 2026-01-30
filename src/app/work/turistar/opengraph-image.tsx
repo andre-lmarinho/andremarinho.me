@@ -4,7 +4,7 @@ import { ImageResponse } from "next/og";
 
 import { buildOg } from "@/components/OpengraphImage";
 
-import { heroMetadata } from "./components/metadata";
+import { heroMetadata } from "./components/data";
 
 export default async function Image() {
   const [el, init] = await buildOg({

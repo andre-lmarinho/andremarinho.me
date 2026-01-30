@@ -4,9 +4,10 @@ import Link from "next/link";
 
 import { Hero } from "../shared/Hero";
 import { ProjectLinks } from "../shared/ProjectLinks";
+import { heroMetadata } from "./components/data";
+import { StoryContent } from "./components/StoryContent";
 
-import StoryContent from "./components/content.mdx";
-import { heroMetadata } from "./components/metadata";
+import "./components/style.css";
 
 export const metadata: Metadata = {
   title: heroMetadata.title,
