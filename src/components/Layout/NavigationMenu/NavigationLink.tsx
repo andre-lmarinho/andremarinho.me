@@ -2,11 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-
-type NavigationLink = {
-  text: string;
-  href: `/${string}`;
-};
+import type { NavigationLink } from "./links";
 
 type MenuLinksProps = {
   links: readonly NavigationLink[];
@@ -29,6 +25,7 @@ export const MenuLinks = ({ links, isHamburger = false }: MenuLinksProps) => {
           <MenuLink
             href={link.href}
             text={link.text}
+            target={link.target}
             isActive={link.href === pathname}
             isIndeterminate={isIndeterminate}
           />
@@ -41,17 +38,23 @@ export const MenuLinks = ({ links, isHamburger = false }: MenuLinksProps) => {
 type MenuLinkProps = {
   href: NavigationLink["href"];
   text: string;
+  target?: NavigationLink["target"];
   isActive: boolean;
   isIndeterminate: boolean;
 };
 
-const MenuLink = ({ href, text, isActive, isIndeterminate }: MenuLinkProps) => {
+const MenuLink = ({ href, text, target, isActive, isIndeterminate }: MenuLinkProps) => {
   const className = `${
     isIndeterminate ? "hover:opacity-60" : isActive ? "opacity-100" : "opacity-50 hover:opacity-100"
   } transition-opacity`;
 
   return (
-    <Link href={href} className={className} aria-current={isActive ? "page" : undefined}>
+    <Link
+      href={href}
+      className={className}
+      aria-current={isActive ? "page" : undefined}
+      target={target}
+      rel={target === "_blank" ? "noopener noreferrer" : undefined}>
       {text}
     </Link>
   );
