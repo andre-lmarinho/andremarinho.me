@@ -165,15 +165,9 @@ export default function Footer({
 
           <span className="text-border hidden sm:inline">-</span>
 
-          <a
-            href="https://abacus.jasoncameron.dev"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="hover:text-accent transition-colors duration-200"
-            title={content.viewsTitle}
-          >
+          <span title={content.viewsTitle}>
             {views ?? "…"} {content.views}
-          </a>
+          </span>
 
           <span className="text-border hidden sm:inline">-</span>
 

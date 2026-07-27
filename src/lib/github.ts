@@ -1,4 +1,4 @@
-const REPO = "andre-lmarinho/andremarinho.me";
+const REPO = "andre-lmarinho/me";
 
 export type LatestCommit = { sha: string; url: string } | null;
 
