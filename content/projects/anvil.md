@@ -1,7 +1,7 @@
 ---
 title: Anvil
 description: A browser IDE where an AI agent plans, writes and runs code in an isolated sandbox, with every step committed to Git so any change can be walked back.
-date: 2026-07-22
+date: 2026-05-22
 tags: React, TypeScript, Node, Firecracker, WebSockets, Git, PostgreSQL, Redis
 image: /images/projects/anvil.webp
 ---

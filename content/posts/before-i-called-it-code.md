@@ -1,7 +1,7 @@
 ---
 title: I Was Building Software Before I Called It Code
 description: Before I was a developer I was a finance assistant with a spreadsheet problem. What dashboards, inventory tools and eight years of agency work did and did not teach me.
-date: 2026-07-27
+date: 2026-02-17
 tags: career, story, marketing
 ---
 

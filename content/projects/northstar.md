@@ -1,7 +1,7 @@
 ---
 title: Northstar
 description: Product telemetry that ties each behavior to a business outcome, measuring incremental lift against a holdout instead of reporting raw event counts.
-date: 2026-07-22
+date: 2026-04-12
 tags: TypeScript, ClickHouse, PostgreSQL, Kafka, Redis, dbt, Next.js, Analytics
 image: /images/projects/northstar.webp
 ---

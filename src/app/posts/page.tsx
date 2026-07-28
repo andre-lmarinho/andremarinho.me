@@ -22,10 +22,13 @@ export default function PostsPage() {
       {posts.length === 0 ? (
         <p className="text-muted">No posts yet.</p>
       ) : (
-        <ul className="space-y-10">
+        <ul className="space-y-10 -mx-2">
           {posts.map((post) => (
             <li key={post.slug}>
-              <Link href={`/posts/${post.slug}`} className="group block">
+              <Link
+                href={`/posts/${post.slug}`}
+                className="group block hover:bg-surface rounded-lg p-2"
+              >
                 <h2 className="font-heading text-2xl font-semibold transition-colors group-hover:text-accent">
                   {post.title}
                 </h2>

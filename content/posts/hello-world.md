@@ -1,7 +1,7 @@
 ---
 title: Hello World
 description: What this site is built with, why I wrote it from scratch instead of starting from a template, and what I plan to put on it now that the blog exists.
-date: 2026-07-27
+date: 2026-07-17
 tags: meta, nextjs, writing
 ---
 

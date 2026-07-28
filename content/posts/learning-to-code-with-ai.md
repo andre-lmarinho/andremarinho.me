@@ -1,7 +1,7 @@
 ---
 title: Learning to Code When AI Writes the Code
 description: I started writing software in 2025, when AI could already write most of it for me. The habit that mattered was refusing to ship anything I could not explain.
-date: 2026-07-27
+date: 2026-06-21
 tags: ai, learning, career
 ---
 

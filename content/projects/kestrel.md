@@ -1,7 +1,7 @@
 ---
 title: Kestrel
 description: An AI agent for Outlook mail and calendar over MCP, where the user permissions every tool it can call and every action it takes lands in an audit trail.
-date: 2026-07-22
+date: 2026-01-22
 tags: Next.js, TypeScript, tRPC, MCP, Microsoft Graph, PostgreSQL, Redis, Drizzle
 image: /images/projects/kestrel.webp
 ---
