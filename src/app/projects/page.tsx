@@ -14,9 +14,7 @@ export default function ProjectsPage() {
 
   return (
     <div className="mx-auto w-full max-w-3xl px-6 pt-32 pb-20">
-      <h1 className="mb-12 font-heading text-4xl font-bold tracking-tight">
-        Projects
-      </h1>
+      <h1 className="mb-12 text-4xl font-bold tracking-tight">Projects</h1>
 
       {projects.length === 0 ? (
         <p className="text-muted">No projects yet.</p>
@@ -30,6 +28,7 @@ export default function ProjectsPage() {
               tags={project.tags}
               image={project.image}
               href={`/projects/${project.slug}`}
+              slug={project.slug}
             />
           ))}
         </div>

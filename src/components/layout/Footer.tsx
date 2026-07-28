@@ -161,7 +161,7 @@ export default function Footer() {
               <circle cx="12" cy="12" r="9" />
               <path d="M12 7v5l3 3" />
             </svg>
-            <span className="text-accent font-mono text-xs">{timeOnSite}</span>
+            <span className="text-accent text-xs">{timeOnSite}</span>
           </div>
 
           <span className="text-border hidden sm:inline">-</span>
@@ -195,7 +195,7 @@ export default function Footer() {
                 <circle cx="12" cy="12" r="3" />
                 <path d="M12 3v6M12 15v6" />
               </svg>
-              <span className="font-mono text-xs">{commit.sha}</span>
+              <span className="text-xs">{commit.sha}</span>
             </a>
           ) : (
             <span
@@ -217,7 +217,7 @@ export default function Footer() {
                 <circle cx="12" cy="12" r="3" />
                 <path d="M12 3v6M12 15v6" />
               </svg>
-              <span className="font-mono text-xs">dev</span>
+              <span className="text-xs">dev</span>
             </span>
           )}
 

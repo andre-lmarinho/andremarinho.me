@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
-import Link from "next/link";
+import MorphTitle from "@/components/ui/MorphTitle";
+import TransitionLink from "@/components/ui/TransitionLink";
 import { formatDate } from "@/lib/content";
 import { getPosts } from "@/lib/posts";
 
@@ -15,9 +16,7 @@ export default function PostsPage() {
 
   return (
     <div className="mx-auto w-full max-w-3xl px-6 pt-32 pb-20">
-      <h1 className="mb-12 font-heading text-4xl font-bold tracking-tight">
-        Posts
-      </h1>
+      <h1 className="mb-12 text-4xl font-bold tracking-tight">Posts</h1>
 
       {posts.length === 0 ? (
         <p className="text-muted">No posts yet.</p>
@@ -25,14 +24,17 @@ export default function PostsPage() {
         <ul className="space-y-10 -mx-2">
           {posts.map((post) => (
             <li key={post.slug}>
-              <Link
+              <TransitionLink
                 href={`/posts/${post.slug}`}
                 className="group block hover:bg-surface rounded-lg p-2"
               >
-                <h2 className="font-heading text-2xl font-semibold transition-colors group-hover:text-accent">
-                  {post.title}
-                </h2>
-                <p className="mt-1 font-mono text-xs text-muted">
+                <MorphTitle
+                  as="h2"
+                  title={post.title}
+                  id={`post-${post.slug}`}
+                  className="text-2xl font-semibold transition-colors group-hover:text-accent"
+                />
+                <p className="mt-1 text-xs text-muted">
                   {post.date ? formatDate(post.date) : "Draft"}
                 </p>
                 <p className="mt-3 text-muted">{post.description}</p>
@@ -41,14 +43,14 @@ export default function PostsPage() {
                     {post.tags.map((tag) => (
                       <span
                         key={tag}
-                        className="rounded bg-surface-2 px-2 py-1 font-mono text-xs text-muted"
+                        className="rounded bg-surface-2 px-2 py-1 text-xs text-muted"
                       >
                         {tag}
                       </span>
                     ))}
                   </div>
                 )}
-              </Link>
+              </TransitionLink>
             </li>
           ))}
         </ul>

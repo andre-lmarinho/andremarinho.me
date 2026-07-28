@@ -4,6 +4,7 @@ import type { Metadata } from "next";
 import Footer from "@/components/layout/Footer";
 import Nav from "@/components/layout/Nav";
 import { profileJsonLd } from "@/lib/seo";
+import { ViewTransitions } from "@/lib/view-transition";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -53,6 +54,7 @@ export default function RootLayout({
           // biome-ignore lint/security/noDangerouslySetInnerHtml: JSON-LD is static and trusted.
           dangerouslySetInnerHTML={{ __html: JSON.stringify(profileJsonLd) }}
         />
+        <ViewTransitions />
         <Nav />
         <main className="grow">{children}</main>
         <Footer />

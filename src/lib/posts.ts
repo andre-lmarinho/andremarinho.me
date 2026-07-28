@@ -1,6 +1,5 @@
-import { readdirSync } from "node:fs";
 import { join } from "node:path";
-import { isPublished, readMarkdown } from "./content";
+import { isPublished, readAllContent, readMarkdown } from "./content";
 
 const DIR = join(process.cwd(), "content/posts");
 
@@ -24,13 +23,7 @@ function parse(slug: string): Post & { html: string } {
   };
 }
 
-export function getPosts(): Post[] {
-  return readdirSync(DIR)
-    .filter((f) => f.endsWith(".md"))
-    .map((f) => parse(f.replace(/\.md$/, "")))
-    .filter((p) => isPublished(p.date))
-    .sort((a, b) => b.date.localeCompare(a.date));
-}
+export const getPosts = () => readAllContent(DIR, parse);
 
 export function getPost(slug: string) {
   try {

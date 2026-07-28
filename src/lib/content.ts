@@ -1,4 +1,4 @@
-import { readFileSync } from "node:fs";
+import { readdirSync, readFileSync } from "node:fs";
 import { join } from "node:path";
 import { marked } from "marked";
 
@@ -22,6 +22,18 @@ export function readMarkdown(dir: string, slug: string) {
 
 export const isPublished = (date: string) =>
   Boolean(date) || process.env.NODE_ENV === "development";
+
+export function readAllContent<T extends { date: string }>(
+  dir: string,
+  parse: (slug: string) => T,
+  sort?: (a: T, b: T) => number,
+): T[] {
+  return readdirSync(dir)
+    .filter((f) => f.endsWith(".md"))
+    .map((f) => parse(f.replace(/\.md$/, "")))
+    .filter((item) => isPublished(item.date))
+    .sort(sort ?? ((a, b) => b.date.localeCompare(a.date)));
+}
 
 export const formatDate = (date: string) =>
   new Date(`${date}T00:00:00Z`).toLocaleDateString("en-US", {

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import MorphTitle from "@/components/ui/MorphTitle";
 import { formatDate } from "@/lib/content";
 import { getPost, getPosts } from "@/lib/posts";
 import { postJsonLd } from "@/lib/seo";
@@ -53,10 +54,13 @@ export default async function PostPage({
         // biome-ignore lint/security/noDangerouslySetInnerHtml: JSON-LD built from in-repo markdown.
         dangerouslySetInnerHTML={{ __html: JSON.stringify(postJsonLd(post)) }}
       />
-      <h1 className="font-heading text-4xl font-bold tracking-tight">
-        {post.title}
-      </h1>
-      <p className="mt-3 font-mono text-xs text-muted">
+      <MorphTitle
+        as="h1"
+        title={post.title}
+        id={`post-${slug}`}
+        className="text-4xl font-bold tracking-tight"
+      />
+      <p className="mt-3 text-xs text-muted">
         {post.date ? formatDate(post.date) : "Draft"}
       </p>
       {post.tags.length > 0 && (
@@ -64,7 +68,7 @@ export default async function PostPage({
           {post.tags.map((tag) => (
             <span
               key={tag}
-              className="rounded bg-surface-2 px-2 py-1 font-mono text-xs text-muted"
+              className="rounded bg-surface-2 px-2 py-1 text-xs text-muted"
             >
               {tag}
             </span>

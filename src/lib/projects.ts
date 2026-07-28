@@ -1,6 +1,5 @@
-import { readdirSync } from "node:fs";
 import { join } from "node:path";
-import { isPublished, readMarkdown } from "./content";
+import { isPublished, readAllContent, readMarkdown } from "./content";
 
 const DIR = join(process.cwd(), "content/projects");
 
@@ -30,16 +29,10 @@ function parse(slug: string): Project & { html: string } {
   };
 }
 
-export function getProjects(): Project[] {
-  return readdirSync(DIR)
-    .filter((f) => f.endsWith(".md"))
-    .map((f) => parse(f.replace(/\.md$/, "")))
-    .filter((p) => isPublished(p.date))
-    .sort(
-      (a, b) =>
-        Number(b.featured) - Number(a.featured) || b.date.localeCompare(a.date),
-    );
-}
+const featuredFirst = (a: Project, b: Project) =>
+  Number(b.featured) - Number(a.featured) || b.date.localeCompare(a.date);
+
+export const getProjects = () => readAllContent(DIR, parse, featuredFirst);
 
 // The home page shows a curated pair, not the newest two.
 export const getFeaturedProjects = () =>

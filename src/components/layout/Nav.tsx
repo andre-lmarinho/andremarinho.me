@@ -1,7 +1,7 @@
 "use client";
 
-import Link from "next/link";
 import { usePathname } from "next/navigation";
+import TransitionLink from "@/components/ui/TransitionLink";
 import MobileNav from "./MobileNav";
 
 export default function Nav() {
@@ -21,12 +21,12 @@ export default function Nav() {
   return (
     <header className="site-header fixed top-0 right-0 left-0 z-40 border-b border-transparent bg-transparent">
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-6">
-        <nav aria-label="Breadcrumbs" className="font-mono text-sm">
+        <nav aria-label="Breadcrumbs" className="text-sm">
           <ol className="flex items-center">
             <li className="text-accent">
-              <Link href="/" className="hover:text-foreground">
+              <TransitionLink href="/" className="hover:text-foreground">
                 ~
-              </Link>
+              </TransitionLink>
             </li>
             {crumbs.map((crumb, i) => (
               <li key={crumb.label} className="flex items-center">
@@ -34,12 +34,12 @@ export default function Nav() {
                   /
                 </span>
                 {crumb.href ? (
-                  <Link
+                  <TransitionLink
                     href={crumb.href}
                     className="text-muted transition-colors hover:text-foreground"
                   >
                     {crumb.label}
-                  </Link>
+                  </TransitionLink>
                 ) : (
                   <span
                     aria-current={i === crumbs.length - 1 ? "page" : undefined}
@@ -60,19 +60,19 @@ export default function Nav() {
             </li>
           </ol>
         </nav>
-        <nav className="desktop-nav-links flex gap-4 font-mono text-sm">
-          <Link
+        <nav className="desktop-nav-links flex gap-4 text-sm">
+          <TransitionLink
             href="/projects"
             className="text-muted transition-colors hover:text-foreground"
           >
             projects
-          </Link>
-          <Link
+          </TransitionLink>
+          <TransitionLink
             href="/posts"
             className="text-muted transition-colors hover:text-foreground"
           >
             posts
-          </Link>
+          </TransitionLink>
         </nav>
         <MobileNav />
       </div>

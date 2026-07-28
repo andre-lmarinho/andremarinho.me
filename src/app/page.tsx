@@ -1,5 +1,6 @@
-import Link from "next/link";
 import Card from "@/components/ui/Card";
+import MorphTitle from "@/components/ui/MorphTitle";
+import TransitionLink from "@/components/ui/TransitionLink";
 import { formatDate } from "@/lib/content";
 import { getPosts } from "@/lib/posts";
 import { getFeaturedProjects } from "@/lib/projects";
@@ -20,13 +21,13 @@ export default function Page() {
         />
 
         <div className="max-w-7xl mx-auto px-6 relative z-10">
-          <div className="flex items-center gap-2 text-sm text-muted mb-6 font-mono">
+          <div className="flex items-center gap-2 text-sm text-muted mb-6">
             <span className="text-xs text-muted/60">~/location</span>
             <span className="text-muted">$</span>
             <span>Salvador, Brazil</span>
           </div>
 
-          <h1 className="font-heading text-4xl sm:text-5xl lg:text-6xl font-bold leading-[1.1] tracking-tight max-w-3xl mb-6">
+          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-[1.1] tracking-tight max-w-3xl mb-6">
             Hey! I&apos;m André Marinho{" "}
             <span
               aria-hidden="true"
@@ -83,15 +84,15 @@ export default function Page() {
       </section>
       <section id="work" className="max-w-7xl mx-auto px-6 pb-14">
         <div className="mb-8 flex items-baseline justify-between gap-4">
-          <h2 className="font-heading text-2xl font-semibold md:text-3xl">
+          <h2 className="text-2xl font-semibold md:text-3xl">
             Featured Projects
           </h2>
-          <Link
+          <TransitionLink
             href="/projects"
-            className="shrink-0 font-mono text-sm text-muted transition-colors hover:text-accent"
+            className="shrink-0 text-sm text-muted transition-colors hover:text-accent"
           >
             All projects →
-          </Link>
+          </TransitionLink>
         </div>
 
         <div className="project-grid grid grid-cols-1 gap-6 md:grid-cols-2">
@@ -103,6 +104,7 @@ export default function Page() {
               tags={project.tags}
               image={project.image}
               href={`/projects/${project.slug}`}
+              slug={project.slug}
             />
           ))}
         </div>
@@ -112,25 +114,31 @@ export default function Page() {
         <section id="posts" className="py-20">
           <div className="mx-auto max-w-7xl px-6">
             <div className="mb-8 flex items-baseline justify-between gap-4">
-              <h2 className="font-heading text-2xl font-semibold md:text-3xl">
+              <h2 className="text-2xl font-semibold md:text-3xl">
                 Latest Posts
               </h2>
-              <Link
+              <TransitionLink
                 href="/posts"
-                className="shrink-0 font-mono text-sm text-muted transition-colors hover:text-accent"
+                className="shrink-0 text-sm text-muted transition-colors hover:text-accent"
               >
                 All posts →
-              </Link>
+              </TransitionLink>
             </div>
 
             <ul className="space-y-10">
               {posts.map((post) => (
                 <li key={post.slug}>
-                  <Link href={`/posts/${post.slug}`} className="group block">
-                    <h3 className="font-heading text-2xl font-semibold transition-colors group-hover:text-accent">
-                      {post.title}
-                    </h3>
-                    <p className="mt-1 font-mono text-xs text-muted">
+                  <TransitionLink
+                    href={`/posts/${post.slug}`}
+                    className="group block"
+                  >
+                    <MorphTitle
+                      as="h3"
+                      title={post.title}
+                      id={`post-${post.slug}`}
+                      className="text-2xl font-semibold transition-colors group-hover:text-accent"
+                    />
+                    <p className="mt-1 text-xs text-muted">
                       {post.date ? formatDate(post.date) : "Draft"}
                     </p>
                     <p className="mt-3 text-muted">{post.description}</p>
@@ -139,14 +147,14 @@ export default function Page() {
                         {post.tags.map((tag) => (
                           <span
                             key={tag}
-                            className="rounded bg-surface-2 px-2 py-1 font-mono text-xs text-muted"
+                            className="rounded bg-surface-2 px-2 py-1 text-xs text-muted"
                           >
                             {tag}
                           </span>
                         ))}
                       </div>
                     )}
-                  </Link>
+                  </TransitionLink>
                 </li>
               ))}
             </ul>
