@@ -1,14 +1,11 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import type { Content } from "@/lib/content";
-import type { LatestCommit } from "@/lib/github";
 
 const TIME_KEY = "total-time-on-site";
 const ABACUS_COUNTER =
   "https://abacus.jasoncameron.dev/hit/andremarinho/portfolio";
 
-// Module-level so React strict-mode's double effect doesn't count the view twice
 let hitPromise: Promise<string> | null = null;
 
 function hitCounter(): Promise<string> {
@@ -52,7 +49,6 @@ function useTimeOnSite() {
   useEffect(() => {
     const sessionStart = Date.now();
     const initialTime = Number(localStorage.getItem(TIME_KEY)) || 0;
-
     const elapsed = () => Math.floor((Date.now() - sessionStart) / 1000);
     const interval = setInterval(
       () => setTimeOnSite(formatTime(initialTime + elapsed())),
@@ -126,26 +122,31 @@ const socials = [
   },
 ];
 
-export default function Footer({
-  content,
-  commit,
-}: {
-  content: Content["footer"];
-  commit: LatestCommit;
-}) {
+const sha = process.env.NEXT_PUBLIC_COMMIT_SHA;
+const commit = sha
+  ? {
+      sha: sha.slice(0, 7),
+      url: `https://github.com/andre-lmarinho/me/commit/${sha}`,
+    }
+  : null;
+
+export default function Footer() {
   const timeOnSite = useTimeOnSite();
   const views = usePageViews();
   const year = new Date().getFullYear();
 
   return (
-    <div className="max-w-7xl mx-auto px-6 pb-6">
-      <footer className="bg-surface border border-border rounded-lg p-5 text-sm text-muted flex flex-col items-center justify-center gap-y-3 md:flex-row md:justify-between md:gap-y-0">
+    <footer className="w-full max-w-7xl mx-auto px-6 pb-6">
+      <div className="bg-surface border border-border rounded-lg p-5 text-sm text-muted flex flex-col items-center justify-center gap-y-3 md:flex-row md:justify-between md:gap-y-0">
         <span className="whitespace-nowrap">
-          © {year} {content.rights}
+          © {year} André Marinho. All rights reserved.
         </span>
 
         <div className="flex flex-wrap items-center justify-center gap-x-3 gap-y-2 md:justify-end">
-          <div className="flex items-center gap-1.5" title={content.timeTitle}>
+          <div
+            className="flex items-center gap-1.5"
+            title="How long you have been surfing my site"
+          >
             <svg
               aria-hidden="true"
               width="14"
@@ -165,8 +166,8 @@ export default function Footer({
 
           <span className="text-border hidden sm:inline">-</span>
 
-          <span title={content.viewsTitle}>
-            {views ?? "…"} {content.views}
+          <span title="Site views, counted by Abacus">
+            {views ?? "…"} views
           </span>
 
           <span className="text-border hidden sm:inline">-</span>
@@ -177,7 +178,7 @@ export default function Footer({
               target="_blank"
               rel="noopener noreferrer"
               className="hover:text-accent flex items-center gap-x-1 transition-colors duration-200"
-              title={`${content.commitTitle} (${commit.sha})`}
+              title={`View deployment commit (${commit.sha})`}
             >
               <svg
                 aria-hidden="true"
@@ -199,7 +200,7 @@ export default function Footer({
           ) : (
             <span
               className="flex items-center gap-x-1"
-              title={content.commitTitle}
+              title="View deployment commit"
             >
               <svg
                 aria-hidden="true"
@@ -236,17 +237,8 @@ export default function Footer({
               </a>
             ))}
           </div>
-
-          <span className="text-border hidden sm:inline">-</span>
-
-          <a
-            href={content.langHref}
-            className="hover:text-foreground transition-colors"
-          >
-            {content.langToggle}
-          </a>
         </div>
-      </footer>
-    </div>
+      </div>
+    </footer>
   );
 }

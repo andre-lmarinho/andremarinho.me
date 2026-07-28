@@ -1,6 +1,8 @@
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import type { Metadata } from "next";
+import Footer from "@/components/layout/Footer";
+import Nav from "@/components/layout/Nav";
 import { profileJsonLd } from "@/lib/seo";
 import "./globals.css";
 
@@ -35,10 +37,6 @@ export const metadata: Metadata = {
   },
   alternates: {
     canonical: "/",
-    languages: {
-      en: "/",
-      pt: "/pt",
-    },
   },
 };
 
@@ -49,13 +47,15 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="h-full antialiased dark">
-      <body className="min-h-full bg-bg text-foreground font-body">
+      <body className="flex min-h-dvh flex-col bg-bg text-foreground font-body">
         <script
           type="application/ld+json"
           // biome-ignore lint/security/noDangerouslySetInnerHtml: JSON-LD is static and trusted.
           dangerouslySetInnerHTML={{ __html: JSON.stringify(profileJsonLd) }}
         />
-        {children}
+        <Nav />
+        <main className="grow">{children}</main>
+        <Footer />
         <SpeedInsights />
         <Analytics />
       </body>
