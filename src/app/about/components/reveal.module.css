@@ -1,0 +1,116 @@
+/* The reveal.
+
+   One curve per segment, not one per paragraph. --front is written on the
+   segment wrapper and inherits down, so every node resolves its own state
+   from a single number. That is also what keeps the order structural: nodes
+   are numbered across the whole segment, so node 40 cannot light before node
+   39 and a paragraph can never start while the one above it is still going.
+   No paragraph ever inspects its neighbour.
+
+   Cost is one style write per segment per frame, whatever the word count.
+
+   Progressive enhancement: the server HTML renders lit and open, so the page
+   is readable with no JS and under prefers-reduced-motion. The segment only
+   dims once the client has taken over. */
+
+/* --front is the position of the reveal front, counted in nodes. Not a 0..1
+   ratio: a ratio caps the front at the last node, which leaves the final
+   nodes short of the switch and stuck unlit. Counting in nodes lets the front
+   run past the end, so the segment can actually finish.
+
+   The default is past any real segment, so with no JS the page is fully lit
+   and open. */
+.segment {
+  --front: 99999;
+}
+
+/* Has the front reached this node: 0 or 1, never anything between.
+
+   The multiplier is what makes it a switch rather than a ramp. A ramp ties
+   the value to the scroll, so stopping mid-ramp parks a word at half
+   brightness and only more scrolling finishes it: the animation becomes a
+   readout of the scroll rather than an animation. Here scroll decides only
+   *when* a node flips. The transition owns the journey and always runs it to
+   the end, whether or not the scroll continues. */
+.node {
+  --on: clamp(0, calc((var(--front) - var(--i)) * 1000), 1);
+}
+
+.word {
+  opacity: calc(0.25 + 0.75 * var(--on));
+}
+
+/* Two jobs, split between two properties, which is the whole trick.
+
+   The box never resizes: it is 1.5em wide lit or not. Growing the width would
+   grow the tile from its left edge, so the glyph would appear to unroll
+   sideways out of the text. Instead the tile scales from its own centre, so
+   it arrives in place, coming forward rather than opening out.
+
+   Since a transform takes no space, the room in the line is made by margin:
+   a negative one exactly cancels the box when the tile is hidden, and relaxes
+   to its real gap as it arrives. The sentence closes to nothing and then
+   opens by precisely the width of the tile.
+
+   This is the shape huly.io/pricing uses for its inline canvases, which hold
+   a constant 210px box and animate margin-right from -147.5px to -72px. */
+.tile {
+  width: 1.5em;
+  opacity: var(--on);
+  transform: scale(var(--on));
+  transform-origin: center;
+}
+
+/* It is always margin-right that collapses, whichever side of the word the
+   tile sits on. A negative left margin would pull the tile itself leftwards,
+   so it would slide into position instead of growing in place: the collapsing
+   side has to be the one facing the text that is meant to move, never the one
+   the tile is anchored by. huly.io/pricing does the same, holding margin-left
+   at a constant -72px and animating only margin-right.
+
+   The left margin is therefore the constant gap before the tile, and the
+   right margin carries both the gap after it and the collapse. */
+.tileAfter {
+  margin-left: 0.3em;
+  margin-right: calc((var(--on) - 1) * 1.8em);
+}
+
+.tileBefore {
+  margin-left: 0;
+  margin-right: calc(0.3em + (var(--on) - 1) * 1.8em);
+}
+
+.tileCluster {
+  margin-right: calc(0.22em + (var(--on) - 1) * 1.72em);
+}
+
+/* Keeps an icon and its word on one line, above the card glows behind them. */
+.pair {
+  position: relative;
+  z-index: 30;
+  white-space: nowrap;
+}
+
+/* A link on the curve is still a link. Reached by keyboard before the front
+   gets there, it would otherwise be a focus target sitting at quarter
+   opacity, so focus reveals it outright. */
+.link:focus-visible .word {
+  opacity: 1;
+}
+
+.link:focus-visible .tile {
+  opacity: 1;
+  transform: scale(1);
+  margin-right: 0.3em;
+}
+
+/* Armed one frame after the first --front write. Without the gate, the drop
+   from the lit default down to the opening front would itself animate and the
+   page would flash fully lit before fading back out. */
+.segment[data-armed] .word,
+.segment[data-armed] .tile {
+  transition:
+    opacity 420ms cubic-bezier(0.33, 0, 0.15, 1),
+    transform 420ms cubic-bezier(0.33, 0, 0.15, 1),
+    margin 420ms cubic-bezier(0.33, 0, 0.15, 1);
+}

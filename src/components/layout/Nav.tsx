@@ -62,6 +62,12 @@ export default function Nav() {
         </nav>
         <nav className="desktop-nav-links flex gap-4 text-sm">
           <TransitionLink
+            href="/about"
+            className="text-muted transition-colors hover:text-foreground"
+          >
+            about
+          </TransitionLink>
+          <TransitionLink
             href="/projects"
             className="text-muted transition-colors hover:text-foreground"
           >
