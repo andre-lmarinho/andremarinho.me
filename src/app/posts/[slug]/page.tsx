@@ -5,8 +5,6 @@ import { formatDate } from "@/lib/content";
 import { getPost, getPosts } from "@/lib/posts";
 import { postJsonLd } from "@/lib/seo";
 
-// Only slugs returned by generateStaticParams are served; anything else 404s,
-// which keeps unknown slugs from reaching the filesystem read.
 export const dynamicParams = false;
 
 export function generateStaticParams() {
@@ -48,39 +46,52 @@ export default async function PostPage({
   if (!post) notFound();
 
   return (
-    <article className="mx-auto w-full max-w-3xl px-6 pt-32 pb-20">
+    <article className="overflow-x-clip">
       <script
         type="application/ld+json"
         // biome-ignore lint/security/noDangerouslySetInnerHtml: JSON-LD built from in-repo markdown.
         dangerouslySetInnerHTML={{ __html: JSON.stringify(postJsonLd(post)) }}
       />
-      <MorphTitle
-        as="h1"
-        title={post.title}
-        id={`post-${slug}`}
-        className="text-4xl font-bold tracking-tight"
-      />
-      <p className="mt-3 text-xs text-muted">
-        {post.date ? formatDate(post.date) : "Draft"}
-      </p>
-      {post.tags.length > 0 && (
-        <div className="mt-4 flex flex-wrap gap-2">
-          {post.tags.map((tag) => (
-            <span
-              key={tag}
-              className="rounded bg-surface-2 px-2 py-1 text-xs text-muted"
-            >
-              {tag}
-            </span>
-          ))}
-        </div>
-      )}
 
-      <div
-        className="prose mt-10"
-        // biome-ignore lint/security/noDangerouslySetInnerHtml: markdown authored in-repo, no user input.
-        dangerouslySetInnerHTML={{ __html: post.html }}
-      />
+      <header className="mx-auto w-full max-w-3xl px-6 pt-36 pb-16 max-md:pt-32 lg:px-8">
+        <MorphTitle
+          as="h1"
+          title={post.title}
+          id={`post-${slug}`}
+          className="text-balance text-4xl leading-[1.05] font-semibold tracking-[-0.02em] sm:text-5xl"
+        />
+        <p className="mt-5 max-w-2xl text-sm leading-relaxed text-muted sm:text-base">
+          {post.description}
+        </p>
+
+        <div className="mt-5 flex flex-wrap items-center gap-x-3 gap-y-2 text-xs">
+          <time dateTime={post.date || undefined} className="text-muted">
+            {post.date ? formatDate(post.date) : "Draft"}
+          </time>
+          <span className="text-border" aria-hidden="true">
+            /
+          </span>
+          <span className="text-faint tabular-nums">
+            {post.minutes} min read
+          </span>
+        </div>
+
+        {post.tags.length > 0 ? (
+          <p className="mt-4 text-xs leading-relaxed text-faint">
+            {post.tags.join(" · ")}
+          </p>
+        ) : null}
+      </header>
+
+      <section>
+        <div className="mx-auto w-full max-w-3xl px-6 py-20 max-md:py-16 lg:px-8">
+          <div
+            className="prose"
+            // biome-ignore lint/security/noDangerouslySetInnerHtml: markdown authored in-repo, no user input.
+            dangerouslySetInnerHTML={{ __html: post.html }}
+          />
+        </div>
+      </section>
     </article>
   );
 }

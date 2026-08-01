@@ -45,7 +45,7 @@ export default async function ProjectPage({
   if (!project) notFound();
 
   return (
-    <article className="mx-auto w-full max-w-3xl px-6 pt-32 pb-20">
+    <article className="overflow-x-clip">
       <script
         type="application/ld+json"
         // biome-ignore lint/security/noDangerouslySetInnerHtml: JSON-LD built from in-repo markdown.
@@ -53,64 +53,68 @@ export default async function ProjectPage({
           __html: JSON.stringify(projectJsonLd(project)),
         }}
       />
-      {project.image && (
-        <div className="mb-8 overflow-hidden rounded-lg">
-          <Image
-            src={project.image}
-            alt={project.title}
-            width={1600}
-            height={900}
-            className="aspect-video w-full object-cover"
-            sizes="(max-width: 768px) 100vw, 768px"
-            style={{ viewTransitionName: `project-image-${slug}` }}
-            // Lazy would still be undecoded when the view transition snapshots
-            // this page, so the card would morph into an empty box.
-            priority
+
+      <header className="mx-auto w-full max-w-3xl px-6 pt-36 pb-16 max-md:pt-32 lg:px-8">
+        <MorphTitle
+          as="h1"
+          title={project.title}
+          id={`project-${slug}`}
+          className="text-balance text-4xl leading-[1.05] font-semibold tracking-[-0.02em] sm:text-5xl"
+        />
+        <p className="mt-5 max-w-2xl text-sm leading-relaxed text-muted sm:text-base">
+          {project.description}
+        </p>
+
+        <div className="mt-5 flex flex-wrap items-center gap-x-3 gap-y-2 text-xs">
+          <time dateTime={project.date || undefined} className="text-muted">
+            {project.date ? formatDate(project.date) : "Draft"}
+          </time>
+          {project.link ? (
+            <>
+              <span className="text-border" aria-hidden="true">
+                /
+              </span>
+              <a
+                href={project.link}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-accent underline-offset-4 hover:underline"
+              >
+                Live site →
+              </a>
+            </>
+          ) : null}
+        </div>
+
+        {project.tags.length > 0 ? (
+          <p className="mt-4 text-xs leading-relaxed text-faint">
+            {project.tags.join(" · ")}
+          </p>
+        ) : null}
+      </header>
+
+      <section>
+        <div className="mx-auto w-full max-w-3xl px-6 py-20 max-md:py-16 lg:px-8">
+          {project.image ? (
+            <Image
+              src={project.image}
+              alt={project.title}
+              width={1600}
+              height={900}
+              className="aspect-video w-full rounded-lg border border-border object-cover"
+              sizes="(max-width: 768px) 100vw, 768px"
+              style={{ viewTransitionName: `project-image-${slug}` }}
+              priority
+            />
+          ) : null}
+
+          <div
+            className={`prose ${project.image ? "mt-12" : ""}`}
+            // biome-ignore lint/security/noDangerouslySetInnerHtml: markdown authored in-repo, no user input.
+            dangerouslySetInnerHTML={{ __html: project.html }}
           />
         </div>
-      )}
-
-      <MorphTitle
-        as="h1"
-        title={project.title}
-        id={`project-${slug}`}
-        className="text-4xl font-bold tracking-tight"
-      />
-
-      <div className="mt-3 flex items-center gap-4">
-        <p className="text-xs text-muted">
-          {project.date ? formatDate(project.date) : "Draft"}
-        </p>
-        {project.link && (
-          <a
-            href={project.link}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-xs text-accent underline-offset-4 hover:underline"
-          >
-            Live Site →
-          </a>
-        )}
-      </div>
-
-      {project.tags.length > 0 && (
-        <div className="mt-4 flex flex-wrap gap-2">
-          {project.tags.map((tag) => (
-            <span
-              key={tag}
-              className="rounded bg-surface-2 px-2 py-1 text-xs text-muted"
-            >
-              {tag}
-            </span>
-          ))}
-        </div>
-      )}
-
-      <div
-        className="prose mt-10"
-        // biome-ignore lint/security/noDangerouslySetInnerHtml: markdown authored in-repo, no user input.
-        dangerouslySetInnerHTML={{ __html: project.html }}
-      />
+      </section>
     </article>
   );
 }

@@ -13,7 +13,10 @@ const commitSha =
   })();
 
 const nextConfig: NextConfig = {
-  env: { NEXT_PUBLIC_COMMIT_SHA: commitSha },
+  env: {
+    NEXT_PUBLIC_COMMIT_SHA: commitSha,
+    NEXT_PUBLIC_BUILD_TIME: new Date().toISOString(),
+  },
   images: {
     formats: ["image/avif", "image/webp"],
   },

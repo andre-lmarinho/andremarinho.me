@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
-import MorphTitle from "@/components/ui/MorphTitle";
-import TransitionLink from "@/components/ui/TransitionLink";
-import { formatDate } from "@/lib/content";
+import PageIntro from "@/components/PageIntro";
+import PostList from "@/components/PostList";
 import { getPosts } from "@/lib/posts";
 
 export const metadata: Metadata = {
@@ -15,46 +14,21 @@ export default function PostsPage() {
   const posts = getPosts();
 
   return (
-    <div className="mx-auto w-full max-w-3xl px-6 pt-32 pb-20">
-      <h1 className="mb-12 text-4xl font-bold tracking-tight">Posts</h1>
+    <div className="overflow-x-clip">
+      <PageIntro
+        title="Posts"
+        description="Notes on what I build, how it breaks, and what I learn from it."
+      />
 
-      {posts.length === 0 ? (
-        <p className="text-muted">No posts yet.</p>
-      ) : (
-        <ul className="space-y-10 -mx-2">
-          {posts.map((post) => (
-            <li key={post.slug}>
-              <TransitionLink
-                href={`/posts/${post.slug}`}
-                className="group block hover:bg-surface rounded-lg p-2"
-              >
-                <MorphTitle
-                  as="h2"
-                  title={post.title}
-                  id={`post-${post.slug}`}
-                  className="text-2xl font-semibold transition-colors group-hover:text-accent"
-                />
-                <p className="mt-1 text-xs text-muted">
-                  {post.date ? formatDate(post.date) : "Draft"}
-                </p>
-                <p className="mt-3 text-muted">{post.description}</p>
-                {post.tags.length > 0 && (
-                  <div className="mt-3 flex flex-wrap gap-2">
-                    {post.tags.map((tag) => (
-                      <span
-                        key={tag}
-                        className="rounded bg-surface-2 px-2 py-1 text-xs text-muted"
-                      >
-                        {tag}
-                      </span>
-                    ))}
-                  </div>
-                )}
-              </TransitionLink>
-            </li>
-          ))}
-        </ul>
-      )}
+      <section>
+        <div className="mx-auto w-full max-w-3xl px-6 py-20 max-md:py-16 lg:px-8">
+          {posts.length > 0 ? (
+            <PostList posts={posts} headingLevel="h3" />
+          ) : (
+            <p className="text-muted">No posts yet.</p>
+          )}
+        </div>
+      </section>
     </div>
   );
 }

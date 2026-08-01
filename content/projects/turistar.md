@@ -5,6 +5,7 @@ date: 2025-10-20
 tags: Next.js, TypeScript, Supabase, Event Sourcing, Realtime, Leaflet, Playwright
 image: /images/projects/turistar.webp
 featured: true
+kind: open source
 link: https://travel-planner-orpin.vercel.app/
 ---
 

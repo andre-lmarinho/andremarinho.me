@@ -1,104 +1,50 @@
 import type { Metadata } from "next";
-import Contact from "./components/Contact";
-import Rail from "./components/Rail";
-import RevealSegment from "./components/RevealSegment";
-import Statement from "./components/Statement";
-import { contact } from "./content";
-import { planSegment } from "./lib/nodes";
-import { COLUMN, PAGE } from "./tokens";
+import PageIntro from "@/components/PageIntro";
 
 export const metadata: Metadata = {
   title: "About — André Marinho",
   description:
-    "Eight years running a digital marketing agency, then a full time move into code. Where the instincts came from, and what they did not cover.",
+    "Front-end engineer in Brazil working where engineering, product and user experience meet.",
   alternates: { canonical: "/about" },
   openGraph: {
     title: "About — André Marinho",
-    description: "Where the instincts came from, and what they did not cover.",
+    description:
+      "Front-end engineer in Brazil working where engineering, product and user experience meet.",
     type: "profile",
     url: "/about",
   },
 };
 
-/* ─────────────────────────────────────────────────────────────────────────
-   Structure follows huly.io/pricing: statements, rail, statements, close.
-
-   The device that page runs on is not the column, it is icons sitting inside
-   the sentences, on the baseline, where a word would be. Its text is one flat
-   colour throughout; the icons carry the rhythm that colour changes would
-   otherwise have to fake. So the copy is written to enumerate, because an
-   enumeration is what gives an icon somewhere to stand.
-
-   The reveal runs in two segments, each with its own curve across its own
-   stretch of the page: the opening one from the top of the document to the
-   cards, the closing one from the cards to the end. Everything after the rail
-   sits in one section so the second segment is one element.
-
-   Copy and chapter data in content.ts, layout measurements in tokens.ts,
-   node sequencing in lib/nodes.ts, the curve in components/RevealSegment.tsx.
-
-   Card hooks still waiting on the animation pass:
-   [data-rail] [data-card] [data-card-featured] [data-card-glow] [data-card-hover]
-   ──────────────────────────────────────────────────────────────────────── */
-
-// The opening sentence is pinned: lit wherever the page is, never a node
-// the front has to reach.
-const opening = planSegment(["thesis", "instincts", "now"], {
-  pinFirstSentence: true,
-});
-// The email closes the block on the same curve as the text above it.
-const closing = planSegment(["transferred", "didNot", "closing"], {
-  trailing: contact,
-});
+const copy = [
+  "I'm a Front-End Engineer based in Brazil who enjoys turning ideas into products people actually enjoy using.",
+  "My path into software wasn't traditional. Before becoming a developer, I spent years working in digital marketing, helping businesses grow through strategy, websites and user experience.",
+  "That background changed the way I approach engineering. I don't just think about how to build a feature. I think about why it exists, who it serves and how every technical decision shapes the final product.",
+  "Today I build modern web applications with React, Next.js and TypeScript, with a strong focus on clean architecture, performance and maintainability.",
+  "The work I enjoy most lives at the intersection of engineering, product and user experience where technical decisions directly improve how people experience software.",
+  "Outside of client work, I spend a significant amount of time building open source projects. They're where I experiment with architecture, testing, CI/CD and developer experience before bringing those lessons into production.",
+  "I'm always studying computer science, exploring large open source codebases and building personal projects. Every project is another opportunity to become a better engineer.",
+] as const;
 
 export default function AboutPage() {
   return (
-    <div className={`${PAGE} overflow-x-clip`}>
-      <h1 className="sr-only">About André Marinho</h1>
+    <div className="overflow-x-clip">
+      <PageIntro
+        title="About"
+        description="Front-end engineer in Brazil working where engineering, product and user experience meet."
+      />
 
-      <section className="relative pt-53 pb-40 max-md:pt-36 max-md:pb-24">
-        <div
-          className="pointer-events-none absolute inset-x-0 top-0 h-150 bg-linear-to-b from-accent-glow/20 via-transparent to-transparent"
-          aria-hidden="true"
-        />
-
-        <RevealSegment
-          anchor="head"
-          total={opening.total}
-          pinned={opening.pinned}
-          className={`relative z-10 flex flex-col gap-y-14 ${COLUMN}`}
-        >
-          {opening.items.map(({ block, offset, pinned }) => (
-            <Statement
-              key={block}
-              block={block}
-              offset={offset}
-              pinned={pinned}
-            />
+      <article>
+        <div className="mx-auto flex w-full max-w-3xl flex-col gap-y-6 px-6 py-16 lg:px-8">
+          {copy.map((paragraph) => (
+            <p
+              key={paragraph}
+              className="max-w-2xl text-sm leading-relaxed sm:text-base"
+            >
+              {paragraph}
+            </p>
           ))}
-        </RevealSegment>
-      </section>
-
-      <section className="relative">
-        <h2 className="sr-only">How I got here</h2>
-        <Rail />
-      </section>
-
-      <section className="relative pb-48 max-md:pb-28">
-        <h2 className="sr-only">What transferred, and what comes next</h2>
-
-        <RevealSegment
-          anchor="tail"
-          total={closing.total}
-          pinned={closing.pinned}
-          className={`relative z-10 flex flex-col gap-y-14 ${COLUMN}`}
-        >
-          {closing.items.map(({ block, offset }) => (
-            <Statement key={block} block={block} offset={offset} />
-          ))}
-          <Contact offset={closing.trailingOffset} />
-        </RevealSegment>
-      </section>
+        </div>
+      </article>
     </div>
   );
 }

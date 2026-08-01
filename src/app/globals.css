@@ -1,38 +1,25 @@
-@import url("https://fonts.googleapis.com/css2?family=Archivo:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500;600;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap");
 @import "tailwindcss";
-
-@custom-variant dark (&:where(.dark, .dark *));
 
 @theme {
   --color-bg: #070a11;
   --color-surface: #0c1020;
   --color-surface-2: #111827;
   --color-border: #1e293b;
-  --color-muted: #64748b;
+  --color-muted: #94a3b8;
+  --color-faint: #7e8ca3;
   --color-foreground: #e2e8f0;
   --color-accent: #22c55e;
   --color-accent-dim: #16a34a;
-  --color-accent-glow: rgba(34, 197, 94, 0.15);
-
   --font-body: "JetBrains Mono", monospace;
-  --animate-wave: wave 3s ease-in-out infinite;
 }
 
-@keyframes wave {
-  0%,
-  20%,
-  100% {
-    transform: rotate(0deg);
-  }
-  5% {
-    transform: rotate(14deg);
-  }
-  10% {
-    transform: rotate(-8deg);
-  }
-  15% {
-    transform: rotate(14deg);
-  }
+:root {
+  color-scheme: dark;
+}
+
+html {
+  scroll-padding-top: 6rem;
 }
 
 * {
@@ -40,14 +27,8 @@
   scrollbar-color: var(--color-border) transparent;
 }
 
-::selection {
-  background-color: var(--color-accent);
-  color: var(--color-bg);
-}
-
 body {
-  font-family: var(--font-body);
-  background-color: var(--color-bg);
+  background: var(--color-bg);
   color: var(--color-foreground);
 }
 
@@ -55,6 +36,34 @@ h1,
 h2,
 h3 {
   font-family: "Archivo", sans-serif;
+}
+
+a:focus-visible,
+button:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 4px;
+}
+
+::selection {
+  background: var(--color-accent);
+  color: var(--color-bg);
+}
+
+.skip-link {
+  position: fixed;
+  top: 0.75rem;
+  left: 0.75rem;
+  z-index: 100;
+  transform: translateY(-200%);
+  border-radius: 0.25rem;
+  background: var(--color-accent);
+  padding: 0.5rem 0.75rem;
+  color: var(--color-bg);
+  font-size: 0.75rem;
+}
+
+.skip-link:focus {
+  transform: translateY(0);
 }
 
 @keyframes blink {
@@ -67,43 +76,163 @@ h3 {
   }
 }
 
-.breadcrumb-cursor {
-  animation: blink 2s cubic-bezier(0.2, 1, 0.8, 1) infinite;
+@media (prefers-reduced-motion: no-preference) {
+  .breadcrumb-cursor {
+    animation: blink 2s cubic-bezier(0.2, 1, 0.8, 1) infinite;
+  }
 }
 
 @keyframes header-on-scroll {
   from {
+    border-color: transparent;
     background-color: transparent;
     backdrop-filter: blur(0);
-    border-color: transparent;
   }
   to {
+    border-color: var(--color-border);
     background-color: color-mix(in srgb, var(--color-bg) 80%, transparent);
     backdrop-filter: blur(16px);
-    border-color: var(--color-border);
   }
 }
 
-@supports (animation-timeline: scroll()) {
-  .site-header {
-    animation: header-on-scroll linear both;
-    animation-range: 0 50px;
-    animation-timeline: scroll(root block);
+@media (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: scroll()) {
+    .site-header {
+      animation: header-on-scroll linear both;
+      animation-range: 0 50px;
+      animation-timeline: scroll(root block);
+    }
   }
 }
 
-/* Project cards: when one is hovered or keyboard-focused, dim the siblings */
-.project-grid:has(.project-card:hover) .project-card:not(:hover),
-.project-grid:has(.project-card:focus-visible)
-  .project-card:not(:focus-visible) {
-  opacity: 0.5;
+@keyframes head-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
 }
 
-/* Post body. Hand-rolled instead of @tailwindcss/typography so it inherits
-   the site's own theme tokens. */
+@media (prefers-reduced-motion: no-preference) {
+  .home-head > *,
+  .page-intro > * {
+    animation: head-in 420ms cubic-bezier(0.23, 1, 0.32, 1) backwards;
+  }
+
+  .home-head > *:nth-child(1),
+  .page-intro > *:nth-child(1) {
+    animation-delay: 0ms;
+  }
+
+  .home-head > *:nth-child(2),
+  .page-intro > *:nth-child(2) {
+    animation-delay: 40ms;
+  }
+
+  .home-head > *:nth-child(3),
+  .page-intro > *:nth-child(3) {
+    animation-delay: 80ms;
+  }
+
+  .home-head > *:nth-child(4) {
+    animation-delay: 120ms;
+  }
+
+  .home-head > *:nth-child(5) {
+    animation-delay: 160ms;
+  }
+
+  .home-head > *:nth-child(6) {
+    animation-delay: 200ms;
+  }
+}
+
+@keyframes row-in {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+}
+
+@keyframes rule-draw {
+  from {
+    clip-path: inset(0 100% 0 0);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: view()) {
+    .content-reveal {
+      animation-name: row-in;
+      animation-duration: auto;
+      animation-timing-function: linear;
+      animation-fill-mode: both;
+      animation-timeline: view();
+      animation-range: entry 0% entry 60%;
+    }
+
+    .section-rule-line {
+      animation-name: rule-draw;
+      animation-duration: auto;
+      animation-timing-function: linear;
+      animation-fill-mode: both;
+      animation-timeline: view();
+      animation-range: entry 0% entry 45%;
+    }
+  }
+}
+
+.content-row {
+  transition: opacity 200ms ease;
+}
+
+.content-row:focus-visible {
+  outline: none;
+}
+
+.content-row:focus-visible .content-title {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 4px;
+}
+
+.project-peek {
+  opacity: 0;
+  transform: translateY(calc(-50% + 6px)) scale(0.98);
+  transform-origin: left center;
+  transition:
+    opacity 200ms cubic-bezier(0.23, 1, 0.32, 1),
+    transform 200ms cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .content-list:has(.content-row:hover) .content-row:not(:hover) {
+    opacity: 0.45;
+  }
+
+  .content-row:hover .project-peek {
+    opacity: 1;
+    transform: translateY(-50%) scale(1);
+  }
+}
+
+.status-value {
+  transition:
+    opacity 320ms ease-out,
+    transform 320ms cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.status-value[data-state="pending"] {
+  opacity: 0.35;
+  transform: translateY(3px);
+}
+
+.status-value[data-state="ready"] {
+  opacity: 1;
+  transform: none;
+}
+
 .prose {
-  line-height: 1.75;
   color: var(--color-foreground);
+  line-height: 1.8;
 }
 
 .prose > * + * {
@@ -112,10 +241,10 @@ h3 {
 
 .prose h2,
 .prose h3 {
-  font-weight: 600;
-  line-height: 1.3;
   margin-top: 2.5em;
   margin-bottom: -0.5em;
+  font-weight: 600;
+  line-height: 1.3;
 }
 
 .prose h2 {
@@ -129,8 +258,8 @@ h3 {
 .prose a {
   color: var(--color-accent);
   text-decoration: underline;
-  text-underline-offset: 3px;
   text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
 }
 
 .prose a:hover {
@@ -170,19 +299,19 @@ h3 {
 }
 
 .prose code {
+  border-radius: 0.25rem;
+  background: var(--color-surface-2);
+  padding: 0.15em 0.4em;
   font-family: var(--font-body);
   font-size: 0.875em;
-  background-color: var(--color-surface-2);
-  border-radius: 0.25rem;
-  padding: 0.15em 0.4em;
 }
 
 .prose pre {
-  background-color: var(--color-surface);
+  overflow-x: auto;
   border: 1px solid var(--color-border);
   border-radius: 0.5rem;
+  background: var(--color-surface);
   padding: 1rem;
-  overflow-x: auto;
   font-size: 0.875rem;
   line-height: 1.6;
 }
@@ -194,137 +323,36 @@ h3 {
 }
 
 .prose img {
-  border-radius: 0.5rem;
-  max-width: 100%;
   height: auto;
+  max-width: 100%;
+  border-radius: 0.5rem;
 }
 
 .prose hr {
   border-color: var(--color-border);
 }
 
-/* ── Mobile Nav ─────────────────────────────────────────────── */
-
-/* Hamburger toggle — hidden on md+ */
-.mobile-nav-toggle {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 6px;
-  width: 48px;
-  height: 48px;
-  background: none;
-  border: none;
-  cursor: pointer;
-  z-index: 50;
-  padding: 0;
-}
-
-@media (min-width: 768px) {
-  .mobile-nav-toggle {
-    display: none;
-  }
-}
-
-.mobile-nav-toggle__line {
-  display: block;
-  width: 24px;
-  height: 2px;
-  background-color: var(--color-accent);
-  transition:
-    transform 0.3s cubic-bezier(0.645, 0.045, 0.355, 1),
-    opacity 0.2s ease;
-  transform-origin: center;
-}
-
-/* X morph */
-.mobile-nav-toggle.is-open .mobile-nav-toggle__line:first-child {
-  transform: translateY(4px) rotate(45deg);
-}
-
-.mobile-nav-toggle.is-open .mobile-nav-toggle__line:last-child {
-  transform: translateY(-4px) rotate(-45deg);
-}
-
-/* Overlay */
-.mobile-nav-overlay {
-  position: fixed;
-  inset: 0;
-  z-index: 40;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 100dvh;
-  background-color: var(--color-bg);
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.35s ease-out;
-}
-
-.mobile-nav-overlay.is-open {
-  opacity: 1;
-  pointer-events: auto;
-}
-
-.mobile-nav-overlay__nav ul {
-  list-style: none;
-  text-align: center;
-}
-
-.mobile-nav-overlay__nav li {
-  opacity: 0;
-  transform: translateX(20px);
-  transition:
-    opacity 0.3s ease-out,
-    transform 0.3s ease-out;
-}
-
-.mobile-nav-overlay.is-open .mobile-nav-overlay__nav li {
-  opacity: 1;
-  transform: translateX(0);
-}
-
-.mobile-nav-overlay__nav a {
-  display: block;
-  padding: 0.5rem 2rem;
-  font-family: "Archivo", sans-serif;
-  font-size: 2rem;
-  font-weight: 500;
-  letter-spacing: 0.1em;
-  text-transform: lowercase;
-  color: var(--color-foreground);
-  text-decoration: none;
-  transition: color 0.2s ease;
-}
-
-.mobile-nav-overlay__nav a:hover {
-  color: var(--color-accent);
-}
-
-/* Hide desktop nav links on mobile */
-@media (max-width: 767px) {
-  .desktop-nav-links {
-    display: none;
-  }
-}
-
-/* Page transitions. The root crossfade is left at the UA default on purpose —
-   giving it a transform would drag the fixed header along with it. There is no
-   prefers-reduced-motion block because src/lib/view-transition.tsx skips
-   startViewTransition outright, so these pseudo-elements never get created. */
 ::view-transition-group(*) {
   animation-duration: 0.5s;
   animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 @media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .site-header {
+    border-color: var(--color-border);
+    background-color: color-mix(in srgb, var(--color-bg) 80%, transparent);
+    backdrop-filter: blur(16px);
+  }
+
   *,
   *::before,
   *::after {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
-    scroll-behavior: auto !important;
   }
 }

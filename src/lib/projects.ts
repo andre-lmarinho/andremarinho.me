@@ -1,5 +1,5 @@
 import { join } from "node:path";
-import { isPublished, readAllContent, readMarkdown } from "./content";
+import { readAllContent, readMarkdown } from "./content";
 
 const DIR = join(process.cwd(), "content/projects");
 
@@ -12,9 +12,11 @@ export type Project = {
   image: string;
   link: string;
   featured: boolean;
+  kind: string;
+  html: string;
 };
 
-function parse(slug: string): Project & { html: string } {
+function parse(slug: string): Project {
   const { meta, html } = readMarkdown(DIR, slug);
   return {
     slug,
@@ -25,6 +27,7 @@ function parse(slug: string): Project & { html: string } {
     image: meta.image ?? "",
     link: meta.link ?? "",
     featured: meta.featured === "true",
+    kind: meta.kind ?? "",
     html,
   };
 }
@@ -38,11 +41,5 @@ export const getProjects = () => readAllContent(DIR, parse, featuredFirst);
 export const getFeaturedProjects = () =>
   getProjects().filter((p) => p.featured);
 
-export function getProject(slug: string) {
-  try {
-    const project = parse(slug);
-    return isPublished(project.date) ? project : null;
-  } catch {
-    return null;
-  }
-}
+export const getProject = (slug: string) =>
+  getProjects().find((project) => project.slug === slug) ?? null;

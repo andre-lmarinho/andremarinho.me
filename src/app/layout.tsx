@@ -1,8 +1,8 @@
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
-import type { Metadata } from "next";
-import Footer from "@/components/layout/Footer";
-import Nav from "@/components/layout/Nav";
+import type { Metadata, Viewport } from "next";
+import SiteFooter from "@/components/SiteFooter";
+import SiteHeader from "@/components/SiteHeader";
 import { profileJsonLd } from "@/lib/seo";
 import { ViewTransitions } from "@/lib/view-transition";
 import "./globals.css";
@@ -33,31 +33,37 @@ export const metadata: Metadata = {
     ],
   },
   other: {
-    "msapplication-TileColor": "#ffffff",
+    "msapplication-TileColor": "#070a11",
     "msapplication-TileImage": "/ms-icon-144x144.png",
   },
-  alternates: {
-    canonical: "/",
-  },
+  alternates: { canonical: "/" },
+};
+
+export const viewport: Viewport = {
+  colorScheme: "dark",
+  themeColor: "#070a11",
 };
 
 export default function RootLayout({
   children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+}: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className="h-full antialiased dark">
-      <body className="flex min-h-dvh flex-col bg-bg text-foreground font-body">
+    <html lang="en" className="h-full scroll-smooth antialiased dark">
+      <body className="flex min-h-dvh flex-col bg-bg font-body text-foreground">
         <script
           type="application/ld+json"
           // biome-ignore lint/security/noDangerouslySetInnerHtml: JSON-LD is static and trusted.
           dangerouslySetInnerHTML={{ __html: JSON.stringify(profileJsonLd) }}
         />
         <ViewTransitions />
-        <Nav />
-        <main className="grow">{children}</main>
-        <Footer />
+        <a className="skip-link" href="#main-content">
+          Skip to content
+        </a>
+        <SiteHeader />
+        <main id="main-content" className="grow">
+          {children}
+        </main>
+        <SiteFooter />
         <SpeedInsights />
         <Analytics />
       </body>

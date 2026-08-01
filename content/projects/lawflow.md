@@ -5,6 +5,7 @@ date: 2026-01-15
 tags: Next.js, TypeScript, tRPC, Supabase, Postgres/RLS, Asaas, Playwright, Vitest
 image: /images/projects/lawflow.webp
 featured: true
+kind: client SaaS
 link: https://lawflowhub.com
 ---
 
