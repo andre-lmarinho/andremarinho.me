@@ -1,3 +1,4 @@
+import { ViewTransition } from "react";
 import PostList from "@/components/PostList";
 import ProjectList from "@/components/ProjectList";
 import { getPosts } from "@/lib/posts";
@@ -11,7 +12,10 @@ export default function HomePage() {
   const posts = getPosts().slice(0, 3);
 
   return (
-    <>
+    // Each section would otherwise be auto-named and paired with the single
+    // <section> other pages render, animating the whole block — section rule
+    // included — on the way out. Only the named titles and images travel.
+    <ViewTransition name="none">
       <Intro />
 
       <section
@@ -37,6 +41,6 @@ export default function HomePage() {
         />
         <PostList posts={posts} />
       </section>
-    </>
+    </ViewTransition>
   );
 }

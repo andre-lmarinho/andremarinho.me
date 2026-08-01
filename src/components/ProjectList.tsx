@@ -1,6 +1,6 @@
 import Image from "next/image";
+import Link from "next/link";
 import MorphTitle from "@/components/transitions/MorphTitle";
-import TransitionLink from "@/components/transitions/TransitionLink";
 import type { Project } from "@/lib/projects";
 
 export default function ProjectList({
@@ -14,7 +14,7 @@ export default function ProjectList({
     <ol className="content-list flex flex-col mt-6">
       {projects.map((project) => (
         <li key={project.slug} className="content-reveal">
-          <TransitionLink
+          <Link
             href={`/projects/${project.slug}`}
             className="content-row group relative block rounded-md py-5"
           >
@@ -63,7 +63,7 @@ export default function ProjectList({
                 />
               </span>
             ) : null}
-          </TransitionLink>
+          </Link>
         </li>
       ))}
     </ol>
