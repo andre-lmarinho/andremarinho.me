@@ -1,0 +1,63 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`PostList > renders a post row 1`] = `
+<div>
+  <ol
+    class="content-list flex flex-col mt-6"
+  >
+    <li
+      class="content-reveal"
+    >
+      <a
+        class="content-row group block rounded-md py-5"
+        href="/posts/first"
+      >
+        <div
+          class="grid grid-cols-1 gap-x-6 gap-y-1.5 sm:grid-cols-[7rem_minmax(0,1fr)]"
+        >
+          <time
+            class="text-xs leading-6 text-muted sm:text-right"
+            datetime="2026-07-17"
+          >
+            Jul 17, 2026
+          </time>
+          <div>
+            <div
+              class="flex items-baseline justify-between gap-x-4"
+            >
+              <h3
+                class="content-title text-base leading-6 font-medium transition-colors group-hover:text-accent"
+              >
+                <span
+                  class="inline-block"
+                  style="view-transition-name: title-post-first-0;"
+                >
+                  First
+                </span>
+                 
+                <span
+                  class="inline-block"
+                  style="view-transition-name: title-post-first-1;"
+                >
+                  Post
+                </span>
+              </h3>
+              <span
+                class="shrink-0 text-xs text-faint tabular-nums"
+              >
+                2
+                 min
+              </span>
+            </div>
+            <p
+              class="mt-2 text-sm leading-relaxed text-muted"
+            >
+              A description.
+            </p>
+          </div>
+        </div>
+      </a>
+    </li>
+  </ol>
+</div>
+`;

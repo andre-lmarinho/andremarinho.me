@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import PostList from "@/components/PostList";
+import PostList from "@/components/content/PostList";
 import { getPosts } from "@/lib/posts";
 
 export const metadata: Metadata = {
