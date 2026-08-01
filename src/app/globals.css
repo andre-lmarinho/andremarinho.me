@@ -27,11 +27,6 @@ html {
   scrollbar-color: var(--color-border) transparent;
 }
 
-body {
-  background: var(--color-bg);
-  color: var(--color-foreground);
-}
-
 h1,
 h2,
 h3 {
@@ -223,11 +218,6 @@ button:focus-visible {
 .status-value[data-state="pending"] {
   opacity: 0.35;
   transform: translateY(3px);
-}
-
-.status-value[data-state="ready"] {
-  opacity: 1;
-  transform: none;
 }
 
 .prose {

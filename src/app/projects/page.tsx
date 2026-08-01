@@ -11,24 +11,18 @@ export const metadata: Metadata = {
 };
 
 export default function ProjectsPage() {
-  const projects = getProjects().sort((a, b) => b.date.localeCompare(a.date));
+  const projects = getProjects();
 
   return (
-    <div className="overflow-x-clip">
+    <>
       <PageIntro
         title="Projects"
         description="Products and tools I designed, built, or helped ship."
       />
 
-      <section>
-        <div className="mx-auto w-full max-w-3xl px-6 py-20 max-md:py-16 lg:px-8">
-          {projects.length > 0 ? (
-            <ProjectList projects={projects} headingLevel="h3" />
-          ) : (
-            <p className="text-muted">No projects yet.</p>
-          )}
-        </div>
+      <section className=" mx-auto flex w-full max-w-3xl flex-col gap-y-6 px-6 py-16 lg:px-8">
+        <ProjectList projects={projects} />
       </section>
-    </div>
+    </>
   );
 }

@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { startPageTransition } from "@/lib/view-transition";
+import { startPageTransition } from "@/components/animations/view-transition";
 
 // A wrapper rather than onNavigate at each call site: most of the pages that
 // link are Server Components, which cannot pass a function prop.

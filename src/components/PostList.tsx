@@ -1,15 +1,9 @@
-import MorphTitle from "@/components/ui/MorphTitle";
-import TransitionLink from "@/components/ui/TransitionLink";
+import MorphTitle from "@/components/animations/MorphTitle";
+import TransitionLink from "@/components/animations/TransitionLink";
 import { formatShortDate } from "@/lib/content";
 import type { Post } from "@/lib/posts";
 
-export default function PostList({
-  posts,
-  headingLevel = "h2",
-}: {
-  posts: Post[];
-  headingLevel?: "h2" | "h3";
-}) {
+export default function PostList({ posts }: { posts: Post[] }) {
   return (
     <ol className="content-list flex flex-col">
       {posts.map((post) => (
@@ -29,7 +23,7 @@ export default function PostList({
               <div>
                 <div className="flex items-baseline justify-between gap-x-4">
                   <MorphTitle
-                    as={headingLevel}
+                    as="h3"
                     title={post.title}
                     id={`post-${post.slug}`}
                     className="content-title text-base leading-6 font-medium transition-colors group-hover:text-accent"

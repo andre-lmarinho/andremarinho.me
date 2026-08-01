@@ -1,30 +1,36 @@
 import { Mail } from "@/components/ui/icon";
-import { email, profile, socials } from "@/lib/site";
+import { email, socials } from "@/lib/site";
 import LocalTime from "./LocalTime";
 
-export default function HomeIntro() {
+export default function Intro() {
   return (
-    <section className="mx-auto w-full max-w-3xl px-6 pt-40 pb-28 max-md:pt-32 max-md:pb-20 lg:px-8">
+    <section
+      id="intro"
+      className="mx-auto w-full max-w-3xl px-6 pt-40 pb-28 max-md:pt-32 max-md:pb-20 lg:px-8"
+    >
       <div className="home-head flex flex-col">
         <p className="text-xs text-muted">
-          {profile.place} <span className="text-border">/</span>{" "}
-          <LocalTime timeZone={profile.timeZone} />
+          Salvador, Brazil <span className="text-border">/</span>{" "}
+          <LocalTime timeZone="America/Bahia" />
         </p>
 
         <h1 className="mt-5 text-4xl leading-[1.05] font-semibold tracking-[-0.02em] sm:text-5xl">
-          {profile.name}
+          André Marinho
         </h1>
 
-        <p className="mt-3 text-sm text-accent">{profile.role}</p>
+        <p className="mt-3 text-sm text-accent">Full-Stack Developer</p>
 
-        {profile.paragraphs.map((paragraph) => (
-          <p
-            key={paragraph.slice(0, 24)}
-            className="mt-6 max-w-152 text-sm leading-relaxed text-foreground sm:text-base"
-          >
-            {paragraph}
-          </p>
-        ))}
+        <p className="mt-6 max-w-152 text-sm leading-relaxed text-foreground sm:text-base">
+          React, Next.js and TypeScript on the front, Node with tRPC and
+          PostgreSQL behind it. I work on products that run in production, with
+          automated tests, CI, and the architecture decisions written down for
+          whoever comes next.
+        </p>
+        <p className="mt-6 max-w-152 text-sm leading-relaxed text-foreground sm:text-base">
+          Before code, eight years founding and running my own digital agency,
+          scoping software other people built. I build it myself now, end to
+          end.
+        </p>
 
         <ul className="mt-9 flex flex-wrap items-center gap-x-6 gap-y-3 text-xs">
           {socials.slice(0, 2).map(({ label, href, icon: Icon }) => (

@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import { notFound } from "next/navigation";
-import MorphTitle from "@/components/ui/MorphTitle";
+import MorphTitle from "@/components/animations/MorphTitle";
+import JsonLd from "@/components/JsonLd";
 import { formatDate } from "@/lib/content";
 import { getProject, getProjects } from "@/lib/projects";
 import { projectJsonLd } from "@/lib/seo";
@@ -45,56 +46,49 @@ export default async function ProjectPage({
   if (!project) notFound();
 
   return (
-    <article className="overflow-x-clip">
-      <script
-        type="application/ld+json"
-        // biome-ignore lint/security/noDangerouslySetInnerHtml: JSON-LD built from in-repo markdown.
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify(projectJsonLd(project)),
-        }}
-      />
+    <>
+      <JsonLd data={projectJsonLd(project)} />
+      <article>
+        <div className="mx-auto w-full max-w-3xl px-6 pt-36 pb-16 max-md:pt-32 lg:px-8">
+          <MorphTitle
+            as="h1"
+            title={project.title}
+            id={`project-${slug}`}
+            className="text-balance text-4xl leading-[1.05] font-semibold tracking-[-0.02em] sm:text-5xl"
+          />
+          <p className="mt-5 max-w-2xl text-sm leading-relaxed text-muted sm:text-base">
+            {project.description}
+          </p>
 
-      <header className="mx-auto w-full max-w-3xl px-6 pt-36 pb-16 max-md:pt-32 lg:px-8">
-        <MorphTitle
-          as="h1"
-          title={project.title}
-          id={`project-${slug}`}
-          className="text-balance text-4xl leading-[1.05] font-semibold tracking-[-0.02em] sm:text-5xl"
-        />
-        <p className="mt-5 max-w-2xl text-sm leading-relaxed text-muted sm:text-base">
-          {project.description}
-        </p>
+          <div className="mt-5 flex flex-wrap items-center gap-x-3 gap-y-2 text-xs">
+            <time dateTime={project.date || undefined} className="text-muted">
+              {project.date ? formatDate(project.date) : "Draft"}
+            </time>
+            {project.link ? (
+              <>
+                <span className="text-border" aria-hidden="true">
+                  /
+                </span>
+                <a
+                  href={project.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-accent underline-offset-4 hover:underline"
+                >
+                  Live site →
+                </a>
+              </>
+            ) : null}
+          </div>
 
-        <div className="mt-5 flex flex-wrap items-center gap-x-3 gap-y-2 text-xs">
-          <time dateTime={project.date || undefined} className="text-muted">
-            {project.date ? formatDate(project.date) : "Draft"}
-          </time>
-          {project.link ? (
-            <>
-              <span className="text-border" aria-hidden="true">
-                /
-              </span>
-              <a
-                href={project.link}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-accent underline-offset-4 hover:underline"
-              >
-                Live site →
-              </a>
-            </>
+          {project.tags.length > 0 ? (
+            <p className="mt-4 text-xs leading-relaxed text-faint">
+              {project.tags.join(" · ")}
+            </p>
           ) : null}
         </div>
 
-        {project.tags.length > 0 ? (
-          <p className="mt-4 text-xs leading-relaxed text-faint">
-            {project.tags.join(" · ")}
-          </p>
-        ) : null}
-      </header>
-
-      <section>
-        <div className="mx-auto w-full max-w-3xl px-6 py-20 max-md:py-16 lg:px-8">
+        <section className="mx-auto flex w-full max-w-3xl flex-col gap-y-6 px-6 py-16 lg:px-8">
           {project.image ? (
             <Image
               src={project.image}
@@ -113,8 +107,8 @@ export default async function ProjectPage({
             // biome-ignore lint/security/noDangerouslySetInnerHtml: markdown authored in-repo, no user input.
             dangerouslySetInnerHTML={{ __html: project.html }}
           />
-        </div>
-      </section>
-    </article>
+        </section>
+      </article>
+    </>
   );
 }

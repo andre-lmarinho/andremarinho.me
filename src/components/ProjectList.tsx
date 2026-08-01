@@ -1,15 +1,13 @@
 import Image from "next/image";
-import MorphTitle from "@/components/ui/MorphTitle";
-import TransitionLink from "@/components/ui/TransitionLink";
+import MorphTitle from "@/components/animations/MorphTitle";
+import TransitionLink from "@/components/animations/TransitionLink";
 import type { Project } from "@/lib/projects";
 
 export default function ProjectList({
   projects,
-  headingLevel = "h2",
   classifier = "year",
 }: {
   projects: Project[];
-  headingLevel?: "h2" | "h3";
   classifier?: "kind" | "year";
 }) {
   return (
@@ -18,7 +16,7 @@ export default function ProjectList({
         <li key={project.slug} className="content-reveal">
           <TransitionLink
             href={`/projects/${project.slug}`}
-            className="content-row group relative block rounded-md py-5 lg:group-hover/list:opacity-50"
+            className="content-row group relative block rounded-md py-5"
           >
             <div className="grid grid-cols-1 gap-x-6 gap-y-1.5 sm:grid-cols-[7rem_minmax(0,1fr)]">
               <p className="text-xs leading-6 text-muted sm:text-right">
@@ -31,7 +29,7 @@ export default function ProjectList({
 
               <div>
                 <MorphTitle
-                  as={headingLevel}
+                  as="h3"
                   title={project.title}
                   id={`project-${project.slug}`}
                   className="content-title text-base leading-6 font-medium transition-colors group-hover:text-accent"

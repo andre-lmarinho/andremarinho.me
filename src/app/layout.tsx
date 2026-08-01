@@ -1,10 +1,9 @@
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import type { Metadata, Viewport } from "next";
-import SiteFooter from "@/components/SiteFooter";
-import SiteHeader from "@/components/SiteHeader";
+import JsonLd from "@/components/JsonLd";
+import Layout from "@/components/layout";
 import { profileJsonLd } from "@/lib/seo";
-import { ViewTransitions } from "@/lib/view-transition";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -44,29 +43,15 @@ export const viewport: Viewport = {
   themeColor: "#070a11",
 };
 
-export default function RootLayout({
-  children,
-}: Readonly<{ children: React.ReactNode }>) {
-  return (
-    <html lang="en" className="h-full scroll-smooth antialiased dark">
-      <body className="flex min-h-dvh flex-col bg-bg font-body text-foreground">
-        <script
-          type="application/ld+json"
-          // biome-ignore lint/security/noDangerouslySetInnerHtml: JSON-LD is static and trusted.
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(profileJsonLd) }}
-        />
-        <ViewTransitions />
-        <a className="skip-link" href="#main-content">
-          Skip to content
-        </a>
-        <SiteHeader />
-        <main id="main-content" className="grow">
-          {children}
-        </main>
-        <SiteFooter />
-        <SpeedInsights />
-        <Analytics />
-      </body>
-    </html>
-  );
-}
+const RootLayout = ({ children }: { children: React.ReactNode }) => (
+  <html lang="en" className="h-full scroll-smooth antialiased">
+    <body className="flex min-h-dvh flex-col bg-bg font-body text-foreground">
+      <JsonLd data={profileJsonLd} />
+      <Layout>{children}</Layout>
+      <SpeedInsights />
+      <Analytics />
+    </body>
+  </html>
+);
+
+export default RootLayout;

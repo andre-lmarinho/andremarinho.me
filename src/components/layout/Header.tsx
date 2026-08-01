@@ -2,7 +2,7 @@
 
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
-import TransitionLink from "@/components/ui/TransitionLink";
+import TransitionLink from "@/components/animations/TransitionLink";
 
 const routes = ["about", "projects", "posts"] as const;
 const homeSections = ["projects", "writing"] as const;
@@ -41,7 +41,7 @@ function useHomeSection(pathname: string) {
   return pathname === "/" ? current : null;
 }
 
-export default function SiteHeader() {
+export default function Header() {
   const pathname = usePathname();
   const section = useHomeSection(pathname);
   const route = pathname.split("/").filter(Boolean)[0] ?? null;
@@ -55,7 +55,7 @@ export default function SiteHeader() {
             <li className="text-accent">
               {pathname === "/" ? (
                 <a
-                  href="#top"
+                  href="#intro"
                   aria-label="Back to the top"
                   className="inline-flex min-h-11 items-center transition-colors hover:text-foreground"
                 >

@@ -32,14 +32,7 @@ function parse(slug: string): Project {
   };
 }
 
-const featuredFirst = (a: Project, b: Project) =>
-  Number(b.featured) - Number(a.featured) || b.date.localeCompare(a.date);
-
-export const getProjects = () => readAllContent(DIR, parse, featuredFirst);
-
-// The home page shows a curated pair, not the newest two.
-export const getFeaturedProjects = () =>
-  getProjects().filter((p) => p.featured);
+export const getProjects = () => readAllContent(DIR, parse);
 
 export const getProject = (slug: string) =>
   getProjects().find((project) => project.slug === slug) ?? null;

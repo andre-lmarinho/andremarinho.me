@@ -27,24 +27,21 @@ const copy = [
 
 export default function AboutPage() {
   return (
-    <div className="overflow-x-clip">
+    <>
       <PageIntro
         title="About"
         description="Front-end engineer in Brazil working where engineering, product and user experience meet."
       />
-
-      <article>
-        <div className="mx-auto flex w-full max-w-3xl flex-col gap-y-6 px-6 py-16 lg:px-8">
-          {copy.map((paragraph) => (
-            <p
-              key={paragraph}
-              className="max-w-2xl text-sm leading-relaxed sm:text-base"
-            >
-              {paragraph}
-            </p>
-          ))}
-        </div>
+      <article className="mx-auto flex w-full max-w-3xl flex-col gap-y-6 px-6 py-16 lg:px-8">
+        {copy.map((paragraph) => (
+          <p
+            key={paragraph}
+            className="max-w-2xl text-sm leading-relaxed sm:text-base"
+          >
+            {paragraph}
+          </p>
+        ))}
       </article>
-    </div>
+    </>
   );
 }

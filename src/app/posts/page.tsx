@@ -14,21 +14,15 @@ export default function PostsPage() {
   const posts = getPosts();
 
   return (
-    <div className="overflow-x-clip">
+    <>
       <PageIntro
         title="Posts"
         description="Notes on what I build, how it breaks, and what I learn from it."
       />
 
-      <section>
-        <div className="mx-auto w-full max-w-3xl px-6 py-20 max-md:py-16 lg:px-8">
-          {posts.length > 0 ? (
-            <PostList posts={posts} headingLevel="h3" />
-          ) : (
-            <p className="text-muted">No posts yet.</p>
-          )}
-        </div>
+      <section className="mx-auto flex w-full max-w-3xl flex-col gap-y-6 px-6 py-16 lg:px-8">
+        <PostList posts={posts} />
       </section>
-    </div>
+    </>
   );
 }

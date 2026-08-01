@@ -20,19 +20,18 @@ export function readMarkdown(dir: string, slug: string) {
   return { meta, html: marked.parse(body, { async: false }) };
 }
 
-export const isPublished = (date: string) =>
+const isPublished = (date: string) =>
   Boolean(date) || process.env.NODE_ENV === "development";
 
 export function readAllContent<T extends { date: string }>(
   dir: string,
   parse: (slug: string) => T,
-  sort?: (a: T, b: T) => number,
 ): T[] {
   return readdirSync(dir)
     .filter((f) => f.endsWith(".md"))
     .map((f) => parse(f.replace(/\.md$/, "")))
     .filter((item) => isPublished(item.date))
-    .sort(sort ?? ((a, b) => b.date.localeCompare(a.date)));
+    .sort((a, b) => b.date.localeCompare(a.date));
 }
 
 export const formatDate = (date: string) =>
