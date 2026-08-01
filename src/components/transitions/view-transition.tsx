@@ -3,16 +3,10 @@
 import { usePathname } from "next/navigation";
 import { useEffect } from "react";
 
-// The browser only snapshots the new page once the promise given to
-// startViewTransition settles, but Next's router commits asynchronously — hence
-// the split: the promise is opened here and resolved by <ViewTransitions />
-// once the route has actually changed. A module-level resolver rather than a
-// context because only one navigation is ever in flight.
+// The browser holds the old snapshot until the promise given to
+// startViewTransition settles, so it is opened here and resolved once the route
+// has actually changed. Module-level: only one navigation is ever in flight.
 let commit: (() => void) | null = null;
-
-// The route the transition was opened from. The callback compares against it
-// rather than against the href, so a commit that already happened is detected
-// no matter which route the router landed on.
 let openedAt: string | null = null;
 
 export function startPageTransition(href: string) {
@@ -30,13 +24,9 @@ export function startPageTransition(href: string) {
   document.startViewTransition(
     () =>
       new Promise<void>((resolve) => {
-        // In a production build the router commits synchronously, so the URL
-        // has already changed by the time this callback runs and the pathname
-        // effect below has fired against a still-null `commit`. Nothing would
-        // ever resolve this promise, and the page stays frozen on the old
-        // snapshot until the browser times the transition out. Dev builds
-        // commit asynchronously and run this callback first, which is why the
-        // race only ever showed up in production.
+        // A production build commits before running this callback, so the
+        // effect below already fired against a null `commit` and nothing else
+        // would ever resolve. Dev commits after, hence the two paths.
         if (location.pathname !== openedAt) {
           resolve();
           return;
@@ -49,8 +39,8 @@ export function startPageTransition(href: string) {
 export function ViewTransitions() {
   const pathname = usePathname();
 
-  // Clearing unconditionally also self-heals a transition the browser
-  // abandoned: worst case is one un-animated navigation, never a frozen page.
+  // Clearing unconditionally self-heals an abandoned transition: worst case is
+  // one un-animated navigation, never a frozen page.
   // biome-ignore lint/correctness/useExhaustiveDependencies: closes the transition on route change
   useEffect(() => {
     commit?.();

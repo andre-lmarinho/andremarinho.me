@@ -3,8 +3,8 @@
 import Link from "next/link";
 import { startPageTransition } from "@/components/transitions/view-transition";
 
-// A wrapper rather than onNavigate at each call site: most of the pages that
-// link are Server Components, which cannot pass a function prop.
+// A wrapper rather than onNavigate at each call site: most pages that link are
+// Server Components, which cannot pass a function prop.
 export default function TransitionLink({
   href,
   ...props
