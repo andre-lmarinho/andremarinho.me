@@ -55,4 +55,4 @@ So the tidy version of this story would be that I was always a developer and jus
 
 What the eleven years actually bought me was a shorter list of things I had to learn, and a clear view of which ones they were.
 
-I wrote more about the learning part in [what changes when AI writes most of your code](/posts/learning-to-code-with-ai). The current work is on [GitHub](https://github.com/andre-lmarinho) and in [LawFlow](https://lawflowhub.com).
+I wrote more about the learning part in [what changes when AI writes most of your code](/posts/learning-to-code-with-ai). The current work is on [GitHub](https://github.com/andre-lmarinho).

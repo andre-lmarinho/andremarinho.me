@@ -1,6 +1,6 @@
 ---
 title: Learning to Code When AI Writes the Code
-description: I started writing software in 2025, when AI could already write most of it for me. The habit that mattered was refusing to ship anything I could not explain.
+description: I started writing software in 2025, when AI could already write most of it for me. Skipping the part where you learn is a real option now, and that is the whole problem.
 date: 2026-06-21
 tags: ai, learning, career
 ---
@@ -9,15 +9,23 @@ It works and I don't know why.
 
 That is the most dangerous sentence I can say about my own code, and it got very easy to say. I started writing software in 2025, the year AI got good enough to write most of it for me. I have never learned to code without it.
 
-I am not interested in whether that makes me a worse developer. The tool is here, I use it every day, and I would be slower and poorer without it. The question I care about is narrower: when the machine hands you working code, what separates learning something from collecting something?
+Most of what I read about this is written by people who learned first and got the tool second. For them AI removed a toll booth: they already knew the roads, and now they pay less to drive them. I never paid the toll. I arrived after it was gone.
 
-## The failure mode is silent
+That is a different situation, and it comes with a different temptation. If you started when the machine could already write the thing, skipping the part where you understand it is not a slippery slope you have to be talked into. It is the default. It is faster, it works, and nobody can tell from the outside of the software side.
 
-Broken code fails loudly. You get a stack trace, a red test, a page that will not load. You fix it, and in fixing it you learn where you were wrong.
+So the question I care about is not whether AI makes me a worse programmer. The tool is here, I use it every day, and I would be slower and poorer without it. The question is narrower: when the machine hands you working code, what separates learning something from collecting something?
 
-Working code you do not understand fails quietly, and it fails later. Not on the day it is written. On the day the requirement changes, or the edge case finally shows up in production, or someone asks why it was done this way and the honest answer is that a model suggested it and the tests were green.
+## The failure that teaches, and the one that doesn't
 
-The place this scares me most is multi-tenancy. [LawFlow](https://lawflowhub.com) keeps each law firm's data separated by row-level security policies in Postgres. That code is short. It reads as though it were obvious. And if it is subtly wrong, nothing breaks: the app keeps working, the tests keep passing, and one firm sees another firm's clients. There is no stack trace for that. There is only whether I understood the policy I shipped.
+Broken code fails loudly. You get a stack trace, a red test, a page that will not load. You fix it, and in fixing it you learn where you were wrong. That was the old deal: the bug was the tuition.
+
+The deal is still on offer, but the window is much shorter. Paste the error back, the fix comes down, the page loads, and you can be past it in forty seconds without ever having formed a theory of what went wrong. The failure still happens. Whether it teaches anything now depends entirely on whether you stopped to look, and there is a great deal of pressure not to stop.
+
+I have come to think that is the actual skill this era asks for. Not writing code from scratch. Choosing, over and over, to spend time on a failure you could have skipped.
+
+Because the other kind of failure gives you no such choice. Working code you do not understand fails quietly, and it fails later. Not on the day it is written. On the day the requirement changes, or the edge case finally shows up in production, or someone asks why it was done this way and the honest answer is that a model suggested it and the tests were green.
+
+The place this scares me most is multi-tenancy. In [the SaaS I run](/projects/lawflow), each firm's data is separated by row-level security policies in Postgres. That code is short. It reads as though it were obvious. And if it is subtly wrong, nothing breaks: the app keeps working, the tests keep passing, and one firm sees another firm's clients. There is no stack trace for that. There is only whether I understood the policy I shipped.
 
 ## I had seen this before, in marketing
 
@@ -29,7 +37,17 @@ Then something moved. The traffic source got more expensive, the audience shifte
 
 A copied strategy is not a strategy. It is a screenshot of someone else's.
 
-AI-generated code is the same object. Often a very good one, drawn from more codebases than I will read in my life. But it is not a decision until I can say why it is this and not the other thing, and until then I am holding a screenshot.
+AI-generated code is the same object. Often a very good one, drawn from more codebases than I will read in my life. But it is not a decision until I can say why it is this and not the other thing, and until then I am holding a screenshot. The screenshot works right up until something moves.
+
+## What understanding buys you, concretely
+
+The reason to do the slow thing is not virtue. It is that the understanding comes back as leverage, and it comes back fast.
+
+Every problem I actually sat with turns into a better instruction the next time. The first version of a feature gets described as what I want. The second version gets described as what I want, minus the four things I now know go wrong. That second description is worth more than the code that came out of the first one, and it is not something a model can hand me. It is the residue of having watched something break and bothered to find out why.
+
+This is the compounding loop, and it runs on understanding specifically. Not on having typed the code myself. A model can only be as precise as the person steering it, and precision is made of things you learned the hard way.
+
+There is a second thing, harder to justify on a timesheet. When the mechanical part is handled, there is room to be curious about the domain instead of the syntax. I have read more about how Postgres actually evaluates a policy, or what a queue guarantees and does not, than I would have if I had been heads-down fighting the language. The headroom is real. It just has to be spent on something, and it will go to whatever you point it at, including nothing.
 
 ## What I actually do about it
 
@@ -45,14 +63,16 @@ None of this is a workflow I recommend to anyone else. It is what I do because I
 
 5. **Break it on purpose.** Change a value, remove a guard, delete a line, and watch what fails. If nothing fails, either the code does nothing or the tests do not cover it, and both of those are worth finding out on a Tuesday instead of in production.
 
-## What it is genuinely good for
+## The honest uncertainty
 
-The scolding version of this post would stop here, and it would be wrong.
+I do not know yet whether this holds up.
 
-AI is very good at the fifth CRUD form, at wiring I have already wired four times, at the boilerplate that teaches nothing on the sixth repetition. It is better than any tutorial I have found at explaining unfamiliar code, which turns out to be most of the job: reading a library's source and asking why it does something strange is the fastest learning loop I have ever had.
+The concern I cannot dismiss is that iterating faster means encountering more problems per hour and understanding each one less. Broad and shallow instead of narrow and deep. I have opinions about a lot of things I have only met once, through a failure that got fixed quickly, and I genuinely cannot tell from the inside which of those I know and which I merely recognize.
 
-And the speed is real. I shipped a SaaS to production with paying subscribers in my first year of full-time development. That timeline did not exist before.
+What I can say is that the gap shows up eventually, and it shows up as a specific kind of silence: a question I cannot answer about code that is already running. I have collected a few of those. They are the most useful thing I have, because they are the only reliable signal of where the screenshot ends.
 
-The goal was never to write code without help. It is to never be in a position where the only reason something works is that a model said so.
+AI is very good at the fifth CRUD form, at wiring I have already wired four times, at the boilerplate that teaches nothing on the sixth repetition. It is better than any tutorial I have found at explaining unfamiliar code, which turns out to be most of the job. And the speed is real: I shipped a SaaS to production with paying subscribers in my first year of full-time development, on a timeline that did not exist before.
+
+The goal was never to write code without help. It is to never be in a position where the only reason something works is that a model said so. Starting in this era means nobody makes me pay that price up front. I have to keep choosing to.
 
 I wrote about [how I got here before any of this was my job](/posts/before-i-called-it-code), and about [why this site exists](/posts/hello-world). If you think I have this wrong, I would like to hear it.

@@ -19,7 +19,7 @@ I wrote it from scratch instead of starting from a template, which cost me a wee
 
 For eight years I ran a digital marketing agency. I sold software, priced it, scoped it, and watched other people build it. In 2025 I stopped doing that and started building it myself.
 
-Since then: [LawFlow](https://lawflowhub.com), a client-intake and sales-pipeline SaaS for law firms, in production with paying subscribers. [Turistar](https://github.com/andre-lmarinho/travel-planner), open source, which plans my own trips. [create-mvp](https://www.npmjs.com/package/@andre.marinho/create-mvp), a CLI on npm that scaffolds the project setup I got tired of assembling by hand.
+Since then: [Turistar](https://github.com/andre-lmarinho/travel-planner), open source, which plans my own trips. [create-mvp](https://www.npmjs.com/package/@andre.marinho/create-mvp), a CLI on npm that scaffolds the project setup I got tired of assembling by hand. And [client work](/projects) in production with paying subscribers.
 
 That is a lot of decisions made fast, by someone who spent years judging this work from the outside and far less time doing it. Some of those decisions are wrong. I would like them written down somewhere they can be argued with.
 
