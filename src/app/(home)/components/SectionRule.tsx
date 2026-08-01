@@ -1,4 +1,4 @@
-import TransitionLink from "@/components/transitions/TransitionLink";
+import Link from "next/link";
 import { ArrowRight } from "@/components/ui/icon";
 
 export default function SectionRule({
@@ -22,7 +22,7 @@ export default function SectionRule({
         className="section-rule-line block h-px flex-1 bg-border"
       />
 
-      <TransitionLink
+      <Link
         href={link.href}
         className={`${labelClass} group inline-flex shrink-0 items-center gap-x-1.5 text-muted transition-colors hover:text-accent`}
       >
@@ -31,7 +31,7 @@ export default function SectionRule({
           className="h-3 w-3 transition-transform group-hover:translate-x-0.5"
           aria-hidden="true"
         />
-      </TransitionLink>
+      </Link>
     </div>
   );
 }

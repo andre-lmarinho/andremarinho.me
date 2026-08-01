@@ -1,8 +1,8 @@
 "use client";
 
+import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
-import TransitionLink from "@/components/transitions/TransitionLink";
 
 const routes = ["about", "projects", "posts"] as const;
 const homeSections = ["projects", "writing"] as const;
@@ -62,13 +62,13 @@ export default function Header() {
                   ~
                 </a>
               ) : (
-                <TransitionLink
+                <Link
                   href="/"
                   aria-label="Home"
                   className="inline-flex min-h-11 items-center transition-colors hover:text-foreground"
                 >
                   ~
-                </TransitionLink>
+                </Link>
               )}
             </li>
             <li className="mx-0.5 text-muted" aria-hidden="true">
@@ -92,12 +92,12 @@ export default function Header() {
                     {breadcrumb}
                   </span>
                 ) : (
-                  <TransitionLink
+                  <Link
                     href={`/${route}`}
                     className="inline-flex min-h-11 items-center transition-colors hover:text-accent"
                   >
                     {breadcrumb}
-                  </TransitionLink>
+                  </Link>
                 )}
               </li>
             ) : null}
@@ -118,13 +118,13 @@ export default function Header() {
 
               return (
                 <li key={item}>
-                  <TransitionLink
+                  <Link
                     href={`/${item}`}
                     aria-current={active ? "page" : undefined}
                     className={`inline-flex min-h-11 items-center transition-colors hover:text-foreground ${active ? "text-foreground" : "text-muted"}`}
                   >
                     {item}
-                  </TransitionLink>
+                  </Link>
                 </li>
               );
             })}
