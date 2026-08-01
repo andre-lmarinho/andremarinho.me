@@ -3,23 +3,16 @@ import { Fragment } from "react";
 type MorphTitleProps = {
   as: "h1" | "h2" | "h3";
   title: string;
-  /**
-   * Must carry the kind as well as the slug: the home page renders posts and
-   * projects together, so a post sharing a slug with a project would emit a
-   * duplicate view-transition-name and the browser would drop the transition.
-   */
+  /** Must carry the kind, not just the slug: the home page renders posts and
+   * projects together, and a duplicate name drops the whole transition. */
   id: string;
   className?: string;
 };
 
-// Named per word rather than per title for two reasons: a word keeps its
-// aspect ratio across font sizes, where a whole title reflows from one line to
-// two and stretches; and an inline element that wraps produces multiple box
-// fragments, which makes the browser skip the entire transition.
-//
-// The index is the pairing key because the title string is identical on both
-// sides. Naming by the word itself would need a duplicate-occurrence counter to
-// survive a title that repeats a word.
+// Named per word, not per title: a word keeps its aspect ratio across font
+// sizes, and a title that wraps to two lines would produce multiple box
+// fragments, which makes the browser skip the transition. The index pairs the
+// two sides, since the title string is identical on both.
 export default function MorphTitle({
   as: Tag,
   title,

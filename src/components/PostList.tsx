@@ -1,5 +1,5 @@
+import Link from "next/link";
 import MorphTitle from "@/components/transitions/MorphTitle";
-import TransitionLink from "@/components/transitions/TransitionLink";
 import { formatShortDate } from "@/lib/content";
 import type { Post } from "@/lib/posts";
 
@@ -8,7 +8,7 @@ export default function PostList({ posts }: { posts: Post[] }) {
     <ol className="content-list flex flex-col mt-6">
       {posts.map((post) => (
         <li key={post.slug} className="content-reveal">
-          <TransitionLink
+          <Link
             href={`/posts/${post.slug}`}
             className="content-row group block rounded-md py-5"
           >
@@ -37,7 +37,7 @@ export default function PostList({ posts }: { posts: Post[] }) {
                 </p>
               </div>
             </div>
-          </TransitionLink>
+          </Link>
         </li>
       ))}
     </ol>

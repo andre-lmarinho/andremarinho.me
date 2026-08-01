@@ -1,23 +1,34 @@
 "use client";
 
 import Link from "next/link";
-import { startPageTransition } from "@/components/transitions/view-transition";
+import { startTransition } from "react";
 
-// A wrapper rather than onNavigate at each call site: most of the pages that
-// link are Server Components, which cannot pass a function prop.
+// View transition groups are positioned relative to the viewport, so the scroll
+// has to settle before the browser takes its snapshots. Left alone, arriving at
+// a page shorter than the current offset makes the browser clamp the scroll
+// mid-animation — /posts only scrolls 123px, so a click from 900px down slid
+// every title by that difference on top of its own movement.
+//
+// A wrapper rather than onNavigate at each call site: most pages that link are
+// Server Components, which cannot pass a function prop.
 export default function TransitionLink({
   href,
+  onClick,
   ...props
 }: React.ComponentProps<typeof Link>) {
   return (
     <Link
       {...props}
       href={href}
-      // Object hrefs skip the same-route guard inside startPageTransition.
-      // Nothing in this repo passes one.
-      onNavigate={() =>
-        startPageTransition(typeof href === "string" ? href : "")
-      }
+      onClick={(event) => {
+        onClick?.(event);
+        if (event.defaultPrevented || window.scrollY === 0) return;
+        // Outside startTransition this would be batched with the navigation and
+        // still land inside the snapshot window.
+        startTransition(() => {
+          window.scrollTo({ top: 0, behavior: "instant" });
+        });
+      }}
     />
   );
 }
