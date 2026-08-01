@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import PageIntro from "@/components/PageIntro";
 import PostList from "@/components/PostList";
 import { getPosts } from "@/lib/posts";
 
@@ -14,15 +13,11 @@ export default function PostsPage() {
   const posts = getPosts();
 
   return (
-    <>
-      <PageIntro
-        title="Posts"
-        description="Notes on what I build, how it breaks, and what I learn from it."
-      />
-
-      <section className="mx-auto flex w-full max-w-3xl flex-col gap-y-6 px-6 py-16 lg:px-8">
-        <PostList posts={posts} />
-      </section>
-    </>
+    <section className="mx-auto w-full max-w-3xl px-6 pt-36 pb-16 max-md:pt-32 lg:px-8">
+      <h1 className="text-4xl leading-[1.05] font-semibold tracking-[-0.02em] sm:text-5xl">
+        Posts
+      </h1>
+      <PostList posts={posts} />
+    </section>
   );
 }

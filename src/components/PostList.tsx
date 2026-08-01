@@ -1,11 +1,11 @@
-import MorphTitle from "@/components/animations/MorphTitle";
-import TransitionLink from "@/components/animations/TransitionLink";
+import MorphTitle from "@/components/transitions/MorphTitle";
+import TransitionLink from "@/components/transitions/TransitionLink";
 import { formatShortDate } from "@/lib/content";
 import type { Post } from "@/lib/posts";
 
 export default function PostList({ posts }: { posts: Post[] }) {
   return (
-    <ol className="content-list flex flex-col">
+    <ol className="content-list flex flex-col mt-6">
       {posts.map((post) => (
         <li key={post.slug} className="content-reveal">
           <TransitionLink

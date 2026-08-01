@@ -2,7 +2,7 @@
 
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
-import TransitionLink from "@/components/animations/TransitionLink";
+import TransitionLink from "@/components/transitions/TransitionLink";
 
 const routes = ["about", "projects", "posts"] as const;
 const homeSections = ["projects", "writing"] as const;

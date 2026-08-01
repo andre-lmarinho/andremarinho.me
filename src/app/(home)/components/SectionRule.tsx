@@ -1,4 +1,4 @@
-import TransitionLink from "@/components/animations/TransitionLink";
+import TransitionLink from "@/components/transitions/TransitionLink";
 import { ArrowRight } from "@/components/ui/icon";
 
 export default function SectionRule({

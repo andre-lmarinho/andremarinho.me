@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import { notFound } from "next/navigation";
-import MorphTitle from "@/components/animations/MorphTitle";
 import JsonLd from "@/components/JsonLd";
+import MorphTitle from "@/components/transitions/MorphTitle";
 import { formatDate } from "@/lib/content";
 import { getProject, getProjects } from "@/lib/projects";
 import { projectJsonLd } from "@/lib/seo";

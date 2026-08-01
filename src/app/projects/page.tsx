@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import PageIntro from "@/components/PageIntro";
 import ProjectList from "@/components/ProjectList";
 import { getProjects } from "@/lib/projects";
 
@@ -14,15 +13,11 @@ export default function ProjectsPage() {
   const projects = getProjects();
 
   return (
-    <>
-      <PageIntro
-        title="Projects"
-        description="Products and tools I designed, built, or helped ship."
-      />
-
-      <section className=" mx-auto flex w-full max-w-3xl flex-col gap-y-6 px-6 py-16 lg:px-8">
-        <ProjectList projects={projects} />
-      </section>
-    </>
+    <section className="mx-auto w-full max-w-3xl px-6 pt-36 pb-16 max-md:pt-32 lg:px-8">
+      <h1 className="text-4xl leading-[1.05] font-semibold tracking-[-0.02em] sm:text-5xl">
+        Projects
+      </h1>
+      <ProjectList projects={projects} />
+    </section>
   );
 }

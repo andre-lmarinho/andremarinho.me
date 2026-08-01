@@ -1,5 +1,5 @@
 import type { ReactNode } from "react";
-import { ViewTransitions } from "@/components/animations/view-transition";
+import { ViewTransitions } from "@/components/transitions/view-transition";
 import Footer from "./Footer";
 import Header from "./Header";
 

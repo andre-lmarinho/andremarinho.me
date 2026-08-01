@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import PageIntro from "@/components/PageIntro";
 
 export const metadata: Metadata = {
   title: "About — André Marinho",
@@ -27,21 +26,15 @@ const copy = [
 
 export default function AboutPage() {
   return (
-    <>
-      <PageIntro
-        title="About"
-        description="Front-end engineer in Brazil working where engineering, product and user experience meet."
-      />
-      <article className="mx-auto flex w-full max-w-3xl flex-col gap-y-6 px-6 py-16 lg:px-8">
-        {copy.map((paragraph) => (
-          <p
-            key={paragraph}
-            className="max-w-2xl text-sm leading-relaxed sm:text-base"
-          >
-            {paragraph}
-          </p>
-        ))}
-      </article>
-    </>
+    <article className="mx-auto w-full max-w-3xl px-6 pt-36 pb-16 max-md:pt-32 lg:px-8 flex flex-col gap-y-6">
+      <h1 className="text-4xl leading-[1.05] font-semibold tracking-[-0.02em] sm:text-5xl">
+        About
+      </h1>
+      {copy.map((paragraph) => (
+        <p key={paragraph} className="text-sm leading-relaxed sm:text-base">
+          {paragraph}
+        </p>
+      ))}
+    </article>
   );
 }

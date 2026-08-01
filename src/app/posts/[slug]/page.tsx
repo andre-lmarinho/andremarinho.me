@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import MorphTitle from "@/components/animations/MorphTitle";
 import JsonLd from "@/components/JsonLd";
+import MorphTitle from "@/components/transitions/MorphTitle";
 import { formatDate } from "@/lib/content";
 import { getPost, getPosts } from "@/lib/posts";
 import { postJsonLd } from "@/lib/seo";
