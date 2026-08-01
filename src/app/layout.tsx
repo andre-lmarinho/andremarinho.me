@@ -1,6 +1,8 @@
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
+import JsonLd from "@/components/JsonLd";
+import Layout from "@/components/layout";
 import { profileJsonLd } from "@/lib/seo";
 import "./globals.css";
 
@@ -30,35 +32,26 @@ export const metadata: Metadata = {
     ],
   },
   other: {
-    "msapplication-TileColor": "#ffffff",
+    "msapplication-TileColor": "#070a11",
     "msapplication-TileImage": "/ms-icon-144x144.png",
   },
-  alternates: {
-    canonical: "/",
-    languages: {
-      en: "/",
-      pt: "/pt",
-    },
-  },
+  alternates: { canonical: "/" },
 };
 
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
-  return (
-    <html lang="en" className="h-full antialiased dark">
-      <body className="min-h-full bg-bg text-foreground font-body">
-        <script
-          type="application/ld+json"
-          // biome-ignore lint/security/noDangerouslySetInnerHtml: JSON-LD is static and trusted.
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(profileJsonLd) }}
-        />
-        {children}
-        <SpeedInsights />
-        <Analytics />
-      </body>
-    </html>
-  );
-}
+export const viewport: Viewport = {
+  colorScheme: "dark",
+  themeColor: "#070a11",
+};
+
+const RootLayout = ({ children }: { children: React.ReactNode }) => (
+  <html lang="en" className="h-full scroll-smooth antialiased">
+    <body className="flex min-h-dvh flex-col bg-bg font-body text-foreground">
+      <JsonLd data={profileJsonLd} />
+      <Layout>{children}</Layout>
+      <SpeedInsights />
+      <Analytics />
+    </body>
+  </html>
+);
+
+export default RootLayout;
