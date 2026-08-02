@@ -1,6 +1,6 @@
 import { ViewTransition } from "react";
-import PostList from "@/components/PostList";
-import ProjectList from "@/components/ProjectList";
+import PostList from "@/components/content/PostList";
+import ProjectList from "@/components/content/ProjectList";
 import { getPosts } from "@/lib/posts";
 import { getProjects } from "@/lib/projects";
 

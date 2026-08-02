@@ -9,10 +9,8 @@ type MorphTitleProps = {
   className?: string;
 };
 
-// Named per word, not per title: a word keeps its aspect ratio across font
-// sizes, and a title that wraps to two lines would produce multiple box
-// fragments, which makes the browser skip the transition. The index pairs the
-// two sides, since the title string is identical on both.
+// A title that wraps to two lines becomes multiple box fragments and the browser
+// skips the transition, so each word is named separately.
 export default function MorphTitle({
   as: Tag,
   title,
@@ -25,8 +23,6 @@ export default function MorphTitle({
         // biome-ignore lint/suspicious/noArrayIndexKey: the words of a fixed title never reorder, and the index is the pairing key
         <Fragment key={`${i}-${word}`}>
           {i > 0 && " "}
-          {/* inline-block keeps a word to a single box even if overflow-wrap
-              would otherwise break it. */}
           <span
             className="inline-block"
             style={{ viewTransitionName: `title-${id}-${i}` }}
