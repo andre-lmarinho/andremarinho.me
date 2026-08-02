@@ -48,7 +48,7 @@ export default function Header() {
   const breadcrumb = pathname === "/" ? section : route;
 
   return (
-    <header className="site-header fixed inset-x-0 top-0 z-40 border-b border-transparent bg-transparent">
+    <header className="site-header fixed inset-x-0 top-0 z-40">
       <div className="mx-auto flex h-16 w-full max-w-3xl items-center justify-between px-6 lg:px-8">
         <nav aria-label="Breadcrumb" className="text-sm">
           <ol className="flex items-center">

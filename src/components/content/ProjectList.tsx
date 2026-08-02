@@ -3,28 +3,18 @@ import Link from "next/link";
 import MorphTitle from "@/components/transitions/MorphTitle";
 import type { Project } from "@/lib/projects";
 
-export default function ProjectList({
-  projects,
-  classifier = "year",
-}: {
-  projects: Project[];
-  classifier?: "kind" | "year";
-}) {
+export default function ProjectList({ projects }: { projects: Project[] }) {
   return (
     <ol className="content-list flex flex-col mt-6">
       {projects.map((project) => (
         <li key={project.slug} className="content-reveal">
           <Link
             href={`/projects/${project.slug}`}
-            className="content-row group relative block rounded-md py-5"
+            className="content-row group relative -mx-3 block rounded-md px-3 py-5"
           >
             <div className="grid grid-cols-1 gap-x-6 gap-y-1.5 sm:grid-cols-[7rem_minmax(0,1fr)]">
               <p className="text-xs leading-6 text-muted sm:text-right">
-                {classifier === "kind"
-                  ? project.kind || "project"
-                  : project.date
-                    ? project.date.slice(0, 4)
-                    : "draft"}
+                {project.kind}
               </p>
 
               <div>

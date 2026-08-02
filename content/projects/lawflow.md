@@ -1,12 +1,12 @@
 ---
 title: LawFlow
 description: A client-intake and sales-pipeline SaaS for law firms, built end to end and running in production with subscription billing and per-firm data isolation.
-date: 2026-01-15
+date: 2026-06-15
 tags: Next.js, TypeScript, tRPC, Supabase, Postgres/RLS, Asaas, Playwright, Vitest
 image: /images/projects/lawflow.webp
-featured: true
-kind: client SaaS
+kind: CRM
 link: https://lawflowhub.com
+featured: true
 ---
 
 LawFlow is a CRM for law firms, built around one job: getting a case from first contact to a signed proposal. I designed and built it end to end for a client, and it runs in production today with paying subscribers.

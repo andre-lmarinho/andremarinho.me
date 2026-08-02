@@ -4,6 +4,7 @@ description: An AI agent for Outlook mail and calendar over MCP, where the user 
 date: 2026-01-22
 tags: Next.js, TypeScript, tRPC, MCP, Microsoft Graph, PostgreSQL, Redis, Drizzle
 image: /images/projects/kestrel.webp
+kind: AI agent
 ---
 
 Kestrel connects your Outlook accounts, work and personal, to an AI agent through MCP servers. In one conversation you read and draft mail, find a free hour across both calendars and send the invite, without picking which mailbox you meant.

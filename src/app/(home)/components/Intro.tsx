@@ -18,7 +18,7 @@ export default function Intro() {
           André Marinho
         </h1>
 
-        <p className="mt-3 text-sm text-accent">Full-Stack Developer</p>
+        <p className="mt-3 text-sm text-accent">Front-End Developer</p>
 
         <p className="mt-6 max-w-152 text-sm leading-relaxed text-foreground sm:text-base">
           React, Next.js and TypeScript on the front, Node with tRPC and
@@ -32,7 +32,7 @@ export default function Intro() {
           end.
         </p>
 
-        <ul className="mt-9 flex flex-wrap items-center gap-x-6 gap-y-3 text-xs">
+        <ul className="mt-9 flex flex-wrap items-center gap-x-6 gap-y-4 text-xs">
           {socials.slice(0, 2).map(({ label, href, icon: Icon }) => (
             <li key={label}>
               <a

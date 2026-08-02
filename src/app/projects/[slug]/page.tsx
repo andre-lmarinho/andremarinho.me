@@ -49,7 +49,7 @@ export default async function ProjectPage({
     <>
       <JsonLd data={projectJsonLd(project)} />
       <article>
-        <div className="mx-auto w-full max-w-3xl px-6 pt-36 pb-16 max-md:pt-32 lg:px-8">
+        <div className="mx-auto w-full max-w-3xl px-6 pt-36 max-md:pt-32 lg:px-8">
           <MorphTitle
             as="h1"
             title={project.title}
@@ -86,9 +86,11 @@ export default async function ProjectPage({
               {project.tags.join(" · ")}
             </p>
           ) : null}
+
+          <div aria-hidden="true" className="mt-8 h-px w-full bg-border" />
         </div>
 
-        <section className="mx-auto flex w-full max-w-3xl flex-col gap-y-6 px-6 py-16 lg:px-8">
+        <section className="mx-auto flex w-full max-w-3xl flex-col gap-y-6 px-6 pt-10 pb-16 lg:px-8">
           {project.image ? (
             <Image
               src={project.image}

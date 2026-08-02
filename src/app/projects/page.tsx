@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import ProjectList from "@/components/content/ProjectList";
+import PageTitle from "@/components/PageTitle";
 import { getProjects } from "@/lib/projects";
 
 export const metadata: Metadata = {
@@ -14,9 +15,7 @@ export default function ProjectsPage() {
 
   return (
     <section className="mx-auto w-full max-w-3xl px-6 pt-36 pb-16 max-md:pt-32 lg:px-8">
-      <h1 className="text-4xl leading-[1.05] font-semibold tracking-[-0.02em] sm:text-5xl">
-        Projects
-      </h1>
+      <PageTitle>Projects</PageTitle>
       <ProjectList projects={projects} />
     </section>
   );

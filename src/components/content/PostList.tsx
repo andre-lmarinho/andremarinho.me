@@ -10,7 +10,7 @@ export default function PostList({ posts }: { posts: Post[] }) {
         <li key={post.slug} className="content-reveal">
           <Link
             href={`/posts/${post.slug}`}
-            className="content-row group block rounded-md py-5"
+            className="content-row group -mx-3 block rounded-md px-3 py-5"
           >
             <div className="grid grid-cols-1 gap-x-6 gap-y-1.5 sm:grid-cols-[7rem_minmax(0,1fr)]">
               <time

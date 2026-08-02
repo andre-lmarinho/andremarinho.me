@@ -1,4 +1,3 @@
-@import url("https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap");
 @import "tailwindcss";
 
 @theme {
@@ -11,7 +10,8 @@
   --color-foreground: #e2e8f0;
   --color-accent: #22c55e;
   --color-accent-dim: #16a34a;
-  --font-body: "JetBrains Mono", monospace;
+  --font-body: var(--font-jetbrains-mono), ui-monospace, monospace;
+  --font-display: var(--font-archivo), ui-sans-serif, system-ui, sans-serif;
 }
 
 :root {
@@ -22,21 +22,63 @@ html {
   scroll-padding-top: 6rem;
 }
 
-* {
-  scrollbar-width: thin;
-  scrollbar-color: var(--color-border) transparent;
-}
+@layer base {
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-border) transparent;
+  }
 
-h1,
-h2,
-h3 {
-  font-family: "Archivo", sans-serif;
+  h1,
+  h2,
+  h3 {
+    font-family: var(--font-display);
+  }
+
+  @media (pointer: coarse) {
+    a,
+    button {
+      position: relative;
+    }
+
+    a::after,
+    button::after {
+      content: "";
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 100%;
+      height: 100%;
+      min-width: 44px;
+      min-height: 44px;
+      translate: -50% -50%;
+    }
+
+    .prose a::after {
+      content: none;
+    }
+  }
 }
 
 a:focus-visible,
-button:focus-visible {
+button:focus-visible,
+.content-row:focus-visible .content-title {
   outline: 2px solid var(--color-accent);
   outline-offset: 4px;
+  transition-property: none;
+}
+
+.content-row:focus-visible {
+  outline: none;
+}
+
+a:active,
+button:active {
+  opacity: 0.55;
+}
+
+.content-row:active {
+  opacity: 1;
+  background-color: var(--color-surface);
 }
 
 ::selection {
@@ -77,23 +119,43 @@ button:focus-visible {
   }
 }
 
-@keyframes header-on-scroll {
+.site-header {
+  background-color: color-mix(in srgb, var(--color-bg) 80%, transparent);
+  backdrop-filter: blur(16px) saturate(140%);
+}
+
+.site-header::after {
+  content: "";
+  position: absolute;
+  inset: 100% 0 auto 0;
+  height: 2.5rem;
+  background: linear-gradient(to bottom, var(--color-bg), transparent);
+  pointer-events: none;
+}
+
+@keyframes header-material-in {
   from {
-    border-color: transparent;
     background-color: transparent;
     backdrop-filter: blur(0);
   }
-  to {
-    border-color: var(--color-border);
-    background-color: color-mix(in srgb, var(--color-bg) 80%, transparent);
-    backdrop-filter: blur(16px);
+}
+
+@keyframes header-edge-in {
+  from {
+    opacity: 0;
   }
 }
 
 @media (prefers-reduced-motion: no-preference) {
   @supports (animation-timeline: scroll()) {
     .site-header {
-      animation: header-on-scroll linear both;
+      animation: header-material-in linear both;
+      animation-range: 0 50px;
+      animation-timeline: scroll(root block);
+    }
+
+    .site-header::after {
+      animation: header-edge-in linear both;
       animation-range: 0 50px;
       animation-timeline: scroll(root block);
     }
@@ -173,16 +235,9 @@ button:focus-visible {
 }
 
 .content-row {
-  transition: opacity 200ms ease;
-}
-
-.content-row:focus-visible {
-  outline: none;
-}
-
-.content-row:focus-visible .content-title {
-  outline: 2px solid var(--color-accent);
-  outline-offset: 4px;
+  transition:
+    opacity 200ms ease,
+    background-color 90ms ease-out;
 }
 
 .project-peek {
@@ -196,7 +251,7 @@ button:focus-visible {
 
 @media (hover: hover) and (pointer: fine) {
   .content-list:has(.content-row:hover) .content-row:not(:hover) {
-    opacity: 0.45;
+    opacity: 0.6;
   }
 
   .content-row:hover .project-peek {
@@ -235,6 +290,7 @@ button:focus-visible {
 
 .prose h2 {
   font-size: 1.5rem;
+  letter-spacing: -0.01em;
 }
 
 .prose h3 {
@@ -243,13 +299,13 @@ button:focus-visible {
 
 .prose a {
   color: var(--color-accent);
-  text-decoration: underline;
-  text-decoration-thickness: 1px;
-  text-underline-offset: 3px;
+  text-decoration: none;
 }
 
 .prose a:hover {
-  color: var(--color-accent-dim);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
 }
 
 .prose strong {
@@ -328,10 +384,10 @@ button:focus-visible {
     scroll-behavior: auto;
   }
 
-  .site-header {
-    border-color: var(--color-border);
-    background-color: color-mix(in srgb, var(--color-bg) 80%, transparent);
-    backdrop-filter: blur(16px);
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation-duration: 1ms !important;
   }
 
   *,
@@ -339,6 +395,30 @@ button:focus-visible {
   *::after {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
+    transition-property:
+      color, background-color, border-color, outline-color,
+      text-decoration-color, fill, stroke, opacity !important;
+    transition-duration: 150ms !important;
+  }
+}
+
+@media print {
+  .content-reveal,
+  .section-rule-line,
+  .home-head > * {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+    clip-path: none !important;
+  }
+
+  .site-header {
+    position: static;
+    background: none;
+    backdrop-filter: none;
+  }
+
+  .site-header::after {
+    display: none;
   }
 }
