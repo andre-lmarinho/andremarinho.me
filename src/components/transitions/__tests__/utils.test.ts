@@ -19,8 +19,6 @@ describe("settleScrollForTransition", () => {
     expect(scrollTo).toHaveBeenCalledWith({ top: 0, behavior: "instant" });
   });
 
-  // Smooth scrolling would let the animation start before the scroll finished,
-  // which is the drag this function exists to remove.
   it("scrolls instantly, never smoothly", () => {
     const scrollTo = stubScroll(500);
 

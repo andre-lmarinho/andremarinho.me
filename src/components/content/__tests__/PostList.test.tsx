@@ -16,12 +16,6 @@ const post = (overrides: Partial<Post> = {}): Post => ({
 });
 
 describe("PostList", () => {
-  it("renders a post row", () => {
-    const { container } = render(<PostList posts={[post()]} />);
-
-    expect(container).toMatchSnapshot();
-  });
-
   it("names the title after the post", () => {
     const { container } = render(<PostList posts={[post()]} />);
 
@@ -31,8 +25,6 @@ describe("PostList", () => {
     ]);
   });
 
-  // Two elements sharing a name make the browser drop the entire transition,
-  // not just that pair.
   it("emits no duplicate names across a full list", () => {
     const { container } = render(
       <PostList

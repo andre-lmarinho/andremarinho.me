@@ -4,8 +4,6 @@ import Link from "next/link";
 import { startTransition } from "react";
 import { settleScrollForTransition } from "./utils";
 
-// A wrapper rather than onNavigate at each call site: most pages that link are
-// Server Components, which cannot pass a function prop.
 export default function TransitionLink({
   href,
   onClick,
@@ -18,8 +16,8 @@ export default function TransitionLink({
       onClick={(event) => {
         onClick?.(event);
         if (event.defaultPrevented) return;
-        // Outside startTransition this would be batched with the navigation and
-        // still land inside the snapshot window.
+        // Outside startTransition this batches with the navigation and still
+        // lands inside the snapshot window.
         startTransition(() => {
           settleScrollForTransition();
         });

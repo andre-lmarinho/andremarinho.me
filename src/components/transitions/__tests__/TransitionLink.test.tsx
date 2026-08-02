@@ -2,19 +2,14 @@ import { fireEvent, render, screen } from "@testing-library/react";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import TransitionLink from "../TransitionLink";
 
-// Spies rather than assignment: restoreAllMocks puts the originals back, where a
-// direct `window.scrollTo = fn` would leak into every later test in this worker.
 const atScroll = (scrollY: number) => {
   vi.spyOn(window, "scrollY", "get").mockReturnValue(scrollY);
   return vi.spyOn(window, "scrollTo").mockImplementation(() => {});
 };
 
-// jsdom cannot navigate and logs "Not implemented" at every anchor click.
-// Cancelling on the document rather than on the link matters: React delegates to
-// the root, so a listener on the element itself would run first and hand the
-// component a click that was already defaultPrevented — masking the very thing
-// one of these tests asserts. The listener is torn down after each test so it
-// cannot leak.
+// Suppresses jsdom's "Not implemented: navigation". Must be on the document, not
+// the link: React delegates to the root, so an element listener would run first
+// and hand the component an already-defaultPrevented click.
 const suppressNavigation = () => {
   const cancel = (event: Event) => event.preventDefault();
   document.addEventListener("click", cancel);
