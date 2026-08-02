@@ -4,6 +4,7 @@ description: A published npm CLI that scaffolds a production-ready Turborepo wit
 date: 2026-07-07
 tags: TypeScript, Turborepo, Next.js, tRPC, Prisma, Better Auth, CLI, npm
 image: /images/projects/create-mvp.webp
+kind: npm CLI
 link: https://www.npmjs.com/package/@andre.marinho/create-mvp
 ---
 

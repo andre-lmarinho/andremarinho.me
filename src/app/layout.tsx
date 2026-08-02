@@ -1,17 +1,32 @@
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import type { Metadata, Viewport } from "next";
+import { Archivo, JetBrains_Mono } from "next/font/google";
 import JsonLd from "@/components/JsonLd";
 import Layout from "@/components/layout";
 import { profileJsonLd } from "@/lib/seo";
 import "./globals.css";
 
+const archivo = Archivo({
+  subsets: ["latin"],
+  weight: ["400", "500", "600"],
+  display: "swap",
+  variable: "--font-archivo",
+});
+
+const jetBrainsMono = JetBrains_Mono({
+  subsets: ["latin"],
+  weight: ["400", "500"],
+  display: "swap",
+  variable: "--font-jetbrains-mono",
+});
+
 export const metadata: Metadata = {
-  title: "André Marinho — Full-Stack Developer · React, Next.js, TypeScript",
+  title: "André Marinho — Front-End Developer · React, Next.js, TypeScript",
   description:
-    "Full-stack developer (React, Next.js, TypeScript). Shipped a multi-tenant SaaS to production after 8 years running a digital agency.",
+    "Front-end developer (React, Next.js, TypeScript). Shipped a multi-tenant SaaS to production after 8 years running a digital agency.",
   openGraph: {
-    title: "André Marinho — Full-Stack Developer",
+    title: "André Marinho — Front-End Developer",
     description: "I spent eight years deciding what to build. Now I build it.",
     url: "https://andremarinho.me",
     siteName: "André Marinho",
@@ -44,7 +59,10 @@ export const viewport: Viewport = {
 };
 
 const RootLayout = ({ children }: { children: React.ReactNode }) => (
-  <html lang="en" className="h-full scroll-smooth antialiased">
+  <html
+    lang="en"
+    className={`${archivo.variable} ${jetBrainsMono.variable} h-full scroll-smooth antialiased`}
+  >
     <body className="flex min-h-dvh flex-col bg-bg font-body text-foreground">
       <JsonLd data={profileJsonLd} />
       <Layout>{children}</Layout>

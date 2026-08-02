@@ -28,7 +28,7 @@ function Cell({
   pending?: boolean;
 }) {
   return (
-    <div className="py-3.5 sm:px-6 sm:first:pl-0 sm:last:pr-0">
+    <div className="py-3.5 sm:px-6 sm:last:pr-0">
       <dt
         title={title}
         className="inline-flex items-center gap-x-1.5 text-[10px] tracking-[0.2em] text-muted uppercase"
@@ -38,7 +38,7 @@ function Cell({
       </dt>
       <dd
         title={title}
-        className="status-value mt-1.5 text-sm tabular-nums"
+        className="status-value text-sm tabular-nums"
         data-state={pending ? "pending" : "ready"}
       >
         {children}
@@ -91,7 +91,7 @@ export default function Footer() {
             </a>
           </p>
 
-          <ul className="flex items-center gap-x-5">
+          <ul className="flex items-center gap-x-6">
             {socials.map(({ label, href, icon: Icon }) => (
               <li key={label}>
                 <a
@@ -108,7 +108,7 @@ export default function Footer() {
           </ul>
         </div>
 
-        <p className="pb-10 text-xs text-[#64748b]">
+        <p className="pb-10 text-xs text-faint">
           Written from scratch in Next.js and Tailwind.{" "}
           <a
             href={repositoryUrl}

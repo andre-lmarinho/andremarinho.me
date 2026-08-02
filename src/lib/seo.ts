@@ -48,7 +48,7 @@ export const profileJsonLd = {
     name: "André Marinho",
     url: siteUrl,
     image: `${siteUrl}/images/me/andre-marinho.webp`,
-    jobTitle: "Full-Stack Developer",
+    jobTitle: "Front-End Developer",
     sameAs: [
       "https://github.com/andre-lmarinho",
       "https://linkedin.com/in/andre-lmarinho",

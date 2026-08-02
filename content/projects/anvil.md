@@ -4,6 +4,7 @@ description: A browser IDE where an AI agent plans, writes and runs code in an i
 date: 2026-05-22
 tags: React, TypeScript, Node, Firecracker, WebSockets, Git, PostgreSQL, Redis
 image: /images/projects/anvil.webp
+kind: browser IDE
 ---
 
 Anvil is a code editor and AI agent that runs in the browser. You describe what you want built, and the agent plans it, writes the files, runs the commands and shows you the app running, with the editor, terminal and live preview side by side.

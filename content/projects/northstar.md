@@ -4,6 +4,7 @@ description: Product telemetry that ties each behavior to a business outcome, me
 date: 2026-04-12
 tags: TypeScript, ClickHouse, PostgreSQL, Kafka, Redis, dbt, Next.js, Analytics
 image: /images/projects/northstar.webp
+kind: telemetry
 ---
 
 Northstar is a product telemetry platform built around one refusal: it will not show you a number without telling you what that number is worth.

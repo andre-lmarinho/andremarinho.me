@@ -27,7 +27,7 @@ export default function HomePage() {
           label="projects"
           link={{ href: "/projects", label: "all projects" }}
         />
-        <ProjectList projects={featuredProjects} classifier="kind" />
+        <ProjectList projects={featuredProjects} />
       </section>
 
       <section
