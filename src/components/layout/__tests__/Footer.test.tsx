@@ -1,19 +1,23 @@
 import { render, screen } from "@testing-library/react";
 import { afterEach, describe, expect, it, vi } from "vitest";
+import type { AbacusCount } from "@/lib/abacus";
 import { socials } from "@/lib/site";
 import Footer from "../Footer";
 
-const { useTimeOnSite, useViewsCount } = vi.hoisted(() => ({
+const { useAbacusCount, usePathname, useTimeOnSite } = vi.hoisted(() => ({
+  useAbacusCount: vi.fn(),
+  usePathname: vi.fn(),
   useTimeOnSite: vi.fn(),
-  useViewsCount: vi.fn(),
 }));
 
+vi.mock("next/navigation", () => ({ usePathname }));
+vi.mock("@/hooks/useAbacusCount", () => ({ default: useAbacusCount }));
 vi.mock("../hooks/useTimeOnSite", () => ({ default: useTimeOnSite }));
-vi.mock("../hooks/useViewsCount", () => ({ default: useViewsCount }));
 
-const renderFooter = ({ time = "00:00", views = 0 as number | null } = {}) => {
+const renderFooter = ({ time = "00:00", views = 0 as AbacusCount } = {}) => {
+  usePathname.mockReturnValue("/posts");
   useTimeOnSite.mockReturnValue(time);
-  useViewsCount.mockReturnValue(views);
+  useAbacusCount.mockReturnValue(views);
   return render(<Footer />);
 };
 
@@ -31,6 +35,15 @@ describe("Footer", () => {
     expect(cellValue("time")?.textContent).toBe("12:34");
   });
 
+  it("counts the current pathname in the historical site counter", () => {
+    renderFooter();
+
+    expect(useAbacusCount).toHaveBeenCalledWith("portfolio", {
+      increment: true,
+      dedupeKey: "/posts",
+    });
+  });
+
   it("groups thousands in the view count", () => {
     renderFooter({ views: 12345 });
 
@@ -41,13 +54,19 @@ describe("Footer", () => {
     renderFooter({ views: null });
 
     expect(cellValue("visits")?.getAttribute("data-state")).toBe("pending");
-    expect(cellValue("visits")?.textContent).toBe("0");
+    expect(cellValue("visits")?.textContent).toBe("…");
   });
 
   it("marks the view count ready once it arrives", () => {
     renderFooter({ views: 7 });
 
     expect(cellValue("visits")?.getAttribute("data-state")).toBe("ready");
+  });
+
+  it("shows the fallback when Abacus is unavailable", () => {
+    renderFooter({ views: "∞" });
+
+    expect(cellValue("visits")?.textContent).toBe("∞");
   });
 
   it("links every social account", () => {

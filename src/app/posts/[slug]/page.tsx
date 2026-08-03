@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import PostViews from "@/components/content/PostViews";
 import JsonLd from "@/components/JsonLd";
 import MorphTitle from "@/components/transitions/MorphTitle";
 import { formatDate } from "@/lib/content";
@@ -70,6 +71,15 @@ export default async function PostPage({
             </span>
             <span className="text-faint tabular-nums">
               {post.minutes} min read
+            </span>
+            <span className="text-border" aria-hidden="true">
+              /
+            </span>
+            <span
+              title="Post views counted by Abacus"
+              className="text-faint tabular-nums"
+            >
+              <PostViews slug={slug} increment />
             </span>
           </div>
 

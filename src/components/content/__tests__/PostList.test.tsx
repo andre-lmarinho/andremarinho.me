@@ -1,8 +1,12 @@
 import { render } from "@testing-library/react";
-import { describe, expect, it } from "vitest";
+import { describe, expect, it, vi } from "vitest";
 import type { Post } from "@/lib/posts";
 import PostList from "../PostList";
 import { duplicates, viewTransitionNames } from "./helpers";
+
+vi.mock("../PostViews", () => ({
+  default: ({ slug }: { slug: string }) => <>{slug} views</>,
+}));
 
 const post = (overrides: Partial<Post> = {}): Post => ({
   slug: "first",
@@ -37,5 +41,11 @@ describe("PostList", () => {
     );
 
     expect(duplicates(viewTransitionNames(container))).toEqual([]);
+  });
+
+  it("shows the post view count", () => {
+    const { getByText } = render(<PostList posts={[post()]} />);
+
+    expect(getByText("first views")).toBeTruthy();
   });
 });

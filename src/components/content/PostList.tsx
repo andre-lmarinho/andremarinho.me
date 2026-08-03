@@ -1,4 +1,5 @@
 import Link from "next/link";
+import PostViews from "@/components/content/PostViews";
 import MorphTitle from "@/components/transitions/MorphTitle";
 import { formatShortDate } from "@/lib/content";
 import type { Post } from "@/lib/posts";
@@ -28,8 +29,11 @@ export default function PostList({ posts }: { posts: Post[] }) {
                     id={`post-${post.slug}`}
                     className="content-title text-base leading-6 font-medium transition-colors group-hover:text-accent"
                   />
-                  <span className="shrink-0 text-xs text-faint tabular-nums">
-                    {post.minutes} min
+                  <span
+                    title="Post views counted by Abacus"
+                    className="shrink-0 text-xs text-faint tabular-nums"
+                  >
+                    <PostViews slug={post.slug} />
                   </span>
                 </div>
                 <p className="mt-2 text-sm leading-relaxed text-muted">
