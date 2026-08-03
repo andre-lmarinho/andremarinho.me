@@ -1,11 +1,13 @@
 "use client";
 
+import { usePathname } from "next/navigation";
 import type { IconType } from "react-icons";
 import { Clock, Eye, GitCommit } from "@/components/ui/icon";
+import useAbacusCount from "@/hooks/useAbacusCount";
+import { ABACUS_SITE_COUNTER, formatAbacusCount } from "@/lib/abacus";
 import { email, socials } from "@/lib/site";
 
 import useTimeOnSite from "./hooks/useTimeOnSite";
-import useViewsCount from "./hooks/useViewsCount";
 
 const repositoryUrl = "https://github.com/andre-lmarinho/me";
 const commitSha = process.env.NEXT_PUBLIC_COMMIT_SHA ?? "";
@@ -48,8 +50,12 @@ function Cell({
 }
 
 export default function Footer() {
+  const pathname = usePathname();
   const timeOnSite = useTimeOnSite();
-  const views = useViewsCount();
+  const views = useAbacusCount(ABACUS_SITE_COUNTER, {
+    increment: true,
+    dedupeKey: pathname,
+  });
 
   return (
     <footer className="mt-28 border-t border-border max-md:mt-20">
@@ -61,10 +67,10 @@ export default function Footer() {
           <Cell
             Icon={Eye}
             label="visits"
-            title="Total page views across this site"
+            title="Total page views across this site, counted by Abacus"
             pending={views === null}
           >
-            {views?.toLocaleString("en-US") ?? "0"}
+            {formatAbacusCount(views)}
           </Cell>
           <Cell Icon={GitCommit} label="build" title="View deployment commit">
             <a
