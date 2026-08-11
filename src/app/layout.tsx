@@ -4,10 +4,16 @@ import type { Metadata, Viewport } from "next";
 import { Archivo, JetBrains_Mono } from "next/font/google";
 import JsonLd from "@/components/JsonLd";
 import Layout from "@/components/layout";
-import { profileJsonLd, siteDescription } from "@/lib/seo";
+import {
+  jobTitle,
+  profileJsonLd,
+  siteDescription,
+  siteName,
+  websiteJsonLd,
+} from "@/lib/seo";
 import "./globals.css";
 
-const siteTitle = "André Marinho — Frontend Engineer";
+const siteTitle = `${siteName} — ${jobTitle}`;
 const socialDescription =
   "I build software with intention, from early ideas to production, with care for how the interface responds and how much complexity the code leaves behind.";
 
@@ -35,6 +41,11 @@ export const metadata: Metadata = {
     siteName: "André Marinho",
     locale: "en_US",
     type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: siteTitle,
+    description: socialDescription,
   },
   metadataBase: new URL("https://andremarinho.me"),
   manifest: "/manifest.json",
@@ -67,6 +78,7 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => (
     className={`${archivo.variable} ${jetBrainsMono.variable} h-full scroll-smooth antialiased`}
   >
     <body className="flex min-h-dvh flex-col bg-bg font-body text-foreground">
+      <JsonLd data={websiteJsonLd} />
       <JsonLd data={profileJsonLd} />
       <Layout>{children}</Layout>
       <SpeedInsights />
