@@ -3,10 +3,15 @@ import type { Project } from "./projects";
 
 const siteUrl = "https://andremarinho.me";
 
+export const siteDescription =
+  "Frontend engineer in Brazil building clear, useful web products where design and engineering meet, from early ideas to production.";
+
 const author = {
   "@type": "Person",
   name: "André Marinho",
   url: siteUrl,
+  jobTitle: "Frontend Engineer",
+  description: siteDescription,
 };
 
 // Article schema is what search and AI answer engines read to attribute a post
@@ -44,11 +49,8 @@ export const profileJsonLd = {
   "@context": "https://schema.org",
   "@type": "ProfilePage",
   mainEntity: {
-    "@type": "Person",
-    name: "André Marinho",
-    url: siteUrl,
+    ...author,
     image: `${siteUrl}/images/me/andre-marinho.webp`,
-    jobTitle: "Front-End Developer",
     sameAs: [
       "https://github.com/andre-lmarinho",
       "https://linkedin.com/in/andre-lmarinho",

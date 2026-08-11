@@ -1,28 +1,31 @@
 import type { Metadata } from "next";
 import PageTitle from "@/components/PageTitle";
 
+const description =
+  "About André Marinho: an independent frontend engineer in Brazil whose work evolved from BI and digital strategy into websites and software.";
+
 export const metadata: Metadata = {
   title: "About — André Marinho",
-  description:
-    "Front-end developer in Brazil working where engineering, product and user experience meet.",
+  description,
   alternates: { canonical: "/about" },
   openGraph: {
     title: "About — André Marinho",
-    description:
-      "Front-end developer in Brazil working where engineering, product and user experience meet.",
+    description,
     type: "profile",
     url: "/about",
   },
 };
 
 const copy = [
-  "I'm a Front-End Developer based in Brazil who enjoys turning ideas into products people actually enjoy using.",
-  "My path into software wasn't traditional. Before becoming a developer, I spent years working in digital marketing, helping businesses grow through strategy, websites and user experience.",
-  "That background changed the way I approach engineering. I don't just think about how to build a feature. I think about why it exists, who it serves and how every technical decision shapes the final product.",
-  "Today I build modern web applications with React, Next.js and TypeScript, with a strong focus on clean architecture, performance and maintainability.",
-  "The work I enjoy most lives at the intersection of engineering, product and user experience where technical decisions directly improve how people experience software.",
-  "Outside of client work, I spend a significant amount of time building open source projects. They're where I experiment with architecture, testing, CI/CD and developer experience before bringing those lessons into production.",
-  "I'm always studying computer science, exploring large open source codebases and building personal projects. Every project is another opportunity to become a better engineer.",
+  "Hi there! I’m André, and I like building software with intention. I care about the decisions people notice and the ones they never see: how an interface reads, how it responds, who it includes, and how much complexity the code leaves behind. I enjoy working where design and engineering meet, turning rough problems into products that feel clear, useful, and well made.",
+
+  "Today I work independently, often taking web products from an early idea to production. Good craft includes restraint. I want to know where an extra hour can change the experience and where the simplest solution is already the right one.",
+
+  "I spent eight years running Duonorth, where my work evolved from BI and digital strategy into websites and software. Development became my full-time focus in 2025, continuing a way of working I had built over years: understand the problem and make something useful.",
+
+  "I also build things simply because I can. Turistar started because I wanted a better way to plan my own trips. More recently, I built a self-hosted tracker for my computer science studies. Other people now use both. Few things make me happier than seeing something I made for myself become useful to someone else.",
+
+  "Away from the computer, I read, run, lift weights, play classical guitar, go to the beach, and am learning to juggle. I like always having something new to learn.",
 ] as const;
 
 export default function AboutPage() {

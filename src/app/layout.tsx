@@ -4,8 +4,12 @@ import type { Metadata, Viewport } from "next";
 import { Archivo, JetBrains_Mono } from "next/font/google";
 import JsonLd from "@/components/JsonLd";
 import Layout from "@/components/layout";
-import { profileJsonLd } from "@/lib/seo";
+import { profileJsonLd, siteDescription } from "@/lib/seo";
 import "./globals.css";
+
+const siteTitle = "André Marinho — Frontend Engineer";
+const socialDescription =
+  "I build software with intention, from early ideas to production, with care for how the interface responds and how much complexity the code leaves behind.";
 
 const archivo = Archivo({
   subsets: ["latin"],
@@ -22,12 +26,11 @@ const jetBrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "André Marinho — Front-End Developer · React, Next.js, TypeScript",
-  description:
-    "Front-end developer (React, Next.js, TypeScript). Shipped a multi-tenant SaaS to production after 8 years running a digital agency.",
+  title: siteTitle,
+  description: siteDescription,
   openGraph: {
-    title: "André Marinho — Front-End Developer",
-    description: "I spent eight years deciding what to build. Now I build it.",
+    title: siteTitle,
+    description: socialDescription,
     url: "https://andremarinho.me",
     siteName: "André Marinho",
     locale: "en_US",

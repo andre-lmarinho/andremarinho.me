@@ -1,6 +1,6 @@
 ---
 title: I Was Building Software Before I Called It Code
-description: Before I was a developer I was a finance assistant with a spreadsheet problem. What dashboards, inventory tools and eight years of agency work did and did not teach me.
+description: Before development became my full-time focus, I spent eleven years solving business problems with dashboards, inventory tools and code.
 date: 2026-02-17
 tags: career, story, marketing
 ---
@@ -29,7 +29,7 @@ That one taught me modelling, again without the vocabulary. A unit in stock is n
 
 The tooling was never the hard part. Deciding what was true was the hard part.
 
-## Eight years of deciding what to build
+## Eight years at Duonorth
 
 In 2017 I left to start Duonorth Studio, a digital marketing agency, and ran it until 2025.
 
@@ -37,7 +37,7 @@ There was code in it every day: WordPress themes, HTML, CSS, JavaScript, PHP, pl
 
 But the part that mattered most was not the code. Running the agency is where I learned to tell what a client needs from what a client asked for. How to say no to a feature. That an interface exists to move a number somebody cares about, and if you cannot name the number you are decorating. That most software problems are scoping problems wearing a technical costume.
 
-I sold, priced and scoped software for eight years. I watched other people build it. Then in 2025 I stopped doing that and started building it myself.
+I sold, priced and scoped software for eight years, while code took up more and more of my own work. In 2025, development became my full-time focus.
 
 ## What transferred
 

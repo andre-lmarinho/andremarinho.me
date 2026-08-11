@@ -18,18 +18,13 @@ export default function Intro() {
           André Marinho
         </h1>
 
-        <p className="mt-3 text-sm text-accent">Front-End Developer</p>
+        <p className="mt-3 text-sm text-accent">Frontend Engineer</p>
 
         <p className="mt-6 max-w-152 text-sm leading-relaxed text-foreground sm:text-base">
-          React, Next.js and TypeScript on the front, Node with tRPC and
-          PostgreSQL behind it. I work on products that run in production, with
-          automated tests, CI, and the architecture decisions written down for
-          whoever comes next.
-        </p>
-        <p className="mt-6 max-w-152 text-sm leading-relaxed text-foreground sm:text-base">
-          Before code, eight years founding and running my own digital agency,
-          scoping software other people built. I build it myself now, end to
-          end.
+          I build software with intention, working where design and engineering
+          meet. I care about the decisions people notice and the ones they never
+          see, from how an interface responds to how much complexity the code
+          leaves behind.
         </p>
 
         <ul className="mt-9 flex flex-wrap items-center gap-x-6 gap-y-4 text-xs">

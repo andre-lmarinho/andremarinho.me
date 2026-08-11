@@ -1,6 +1,6 @@
 ---
 title: Turistar
-description: An open-source travel planner with real-time collaborative editing on an event-sourced model, so every change to an itinerary is recorded and replayable.
+description: An open-source travel planner I built for my own trips, now helping other people plan together without losing the history behind each itinerary.
 date: 2025-10-20
 tags: Next.js, TypeScript, Supabase, Event Sourcing, Realtime, Leaflet, Playwright
 image: /images/projects/turistar.webp

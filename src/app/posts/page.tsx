@@ -3,11 +3,19 @@ import PostList from "@/components/content/PostList";
 import PageTitle from "@/components/PageTitle";
 import { getPosts } from "@/lib/posts";
 
+const description =
+  "Notes on building software with intention: the decisions behind it, what breaks, what I learn, and what I would do differently.";
+
 export const metadata: Metadata = {
   title: "Posts — André Marinho",
-  description:
-    "Notes on what I build, how it breaks, and what I would do differently.",
+  description,
   alternates: { canonical: "/posts" },
+  openGraph: {
+    title: "Posts — André Marinho",
+    description,
+    type: "website",
+    url: "/posts",
+  },
 };
 
 export default function PostsPage() {
