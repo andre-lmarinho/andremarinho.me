@@ -1,12 +1,19 @@
 import type { Post } from "./posts";
 import type { Project } from "./projects";
 
-const siteUrl = "https://andremarinho.me";
+export const siteUrl = "https://andremarinho.me";
+export const siteName = "André Marinho";
+export const jobTitle = "Frontend Engineer";
+
+export const siteDescription =
+  "Frontend engineer in Brazil building clear, useful web products where design and engineering meet, from early ideas to production.";
 
 const author = {
   "@type": "Person",
-  name: "André Marinho",
+  name: siteName,
   url: siteUrl,
+  jobTitle,
+  description: siteDescription,
 };
 
 // Article schema is what search and AI answer engines read to attribute a post
@@ -20,7 +27,12 @@ export const postJsonLd = (post: Post) => ({
   url: `${siteUrl}/posts/${post.slug}`,
   mainEntityOfPage: `${siteUrl}/posts/${post.slug}`,
   keywords: post.tags,
-  ...(post.date && { datePublished: post.date }),
+  // The per-post OG card is the only image a text post has; naming it here is
+  // what lets an answer engine show something next to the citation.
+  image: `${siteUrl}/posts/${post.slug}/opengraph-image`,
+  inLanguage: "en",
+  timeRequired: `PT${post.minutes}M`,
+  ...(post.date && { datePublished: post.date, dateModified: post.date }),
   author,
   publisher: author,
 });
@@ -35,6 +47,7 @@ export const projectJsonLd = (project: Project) => ({
   url: `${siteUrl}/projects/${project.slug}`,
   image: project.image ? `${siteUrl}${project.image}` : undefined,
   programmingLanguage: project.tags,
+  inLanguage: "en",
   ...(project.date && { dateCreated: project.date }),
   ...(project.link && { sameAs: project.link }),
   author,
@@ -44,11 +57,8 @@ export const profileJsonLd = {
   "@context": "https://schema.org",
   "@type": "ProfilePage",
   mainEntity: {
-    "@type": "Person",
-    name: "André Marinho",
-    url: siteUrl,
+    ...author,
     image: `${siteUrl}/images/me/andre-marinho.webp`,
-    jobTitle: "Front-End Developer",
     sameAs: [
       "https://github.com/andre-lmarinho",
       "https://linkedin.com/in/andre-lmarinho",
@@ -56,3 +66,31 @@ export const profileJsonLd = {
     ],
   },
 };
+
+// Names the site as an entity in its own right, so the person and the domain
+// resolve to one thing rather than two unrelated results.
+export const websiteJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  name: siteName,
+  url: siteUrl,
+  description: siteDescription,
+  inLanguage: "en",
+  author,
+  publisher: author,
+};
+
+// Breadcrumbs give search a labelled path for nested pages instead of letting
+// it infer one from the URL.
+export const breadcrumbJsonLd = (
+  trail: readonly { name: string; path: string }[],
+) => ({
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: trail.map(({ name, path }, index) => ({
+    "@type": "ListItem",
+    position: index + 1,
+    name,
+    item: `${siteUrl}${path}`,
+  })),
+});

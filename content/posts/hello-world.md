@@ -1,6 +1,6 @@
 ---
 title: Hello World
-description: What this site is built with, why I wrote it from scratch instead of starting from a template, and what I plan to put on it now that the blog exists.
+description: Why I built this site from scratch, what I deliberately left out, and the decisions and mistakes I want to write down now that the blog exists.
 date: 2026-07-17
 tags: meta, nextjs, writing
 ---
@@ -17,11 +17,11 @@ I wrote it from scratch instead of starting from a template, which cost me a wee
 
 ## Some context on who is typing
 
-For eight years I ran a digital marketing agency. I sold software, priced it, scoped it, and watched other people build it. In 2025 I stopped doing that and started building it myself.
+For eight years I ran a digital marketing agency, where my work moved from strategy into websites, automations and software. In 2025, development became my full-time focus.
 
 Since then: [Turistar](https://github.com/andre-lmarinho/travel-planner), open source, which plans my own trips. [create-mvp](https://www.npmjs.com/package/@andre.marinho/create-mvp), a CLI on npm that scaffolds the project setup I got tired of assembling by hand. And [client work](/projects) in production with paying subscribers.
 
-That is a lot of decisions made fast, by someone who spent years judging this work from the outside and far less time doing it. Some of those decisions are wrong. I would like them written down somewhere they can be argued with.
+That is a lot of decisions made fast, after years of solving problems with code but far less time owning the engineering end to end. Some of those decisions are wrong. I would like them written down somewhere they can be argued with.
 
 ## What goes here
 

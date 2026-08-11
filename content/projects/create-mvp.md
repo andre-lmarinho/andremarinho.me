@@ -1,6 +1,6 @@
 ---
 title: create-mvp
-description: A published npm CLI that scaffolds a production-ready Turborepo with Next.js, tRPC, Prisma and Better Auth wired end to end, and 35 decisions on the record.
+description: A published npm CLI that removes repetitive setup when starting a new web product while keeping 35 architecture decisions explicit and open to change.
 date: 2026-07-07
 tags: TypeScript, Turborepo, Next.js, tRPC, Prisma, Better Auth, CLI, npm
 image: /images/projects/create-mvp.webp

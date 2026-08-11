@@ -5,7 +5,7 @@ import JsonLd from "@/components/JsonLd";
 import MorphTitle from "@/components/transitions/MorphTitle";
 import { formatDate } from "@/lib/content";
 import { getPost, getPosts } from "@/lib/posts";
-import { postJsonLd } from "@/lib/seo";
+import { breadcrumbJsonLd, postJsonLd } from "@/lib/seo";
 
 export const dynamicParams = false;
 
@@ -33,7 +33,14 @@ export async function generateMetadata({
       description: post.description,
       type: "article",
       publishedTime: post.date || undefined,
+      authors: ["André Marinho"],
+      tags: post.tags,
       url: `/posts/${slug}`,
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: post.title,
+      description: post.description,
     },
   };
 }
@@ -50,6 +57,12 @@ export default async function PostPage({
   return (
     <>
       <JsonLd data={postJsonLd(post)} />
+      <JsonLd
+        data={breadcrumbJsonLd([
+          { name: "Posts", path: "/posts" },
+          { name: post.title, path: `/posts/${slug}` },
+        ])}
+      />
       <article>
         <div className="mx-auto w-full max-w-3xl px-6 pt-36 max-md:pt-32 lg:px-8">
           <MorphTitle

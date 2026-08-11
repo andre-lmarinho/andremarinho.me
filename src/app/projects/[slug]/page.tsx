@@ -5,7 +5,7 @@ import JsonLd from "@/components/JsonLd";
 import MorphTitle from "@/components/transitions/MorphTitle";
 import { formatDate } from "@/lib/content";
 import { getProject, getProjects } from "@/lib/projects";
-import { projectJsonLd } from "@/lib/seo";
+import { breadcrumbJsonLd, projectJsonLd } from "@/lib/seo";
 
 export const dynamicParams = false;
 
@@ -32,6 +32,13 @@ export async function generateMetadata({
       description: project.description,
       type: "website",
       url: `/projects/${slug}`,
+      ...(project.image && { images: [project.image] }),
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: project.title,
+      description: project.description,
+      ...(project.image && { images: [project.image] }),
     },
   };
 }
@@ -48,6 +55,12 @@ export default async function ProjectPage({
   return (
     <>
       <JsonLd data={projectJsonLd(project)} />
+      <JsonLd
+        data={breadcrumbJsonLd([
+          { name: "Projects", path: "/projects" },
+          { name: project.title, path: `/projects/${slug}` },
+        ])}
+      />
       <article>
         <div className="mx-auto w-full max-w-3xl px-6 pt-36 max-md:pt-32 lg:px-8">
           <MorphTitle

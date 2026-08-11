@@ -1,13 +1,13 @@
 ---
 title: Learning to Code When AI Writes the Code
-description: I started writing software in 2025, when AI could already write most of it for me. Skipping the part where you learn is a real option now, and that is the whole problem.
+description: I moved into full-time software development in 2025, when AI could already write most of the code. Skipping the learning is a real option now.
 date: 2026-06-21
 tags: ai, learning, career
 ---
 
 It works and I don't know why.
 
-That is the most dangerous sentence I can say about my own code, and it got very easy to say. I started writing software in 2025, the year AI got good enough to write most of it for me. I have never learned to code without it.
+That is the most dangerous sentence I can say about my own code, and it got very easy to say. I moved into full-time software development in 2025, the year AI got good enough to write most of it for me. I have never learned to code without it.
 
 Most of what I read about this is written by people who learned first and got the tool second. For them AI removed a toll booth: they already knew the roads, and now they pay less to drive them. I never paid the toll. I arrived after it was gone.
 
