@@ -3,8 +3,8 @@ import ProjectList from "@/components/content/ProjectList";
 import PageTitle from "@/components/PageTitle";
 import { getProjects } from "@/lib/projects";
 
-const description =
-  "Web products and open-source tools I built to solve real problems, with care for the interface, the code behind it, and the path to production.";
+export const description =
+  "Web products and open-source tools I built to solve real problems, with care for the interface, the code behind it.";
 
 export const metadata: Metadata = {
   title: "Projects — André Marinho",

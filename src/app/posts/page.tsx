@@ -3,7 +3,7 @@ import PostList from "@/components/content/PostList";
 import PageTitle from "@/components/PageTitle";
 import { getPosts } from "@/lib/posts";
 
-const description =
+export const description =
   "Notes on building software with intention: the decisions behind it, what breaks, what I learn, and what I would do differently.";
 
 export const metadata: Metadata = {

@@ -25,14 +25,18 @@ export default async function Image({
   const post = getPost(slug);
 
   if (!post) {
-    return new ImageResponse(<OpengraphImage title="Writing" />, {
+    return new ImageResponse(<OpengraphImage title="Writing" path="/posts" />, {
       ...size,
       fonts: await getFonts(),
     });
   }
 
   return new ImageResponse(
-    <OpengraphImage title={post.title} description={post.description} />,
+    <OpengraphImage
+      title={post.title}
+      description={post.description}
+      path={`/posts/${slug}`}
+    />,
     { ...size, fonts: await getFonts() },
   );
 }

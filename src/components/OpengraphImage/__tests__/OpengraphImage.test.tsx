@@ -2,6 +2,7 @@ import { readFile } from "node:fs/promises";
 import { join } from "node:path";
 import { render } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
+import { getPosts } from "@/lib/posts";
 import OpengraphImage, { getFonts, size } from "..";
 
 const text = (container: HTMLElement) => container.textContent ?? "";
@@ -15,6 +16,25 @@ describe("OpengraphImage", () => {
     expect(text(container)).toContain("Hello World");
     expect(text(container)).toContain("A description.");
     expect(text(container)).toContain("andremarinho.me");
+  });
+
+  it("appends the path to the domain", () => {
+    const { container } = render(
+      <OpengraphImage title="Projects" path="/projects" />,
+    );
+
+    expect(text(container)).toContain("andremarinho.me/projects");
+  });
+
+  // The footer is one unwrapped line, so a long slug is the only input that can
+  // run past the card edge. JetBrains Mono advances 0.6em, so 22px glyphs are
+  // 13.2px wide against the 1056px between the 72px gutters.
+  it("keeps every post's footer inside the card", () => {
+    const widest = getPosts()
+      .map((post) => `andremarinho.me/posts/${post.slug}`)
+      .sort((a, b) => b.length - a.length)[0];
+
+    expect(widest.length * 13.2, `"${widest}" overflows`).toBeLessThan(1056);
   });
 
   it("still renders without a description", () => {

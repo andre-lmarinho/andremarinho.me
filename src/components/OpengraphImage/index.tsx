@@ -44,12 +44,14 @@ export const getFonts = async (): Promise<Font[]> => {
 type Props = {
   title: string;
   description?: string;
+  /** Appended to the domain, e.g. "/projects". Omit on the site root. */
+  path?: string;
 };
 
 // Everything sits in one block at the bottom: the title and its description
 // stack above a hairline, with the domain as the last line. The empty upper
 // two thirds are what make it read as deliberate rather than sparse.
-const OpengraphImage = ({ title, description }: Props) => (
+const OpengraphImage = ({ title, description, path = "" }: Props) => (
   <div
     style={{
       width: "100%",
@@ -105,7 +107,7 @@ const OpengraphImage = ({ title, description }: Props) => (
       <span
         style={{ fontFamily: "JetBrains Mono", fontSize: 22, color: ACCENT }}
       >
-        andremarinho.me
+        {`andremarinho.me${path}`}
       </span>
     </div>
   </div>

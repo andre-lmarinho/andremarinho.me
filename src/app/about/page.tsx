@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import PageTitle from "@/components/PageTitle";
 
-const description =
-  "About André Marinho: an independent frontend engineer in Brazil whose work evolved from BI and digital strategy into websites and software.";
+export const description =
+  "An independent frontend engineer in Brazil whose work evolved from BI and digital strategy into websites and software.";
 
 export const metadata: Metadata = {
   title: "About — André Marinho",
