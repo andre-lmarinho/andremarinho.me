@@ -3,7 +3,14 @@ import Link from "next/link";
 import MorphTitle from "@/components/transitions/MorphTitle";
 import type { Project } from "@/lib/projects";
 
-export default function ProjectList({ projects }: { projects: Project[] }) {
+// See PostList on the level.
+export default function ProjectList({
+  projects,
+  titleAs = "h3",
+}: {
+  projects: Project[];
+  titleAs?: "h2" | "h3";
+}) {
   return (
     <ol className="content-list flex flex-col mt-6">
       {projects.map((project) => (
@@ -19,7 +26,7 @@ export default function ProjectList({ projects }: { projects: Project[] }) {
 
               <div>
                 <MorphTitle
-                  as="h3"
+                  as={titleAs}
                   title={project.title}
                   id={`project-${project.slug}`}
                   className="content-title text-base leading-6 font-medium transition-colors group-hover:text-accent"

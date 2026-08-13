@@ -4,7 +4,15 @@ import MorphTitle from "@/components/transitions/MorphTitle";
 import { formatShortDate } from "@/lib/content";
 import type { Post } from "@/lib/posts";
 
-export default function PostList({ posts }: { posts: Post[] }) {
+// h3 under the home page's section heading, h2 when the index page's title is
+// all that sits above it.
+export default function PostList({
+  posts,
+  titleAs = "h3",
+}: {
+  posts: Post[];
+  titleAs?: "h2" | "h3";
+}) {
   return (
     <ol className="content-list flex flex-col mt-6">
       {posts.map((post) => (
@@ -24,7 +32,7 @@ export default function PostList({ posts }: { posts: Post[] }) {
               <div>
                 <div className="flex items-baseline justify-between gap-x-4">
                   <MorphTitle
-                    as="h3"
+                    as={titleAs}
                     title={post.title}
                     id={`post-${post.slug}`}
                     className="content-title text-base leading-6 font-medium transition-colors group-hover:text-accent"

@@ -24,7 +24,7 @@ export default function PostsPage() {
   return (
     <section className="mx-auto w-full max-w-3xl px-6 pt-36 pb-16 max-md:pt-32 lg:px-8">
       <PageTitle>Posts</PageTitle>
-      <PostList posts={posts} />
+      <PostList posts={posts} titleAs="h2" />
     </section>
   );
 }

@@ -5,7 +5,7 @@ import type { IconType } from "react-icons";
 import { Clock, Eye, GitCommit } from "@/components/ui/icon";
 import useAbacusCount from "@/hooks/useAbacusCount";
 import { ABACUS_SITE_COUNTER, formatAbacusCount } from "@/lib/abacus";
-import { email, socials } from "@/lib/site";
+import { socials } from "@/lib/site";
 
 import useTimeOnSite from "./hooks/useTimeOnSite";
 
@@ -16,7 +16,9 @@ const build = {
   href: commitSha ? `${repositoryUrl}/commit/${commitSha}` : repositoryUrl,
 };
 
-function Cell({
+// The icon carries the meaning visually and the title on hover; the label stays
+// in the DOM for screen readers, which would otherwise get a bare number.
+function Stat({
   Icon,
   label,
   title,
@@ -30,19 +32,13 @@ function Cell({
   pending?: boolean;
 }) {
   return (
-    <div className="py-3.5 sm:px-6 sm:last:pr-0">
-      <dt
-        title={title}
-        className="inline-flex items-center gap-x-1.5 text-[10px] tracking-[0.2em] text-muted uppercase"
-      >
-        <Icon className="h-3.5 w-3.5" aria-hidden="true" />
-        {label}
-      </dt>
+    <div className="flex items-center" title={title}>
+      <dt className="sr-only">{label}</dt>
       <dd
-        title={title}
-        className="status-value text-sm tabular-nums"
+        className="status-value inline-flex items-center gap-x-1.5 text-xs tabular-nums"
         data-state={pending ? "pending" : "ready"}
       >
+        <Icon className="h-3.5 w-3.5 text-muted" aria-hidden="true" />
         {children}
       </dd>
     </div>
@@ -58,21 +54,25 @@ export default function Footer() {
   });
 
   return (
-    <footer className="mt-28 border-t border-border max-md:mt-20">
-      <div className="mx-auto w-full max-w-3xl px-6 lg:px-8">
-        <dl className="grid grid-cols-1 divide-y divide-border sm:grid-cols-3 sm:divide-x sm:divide-y-0">
-          <Cell Icon={Clock} label="time" title="Total time spent on this site">
+    <footer className="my-8">
+      <div className="mx-auto w-full max-w-3xl flex flex-col items-center gap-y-5 py-7 md:flex-row md:justify-between md:gap-x-8">
+        <p className="text-xs text-muted">
+          © {new Date().getFullYear()} André Marinho
+        </p>
+
+        <dl className="flex flex-wrap items-center justify-center gap-x-5 gap-y-2">
+          <Stat Icon={Clock} label="time" title="Total time spent on this site">
             {timeOnSite}
-          </Cell>
-          <Cell
+          </Stat>
+          <Stat
             Icon={Eye}
             label="visits"
             title="Total page views across this site, counted by Abacus"
             pending={views === null}
           >
             {formatAbacusCount(views)}
-          </Cell>
-          <Cell Icon={GitCommit} label="build" title="View deployment commit">
+          </Stat>
+          <Stat Icon={GitCommit} label="build" title="View deployment commit">
             <a
               href={build.href}
               target="_blank"
@@ -82,49 +82,24 @@ export default function Footer() {
             >
               {build.label}
             </a>
-          </Cell>
+          </Stat>
         </dl>
 
-        <div className="flex flex-wrap items-center justify-between gap-x-6 gap-y-4 border-t border-border py-7">
-          <p className="text-xs text-muted">
-            © {new Date().getFullYear()} André Marinho
-            <span className="text-border"> / </span>
-            <a
-              href={`mailto:${email}`}
-              className="transition-colors hover:text-accent"
-            >
-              {email}
-            </a>
-          </p>
-
-          <ul className="flex items-center gap-x-6">
-            {socials.map(({ label, href, icon: Icon }) => (
-              <li key={label}>
-                <a
-                  href={href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label={label}
-                  className="block text-muted transition-colors hover:text-accent"
-                >
-                  <Icon className="h-4 w-4" aria-hidden="true" />
-                </a>
-              </li>
-            ))}
-          </ul>
-        </div>
-
-        <p className="pb-10 text-xs text-faint">
-          Written from scratch in Next.js and Tailwind.{" "}
-          <a
-            href={repositoryUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="underline underline-offset-4 transition-colors hover:text-accent"
-          >
-            Source on GitHub.
-          </a>
-        </p>
+        <ul className="flex items-center gap-x-5">
+          {socials.map(({ label, href, icon: Icon }) => (
+            <li key={label}>
+              <a
+                href={href}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={label}
+                className="block text-muted transition-colors hover:text-accent"
+              >
+                <Icon className="h-4 w-4" aria-hidden="true" />
+              </a>
+            </li>
+          ))}
+        </ul>
       </div>
     </footer>
   );
