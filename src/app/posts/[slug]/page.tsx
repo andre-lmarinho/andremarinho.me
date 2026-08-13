@@ -26,7 +26,6 @@ export async function generateMetadata({
     title: `${post.title} — André Marinho`,
     description: post.description,
     authors: [{ name: "André Marinho", url: "https://andremarinho.me" }],
-    keywords: post.tags,
     alternates: { canonical: `/posts/${slug}` },
     openGraph: {
       title: post.title,

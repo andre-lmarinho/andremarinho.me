@@ -4,7 +4,7 @@ import PageTitle from "@/components/PageTitle";
 import { getProjects } from "@/lib/projects";
 
 export const description =
-  "Web products and open-source tools I built to solve real problems, with care for the interface, the code behind it.";
+  "Web products and open-source tools I built to solve real problems, with care for the interface and the code behind it.";
 
 export const metadata: Metadata = {
   title: "Projects — André Marinho",
@@ -24,7 +24,7 @@ export default function ProjectsPage() {
   return (
     <section className="mx-auto w-full max-w-3xl px-6 pt-36 pb-16 max-md:pt-32 lg:px-8">
       <PageTitle>Projects</PageTitle>
-      <ProjectList projects={projects} />
+      <ProjectList projects={projects} titleAs="h2" />
     </section>
   );
 }
