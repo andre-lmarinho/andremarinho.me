@@ -8,7 +8,7 @@ export default function Intro() {
       id="intro"
       className="mx-auto w-full max-w-3xl px-6 pt-40 pb-28 max-md:pt-32 max-md:pb-20 lg:px-8"
     >
-      <div className="home-head flex flex-col">
+      <div className="flex flex-col">
         <p className="text-xs text-muted">
           Salvador, Brazil <span className="text-border">/</span>{" "}
           <LocalTime timeZone="America/Bahia" />
