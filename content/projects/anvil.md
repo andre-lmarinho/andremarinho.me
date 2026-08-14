@@ -1,37 +1,62 @@
 ---
 title: Anvil
-description: A browser IDE where an AI agent plans, writes and runs code in an isolated sandbox, with every step committed to Git so any change can be walked back.
+description: A browser IDE that keeps an AI agent, code, a real terminal, live preview, and reversible Git checkpoints in one workspace.
 date: 2026-05-22
-tags: React, TypeScript, Node, Firecracker, WebSockets, Git, PostgreSQL, Redis
+tags: React, TypeScript, xterm.js, WebSockets, Git
 image: /images/projects/anvil.webp
 kind: browser IDE
 ---
 
-Anvil is a code editor and AI agent that runs in the browser. You describe what you want built, and the agent plans it, writes the files, runs the commands and shows you the app running, with the editor, terminal and live preview side by side.
+## Context
 
-It takes the loop that agentic CLIs made popular and gives it the thing a terminal cannot: you watch the diff land in the editor and the result render next to it, in the same second.
+Agentic coding spans a conversation, a filesystem, running processes, and the application those processes produce. The client needed those parts in one browser workspace, where a developer could ask for a change, watch it reach the files, follow the command output, and inspect the result without losing track of what the agent had changed.
 
-*Delivered for a client who asked not to be named. The name and interface shown here were rebuilt so the work can be shown without identifying them.*
+The harder frontend problem was coherence. Agent output, tool calls, file events, terminal output, and preview state arrived continuously. A screen that was only slightly behind could make the user trust code that was no longer current.
 
-## What it does
+## My role
 
-- **Agent chat that edits code**, planning the files first and then applying diffs that stream into the editor as they are written.
-- **A real terminal.** A PTY inside the sandbox bridged to the browser, carrying the dev server output as it happens rather than a captured log.
-- **Code and preview toggle**, with the running app served on a per-session subdomain with hot reload.
-- **One-click deploy** to the edge once it works.
+I led the technical direction on a three-person team, with the product interface and frontend architecture as my primary area of ownership. My frontend work focused on the three-panel workspace; I also contributed across the backend and infrastructure, set the stack and quality bar, and reviewed the other developers’ pull requests.
 
-## The sandbox is the product
+## Scope
 
-Every project gets its own isolated, disposable environment: a real filesystem, a real process tree, CPU and memory bounds, and a network egress policy. Isolation is a microVM or a container under gVisor, one per session, so an agent running arbitrary generated code cannot reach the host or another tenant.
+The team delivered:
 
-The environments snapshot and resume, which is what makes the thing usable. Coming back to a project restores it in seconds instead of reinstalling dependencies, because the filesystem is content-addressed and the environment state is restored rather than rebuilt.
+- an agent conversation that planned and applied file changes;
+- a navigable file tree and syntax-highlighted editor;
+- a browser terminal backed by a real PTY;
+- streamed agent, file, and process events;
+- a Code/Preview workflow with hot reload;
+- Git checkpoints for agent steps;
+- controls for running and deploying the project.
 
-## Undo is the safety net
+The sandbox orchestration and persistence model were part of the team’s delivery. They are context for the interface, not a claim that I implemented every infrastructure component alone.
 
-Every step the agent takes becomes a Git commit on a session branch. Not a periodic autosave, not a diff buffer: an actual commit with a message, which means any state in a session is recoverable and any agent decision can be walked back without unwinding the ones after it.
+## Evidence
 
-Git is the source of truth for code. Postgres holds the metadata around it, including sessions, messages, tool calls, checkpoints and deployments, so the conversation and the repository stay in step. Destructive commands stop and ask before running.
+The reconstructed workspace above is the visual I can publish. It shows the agent plan and changed files beside a TypeScript editor, live development-server output, branch state, and Run and Deploy controls.
 
-## Stack
+It documents the interaction model and the frontend surface I worked on. It is not a screenshot of the client’s original interface.
 
-An orchestrator provisioning sandboxes and multiplexing WebSockets for the terminal, file events and agent token stream. Firecracker or gVisor for isolation, Git through a library rather than a shell, Postgres for metadata, Redis for the build queue and the warm sandbox pool, and object storage for content-addressed blobs and snapshots. React 19, TypeScript and Tailwind CSS 4 on the front, with the agent loop running on Claude through a tool-use interface over the filesystem.
+## Decisions
+
+### Keep the development loop in one frame
+
+Conversation, files, code, process output, and preview belonged in the same workspace because each explains the state of the others. Moving them into separate pages would make the user reconstruct that state mentally.
+
+### Treat live output as product state
+
+File events, terminal output, and agent progress were not decorative logs. The interface had to represent them as concurrent state without letting one stale panel contradict another.
+
+### Make reversibility visible
+
+Each agent step became a Git checkpoint. Git was not only an implementation detail; it was the safety model that let the interface show that generated work could be inspected and recovered.
+
+## Outcome
+
+The team delivered a browser workspace that joined agent interaction, code editing, terminal execution, live preview, and version history into one workflow. Autonomous changes became observable and recoverable instead of disappearing behind a chat response.
+
+## Disclosure
+
+This was client work completed by a three-person team. The client asked not to be named. “Anvil,” its identity, sample project, data, and interface were created or altered for this portfolio reconstruction.
+
+The capabilities and my role describe the delivered engagement; the published visual does not reproduce the client’s original product. No client repository or production metric is public.

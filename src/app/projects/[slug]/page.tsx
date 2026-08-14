@@ -74,7 +74,7 @@ export default async function ProjectPage({
 
           <div className="mt-5 flex flex-wrap items-center gap-x-3 gap-y-2 text-xs">
             <time dateTime={project.date || undefined} className="text-muted">
-              {project.date ? formatDate(project.date) : "Draft"}
+              {project.date ? `Published ${formatDate(project.date)}` : "Draft"}
             </time>
             {project.link ? (
               <>

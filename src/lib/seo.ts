@@ -6,7 +6,7 @@ export const siteName = "André Marinho";
 export const jobTitle = "Frontend Engineer";
 
 export const siteDescription =
-  "Frontend engineer in Brazil building clear, useful web products where design and engineering meet, from early ideas to production.";
+  "Frontend engineer in Brazil building responsive, accessible web products with React, Next.js, and TypeScript, from interface architecture to production.";
 
 const author = {
   "@type": "Person",
@@ -48,7 +48,7 @@ export const projectJsonLd = (project: Project) => ({
   image: project.image ? `${siteUrl}${project.image}` : undefined,
   programmingLanguage: project.tags,
   inLanguage: "en",
-  ...(project.date && { dateCreated: project.date }),
+  ...(project.date && { datePublished: project.date }),
   ...(project.link && { sameAs: project.link }),
   author,
 });
