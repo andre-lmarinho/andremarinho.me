@@ -1,39 +1,64 @@
 ---
 title: Kestrel
-description: An AI agent for Outlook mail and calendar over MCP, where the user permissions every tool it can call and every action it takes lands in an audit trail.
+description: An Outlook email and calendar agent whose per-tool permissions, human approvals, and audit trail make every external action visible.
 date: 2026-01-22
-tags: Next.js, TypeScript, tRPC, MCP, Microsoft Graph, PostgreSQL, Redis, Drizzle
+tags: Next.js, React, TypeScript, SSE, MCP, Microsoft Graph
 image: /images/projects/kestrel.webp
 kind: AI agent
 ---
 
-Kestrel connects your Outlook accounts, work and personal, to an AI agent through MCP servers. In one conversation you read and draft mail, find a free hour across both calendars and send the invite, without picking which mailbox you meant.
+## Context
 
-The premise is that an agent with access to your inbox is only useful if you trust it, and trust here is not a promise in the marketing copy. It is a permission model.
+Connecting an agent to email and calendars creates a useful shortcut and a dangerous one. Reading a message, drafting a reply, sending it, and deleting an event cannot all carry the same level of authority.
 
-*Delivered for a client who asked not to be named. The name and interface shown here were rebuilt so the work can be shown without identifying them.*
+The client product brought work and personal Outlook accounts into one conversation. The frontend had to make two things clear at all times: what the agent was trying to do, and whether it was allowed to do it without asking.
 
-## What it does
+## My role
 
-- **One agent across mail and calendar**, in the same thread, across several connected accounts at once.
-- **Drafts before sends.** It prepares the reply and waits. Nothing leaves without an explicit approval.
-- **Free-time search across calendars**, then creates the event and invites the participants.
-- **Full control of the setup.** Turn MCP servers on and off, inspect their config, swap the model.
+I led the technical direction on a three-person team, with the product interface and frontend architecture as my primary area of ownership. My frontend work covered the agent conversation, tool-call cards, connected-account setup, permission matrix, approval states, and activity timeline.
 
-## Least privilege, made concrete
+I also contributed across the backend and infrastructure, set the stack and quality bar, and reviewed the other developers’ pull requests.
 
-Every tool the agent can call has a policy the user sets: auto, ask, or off. Anything that mutates the outside world, sending mail, creating an event, deleting one, is marked sensitive and cannot run on auto. It stops, asks, and records who approved it and when.
+## Scope
 
-On top of that sit global guardrails checked before any side effect, covering things like confirming before deletion and respecting working hours. Every tool call, approved or not, is appended to an audit log. If you cannot answer "what did it do last Tuesday", the product has failed at its actual job.
+The team delivered:
 
-## Why MCP is the boundary, not a buzzword
+- natural-language email and calendar workflows across several Outlook accounts;
+- visible tool calls for searches, drafts, free-time checks, sends, and calendar changes;
+- per-tool policies of Auto, Ask, or Off;
+- mandatory approval for sensitive external actions;
+- connected-account and MCP-server management;
+- an audit timeline for agent activity;
+- streamed agent output and tool state over SSE.
 
-The app never talks to Microsoft Graph. It talks to MCP servers, and those talk to Graph.
+Microsoft Graph sat behind MCP services, while the web product received capabilities rather than exposing account credentials to the agent interface.
 
-That indirection is what keeps credentials and scopes out of the product surface. The agent gets a set of tools, not a token. Swapping a provider or adding one becomes a server change rather than a rewrite, and the blast radius of a bug in the agent loop stops at the tools it was granted.
+## Evidence
 
-Accounts connect over OAuth2 with PKCE and minimum scopes. Sync is incremental through delta queries, with Graph change notifications for near real time. Email bodies are fetched on demand and never replicated into the database, which keeps the local store to metadata and keeps the sensitive part where it already lives. Refresh tokens are encrypted at rest.
+The reconstructed agent view above documents the publishable interaction: an email search rendered as a tool-call card beside calendar and inbox context.
 
-## Stack
+The broader interface also covered permissions, connections, and activity history. All account names, messages, dates, and activity in the reconstruction are synthetic. The visual documents the interaction design and state model; it is not customer data or a screenshot of the original client interface.
 
-Next.js and React 19 with tRPC and Zod for the product API, MCP servers as separate Node services scaled independently, Postgres with Drizzle for tenant, connection and governance data, Redis with BullMQ for delta sync, subscription renewal and webhook reprocessing. Webhook ingestion is idempotent, validated with a constant-time comparison, and persisted before it is processed.
+## Decisions
+
+### Turn permissions into interface state
+
+Policy could not live only in a backend rule. Each tool exposed its current level—Auto, Ask, or Off—and sensitive actions remained visibly distinct before the user reached an approval prompt.
+
+### Render tool calls as first-class objects
+
+A prose response is not enough when an agent can affect another system. Arguments, results, status, account, and approval state were represented explicitly so the user could audit the path from request to side effect.
+
+### Use MCP as the capability boundary
+
+The product gave the agent a defined set of tools instead of a Microsoft Graph token. That kept account access and scopes behind a boundary the permission interface could describe.
+
+## Outcome
+
+The team delivered one workflow for email and calendar across multiple Outlook accounts, with permissions, approvals, and activity history embedded in the product surface. The agent interface exposed its actions instead of asking the user to trust an invisible automation layer.
+
+## Disclosure
+
+This was client work completed by a three-person team. The client asked not to be named. “Kestrel,” its identity, accounts, messages, data, and interface were created or altered for this portfolio reconstruction.
+
+The product capabilities and my responsibilities describe the original engagement. The published visual does not expose the client, its users, or its production environment. No client repository or production metric is public.

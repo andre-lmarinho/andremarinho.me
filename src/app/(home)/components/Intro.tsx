@@ -21,10 +21,11 @@ export default function Intro() {
         <p className="mt-3 text-sm text-accent">Frontend Engineer</p>
 
         <p className="mt-6 max-w-152 text-sm leading-relaxed text-foreground sm:text-base">
-          I build software with intention, working where design and engineering
-          meet. I care about the decisions people notice and the ones they never
-          see, from how an interface responds to how much complexity the code
-          leaves behind.
+          I build responsive, accessible web products with React, Next.js, and
+          TypeScript, owning the frontend from interface architecture to
+          production. Recent work includes cutting a CRM’s critical path by 47%,
+          shipping an open-source collaborative planner, and publishing the SaaS
+          starter whose infrastructure underpins four production products.
         </p>
 
         <ul className="mt-9 flex flex-wrap items-center gap-x-6 gap-y-4 text-xs">

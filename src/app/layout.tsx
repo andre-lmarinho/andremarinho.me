@@ -15,7 +15,7 @@ import "./globals.css";
 
 const siteTitle = `${siteName} — ${jobTitle}`;
 const socialDescription =
-  "I build software with intention, from early ideas to production, with care for how the interface responds and how much complexity the code leaves behind.";
+  "Frontend engineer building web products with React, Next.js, and TypeScript. Recent work includes a production CRM, an open-source planner, and a published npm CLI.";
 
 const archivo = Archivo({
   subsets: ["latin"],

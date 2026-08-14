@@ -1,46 +1,66 @@
 ---
 title: Northstar
-description: Product telemetry that ties each behavior to a business outcome, measuring incremental lift against a holdout instead of reporting raw event counts.
+description: A product analytics interface that ties behavior to business outcomes and keeps time windows, drivers, lift, and confidence beside the numbers.
 date: 2026-04-12
-tags: TypeScript, ClickHouse, PostgreSQL, Kafka, Redis, dbt, Next.js, Analytics
+tags: Next.js, React, TypeScript, Tailwind CSS, SVG, Data visualization
 image: /images/projects/northstar.webp
-kind: telemetry
+kind: product analytics
 ---
 
-Northstar is a product telemetry platform built around one refusal: it will not show you a number without telling you what that number is worth.
+## Context
 
-Most analytics tools are very good at counting things. You learn that 4,000 people clicked something, and you are no closer to knowing whether it mattered. Northstar makes the link explicit, so a behavior carries the revenue, conversions or activation it actually influenced.
+Event counts describe activity, not necessarily value. A team can know that thousands of people used a feature and still not know whether the behavior changed revenue, conversion, or activation.
 
-*Delivered for a client who asked not to be named. The name and interface shown here were rebuilt so the work can be shown without identifying them.*
+Northstar organized the product around three objects: an event is a raw fact, a signal is a behavior worth naming, and an outcome is the business result associated with it. Where an experiment included a holdout, the product compared groups to estimate incremental lift rather than presenting correlation as the answer.
 
-## The model
+The frontend challenge was to make those qualifications visible without turning every dashboard card into a footnote.
 
-Three objects, and the whole product falls out of them.
+## My role
 
-An **event** is a raw immutable fact. A **signal** is a behavior worth naming, like inviting a teammate. An **outcome** is a business result with a value attached, like revenue or activation.
+I led the technical direction on a three-person team, with the dashboard and frontend architecture as my primary area of ownership. I designed and built the guiding metric, outcome cards, Signals to Outcomes table, trends, funnels, segments, experiments, and source setup.
 
-Instrumentation ties a signal to an outcome in one call:
+I also contributed across the backend and infrastructure, set the stack and quality bar, and reviewed the other developers’ pull requests.
 
-```js
-ns.signal('invited_teammate', {
-  userId, outcome: 'revenue', value: 39.10
-})
-```
+## Scope
 
-Everything on the dashboard, the guiding metric, the outcome cards, the signals table showing what each behavior is worth, is a view over that relationship.
+My frontend work covered:
 
-## Correlation is not the answer
+- a north-star metric with its time window, trend, and growth driver;
+- revenue, conversion, activation, and time-to-value outcome cards;
+- the relationship between signals, users, conversion, influenced value, and lift;
+- event and conversion trends, segments, sources, countries, and activation funnels;
+- experiment status, significance, and confidence;
+- source setup for SDK, server, webhook, and CSV ingestion;
+- bespoke SVG charts in Next.js, React, and TypeScript.
 
-Reporting that users who invite a teammate convert more is easy and nearly useless, because the kind of user who invites teammates was more likely to convert anyway.
+The broader product used separate analytical and relational stores for event data and product definitions. That architecture was delivered by the team and is not presented as solo authorship.
 
-Northstar measures against a holdout, so the number it reports is lift: what the behavior added, not what it happened alongside. That distinction is the reason the product exists, and it is what makes the signals table something you can plan a roadmap against.
+## Evidence
 
-## The pipeline
+The reconstructed overview above documents the guiding metric, a 90-day trend, outcome cards, experiments, and the Signals to Outcomes table.
 
-Ingestion accepts high-volume batched events, deduplicates by event key, validates against a schema registry, and pushes failures to a dead-letter queue instead of dropping them. Identity resolution stitches anonymous activity to the account once someone logs in.
+The company, users, events, values, lift figures, and confidence levels shown are illustrative. They demonstrate the information architecture and data states, not the client’s real performance.
 
-Storage is split by what each side is good at. Events live in ClickHouse, a columnar store that answers analytical queries over hundreds of millions of rows, with materialized rollups keeping the dashboard cards fast. Definitions, experiments and workspace metadata live in Postgres, where transactions and constraints matter more than scan speed. Raw events also land in object storage, so attribution models can be rebuilt from scratch when a definition changes.
+## Decisions
 
-## Stack
+### Keep the qualifier beside the number
 
-A Node ingestion service in front of Kafka, ClickHouse for the analytical store, Postgres for metadata and definitions, Redis for live counters and rate limiting, dbt for attribution and funnel transformations, object storage as the raw archive. The dashboard is Next.js and React 19 with charts drawn as bespoke SVG rather than a charting library. API keys are scoped to write or read, PII fields are marked and maskable, and deletion requests propagate to the columnar store and the archive.
+A lift figure needs its comparison, a conversion rate needs its window, and an experiment needs its confidence and status. Those details were part of the component hierarchy rather than detached notes.
+
+### Carry one model through the whole interface
+
+Event, signal, and outcome remained distinct from instrumentation through reporting. The dashboard could then show both what happened and which business result the product associated with it.
+
+### Draw the charts for the questions being asked
+
+Bespoke SVG charts kept the visual language consistent and gave the interface control over annotations, states, and hierarchy without shipping a general-purpose charting library.
+
+## Outcome
+
+The team delivered a product analytics surface that connected instrumentation, behavior, experiments, and business outcomes through one consistent model. The interface let a reader move from the guiding metric to its possible drivers without stripping away the conditions attached to the data.
+
+## Disclosure
+
+This was client work completed by a three-person team. The client asked not to be named. “Northstar,” its identity, company, data, values, integrations, and interface were created or altered for this portfolio reconstruction.
+
+The product model, delivered capabilities, and my responsibilities describe the engagement; the screenshot does not reveal the client’s production data or original interface. No client repository or production metric is public, and the values in the reconstruction are not customer results.

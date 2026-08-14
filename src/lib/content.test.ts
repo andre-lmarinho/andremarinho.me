@@ -38,4 +38,30 @@ describe("content", () => {
 
     expect(shared).toEqual([]);
   });
+
+  it("gives every project the same case-study structure", () => {
+    const sections = [
+      "Context",
+      "My role",
+      "Scope",
+      "Evidence",
+      "Decisions",
+      "Outcome",
+    ];
+
+    for (const project of projects) {
+      const headings = [...project.html.matchAll(/<h2>(.*?)<\/h2>/g)].map(
+        ([, heading]) => heading,
+      );
+      const expected =
+        headings.at(-1) === "Disclosure"
+          ? [...sections, "Disclosure"]
+          : sections;
+
+      expect(
+        headings,
+        `${project.slug} has an inconsistent case structure`,
+      ).toEqual(expected);
+    }
+  });
 });

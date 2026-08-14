@@ -1,40 +1,65 @@
 ---
 title: create-mvp
-description: A published npm CLI that removes repetitive setup when starting a new web product while keeping 35 architecture decisions explicit and open to change.
+description: An open-source npm CLI that turns repeated SaaS setup into a wired, tested starting point whose infrastructure underpins four production products.
 date: 2026-07-07
 tags: TypeScript, Turborepo, Next.js, tRPC, Prisma, Better Auth, CLI, npm
 image: /images/projects/create-mvp.webp
 kind: npm CLI
 link: https://www.npmjs.com/package/@andre.marinho/create-mvp
+featured: true
 ---
 
 ```bash
 npx @andre.marinho/create-mvp
 ```
 
-create-mvp scaffolds the starting point I got tired of rebuilding: a Turborepo with two Next.js apps, a type-safe tRPC API, Prisma against Postgres, and Better Auth, already connected to each other and already under CI.
+## Context
 
-I wrote it after starting the same project structure for the third time and making slightly different decisions each time. The value was never the file copying. It was settling the arguments once.
+By the third time I assembled the same SaaS foundation, copying files was no longer the problem. I was deciding the same questions again: where the product and marketing surfaces should split, how types should travel from Postgres to React, where authentication should live, and what belonged in CI before the first feature.
 
-## The line it draws
+An empty starter leaves that integration work to the next project. A complete template goes too far and starts guessing the product. create-mvp draws the boundary between them: finish the infrastructure that repeats, then stop before the domain begins.
 
-Most starters fail in one of two directions. They ship empty, so you spend the first week wiring libraries together, or they ship a whole opinionated product you then have to dismantle.
+## My role
 
-This one is deliberate about the seam. Everything generic is done: the stack combination, the two-app split, the UI kit, the CI, the auth slice with its migrations. Everything product-specific is left empty on purpose, because a bootstrap that guesses your domain model is a bootstrap you will fight.
+I created and maintain create-mvp. I extracted the recurring foundation from my product work, chose its boundaries, implemented the CLI and template, connected the stack, wrote its tests and delivery workflows, documented the architectural decisions, and published the package on npm.
 
-## What you get
+The work includes 35 Architecture Decision Records. Each one records the chosen approach, the alternatives that lost, and the reason for the choice.
 
-- **A wired path from database to browser.** Prisma schema as the source of truth, Better Auth handling sessions and cookies through the Prisma adapter, tRPC exposing typed procedures with Zod validation, and those types flowing to React without a generation step.
-- **Two apps, not one.** A product app and a marketing site, separated from the first commit, because merging them later is worse than splitting them now.
-- **Tests and CI from the start**, with the release pipeline hardened against supply-chain attacks.
-- **35 architecture decision records**, one per real choice, each with the alternatives that lost and why.
+## Scope
 
-## Why the decision records matter
+The CLI scaffolds:
 
-They are the part I would keep if I had to throw the rest away.
+- a Turborepo monorepo with separate Next.js apps for the product and marketing site;
+- an end-to-end type-safe API with tRPC and Zod;
+- Prisma against PostgreSQL as the data layer;
+- Better Auth handling identity, sessions, and cookies through the Prisma adapter;
+- a shared UI foundation;
+- the initial authentication slice and its migrations;
+- tests and CI from the first commit;
+- a release workflow hardened against common supply-chain risks.
 
-Writing "we chose X over Y because Z" is impossible when you do not know Z, so the format forces the gap into the open while you can still do something about it. Six months later they answer the question that actually gets asked, which is never "what does this do" but "why is it like this, and can I change it".
+Product-specific models, features, and business integrations are deliberately absent. Those decisions belong to the product being built, not to its bootstrap.
 
-## Links
+## Evidence
 
-Published on [npm](https://www.npmjs.com/package/@andre.marinho/create-mvp), source on [GitHub](https://github.com/andre-lmarinho/create-app-mvp).
+The package is published on [npm](https://www.npmjs.com/package/@andre.marinho/create-mvp), and the [source is public on GitHub](https://github.com/andre-lmarinho/create-app-mvp). The repository exposes the template, tests, release workflow, and all 35 decision records for inspection.
+
+More materially, the same infrastructure now forms the starting base of four products running in production.
+
+## Decisions
+
+### Finish the generic layer, leave the domain empty
+
+The stack integration, two-app split, authentication, UI foundation, tests, and CI repeat across products. Domain models and business features do not. The starter owns the first group and refuses to guess the second.
+
+### Make types travel through the whole path
+
+Prisma defines the data model, Better Auth uses its adapter, and tRPC with Zod carries validated types into React without a separate client-generation step. The goal is one connected path from database to browser rather than a collection of installed libraries.
+
+### Treat rationale as part of the output
+
+The ADRs matter because “we chose X over Y because Z” cannot be written when Z is unknown. Recording the rejected alternatives forces unresolved reasoning into the open while the decision is still cheap to change.
+
+## Outcome
+
+create-mvp turned recurring setup decisions into one versioned, inspectable baseline. A new product begins with a working path from database to browser, authentication, tests, and CI already connected, while its domain remains open to change.

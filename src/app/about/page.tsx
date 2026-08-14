@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import PageTitle from "@/components/PageTitle";
 
 export const description =
-  "An independent frontend engineer in Brazil whose work evolved from BI and digital strategy into websites and software.";
+  "About André Marinho, a frontend engineer in Brazil building accessible, high-performing web products with React, Next.js, and TypeScript.";
 
 export const metadata: Metadata = {
   title: "About — André Marinho",
@@ -17,13 +17,13 @@ export const metadata: Metadata = {
 };
 
 const copy = [
-  "Hi there! I’m André, and I like building software with intention. I care about the decisions people notice and the ones they never see: how an interface reads, how it responds, who it includes, and how much complexity the code leaves behind. I enjoy working where design and engineering meet, turning rough problems into products that feel clear, useful, and well made.",
+  "Hi there! I’m André, a Frontend Engineer in Salvador, Brazil. I build responsive, accessible web products with React, Next.js, and TypeScript. I usually own the frontend from interface architecture through production, crossing into APIs, data, authentication, and delivery when that is what the experience needs.",
 
-  "Today I work independently, often taking web products from an early idea to production. Good craft includes restraint. I want to know where an extra hour can change the experience and where the simplest solution is already the right one.",
+  "Recent work includes LawFlow, whose production implementation I built as the sole developer. I cut the CRM’s critical path from about 1.45 seconds to 760 milliseconds and made its most repeated Kanban interaction respond in a single frame. On client projects developed in teams, I lead technical direction, work from the frontend into the supporting systems, and review the code that brings the pieces together.",
 
-  "I spent eight years running Duonorth, where my work evolved from BI and digital strategy into websites and software. Development became my full-time focus in 2025, continuing a way of working I had built over years: understand the problem and make something useful.",
+  "I care about the decisions people notice—how an interface reads, responds, and includes—and the ones they never see: data boundaries, tests, and how much complexity the code leaves behind. Good craft includes restraint. I want to know where an extra hour can change the experience and where the simplest solution is already the right one.",
 
-  "I also build things simply because I can. Turistar started because I wanted a better way to plan my own trips. More recently, I built a self-hosted tracker for my computer science studies. Other people now use both. Few things make me happier than seeing something I made for myself become useful to someone else.",
+  "Before development became my full-time focus in 2025, I spent eight years running Duonorth. I led a team of up to nine and worked with more than 100 clients across digital strategy, websites, and software. On one ecommerce project, a technical rebuild took Lighthouse from 37 to 98 and loading from more than four seconds to about one; a separate UX review helped increase conversion by more than 40%.",
 
   "Away from the computer, I read, run, lift weights, play classical guitar, go to the beach, and am learning to juggle. I like always having something new to learn.",
 ] as const;

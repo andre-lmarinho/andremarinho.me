@@ -4,7 +4,7 @@ import PageTitle from "@/components/PageTitle";
 import { getProjects } from "@/lib/projects";
 
 export const description =
-  "Web products and open-source tools I built to solve real problems, with care for the interface and the code behind it.";
+  "Frontend-led web products and open-source tools, with the context, decisions, evidence, and outcomes behind each one.";
 
 export const metadata: Metadata = {
   title: "Projects — André Marinho",
