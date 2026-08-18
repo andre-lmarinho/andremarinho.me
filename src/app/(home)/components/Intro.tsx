@@ -1,5 +1,6 @@
-import { Mail } from "@/components/ui/icon";
-import { email, socials } from "@/lib/site";
+import TransitionLink from "@/components/transitions/TransitionLink";
+import { ArrowRight } from "@/components/ui/icon";
+import { socials } from "@/lib/site";
 import LocalTime from "./LocalTime";
 
 export default function Intro() {
@@ -10,7 +11,7 @@ export default function Intro() {
     >
       <div className="flex flex-col">
         <p className="text-xs text-muted">
-          Salvador, Brazil <span className="text-border">/</span>{" "}
+          Salvador, Brazil <span className="text-border">·</span>{" "}
           <LocalTime timeZone="America/Bahia" />
         </p>
 
@@ -21,11 +22,9 @@ export default function Intro() {
         <p className="mt-3 text-sm text-accent">Frontend Engineer</p>
 
         <p className="mt-6 max-w-152 text-sm leading-relaxed text-foreground sm:text-base">
-          I build responsive, accessible web products with React, Next.js, and
-          TypeScript, owning the frontend from interface architecture to
-          production. Recent work includes cutting a CRM’s critical path by 47%,
-          shipping an open-source collaborative planner, and publishing the SaaS
-          starter whose infrastructure underpins four production products.
+          I make software, write down what I learn, and keep enough room for
+          books, running, classical guitar, the beach, and whatever I have just
+          become curious about.
         </p>
 
         <ul className="mt-9 flex flex-wrap items-center gap-x-6 gap-y-4 text-xs">
@@ -43,13 +42,18 @@ export default function Intro() {
             </li>
           ))}
           <li>
-            <a
-              href={`mailto:${email}`}
-              className="inline-flex items-center gap-x-2 text-muted transition-colors hover:text-accent"
+            <TransitionLink
+              href="/about"
+              className="group inline-flex items-center gap-x-2 text-muted transition-colors hover:text-accent"
             >
-              <Mail className="h-3.5 w-3.5" aria-hidden="true" />
-              {email}
-            </a>
+              <span style={{ viewTransitionName: "about-title" }}>
+                About Me
+              </span>
+              <ArrowRight
+                className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5"
+                aria-hidden="true"
+              />
+            </TransitionLink>
           </li>
         </ul>
       </div>
