@@ -23,7 +23,7 @@ export async function generateMetadata({
   if (!project) return {};
 
   return {
-    title: `${project.title} — André Marinho`,
+    title: `${project.title} - André Marinho`,
     description: project.description,
     alternates: { canonical: `/projects/${slug}` },
     openGraph: {

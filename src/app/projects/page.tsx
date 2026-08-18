@@ -3,15 +3,16 @@ import ProjectList from "@/components/content/ProjectList";
 import PageTitle from "@/components/PageTitle";
 import { getProjects } from "@/lib/projects";
 
+const title = "Projects - André Marinho";
 export const description =
   "Frontend-led web products and open-source tools, with the context, decisions, evidence, and outcomes behind each one.";
 
 export const metadata: Metadata = {
-  title: "Projects — André Marinho",
+  title,
   description,
   alternates: { canonical: "/projects" },
   openGraph: {
-    title: "Projects — André Marinho",
+    title,
     description,
     type: "website",
     url: "/projects",

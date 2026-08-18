@@ -23,7 +23,7 @@ export async function generateMetadata({
   if (!post) return {};
 
   return {
-    title: `${post.title} — André Marinho`,
+    title: `${post.title} - André Marinho`,
     description: post.description,
     authors: [{ name: "André Marinho", url: "https://andremarinho.me" }],
     alternates: { canonical: `/posts/${slug}` },
