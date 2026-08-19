@@ -60,8 +60,8 @@ export default async function ProjectPage({
           { name: project.title, path: `/projects/${slug}` },
         ])}
       />
-      <article>
-        <div className="mx-auto w-full max-w-3xl px-6 pt-36 max-md:pt-32 lg:px-8">
+      <article className="mx-auto w-full max-w-3xl px-6 py-16 lg:px-8">
+        <section>
           <MorphTitle
             as="h1"
             title={project.title}
@@ -100,9 +100,9 @@ export default async function ProjectPage({
           ) : null}
 
           <div aria-hidden="true" className="mt-8 h-px w-full bg-border" />
-        </div>
+        </section>
 
-        <section className="mx-auto flex w-full max-w-3xl flex-col gap-y-6 px-6 pt-10 pb-16 lg:px-8">
+        <section className="pt-10">
           {project.image ? (
             <Image
               src={project.image}

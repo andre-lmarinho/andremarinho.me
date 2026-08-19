@@ -15,13 +15,13 @@ export default function Intro() {
           <LocalTime timeZone="America/Bahia" />
         </p>
 
-        <h1 className="mt-5 text-4xl leading-[1.05] font-semibold tracking-[-0.02em] sm:text-5xl">
+        <h1 className="text-[clamp(38px,5vw,62px)] leading-[1.04] font-semibold tracking-[-0.045em]">
           André Marinho
         </h1>
 
-        <p className="mt-3 text-sm text-accent">Frontend Engineer</p>
+        <p className="mt-3 text-lg">Frontend Engineer</p>
 
-        <p className="mt-6 max-w-152 text-sm leading-relaxed text-foreground sm:text-base">
+        <p className="mt-4 text-sm text-muted leading-relaxed sm:text-base">
           I make software, write down what I learn, and keep enough room for
           books, running, classical guitar, the beach, and whatever I have just
           become curious about.

@@ -30,7 +30,7 @@ const copy = [
 
 export default function AboutPage() {
   return (
-    <article className="mx-auto w-full max-w-3xl px-6 pt-36 pb-16 max-md:pt-32 lg:px-8">
+    <article className="mx-auto w-full max-w-3xl px-6 py-16 lg:px-8">
       <PageTitle style={{ viewTransitionName: "about-title" }}>About</PageTitle>
       <div className=" flex flex-col gap-y-6 mt-6">
         {copy.map((paragraph) => (
