@@ -147,41 +147,6 @@ button:active {
   }
 }
 
-@keyframes row-in {
-  from {
-    opacity: 0;
-    transform: translateY(12px);
-  }
-}
-
-@keyframes rule-draw {
-  from {
-    clip-path: inset(0 100% 0 0);
-  }
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  @supports (animation-timeline: view()) {
-    .content-reveal {
-      animation-name: row-in;
-      animation-duration: auto;
-      animation-timing-function: linear;
-      animation-fill-mode: both;
-      animation-timeline: view();
-      animation-range: entry 0% entry 60%;
-    }
-
-    .section-rule-line {
-      animation-name: rule-draw;
-      animation-duration: auto;
-      animation-timing-function: linear;
-      animation-fill-mode: both;
-      animation-timeline: view();
-      animation-range: entry 0% entry 45%;
-    }
-  }
-}
-
 .content-row {
   transition:
     opacity 200ms ease,
@@ -426,14 +391,6 @@ button:active {
 }
 
 @media print {
-  .content-reveal,
-  .section-rule-line {
-    animation: none !important;
-    opacity: 1 !important;
-    transform: none !important;
-    clip-path: none !important;
-  }
-
   .site-header {
     position: static;
     background: none;
