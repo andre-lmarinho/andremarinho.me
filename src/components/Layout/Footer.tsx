@@ -3,7 +3,7 @@ import { socials } from "@/lib/site";
 export default function Footer() {
   return (
     <footer className="my-8">
-      <div className="mx-auto w-full max-w-3xl flex flex-col items-center gap-y-5 py-7 md:flex-row md:justify-between md:gap-x-8">
+      <div className="mx-auto w-full max-w-3xl px-6 lg:px-8 flex flex-col items-center gap-y-5 py-7 md:flex-row md:justify-between md:gap-x-8">
         <p className="text-xs text-muted">
           © {new Date().getFullYear()} André Marinho
         </p>

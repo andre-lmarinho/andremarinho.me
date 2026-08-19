@@ -3,7 +3,7 @@ import { SpeedInsights } from "@vercel/speed-insights/next";
 import type { Metadata, Viewport } from "next";
 import { Archivo, JetBrains_Mono } from "next/font/google";
 import JsonLd from "@/components/JsonLd";
-import Layout from "@/components/layout";
+import Layout from "@/components/Layout";
 import {
   jobTitle,
   profileJsonLd,
