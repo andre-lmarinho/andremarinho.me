@@ -6,7 +6,7 @@ import OpengraphImage, {
 } from "@/components/OpengraphImage";
 import { getPost, getPosts } from "@/lib/posts";
 
-export { size, contentType };
+export { contentType, size };
 
 // Next only accepts a static alt here, so it names the card rather than the
 // post; the post title is already carried by og:title.

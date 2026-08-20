@@ -6,7 +6,7 @@ import OpengraphImage, {
 } from "@/components/OpengraphImage";
 import { description } from "./page";
 
-export { size, contentType };
+export { contentType, size };
 export const alt = "Projects by André Marinho";
 
 export default async function Image() {
