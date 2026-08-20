@@ -17,10 +17,7 @@ export default function SectionRule({
       <span className={`${labelClass} text-muted tabular-nums`}>{index}</span>
       <h2 className={`${labelClass} shrink-0 text-foreground`}>{label}</h2>
 
-      <span
-        aria-hidden="true"
-        className="section-rule-line block h-px flex-1 bg-border"
-      />
+      <span aria-hidden="true" className="block h-px flex-1 bg-border" />
 
       <TransitionLink
         href={link.href}

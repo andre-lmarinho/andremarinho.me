@@ -16,7 +16,7 @@ export default function PostList({
   return (
     <ol className="content-list flex flex-col mt-6">
       {posts.map((post) => (
-        <li key={post.slug} className="content-reveal">
+        <li key={post.slug}>
           <Link
             href={`/posts/${post.slug}`}
             className="content-row group -mx-3 block rounded-md px-3 py-5"

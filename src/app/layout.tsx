@@ -3,7 +3,7 @@ import { SpeedInsights } from "@vercel/speed-insights/next";
 import type { Metadata, Viewport } from "next";
 import { Archivo, JetBrains_Mono } from "next/font/google";
 import JsonLd from "@/components/JsonLd";
-import Layout from "@/components/layout";
+import Layout from "@/components/Layout";
 import {
   jobTitle,
   profileJsonLd,
@@ -13,7 +13,7 @@ import {
 } from "@/lib/seo";
 import "./globals.css";
 
-const siteTitle = `${siteName} — ${jobTitle}`;
+const siteTitle = `${siteName} - ${jobTitle}`;
 const socialDescription =
   "Frontend engineer building web products with React, Next.js, and TypeScript. Recent work includes a production CRM, an open-source planner, and a published npm CLI.";
 

@@ -14,7 +14,7 @@ export default function ProjectList({
   return (
     <ol className="content-list flex flex-col mt-6">
       {projects.map((project) => (
-        <li key={project.slug} className="content-reveal">
+        <li key={project.slug}>
           <Link
             href={`/projects/${project.slug}`}
             className="content-row group relative -mx-3 block rounded-md px-3 py-5"

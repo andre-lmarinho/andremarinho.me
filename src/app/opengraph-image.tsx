@@ -7,7 +7,7 @@ import OpengraphImage, {
 import { jobTitle, siteDescription, siteName } from "@/lib/seo";
 
 export { size, contentType };
-export const alt = `${siteName} — ${jobTitle}`;
+export const alt = `${siteName} - ${jobTitle}`;
 
 export default async function Image() {
   return new ImageResponse(

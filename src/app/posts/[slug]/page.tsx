@@ -23,7 +23,7 @@ export async function generateMetadata({
   if (!post) return {};
 
   return {
-    title: `${post.title} — André Marinho`,
+    title: `${post.title} - André Marinho`,
     description: post.description,
     authors: [{ name: "André Marinho", url: "https://andremarinho.me" }],
     alternates: { canonical: `/posts/${slug}` },
@@ -62,8 +62,8 @@ export default async function PostPage({
           { name: post.title, path: `/posts/${slug}` },
         ])}
       />
-      <article>
-        <div className="mx-auto w-full max-w-3xl px-6 pt-36 max-md:pt-32 lg:px-8">
+      <article className="mx-auto w-full max-w-3xl px-6 py-16 lg:px-8">
+        <section>
           <MorphTitle
             as="h1"
             title={post.title}
@@ -102,9 +102,9 @@ export default async function PostPage({
           ) : null}
 
           <div aria-hidden="true" className="mt-8 h-px w-full bg-border" />
-        </div>
+        </section>
 
-        <section className="mx-auto flex w-full max-w-3xl flex-col gap-y-6 px-6 pt-10 pb-16 lg:px-8">
+        <section className="pt-10">
           <div
             className="prose"
             // biome-ignore lint/security/noDangerouslySetInnerHtml: markdown authored in-repo, no user input.
