@@ -1,9 +1,8 @@
-import { Analytics } from "@vercel/analytics/next";
-import { SpeedInsights } from "@vercel/speed-insights/next";
 import type { Metadata, Viewport } from "next";
 import { Archivo, JetBrains_Mono } from "next/font/google";
 import JsonLd from "@/components/JsonLd";
 import Layout from "@/components/Layout";
+import VercelInsights from "@/components/VercelInsights";
 import {
   jobTitle,
   profileJsonLd,
@@ -81,8 +80,7 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => (
       <JsonLd data={websiteJsonLd} />
       <JsonLd data={profileJsonLd} />
       <Layout>{children}</Layout>
-      <SpeedInsights />
-      <Analytics />
+      <VercelInsights />
     </body>
   </html>
 );
