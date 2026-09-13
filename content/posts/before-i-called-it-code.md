@@ -1,58 +1,54 @@
 ---
 title: I Was Building Software Before I Called It Code
-description: Before development became my full-time focus, I spent eleven years solving business problems with dashboards, inventory tools and code.
+description: How work in finance, logistics and business intelligence led me to independent software product development.
 date: 2026-02-17
-tags: career, story, marketing
+tags: career, story, business-intelligence
 ---
 
-In 2014 I worked in the finance department of a medical device distributor in Salvador. My job was reconciling invoices and putting together the cash flow report, which took most of a day, every month, and which I hated.
+In 2014 I worked in the finance department at Grupo Hemocat, a medical device distributor in Salvador. The finance manager updated a planning spreadsheet by hand, copying information from a printed system report almost every day.
 
-So I automated it with Excel and VBA. I did not think of that as programming. I thought of it as getting my afternoon back.
+I asked her if I could try to automate it. That became my first technical project: learning how the system's database worked and connecting Excel directly to the local SQL database.
 
-Eleven years later I write software full time, and the thing I keep noticing is how much of what I use now I picked up in rooms where nobody would have called it engineering.
+In July 2025, software development became my main occupation. A lot of the work that led me there happened in finance, logistics and business consulting.
 
-## The dashboard that was secretly a database
+## Connecting the spreadsheet to its source
 
-The report I automated grew into a panel that pulled the company's finances into one place.
+The spreadsheet already existed. The task was to let it read from the system instead of depending on someone to copy the figures across.
 
-Nobody taught me anything about data modelling, and I could not have used the words. But you cannot build that thing without learning, the hard way, that the numbers lived in five places and disagreed with each other. That a single source of truth is a decision somebody has to make and then defend, not a state the world arrives in. That the person opening the panel does not want everything known about the finances, they want the answer to one question, and if you show them everything you have shown them nothing.
+That changed what a discrepancy meant. If a value was wrong in the spreadsheet, we could trace it back to the source instead of wondering whether it had been mistyped during the update.
 
-I learned what a database is by needing one and not having one.
+It did not remove the need to check the numbers. Errors in the system still needed someone to investigate them. What it removed was the repeated work of extracting and transferring the information.
 
-## Then they moved me to logistics
+I was learning about databases by working with one that people already depended on.
 
-In 2015 I became logistics supervisor for the same company: inventory and distribution of medical supplies across several states, plus the buying, including imports.
+## Then came logistics
 
-I built a tool to run stock control and support the purchasing decisions, with tracking dashboards on top of it.
+In 2015 I became logistics supervisor at the same company, working with inventory, distribution, purchasing and imports.
 
-That one taught me modelling, again without the vocabulary. A unit in stock is not one thing. It is committed, or in transit, or sitting in customs, or on a shelf, or about to expire, and treating those as the same number is how you promise a hospital something you do not have. Lead time is not a property of a product, it is state that changes. An import decision made this week is a bet on a number six weeks out.
+I modelled stock availability and built a Power BI dashboard to support purchasing and distribution decisions. A unit in stock is not one thing. It can be available, committed, in transit, in customs or on consignment. Treating all of those as the same number is how you promise a hospital something you cannot deliver.
 
-The tooling was never the hard part. Deciding what was true was the hard part.
+The model had to reflect those differences so that purchasing, sales and logistics could work from the same view. Getting the data onto a screen was only part of the job; deciding what it represented mattered just as much.
 
-## Eight years at Duonorth
+## How Duonorth changed
 
-In 2017 I left to start Duonorth Studio, a digital marketing agency, and ran it until 2025.
+In 2017 I started Duonorth Studio as a business intelligence and business solutions consultancy. I worked with clients to understand their operations, reconcile data and build dashboards, spreadsheets and automations they could use in their daily work.
 
-There was code in it every day: WordPress themes, HTML, CSS, JavaScript, PHP, plus automations in Apps Script and VBA holding the operation together. I directed builds of client sites and products, and led a performance project that took a client site from a Lighthouse score of 37 to 98 and its load time from over four seconds to about one.
+Around 2020, Duonorth expanded into marketing and digital delivery. The work connected business analysis with campaigns, websites, landing pages and software. I handled diagnosis, scope and the relationship with the client, bringing in specialists as the work grew.
 
-But the part that mattered most was not the code. Running the agency is where I learned to tell what a client needs from what a client asked for. How to say no to a feature. That an interface exists to move a number somebody cares about, and if you cannot name the number you are decorating. That most software problems are scoping problems wearing a technical costume.
+From 2023, I concentrated the business on websites and software. I was both directing the work and implementing it: WordPress sites, themes, plugins, interfaces and integrations in HTML, CSS, JavaScript and PHP.
 
-I sold, priced and scoped software for eight years, while code took up more and more of my own work. In 2025, development became my full-time focus.
+In July 2025, I moved into independent software product development as my main occupation, working on my own or with a team depending on the project.
 
-## What transferred
+## What carried over
 
-More than I expected.
+I still ask where the data lives before designing anything on top of it, and what someone needs when they bring me a requirement. Knowing what they will do with the answer helps me design the interface. I also draw on the experience of agreeing on a scope with a client and following it through delivery.
 
-The instinct to ask where the data actually lives before designing anything on top of it. Reading a requirement for the need underneath it. Knowing what the person on the other end will do with the answer, which decides the interface more than any design system does. Scoping. Shipping something imperfect on a date, because a perfect thing in November was worth less than a rough thing in August.
+Those were already part of my work before my current focus on React, Next.js and TypeScript.
 
-## What did not
+## What I'm still learning
 
-Everything about being correct at scale.
+The current work takes me deeper into relational databases, authentication, security, automated tests and continuous delivery. Earlier experience with dashboards and websites helps, but it does not answer every question that comes up in a software product.
 
-Tests, type systems, migrations you cannot undo, concurrency, code review as a discipline rather than a formality, security boundaries, and the whole distance between "it runs on my machine for one user" and "it runs for every tenant, forever, while somebody actively tries to break it." A Power BI dashboard has no adversary. A multi-tenant SaaS with row-level security has nothing but.
+I still have to understand the systems I build, test the assumptions and learn from what breaks. The earlier work gives me context for those decisions, and a better idea of what I need to investigate next.
 
-So the tidy version of this story would be that I was always a developer and just did not know it, and I do not think that is true. Half of it is. The instincts were real and they saved me a great deal of time. The craft was not there at all, and telling myself otherwise would be the fastest way to never build it.
-
-What the eleven years actually bought me was a shorter list of things I had to learn, and a clear view of which ones they were.
-
-I wrote more about the learning part in [what changes when AI writes most of your code](/posts/learning-to-code-with-ai). The current work is on [GitHub](https://github.com/andre-lmarinho).
+I wrote more about the learning part in [working with AI without skipping the understanding](/posts/learning-to-code-with-ai). The current work is on [GitHub](https://github.com/andre-lmarinho).

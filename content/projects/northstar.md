@@ -9,7 +9,7 @@ kind: product analytics
 
 ## Context
 
-Event counts describe activity, not necessarily value. A team can know that thousands of people used a feature and still not know whether the behavior changed revenue, conversion, or activation.
+Event counts alone leave business questions unanswered. A team can know that thousands of people used a feature and still not know whether the behavior changed revenue, conversion, or activation.
 
 Northstar organized the product around three objects: an event is a raw fact, a signal is a behavior worth naming, and an outcome is the business result associated with it. Where an experiment included a holdout, the product compared groups to estimate incremental lift rather than presenting correlation as the answer.
 
@@ -19,7 +19,7 @@ The frontend challenge was to make those qualifications visible without turning 
 
 I led the technical direction on a three-person team, with the dashboard and frontend architecture as my primary area of ownership. I designed and built the guiding metric, outcome cards, Signals to Outcomes table, trends, funnels, segments, experiments, and source setup.
 
-I also contributed across the backend and infrastructure, set the stack and quality bar, and reviewed the other developers’ pull requests.
+I also contributed across the backend and infrastructure, set the stack and quality bar, and reviewed the other developers' pull requests.
 
 ## Scope
 
@@ -39,7 +39,7 @@ The broader product used separate analytical and relational stores for event dat
 
 The reconstructed overview above documents the guiding metric, a 90-day trend, outcome cards, experiments, and the Signals to Outcomes table.
 
-The company, users, events, values, lift figures, and confidence levels shown are illustrative. They demonstrate the information architecture and data states, not the client’s real performance.
+The company, users, events, values, lift figures, and confidence levels shown are illustrative. They demonstrate the information architecture and data states. They do not represent the client's real performance.
 
 ## Decisions
 
@@ -57,10 +57,10 @@ Bespoke SVG charts kept the visual language consistent and gave the interface co
 
 ## Outcome
 
-The team delivered a product analytics surface that connected instrumentation, behavior, experiments, and business outcomes through one consistent model. The interface let a reader move from the guiding metric to its possible drivers without stripping away the conditions attached to the data.
+The team delivered a dashboard where readers could follow a metric through to the behavior and experiments associated with it. Comparisons, time windows, and confidence levels stayed visible as they explored.
 
 ## Disclosure
 
-This was client work completed by a three-person team. The client asked not to be named. “Northstar,” its identity, company, data, values, integrations, and interface were created or altered for this portfolio reconstruction.
+This was client work completed by a three-person team. The client asked not to be named. "Northstar," its identity, company, data, values, integrations, and interface were created or altered for this portfolio reconstruction.
 
-The product model, delivered capabilities, and my responsibilities describe the engagement; the screenshot does not reveal the client’s production data or original interface. No client repository or production metric is public, and the values in the reconstruction are not customer results.
+The product model, delivered capabilities, and my responsibilities describe the engagement; the screenshot does not reveal the client's production data or original interface. No client repository or production metric is public, and the values in the reconstruction are not customer results.

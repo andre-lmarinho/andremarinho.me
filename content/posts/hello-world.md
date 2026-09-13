@@ -11,22 +11,22 @@ console.log("Hello, world");
 
 The site has been up for a while. The blog has not, mostly because I kept deciding I had nothing finished enough to write about.
 
-This runs on Next.js, TypeScript and Tailwind. Posts are markdown files in a folder. No CMS, no database, no admin panel: a blog with one post in it needs none of that, and I would rather add each piece the day it actually hurts to be missing. Everything renders to static HTML at build time.
+This runs on Next.js, TypeScript and Tailwind. Posts are markdown files in a folder, which is enough for this small blog. I would rather add a CMS or database when maintaining the files becomes a problem. Everything renders to static HTML at build time.
 
 I wrote it from scratch instead of starting from a template, which cost me a weekend I could have skipped. Worth it anyway. A portfolio claiming I write software should be software I wrote.
 
 ## Some context on who is typing
 
-For eight years I ran a digital marketing agency, where my work moved from strategy into websites, automations and software. In 2025, development became my full-time focus.
+I ran Duonorth from 2017 to 2025. It began as a business intelligence consultancy, expanded into digital strategy and marketing around 2020, and focused on websites and software from 2023. In July 2025, I moved into independent software product development as my main occupation.
 
-Since then: [Turistar](https://github.com/andre-lmarinho/travel-planner), open source, which plans my own trips. [create-mvp](https://www.npmjs.com/package/@andre.marinho/create-mvp), a CLI on npm that scaffolds the project setup I got tired of assembling by hand. And [client work](/projects) in production with paying subscribers.
+Current projects include [Turistar](https://github.com/andre-lmarinho/travel-planner), an open-source planner for my own trips; [create-mvp](https://www.npmjs.com/package/@andre.marinho/create-mvp), a CLI on npm for the project setup I got tired of assembling by hand; and [client work](/projects) in production.
 
-That is a lot of decisions made fast, after years of solving problems with code but far less time owning the engineering end to end. Some of those decisions are wrong. I would like them written down somewhere they can be argued with.
+That is a lot of decisions to keep track of as I build on earlier work with data, automations and websites, and go deeper into TypeScript, databases and automated tests. Some of those decisions are wrong. I would like them written down somewhere they can be argued with.
 
 ## What goes here
 
-Things I built and how they broke. Choices I made and later undid. The bug that ate an afternoon and should have taken ten minutes. Short notes when a note is enough.
+I want to write about things I built and how they broke, including choices I later undid and the bug that ate an afternoon when it should have taken ten minutes. Some of those will only need a short note.
 
-Two are up already: [what changes when AI writes most of your code](/posts/learning-to-code-with-ai), and [the eleven years before any of this was my job](/posts/before-i-called-it-code).
+Two are up already: [what changes when AI writes most of your code](/posts/learning-to-code-with-ai), and [the work that led me here](/posts/before-i-called-it-code).
 
 Code for this site is on [GitHub](https://github.com/andre-lmarinho/me). If I got something wrong, tell me.
