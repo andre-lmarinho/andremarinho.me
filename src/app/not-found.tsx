@@ -156,7 +156,7 @@ export default function NotFound() {
       </div>
 
       <p className="nf-message mt-10 max-w-md text-center font-body text-lg text-muted">
-        This page doesn&apos;t exist — but the homepage does.
+        I couldn&apos;t find this page.
       </p>
 
       <Link

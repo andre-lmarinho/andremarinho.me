@@ -1,8 +1,13 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import PageTitle from "@/components/PageTitle";
+import TransitionLink from "@/components/transitions/TransitionLink";
+import { Mail } from "@/components/ui/icon";
+import { email, socials } from "@/lib/site";
+import portrait from "../../../public/images/me/andre-marinho.webp";
 
 export const description =
-  "About André Marinho, a frontend engineer in Brazil building accessible, high-performing web products with React, Next.js, and TypeScript.";
+  "A little about André Marinho: a frontend engineer in Salvador, Brazil, his path into software, and life away from the screen.";
 
 export const metadata: Metadata = {
   title: "About - André Marinho",
@@ -16,29 +21,119 @@ export const metadata: Metadata = {
   },
 };
 
-const copy = [
-  "Hi there! I’m André, a Frontend Engineer in Salvador, Brazil. I build responsive, accessible web products with React, Next.js, and TypeScript. I usually own the frontend from interface architecture through production, crossing into APIs, data, authentication, and delivery when that is what the experience needs.",
-
-  "Recent work includes LawFlow, whose production implementation I built as the sole developer. I cut the CRM’s critical path from about 1.45 seconds to 760 milliseconds and made its most repeated Kanban interaction respond in a single frame. On client projects developed in teams, I lead technical direction, work from the frontend into the supporting systems, and review the code that brings the pieces together.",
-
-  "I care about the decisions people notice—how an interface reads, responds, and includes—and the ones they never see: data boundaries, tests, and how much complexity the code leaves behind. Good craft includes restraint. I want to know where an extra hour can change the experience and where the simplest solution is already the right one.",
-
-  "Before development became my full-time focus in 2025, I spent eight years running Duonorth. I led a team of up to nine and worked with more than 100 clients across digital strategy, websites, and software. On one ecommerce project, a technical rebuild took Lighthouse from 37 to 98 and loading from more than four seconds to about one; a separate UX review helped increase conversion by more than 40%.",
-
-  "Away from the computer, I read, run, lift weights, play classical guitar, go to the beach, and am learning to juggle. I like always having something new to learn.",
-] as const;
-
 export default function AboutPage() {
   return (
     <article className="mx-auto w-full max-w-3xl px-6 py-16 lg:px-8">
       <PageTitle style={{ viewTransitionName: "about-title" }}>About</PageTitle>
-      <div className=" flex flex-col gap-y-6 mt-6">
-        {copy.map((paragraph) => (
-          <p key={paragraph} className="text-sm leading-relaxed sm:text-base">
-            {paragraph}
-          </p>
-        ))}
+
+      <div className="mt-10 flex items-center gap-6 sm:gap-10">
+        <p className="min-w-0 flex-1 font-display text-xl font-medium leading-snug tracking-tight text-balance sm:text-3xl">
+          I’m André, a frontend engineer in Salvador, Brazil.
+        </p>
+        <Image
+          src={portrait}
+          alt="André Marinho smiling"
+          sizes="(min-width: 640px) 128px, 80px"
+          preload
+          className="size-20 shrink-0 rounded-xl border border-border sm:size-32"
+        />
       </div>
+
+      <div className="mt-8 space-y-5 text-sm leading-7 text-muted sm:text-base sm:leading-8">
+        <p>
+          I work mostly with React, Next.js, and TypeScript, on client projects
+          and things I build for myself. Some start as an idea I want to try;
+          others as something I’m tired of doing by hand.
+        </p>
+        <p>
+          This site is where I keep my{" "}
+          <TransitionLink href="/projects" className="about-inline-link">
+            projects
+          </TransitionLink>{" "}
+          and{" "}
+          <TransitionLink href="/posts" className="about-inline-link">
+            write about what I’m learning
+          </TransitionLink>
+          .
+        </p>
+      </div>
+
+      <section aria-labelledby="background" className="mt-12 sm:mt-14">
+        <h2 id="background" className="text-lg font-medium tracking-tight">
+          How I got here
+        </h2>
+        <div className="mt-5 space-y-5 text-sm leading-7 text-muted sm:text-base sm:leading-8">
+          <p>
+            My first technical project was at Grupo Hemocat, connecting a
+            financial planning spreadsheet to the company’s database. Later, in
+            logistics, I built Power BI dashboards around stock availability and
+            purchasing.
+          </p>
+          <p>
+            In 2017, I started Duonorth as a business intelligence consultancy.
+            It grew to include digital strategy and marketing around 2020, then
+            focused on websites and software in 2023. In July 2025, I moved into
+            independent software development as my main occupation. I wrote a
+            longer version of{" "}
+            <TransitionLink
+              href="/posts/before-i-called-it-code"
+              className="about-inline-link"
+            >
+              that story here
+            </TransitionLink>
+            .
+          </p>
+        </div>
+      </section>
+
+      <section aria-labelledby="off-screen" className="mt-12 sm:mt-14">
+        <h2 id="off-screen" className="text-lg font-medium tracking-tight">
+          Away from the screen
+        </h2>
+        <div className="mt-5 space-y-5 text-sm leading-7 text-muted sm:text-base sm:leading-8">
+          <p>
+            I spend my time reading, running, lifting weights, playing classical
+            guitar, and going to the beach.
+          </p>
+          <p>
+            I like always having something new to learn. Right now, I’m learning
+            to juggle.
+          </p>
+        </div>
+      </section>
+
+      <section
+        aria-labelledby="elsewhere"
+        className="mt-12 flex flex-wrap items-center justify-between gap-x-6 gap-y-3 border-t border-border pt-6 sm:mt-14"
+      >
+        <h2 id="elsewhere" className="text-base font-medium">
+          Elsewhere
+        </h2>
+        <ul className="flex flex-wrap gap-x-6 text-xs">
+          {socials.slice(0, 2).map(({ label, href, icon: Icon }) => (
+            <li key={label}>
+              <a
+                href={href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex min-h-11 items-center gap-2 text-muted transition-colors hover:text-accent"
+              >
+                <Icon aria-hidden="true" className="size-3.5" />
+                {label}
+              </a>
+            </li>
+          ))}
+          <li>
+            <a
+              href={`mailto:${email}`}
+              className="inline-flex min-h-11 items-center gap-2 text-muted transition-colors hover:text-accent"
+            >
+              <Mail aria-hidden="true" className="size-3.5" />
+              Email
+            </a>
+          </li>
+        </ul>
+      </section>
     </article>
   );
 }

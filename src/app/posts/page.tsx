@@ -5,7 +5,7 @@ import { getPosts } from "@/lib/posts";
 
 const title = "Posts - André Marinho";
 export const description =
-  "Notes on building software with intention: the decisions behind it, what breaks, what I learn, and what I would do differently.";
+  "Notes on software I build, bugs I investigate, and decisions I would make differently.";
 
 export const metadata: Metadata = {
   title,

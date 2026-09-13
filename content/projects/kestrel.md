@@ -9,7 +9,7 @@ kind: AI agent
 
 ## Context
 
-Connecting an agent to email and calendars creates a useful shortcut and a dangerous one. Reading a message, drafting a reply, sending it, and deleting an event cannot all carry the same level of authority.
+An agent connected to email and calendars needs different permissions for reading a message, drafting a reply, sending it, and deleting an event.
 
 The client product brought work and personal Outlook accounts into one conversation. The frontend had to make two things clear at all times: what the agent was trying to do, and whether it was allowed to do it without asking.
 
@@ -17,7 +17,7 @@ The client product brought work and personal Outlook accounts into one conversat
 
 I led the technical direction on a three-person team, with the product interface and frontend architecture as my primary area of ownership. My frontend work covered the agent conversation, tool-call cards, connected-account setup, permission matrix, approval states, and activity timeline.
 
-I also contributed across the backend and infrastructure, set the stack and quality bar, and reviewed the other developers’ pull requests.
+I also contributed across the backend and infrastructure, set the stack and quality bar, and reviewed the other developers' pull requests.
 
 ## Scope
 
@@ -35,7 +35,7 @@ Microsoft Graph sat behind MCP services, while the web product received capabili
 
 ## Evidence
 
-The reconstructed agent view above documents the publishable interaction: an email search rendered as a tool-call card beside calendar and inbox context.
+The reconstructed agent view above shows an email search rendered as a tool-call card beside calendar and inbox context.
 
 The broader interface also covered permissions, connections, and activity history. All account names, messages, dates, and activity in the reconstruction are synthetic. The visual documents the interaction design and state model; it is not customer data or a screenshot of the original client interface.
 
@@ -55,10 +55,10 @@ The product gave the agent a defined set of tools instead of a Microsoft Graph t
 
 ## Outcome
 
-The team delivered one workflow for email and calendar across multiple Outlook accounts, with permissions, approvals, and activity history embedded in the product surface. The agent interface exposed its actions instead of asking the user to trust an invisible automation layer.
+The team delivered one workflow for email and calendar across multiple Outlook accounts, where users could set permissions, approve sensitive actions, and review what the agent had done.
 
 ## Disclosure
 
-This was client work completed by a three-person team. The client asked not to be named. “Kestrel,” its identity, accounts, messages, data, and interface were created or altered for this portfolio reconstruction.
+This was client work completed by a three-person team. The client asked not to be named. "Kestrel," its identity, accounts, messages, data, and interface were created or altered for this portfolio reconstruction.
 
 The product capabilities and my responsibilities describe the original engagement. The published visual does not expose the client, its users, or its production environment. No client repository or production metric is public.

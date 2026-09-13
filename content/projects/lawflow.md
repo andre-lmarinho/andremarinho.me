@@ -11,7 +11,7 @@ featured: true
 
 ## Context
 
-LawFlow is a CRM for law firms built around one operational gap: the space between a first enquiry and an accepted proposal.
+LawFlow is a CRM for law firms to manage enquiries through to accepted proposals.
 
 When leads live across messages, notes, and individual follow-ups, opportunities disappear without anyone deciding to lose them. LawFlow puts that work in one flow, from intake and qualification to proposal, acceptance, and follow-up.
 
@@ -19,7 +19,7 @@ When leads live across messages, notes, and individual follow-ups, opportunities
 
 I was the sole developer responsible for the implementation now in production. I designed and built its core workflows and interface, then implemented the API, data model, authentication, workspace isolation, subscription billing, automated tests, and deployment required to run the product.
 
-This was frontend-led, end-to-end ownership: start with the interaction people depend on, then carry the supporting system far enough for it to work outside a prototype.
+I started with the interface and built the supporting backend through to deployment.
 
 ## Scope
 
@@ -35,9 +35,9 @@ This was frontend-led, end-to-end ownership: start with the interaction people d
 
 The [product is live](https://www.lawflowhub.com/) with subscription-gated access and the complete journey from lead intake to accepted proposal.
 
-For the pipeline—the most repeated interaction in the product—I moved the card immediately in the local cache, then reconciled with the server and rolled back on failure. In an isolated measurement, visible feedback went from roughly 350–700 milliseconds to one frame, under 16 milliseconds. The server work still happens; it no longer sits between the gesture and the pixel.
+For the pipeline—the most repeated interaction in the product—I moved the card immediately in the local cache, then reconciled with the server and rolled back on failure. In an isolated measurement, visible feedback went from roughly 350–700 milliseconds to one frame, under 16 milliseconds. The server still processes the move while the card is already in its new position.
 
-I also instrumented the first load before changing it. In a Playwright benchmark against the development server, the critical path until the interface became usable fell from about 1,447 milliseconds to 760 milliseconds. The complete boot fell by 10%, because the larger gain came from moving non-critical work behind the first usable screen rather than pretending that work had disappeared.
+The complete path from clicking Log in to a rendered CRM initially took ≈7,441ms. Under high server latency, the same path could exceed 15,000ms. Session hydration, workspace resolution, billing, bootstrap, and screen data ran in sequence in the browser. I moved the authorised bootstrap to the server and hydrated the frontend from the resulting snapshot. In measurements during the implementation, the same full flow then took ≈760ms, an ≈90% reduction.
 
 The end-to-end suite covers the paths whose failure would affect the operation directly: authentication, pipeline, proposals, the public acceptance page, and subscription billing.
 
@@ -49,7 +49,7 @@ The pipeline is where the work happens, so moving a card could not feel like sub
 
 ### Keep tenant boundaries explicit
 
-Every domain record carries a `workspace_id`. A protected tRPC procedure resolves the caller and workspace, a service owns the business rule, and a repository performs an explicitly scoped query with explicit column selection. Isolation is a system boundary, not a filter left to the interface.
+Every domain record carries a `workspace_id`. A protected tRPC procedure resolves the caller and workspace, a service owns the business rule, and a repository performs an explicitly scoped query with explicit column selection. The backend enforces isolation on each query.
 
 ### Put computation where it belongs
 
@@ -61,7 +61,7 @@ Billing follows the same principle: webhook events are authenticated, persisted 
 
 LawFlow became a working product in production, with the complete path from lead intake to proposal acceptance, product access gated by subscription billing, and the operation supported by authorization, tests, and deployment.
 
-It is the clearest example of how I work as a Frontend Engineer: begin with the experience, make its state and feedback precise, then cross the stack when that is what makes the interface fast, safe, and dependable.
+On LawFlow, improving the frontend meant working on the cache, server bootstrap, and database queries as well as the components.
 
 ## Disclosure
 

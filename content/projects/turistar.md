@@ -33,7 +33,7 @@ It is a frontend-led project with end-to-end responsibility and a public codebas
 
 ## Evidence
 
-The [live product](https://turistar.me/) is the version I use, and the complete [source code is public](https://github.com/andre-lmarinho/turistar) under the AGPL-3.0 license. The repository exposes the implementation, tests, CI, and architectural history rather than asking a viewer to judge the work from screenshots.
+The [live product](https://turistar.me/) is the version I use, and the complete [source code is public](https://github.com/andre-lmarinho/turistar) under the AGPL-3.0 license. The repository includes the implementation, tests, CI, and architectural history.
 
 The documented test surface includes 79 Vitest files for unit and integration behavior and 12 Playwright specs covering authentication, the dashboard, inspirations, the world map, and the planner surfaces: activities, drag-and-drop, map, budget, members, search, and sharing.
 
@@ -43,19 +43,19 @@ I also measured the collaboration payload with the production diff code. For a m
 
 ### Keep the gesture local
 
-Dragging is continuous input; persistence is not. During a drag, Turistar changes a local draft and performs no network write. It commits the final intent once on drop.
+During a drag, Turistar updates a local draft so the card follows the pointer without waiting on a network write. It saves the move once on drop.
 
 On a measured four-day board with four activities per day, moving a card across a full column and into the next reduced seven potential writes to one. Remote state does not reposition the card underneath the pointer while the gesture is active. A remote edit to that same card during the drag can still be misread when the final state is committed; that race remains a known edge case.
 
-### Persist changes, not whole itineraries
+### Send each change as an event
 
 Each itinerary-board change becomes an immutable event such as `activity.moved` or `day.reordered`, appended with a monotonic version. Other clients receive the event through Supabase Realtime and apply it optimistically.
 
-Snapshots keep replay bounded, and a gap in the version sequence triggers a refetch rather than allowing silent divergence. Fractional positions make concurrent reordering deterministic. Concurrent edits to the same field remain last-write-wins; this is an event log, not a CRDT.
+Snapshots keep replay bounded, and a gap in the version sequence triggers a refetch rather than allowing silent divergence. Fractional positions make concurrent reordering deterministic. This event log uses last-write-wins for concurrent edits to the same field. It does not provide CRDT conflict resolution.
 
 ### Enforce access below the interface
 
-Plans have owner, admin, and member roles, but hiding a control is not authorization. Membership checks and Row-Level Security protect the data boundary, privileged credentials stay server-only, and share links can be revoked without changing the plan itself.
+Plans have owner, admin, and member roles enforced below the interface. Membership checks and Row-Level Security protect the data boundary, privileged credentials stay server-only, and share links can be revoked without changing the plan itself.
 
 ## Outcome
 
