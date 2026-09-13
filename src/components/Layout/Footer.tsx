@@ -8,7 +8,7 @@ export default function Footer() {
           © {new Date().getFullYear()} André Marinho
         </p>
 
-        <ul className="flex items-center gap-x-5">
+        <ul className="flex items-center gap-x-1 md:-mr-3.5">
           {socials.map(({ label, href, icon: Icon }) => (
             <li key={label}>
               <a
@@ -16,7 +16,7 @@ export default function Footer() {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label={label}
-                className="block text-muted transition-colors hover:text-accent"
+                className="inline-flex size-11 items-center justify-center rounded-md text-muted transition-colors hover:text-accent"
               >
                 <Icon className="h-4 w-4" aria-hidden="true" />
               </a>

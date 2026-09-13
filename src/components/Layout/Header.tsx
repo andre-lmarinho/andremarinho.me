@@ -29,7 +29,7 @@ export default function Header() {
                   <TransitionLink
                     href={href}
                     aria-current={active ? "page" : undefined}
-                    className={`inline-flex min-h-11 items-center transition-colors hover:text-foreground ${active ? "text-foreground" : "text-muted"}`}
+                    className={`inline-flex min-h-11 items-center transition-colors hover:text-accent ${active ? "text-foreground underline decoration-accent underline-offset-8" : "text-muted"}`}
                   >
                     {label}
                   </TransitionLink>
