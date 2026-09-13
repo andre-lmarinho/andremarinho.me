@@ -4,7 +4,6 @@ import PageTitle from "@/components/PageTitle";
 import TransitionLink from "@/components/transitions/TransitionLink";
 import { Mail } from "@/components/ui/icon";
 import { email, socials } from "@/lib/site";
-import portrait from "../../../public/images/me/andre-marinho.webp";
 
 export const description =
   "A little about André Marinho: a frontend engineer in Salvador, Brazil, his path into software, and life away from the screen.";
@@ -31,8 +30,10 @@ export default function AboutPage() {
           I’m André, a frontend engineer in Salvador, Brazil.
         </p>
         <Image
-          src={portrait}
+          src="/images/me/andre-marinho.webp"
           alt="André Marinho smiling"
+          width={128}
+          height={128}
           sizes="(min-width: 640px) 128px, 80px"
           preload
           className="size-20 shrink-0 rounded-xl border border-border sm:size-32"
