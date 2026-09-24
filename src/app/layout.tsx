@@ -14,7 +14,7 @@ import "./globals.css";
 
 const siteTitle = `${siteName} - ${jobTitle}`;
 const socialDescription =
-  "Frontend engineer building web products with React, Next.js, and TypeScript. Recent work includes a production CRM, an open-source planner, and a published npm CLI.";
+  "Software engineer in Salvador, Brazil. I build full-stack web products and write about what I learn along the way.";
 
 const archivo = Archivo({
   subsets: ["latin"],

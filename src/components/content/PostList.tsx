@@ -38,7 +38,7 @@ export default function PostList({
                     className="content-title text-base leading-6 font-medium transition-colors group-hover:text-accent"
                   />
                   <span
-                    title="Post views counted by Abacus"
+                    title="Post views"
                     className="shrink-0 text-xs text-faint tabular-nums"
                   >
                     <PostViews slug={post.slug} />

@@ -1,6 +1,6 @@
 import { getPosts } from "@/lib/posts";
 import { getProjects } from "@/lib/projects";
-import { jobTitle, siteDescription, siteName, siteUrl } from "@/lib/seo";
+import { siteDescription, siteName, siteUrl } from "@/lib/seo";
 
 // llms.txt is the plain-text map answer engines read when they would otherwise
 // scrape the rendered pages. Generated from the same content the site renders,
@@ -22,7 +22,7 @@ export function GET() {
 
 > ${siteDescription}
 
-${siteName} is a ${jobTitle.toLowerCase()} based in Salvador, Brazil. This site holds his writing, his projects, and a short account of how he got here. It is written and maintained by him, in English.
+This personal site is written and maintained by ${siteName}. Project pages describe his responsibilities and technical decisions; posts cover his experience building software.
 
 ## Writing
 

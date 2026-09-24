@@ -1,21 +1,19 @@
 ---
 title: Anvil
-description: A browser IDE that keeps an AI agent, code, a real terminal, live preview, and reversible Git checkpoints in one workspace.
+description: A browser IDE for working with an AI agent, inspecting its changes, and running the result in the same workspace.
 date: 2026-05-22
-tags: React, TypeScript, xterm.js, WebSockets, Git
+tags: TypeScript, WebSockets, Git, xterm.js
 image: /images/projects/anvil.webp
 kind: browser IDE
 ---
 
 ## Context
 
-Agentic coding spans a conversation, a filesystem, running processes, and the application those processes produce. The client needed those parts in one browser workspace, where a developer could ask for a change, watch it reach the files, follow the command output, and inspect the result without losing track of what the agent had changed.
-
-The harder frontend problem was keeping the panels in sync. Agent output, tool calls, file events, terminal output, and preview state arrived continuously. A screen that was only slightly behind could make the user trust code that was no longer current.
+The client needed a browser workspace where a developer could ask an agent for a change, inspect the files it edited, and run the result. The editor, terminal, and preview had to stay in sync as the agent worked; a stale panel could show code that was no longer running.
 
 ## My role
 
-I led the technical direction on a three-person team, with the product interface and frontend architecture as my primary area of ownership. My frontend work focused on the three-panel workspace; I also contributed across the backend and infrastructure, set the stack and quality bar, and reviewed the other developers' pull requests.
+I led technical delivery on a three-person team, defined the architecture and stack, and reviewed the other developers' pull requests. I built the three-panel workspace and worked with the team on the backend and infrastructure that connected the agent, project files, and running processes.
 
 ## Scope
 
@@ -29,13 +27,7 @@ The team delivered:
 - Git checkpoints for agent steps;
 - controls for running and deploying the project.
 
-The sandbox orchestration and persistence model were part of the team's delivery. I shared that work with the other developers.
-
-## Evidence
-
-The reconstructed workspace above is the visual I can publish. It shows the agent plan and changed files beside a TypeScript editor, live development-server output, branch state, and Run and Deploy controls.
-
-It documents the interaction model and the frontend surface I worked on. It is not a screenshot of the client's original interface.
+Each project ran in an isolated, temporary environment. Project data, sessions, tool calls, and checkpoints were persisted, while WebSockets carried terminal output, file events, and agent updates.
 
 ## Decisions
 
@@ -51,12 +43,8 @@ The interface had to keep file events, terminal output, and agent progress in sy
 
 Each agent step became a Git checkpoint that the developer could inspect or return to from the interface.
 
-## Outcome
-
-The team delivered a browser workspace that joined agent interaction, code editing, terminal execution, live preview, and version history into one workflow. Developers could inspect the agent's changes and return to an earlier checkpoint.
-
 ## Disclosure
 
-This was client work completed by a three-person team. The client asked not to be named. "Anvil," its identity, sample project, data, and interface were created or altered for this portfolio reconstruction.
+The client asked not to be named. "Anvil," its identity, sample project, data, and interface were created or altered for this portfolio reconstruction. The image shows an agent plan and changed files beside a TypeScript editor, development-server output, branch state, and Run and Deploy controls.
 
 The capabilities and my role describe the delivered engagement; the published visual does not reproduce the client's original product. No client repository or production metric is public.

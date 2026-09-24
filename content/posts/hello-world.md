@@ -1,6 +1,6 @@
 ---
 title: Hello World
-description: Why I built this site from scratch, what I deliberately left out, and the decisions and mistakes I want to write down now that the blog exists.
+description: Why I built this site from scratch and started writing about the decisions, bugs, and mistakes behind my projects.
 date: 2026-07-17
 tags: meta, nextjs, writing
 ---
@@ -21,7 +21,7 @@ I ran Duonorth from 2017 to 2025. It began as a business intelligence consultanc
 
 Current projects include [Turistar](https://github.com/andre-lmarinho/travel-planner), an open-source planner for my own trips; [create-mvp](https://www.npmjs.com/package/@andre.marinho/create-mvp), a CLI on npm for the project setup I got tired of assembling by hand; and [client work](/projects) in production.
 
-That is a lot of decisions to keep track of as I build on earlier work with data, automations and websites, and go deeper into TypeScript, databases and automated tests. Some of those decisions are wrong. I would like them written down somewhere they can be argued with.
+Each project leaves me with decisions I want to revisit. Some are wrong, and I would like them written down somewhere they can be argued with.
 
 ## What goes here
 

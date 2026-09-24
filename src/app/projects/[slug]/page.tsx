@@ -87,7 +87,7 @@ export default async function ProjectPage({
                   rel="noopener noreferrer"
                   className="text-accent underline-offset-4 hover:underline"
                 >
-                  Live site →
+                  View project →
                 </a>
               </>
             ) : null}

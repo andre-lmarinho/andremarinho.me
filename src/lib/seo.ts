@@ -3,10 +3,10 @@ import type { Project } from "./projects";
 
 export const siteUrl = "https://andremarinho.me";
 export const siteName = "André Marinho";
-export const jobTitle = "Frontend Engineer";
+export const jobTitle = "Software Engineer";
 
 export const siteDescription =
-  "Frontend engineer in Brazil building responsive, accessible web products with React, Next.js, and TypeScript, from interface architecture to production.";
+  "Software engineer in Salvador, Brazil. Full-stack web products, open-source tools, and notes on the work behind them.";
 
 const author = {
   "@type": "Person",

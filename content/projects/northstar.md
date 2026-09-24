@@ -1,8 +1,8 @@
 ---
 title: Northstar
-description: A product analytics interface that ties behavior to business outcomes and keeps time windows, drivers, lift, and confidence beside the numbers.
+description: Product analytics for following user behavior through to revenue, conversion, and experiments, with the context behind each result.
 date: 2026-04-12
-tags: Next.js, React, TypeScript, Tailwind CSS, SVG, Data visualization
+tags: Next.js, ClickHouse, Data visualization, SVG
 image: /images/projects/northstar.webp
 kind: product analytics
 ---
@@ -13,17 +13,15 @@ Event counts alone leave business questions unanswered. A team can know that tho
 
 Northstar organized the product around three objects: an event is a raw fact, a signal is a behavior worth naming, and an outcome is the business result associated with it. Where an experiment included a holdout, the product compared groups to estimate incremental lift rather than presenting correlation as the answer.
 
-The frontend challenge was to make those qualifications visible without turning every dashboard card into a footnote.
+The data model and dashboard had to carry the same definitions, so readers could see how a result was calculated and which comparison supported it.
 
 ## My role
 
-I led the technical direction on a three-person team, with the dashboard and frontend architecture as my primary area of ownership. I designed and built the guiding metric, outcome cards, Signals to Outcomes table, trends, funnels, segments, experiments, and source setup.
-
-I also contributed across the backend and infrastructure, set the stack and quality bar, and reviewed the other developers' pull requests.
+On a three-person team, I defined the architecture and stack, led technical delivery, and reviewed pull requests. I designed and built the dashboard and shared backend and telemetry infrastructure work with the other developers.
 
 ## Scope
 
-My frontend work covered:
+The product covered:
 
 - a north-star metric with its time window, trend, and growth driver;
 - revenue, conversion, activation, and time-to-value outcome cards;
@@ -33,13 +31,7 @@ My frontend work covered:
 - source setup for SDK, server, webhook, and CSV ingestion;
 - bespoke SVG charts in Next.js, React, and TypeScript.
 
-The broader product used separate analytical and relational stores for event data and product definitions. That architecture was delivered by the team and is not presented as solo authorship.
-
-## Evidence
-
-The reconstructed overview above documents the guiding metric, a 90-day trend, outcome cards, experiments, and the Signals to Outcomes table.
-
-The company, users, events, values, lift figures, and confidence levels shown are illustrative. They demonstrate the information architecture and data states. They do not represent the client's real performance.
+The team used ClickHouse for events and analytical queries, and PostgreSQL for workspaces, sources, signals, outcomes, and experiment definitions. SDK events, server events, webhooks, and CSV imports fed the same event model.
 
 ## Decisions
 
@@ -55,12 +47,8 @@ Event, signal, and outcome remained distinct from instrumentation through report
 
 Bespoke SVG charts kept the visual language consistent and gave the interface control over annotations, states, and hierarchy without shipping a general-purpose charting library.
 
-## Outcome
-
-The team delivered a dashboard where readers could follow a metric through to the behavior and experiments associated with it. Comparisons, time windows, and confidence levels stayed visible as they explored.
-
 ## Disclosure
 
-This was client work completed by a three-person team. The client asked not to be named. "Northstar," its identity, company, data, values, integrations, and interface were created or altered for this portfolio reconstruction.
+The client asked not to be named. "Northstar," its identity, company, data, values, integrations, and interface were created or altered for this portfolio reconstruction. The overview shows a guiding metric, a 90-day trend, outcome cards, experiments, and the Signals to Outcomes table.
 
-The product model, delivered capabilities, and my responsibilities describe the engagement; the screenshot does not reveal the client's production data or original interface. No client repository or production metric is public, and the values in the reconstruction are not customer results.
+The product model, delivered capabilities, and my responsibilities describe the engagement. The screenshot uses illustrative users, events, values, lift figures, and confidence levels; it does not show the client's performance or original interface. No client repository or production metric is public.

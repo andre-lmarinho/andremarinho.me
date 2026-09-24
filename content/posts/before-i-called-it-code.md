@@ -43,12 +43,10 @@ In July 2025, I moved into independent software product development as my main o
 
 I still ask where the data lives before designing anything on top of it, and what someone needs when they bring me a requirement. Knowing what they will do with the answer helps me design the interface. I also draw on the experience of agreeing on a scope with a client and following it through delivery.
 
-Those were already part of my work before my current focus on React, Next.js and TypeScript.
-
 ## What I'm still learning
 
 The current work takes me deeper into relational databases, authentication, security, automated tests and continuous delivery. Earlier experience with dashboards and websites helps, but it does not answer every question that comes up in a software product.
 
-I still have to understand the systems I build, test the assumptions and learn from what breaks. The earlier work gives me context for those decisions, and a better idea of what I need to investigate next.
+That experience helps me frame the problem. I still have to test my assumptions about the systems I build and learn from what breaks.
 
 I wrote more about the learning part in [working with AI without skipping the understanding](/posts/learning-to-code-with-ai). The current work is on [GitHub](https://github.com/andre-lmarinho).

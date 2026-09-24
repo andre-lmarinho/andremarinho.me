@@ -87,10 +87,7 @@ export default async function PostPage({
             <span className="text-border" aria-hidden="true">
               /
             </span>
-            <span
-              title="Post views counted by Abacus"
-              className="text-faint tabular-nums"
-            >
+            <span title="Post views" className="text-faint tabular-nums">
               <PostViews slug={slug} increment />
             </span>
           </div>

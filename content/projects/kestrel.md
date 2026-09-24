@@ -1,8 +1,8 @@
 ---
 title: Kestrel
-description: An Outlook email and calendar agent whose per-tool permissions, human approvals, and audit trail make every external action visible.
+description: An agent for Outlook email and calendars, with controls over what it can do and which actions need approval.
 date: 2026-01-22
-tags: Next.js, React, TypeScript, SSE, MCP, Microsoft Graph
+tags: TypeScript, Node.js, MCP, Microsoft Graph, SSE
 image: /images/projects/kestrel.webp
 kind: AI agent
 ---
@@ -15,9 +15,7 @@ The client product brought work and personal Outlook accounts into one conversat
 
 ## My role
 
-I led the technical direction on a three-person team, with the product interface and frontend architecture as my primary area of ownership. My frontend work covered the agent conversation, tool-call cards, connected-account setup, permission matrix, approval states, and activity timeline.
-
-I also contributed across the backend and infrastructure, set the stack and quality bar, and reviewed the other developers' pull requests.
+I led technical delivery for the three-person team, chose the architecture and stack, and reviewed pull requests. I built the conversation and account-management interface, including tool-call cards, permissions, approvals, and the activity timeline. Backend and infrastructure implementation was shared with the team.
 
 ## Scope
 
@@ -31,19 +29,13 @@ The team delivered:
 - an audit timeline for agent activity;
 - streamed agent output and tool state over SSE.
 
-Microsoft Graph sat behind MCP services, while the web product received capabilities rather than exposing account credentials to the agent interface.
-
-## Evidence
-
-The reconstructed agent view above shows an email search rendered as a tool-call card beside calendar and inbox context.
-
-The broader interface also covered permissions, connections, and activity history. All account names, messages, dates, and activity in the reconstruction are synthetic. The visual documents the interaction design and state model; it is not customer data or a screenshot of the original client interface.
+The Next.js application called a tRPC API. Separate Node.js MCP services connected to Microsoft Graph through OAuth2 with PKCE, incremental synchronization, and webhooks.
 
 ## Decisions
 
 ### Turn permissions into interface state
 
-Policy could not live only in a backend rule. Each tool exposed its current level—Auto, Ask, or Off—and sensitive actions remained visibly distinct before the user reached an approval prompt.
+Each tool displayed its policy, Auto, Ask, or Off, so users could see what was allowed before reaching an approval prompt. Sensitive actions remained visibly distinct.
 
 ### Render tool calls as first-class objects
 
@@ -53,12 +45,8 @@ A prose response is not enough when an agent can affect another system. Argument
 
 The product gave the agent a defined set of tools instead of a Microsoft Graph token. That kept account access and scopes behind a boundary the permission interface could describe.
 
-## Outcome
-
-The team delivered one workflow for email and calendar across multiple Outlook accounts, where users could set permissions, approve sensitive actions, and review what the agent had done.
-
 ## Disclosure
 
-This was client work completed by a three-person team. The client asked not to be named. "Kestrel," its identity, accounts, messages, data, and interface were created or altered for this portfolio reconstruction.
+The client asked not to be named. "Kestrel," its identity, accounts, messages, dates, activity, and interface were created or altered for this portfolio reconstruction. The image shows an email search as a tool-call card beside calendar and inbox context.
 
-The product capabilities and my responsibilities describe the original engagement. The published visual does not expose the client, its users, or its production environment. No client repository or production metric is public.
+The capabilities and my responsibilities describe the delivered product. The visual uses synthetic data and does not reproduce the client's original interface. No client repository or production metric is public.

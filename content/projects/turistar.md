@@ -1,8 +1,8 @@
 ---
 title: Turistar
-description: An open-source travel planner I designed and shipped for my own trips, with a drag-and-drop day board, maps, budgets, and event-sourced collaboration.
+description: An open-source planner I built for my own trips, where a group can organize an itinerary, map out stops, and share a budget.
 date: 2025-10-20
-tags: Next.js, TypeScript, Supabase, Event Sourcing, Realtime, Leaflet, Playwright
+tags: Next.js, Supabase, Event Sourcing, Leaflet, Playwright
 image: /images/projects/turistar.webp
 kind: open source
 link: https://turistar.me/
@@ -17,14 +17,12 @@ Turistar puts the itinerary, map, and budget in one place. It started as a tool 
 
 ## My role
 
-I created and maintain Turistar. I own the product and interaction design, the frontend architecture and implementation, and the work required to keep it running: authentication, realtime synchronization, PostgreSQL policies, testing, CI, and deployment.
-
-It is a frontend-led project with end-to-end responsibility and a public codebase.
+I created and maintain Turistar, from product design and the data model to the deployed application. I also maintain its authentication, collaboration features, tests, and CI.
 
 ## Scope
 
 - Create a trip from a destination and date range.
-- Build each day on a keyboard-navigable drag-and-drop board.
+- Build each day on a keyboard-navigable drag-and-drop board with responsive layouts.
 - Search cities, addresses, and attractions through Geoapify, with place imagery from Wikidata.
 - See every planned stop on an interactive Leaflet map.
 - Track a total budget and planned versus actual expenses by category.
@@ -60,5 +58,3 @@ Plans have owner, admin, and member roles enforced below the interface. Membersh
 ## Outcome
 
 Turistar replaced the collection of notes I used to plan my own trips with one maintained product for itinerary, geography, and cost.
-
-It is also public evidence of the frontend work I care about: interaction shaped by concurrent state, recovery from version gaps, keyboard access, responsive layouts, and a codebase structured to keep evolving after the first version ships.
