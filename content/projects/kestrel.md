@@ -2,7 +2,7 @@
 title: Kestrel
 description: An Outlook email and calendar agent whose per-tool permissions, human approvals, and audit trail make every external action visible.
 date: 2026-01-22
-tags: Next.js, React, TypeScript, SSE, MCP, Microsoft Graph
+tags: TypeScript, Next.js, Node.js, PostgreSQL, MCP, Microsoft Graph, React, SSE
 image: /images/projects/kestrel.webp
 kind: AI agent
 ---
@@ -15,9 +15,9 @@ The client product brought work and personal Outlook accounts into one conversat
 
 ## My role
 
-I led the technical direction on a three-person team, with the product interface and frontend architecture as my primary area of ownership. My frontend work covered the agent conversation, tool-call cards, connected-account setup, permission matrix, approval states, and activity timeline.
+I led technical delivery on a three-person team, defined the architecture and stack, and reviewed the other developers' pull requests. I worked across the frontend, backend, and infrastructure.
 
-I also contributed across the backend and infrastructure, set the stack and quality bar, and reviewed the other developers' pull requests.
+I built the agent conversation, tool-call cards, connected-account setup, permission matrix, approval states, and activity timeline, and shared implementation of the backend and infrastructure with the team.
 
 ## Scope
 
@@ -31,7 +31,7 @@ The team delivered:
 - an audit timeline for agent activity;
 - streamed agent output and tool state over SSE.
 
-Microsoft Graph sat behind MCP services, while the web product received capabilities rather than exposing account credentials to the agent interface.
+The web application used Next.js and a tRPC API, with PostgreSQL and Drizzle for persistence. Separate Node.js MCP services integrated Microsoft Graph through OAuth2 with PKCE, incremental synchronization, and webhooks. Account credentials stayed behind those services; the agent received scoped tools.
 
 ## Evidence
 

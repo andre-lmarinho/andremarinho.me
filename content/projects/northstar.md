@@ -1,8 +1,8 @@
 ---
 title: Northstar
-description: A product analytics interface that ties behavior to business outcomes and keeps time windows, drivers, lift, and confidence beside the numbers.
+description: A product analytics platform connecting usage signals to business outcomes, with ClickHouse, PostgreSQL, and a dashboard that keeps measurement context visible.
 date: 2026-04-12
-tags: Next.js, React, TypeScript, Tailwind CSS, SVG, Data visualization
+tags: Next.js, TypeScript, ClickHouse, PostgreSQL, SVG, Data visualization, React, Tailwind CSS
 image: /images/projects/northstar.webp
 kind: product analytics
 ---
@@ -13,17 +13,17 @@ Event counts alone leave business questions unanswered. A team can know that tho
 
 Northstar organized the product around three objects: an event is a raw fact, a signal is a behavior worth naming, and an outcome is the business result associated with it. Where an experiment included a holdout, the product compared groups to estimate incremental lift rather than presenting correlation as the answer.
 
-The frontend challenge was to make those qualifications visible without turning every dashboard card into a footnote.
+The data model and dashboard had to carry the same definitions, so readers could see how a result was calculated and which comparison supported it.
 
 ## My role
 
-I led the technical direction on a three-person team, with the dashboard and frontend architecture as my primary area of ownership. I designed and built the guiding metric, outcome cards, Signals to Outcomes table, trends, funnels, segments, experiments, and source setup.
+I led technical delivery on a three-person team, defined the architecture and stack, and reviewed the other developers' pull requests. I worked across the frontend, backend, and telemetry infrastructure.
 
-I also contributed across the backend and infrastructure, set the stack and quality bar, and reviewed the other developers' pull requests.
+I designed and built the dashboard, including the guiding metric, outcome cards, Signals to Outcomes table, trends, funnels, segments, experiments, and source setup. Backend and infrastructure implementation was shared with the team.
 
 ## Scope
 
-My frontend work covered:
+The product covered:
 
 - a north-star metric with its time window, trend, and growth driver;
 - revenue, conversion, activation, and time-to-value outcome cards;
@@ -33,7 +33,7 @@ My frontend work covered:
 - source setup for SDK, server, webhook, and CSV ingestion;
 - bespoke SVG charts in Next.js, React, and TypeScript.
 
-The broader product used separate analytical and relational stores for event data and product definitions. That architecture was delivered by the team and is not presented as solo authorship.
+The team used ClickHouse for events and analytical queries, and PostgreSQL for workspaces, sources, signals, outcomes, and experiment definitions. SDK events, server events, webhooks, and CSV imports fed the same event model.
 
 ## Evidence
 
@@ -57,7 +57,7 @@ Bespoke SVG charts kept the visual language consistent and gave the interface co
 
 ## Outcome
 
-The team delivered a dashboard where readers could follow a metric through to the behavior and experiments associated with it. Comparisons, time windows, and confidence levels stayed visible as they explored.
+The team delivered a product that connected event ingestion and analytical storage to a dashboard where readers could follow a metric through to the behavior and experiments associated with it. Comparisons, time windows, and confidence levels stayed visible as they explored.
 
 ## Disclosure
 

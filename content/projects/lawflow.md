@@ -1,6 +1,6 @@
 ---
 title: LawFlow
-description: A production CRM for law firms that I built as the sole developer, from its core interface through tenant isolation, billing, tests, and deployment.
+description: A production CRM for law firms I delivered end to end, with a type-safe API, tenant isolation, subscription billing, and automated tests.
 date: 2026-06-15
 tags: Next.js, TypeScript, tRPC, Supabase, Postgres/RLS, Asaas, Playwright, Vitest
 image: /images/projects/lawflow.webp
@@ -17,9 +17,9 @@ When leads live across messages, notes, and individual follow-ups, opportunities
 
 ## My role
 
-I was the sole developer responsible for the implementation now in production. I designed and built its core workflows and interface, then implemented the API, data model, authentication, workspace isolation, subscription billing, automated tests, and deployment required to run the product.
+I was the sole developer responsible for the implementation now in production, from architecture and product workflows to the interface, API, data model, authentication, tenant isolation, billing, tests, and deployment.
 
-I started with the interface and built the supporting backend through to deployment.
+The work spanned two engagements. I delivered the backend and deployment in the first. In the second, I took responsibility for the complete product, reworking the interface and extending the backend into the production system described here.
 
 ## Scope
 
@@ -35,7 +35,7 @@ I started with the interface and built the supporting backend through to deploym
 
 The [product is live](https://www.lawflowhub.com/) with subscription-gated access and the complete journey from lead intake to accepted proposal.
 
-For the pipeline—the most repeated interaction in the product—I moved the card immediately in the local cache, then reconciled with the server and rolled back on failure. In an isolated measurement, visible feedback went from roughly 350–700 milliseconds to one frame, under 16 milliseconds. The server still processes the move while the card is already in its new position.
+For the pipeline, the most repeated interaction in the product, I moved the card immediately in the local cache, then reconciled with the server and rolled back on failure. In the documented scenario with two sequential round trips to Supabase in São Paulo, this removed roughly 350–700 milliseconds of waiting before visible feedback. The card moves within one frame while the server processes the change.
 
 The complete path from clicking Log in to a rendered CRM initially took ≈7,441ms. Under high server latency, the same path could exceed 15,000ms. Session hydration, workspace resolution, billing, bootstrap, and screen data ran in sequence in the browser. I moved the authorised bootstrap to the server and hydrated the frontend from the resulting snapshot. In measurements during the implementation, the same full flow then took ≈760ms, an ≈90% reduction.
 
@@ -53,15 +53,13 @@ Every domain record carries a `workspace_id`. A protected tRPC procedure resolve
 
 ### Put computation where it belongs
 
-The first dashboard implementation transported accepted proposals to Node and aggregated them in JavaScript. I promoted the acceptance date from JSON to a queryable column and moved revenue aggregation into Postgres, so the cost no longer grows by shipping the full proposal history across the network.
+The first dashboard implementation transported accepted proposals to Node and aggregated them in JavaScript. I promoted the acceptance date from JSON to a queryable column and moved revenue aggregation into Postgres, so the cost no longer grows by shipping the full proposal history across the network. At around 1,000 proposals, the payload fell from 1–3 MB to under 1 KB.
 
 Billing follows the same principle: webhook events are authenticated, persisted before processing, and handled idempotently so a gateway retry cannot apply the same transition twice.
 
 ## Outcome
 
 LawFlow became a working product in production, with the complete path from lead intake to proposal acceptance, product access gated by subscription billing, and the operation supported by authorization, tests, and deployment.
-
-On LawFlow, improving the frontend meant working on the cache, server bootstrap, and database queries as well as the components.
 
 ## Disclosure
 

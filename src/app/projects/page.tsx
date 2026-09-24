@@ -5,7 +5,7 @@ import { getProjects } from "@/lib/projects";
 
 const title = "Projects - André Marinho";
 export const description =
-  "Web products and open-source tools I've worked on, with implementation details and what I learned building them.";
+  "Full-stack web products and open-source tools, with notes on architecture, implementation, and the decisions behind them.";
 
 export const metadata: Metadata = {
   title,

@@ -2,7 +2,7 @@
 title: Turistar
 description: An open-source travel planner I designed and shipped for my own trips, with a drag-and-drop day board, maps, budgets, and event-sourced collaboration.
 date: 2025-10-20
-tags: Next.js, TypeScript, Supabase, Event Sourcing, Realtime, Leaflet, Playwright
+tags: Next.js, TypeScript, PostgreSQL, Supabase, Event Sourcing, Realtime, Leaflet, Playwright
 image: /images/projects/turistar.webp
 kind: open source
 link: https://turistar.me/
@@ -17,9 +17,7 @@ Turistar puts the itinerary, map, and budget in one place. It started as a tool 
 
 ## My role
 
-I created and maintain Turistar. I own the product and interaction design, the frontend architecture and implementation, and the work required to keep it running: authentication, realtime synchronization, PostgreSQL policies, testing, CI, and deployment.
-
-It is a frontend-led project with end-to-end responsibility and a public codebase.
+I created and maintain Turistar across the full stack. I design the product and its interactions, implement the application and data model, and maintain authentication, realtime synchronization, PostgreSQL policies, tests, CI, and deployment.
 
 ## Scope
 
@@ -61,4 +59,4 @@ Plans have owner, admin, and member roles enforced below the interface. Membersh
 
 Turistar replaced the collection of notes I used to plan my own trips with one maintained product for itinerary, geography, and cost.
 
-It is also public evidence of the frontend work I care about: interaction shaped by concurrent state, recovery from version gaps, keyboard access, responsive layouts, and a codebase structured to keep evolving after the first version ships.
+The public codebase shows how the interface and data model work together: concurrent edits reach the planner through versioned events, membership rules protect shared plans, and gaps in synchronization trigger recovery. Keyboard access and responsive layouts remain part of maintaining that product.

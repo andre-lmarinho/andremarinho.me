@@ -6,7 +6,7 @@ import { Mail } from "@/components/ui/icon";
 import { email, socials } from "@/lib/site";
 
 export const description =
-  "A little about André Marinho: a frontend engineer in Salvador, Brazil, his path into software, and life away from the screen.";
+  "André Marinho, a software engineer building full-stack web products in Salvador, Brazil. His work, path into software, and life away from the screen.";
 
 export const metadata: Metadata = {
   title: "About - André Marinho",
@@ -27,7 +27,7 @@ export default function AboutPage() {
 
       <div className="mt-10 flex items-center gap-6 sm:gap-10">
         <p className="min-w-0 flex-1 font-display text-xl font-medium leading-snug tracking-tight text-balance sm:text-3xl">
-          I’m André, a frontend engineer in Salvador, Brazil.
+          I’m André, a software engineer in Salvador, Brazil.
         </p>
         <Image
           src="/images/me/andre-marinho.webp"
@@ -42,12 +42,14 @@ export default function AboutPage() {
 
       <div className="mt-8 space-y-5 text-sm leading-7 text-muted sm:text-base sm:leading-8">
         <p>
-          I work mostly with React, Next.js, and TypeScript, on client projects
-          and things I build for myself. Some start as an idea I want to try;
-          others as something I’m tired of doing by hand.
+          I build full-stack web products with TypeScript, React, Next.js,
+          Node.js, and PostgreSQL. My work includes the interface, the services
+          and data behind it, and getting the product into production. I work
+          independently, on my own or with a team depending on the project.
         </p>
         <p>
-          This site is where I keep my{" "}
+          Some projects start as an idea I want to try; others as something I’m
+          tired of doing by hand. This site is where I keep my{" "}
           <TransitionLink href="/projects" className="about-inline-link">
             projects
           </TransitionLink>{" "}

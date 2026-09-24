@@ -2,7 +2,7 @@
 title: Anvil
 description: A browser IDE that keeps an AI agent, code, a real terminal, live preview, and reversible Git checkpoints in one workspace.
 date: 2026-05-22
-tags: React, TypeScript, xterm.js, WebSockets, Git
+tags: React, TypeScript, WebSockets, PostgreSQL, Git, xterm.js
 image: /images/projects/anvil.webp
 kind: browser IDE
 ---
@@ -11,11 +11,11 @@ kind: browser IDE
 
 Agentic coding spans a conversation, a filesystem, running processes, and the application those processes produce. The client needed those parts in one browser workspace, where a developer could ask for a change, watch it reach the files, follow the command output, and inspect the result without losing track of what the agent had changed.
 
-The harder frontend problem was keeping the panels in sync. Agent output, tool calls, file events, terminal output, and preview state arrived continuously. A screen that was only slightly behind could make the user trust code that was no longer current.
+The workspace had to keep the editor, running processes, and preview in sync. Agent output, tool calls, file events, and terminal output arrived continuously. A screen that was only slightly behind could make the user trust code that was no longer current.
 
 ## My role
 
-I led the technical direction on a three-person team, with the product interface and frontend architecture as my primary area of ownership. My frontend work focused on the three-panel workspace; I also contributed across the backend and infrastructure, set the stack and quality bar, and reviewed the other developers' pull requests.
+I led technical delivery on a three-person team, defined the architecture and stack, and reviewed the other developers' pull requests. I built the three-panel workspace and worked with the team on the backend and infrastructure that connected the agent, project files, and running processes.
 
 ## Scope
 
@@ -29,7 +29,7 @@ The team delivered:
 - Git checkpoints for agent steps;
 - controls for running and deploying the project.
 
-The sandbox orchestration and persistence model were part of the team's delivery. I shared that work with the other developers.
+Each project ran in an isolated, temporary environment. PostgreSQL stored projects, sessions, tool calls, and checkpoints, while WebSockets carried terminal output, file events, and agent updates. I shared the sandbox orchestration and persistence work with the other developers.
 
 ## Evidence
 

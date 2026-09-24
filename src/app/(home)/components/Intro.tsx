@@ -1,5 +1,6 @@
 import TransitionLink from "@/components/transitions/TransitionLink";
 import { ArrowRight } from "@/components/ui/icon";
+import { jobTitle } from "@/lib/seo";
 import { socials } from "@/lib/site";
 
 export default function Intro() {
@@ -12,12 +13,12 @@ export default function Intro() {
         André Marinho
       </h1>
 
-      <p className="mt-3 text-lg">Frontend Engineer</p>
+      <p className="mt-3 text-lg">{jobTitle}</p>
 
       <p className="mt-4 text-sm text-muted leading-relaxed sm:text-base">
-        I make software, write down what I learn, and keep enough room for
-        books, running, classical guitar, the beach, and whatever I have just
-        become curious about.
+        I build full-stack web products and write down what I learn along the
+        way. Away from the screen, there’s room for books, running, classical
+        guitar, the beach, and whatever I have just become curious about.
       </p>
 
       <ul className="mt-9 flex flex-wrap items-center gap-x-6 gap-y-4 text-xs">
