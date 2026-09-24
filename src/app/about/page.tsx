@@ -6,7 +6,7 @@ import { Mail } from "@/components/ui/icon";
 import { email, socials } from "@/lib/site";
 
 export const description =
-  "André Marinho, a software engineer building full-stack web products in Salvador, Brazil. His work, path into software, and life away from the screen.";
+  "About André Marinho: his path from business intelligence to software engineering, his work, and life in Salvador, Brazil.";
 
 export const metadata: Metadata = {
   title: "About - André Marinho",
@@ -42,10 +42,9 @@ export default function AboutPage() {
 
       <div className="mt-8 space-y-5 text-sm leading-7 text-muted sm:text-base sm:leading-8">
         <p>
-          I build full-stack web products with TypeScript, React, Next.js,
-          Node.js, and PostgreSQL. My work includes the interface, the services
-          and data behind it, and getting the product into production. I work
-          independently, on my own or with a team depending on the project.
+          I build web products for clients and for myself, working from the
+          interface through the backend to deployment. Depending on the project,
+          I work on my own or lead a small development team.
         </p>
         <p>
           Some projects start as an idea I want to try; others as something I’m

@@ -1,8 +1,8 @@
 ---
 title: LawFlow
-description: A production CRM for law firms I delivered end to end, with a type-safe API, tenant isolation, subscription billing, and automated tests.
+description: A CRM I built for law firms to manage leads, follow-ups, and proposals through to client acceptance.
 date: 2026-06-15
-tags: Next.js, TypeScript, tRPC, Supabase, Postgres/RLS, Asaas, Playwright, Vitest
+tags: Next.js, tRPC, Supabase, Asaas, Playwright
 image: /images/projects/lawflow.webp
 kind: CRM
 link: https://www.lawflowhub.com/
@@ -10,8 +10,6 @@ featured: true
 ---
 
 ## Context
-
-LawFlow is a CRM for law firms to manage enquiries through to accepted proposals.
 
 When leads live across messages, notes, and individual follow-ups, opportunities disappear without anyone deciding to lose them. LawFlow puts that work in one flow, from intake and qualification to proposal, acceptance, and follow-up.
 
@@ -31,11 +29,9 @@ The work spanned two engagements. I delivered the backend and deployment in the 
 - Team invitations, owner-only settings, guided onboarding, and subscription management.
 - Two Next.js applications in one Turborepo: the authenticated product and its marketing site.
 
-## Evidence
+## Performance and testing
 
-The [product is live](https://www.lawflowhub.com/) with subscription-gated access and the complete journey from lead intake to accepted proposal.
-
-For the pipeline, the most repeated interaction in the product, I moved the card immediately in the local cache, then reconciled with the server and rolled back on failure. In the documented scenario with two sequential round trips to Supabase in São Paulo, this removed roughly 350–700 milliseconds of waiting before visible feedback. The card moves within one frame while the server processes the change.
+For the pipeline, the most repeated interaction in the product, I moved the card immediately in the local cache, then reconciled with the server, using a snapshot, rollback, and refetch to recover from failures. In the documented scenario with two sequential round trips to Supabase in São Paulo, this removed roughly 350–700 milliseconds of waiting before visible feedback. The card moves within one frame while the server processes the change.
 
 The complete path from clicking Log in to a rendered CRM initially took ≈7,441ms. Under high server latency, the same path could exceed 15,000ms. Session hydration, workspace resolution, billing, bootstrap, and screen data ran in sequence in the browser. I moved the authorised bootstrap to the server and hydrated the frontend from the resulting snapshot. In measurements during the implementation, the same full flow then took ≈760ms, an ≈90% reduction.
 
@@ -43,24 +39,18 @@ The end-to-end suite covers the paths whose failure would affect the operation d
 
 ## Decisions
 
-### Make the working surface feel immediate
-
-The pipeline is where the work happens, so moving a card could not feel like submitting a form. Optimistic updates make the common path immediate, while a snapshot, rollback, and refetch keep the server as the source of truth.
-
 ### Keep tenant boundaries explicit
 
 Every domain record carries a `workspace_id`. A protected tRPC procedure resolves the caller and workspace, a service owns the business rule, and a repository performs an explicitly scoped query with explicit column selection. The backend enforces isolation on each query.
 
-### Put computation where it belongs
+### Aggregate revenue in the database
 
 The first dashboard implementation transported accepted proposals to Node and aggregated them in JavaScript. I promoted the acceptance date from JSON to a queryable column and moved revenue aggregation into Postgres, so the cost no longer grows by shipping the full proposal history across the network. At around 1,000 proposals, the payload fell from 1–3 MB to under 1 KB.
 
-Billing follows the same principle: webhook events are authenticated, persisted before processing, and handled idempotently so a gateway retry cannot apply the same transition twice.
+### Handle billing retries safely
 
-## Outcome
-
-LawFlow became a working product in production, with the complete path from lead intake to proposal acceptance, product access gated by subscription billing, and the operation supported by authorization, tests, and deployment.
+Billing webhook events are authenticated, persisted before processing, and handled idempotently so a gateway retry cannot apply the same transition twice.
 
 ## Disclosure
 
-LawFlow is a client-owned public product. The production implementation described here—including the frontend, backend, integrations, and deployment—is my work. Subscriber and revenue figures remain private.
+LawFlow is a [live, client-owned product](https://www.lawflowhub.com/) with subscription-based access. The production implementation described here is my work. Subscriber and revenue figures remain private.

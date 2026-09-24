@@ -14,7 +14,7 @@ import "./globals.css";
 
 const siteTitle = `${siteName} - ${jobTitle}`;
 const socialDescription =
-  "Software engineer building full-stack web products with TypeScript, React, Node.js, and PostgreSQL. Work includes a production CRM, an open-source planner, and an npm CLI.";
+  "Software engineer in Salvador, Brazil. I build full-stack web products and write about what I learn along the way.";
 
 const archivo = Archivo({
   subsets: ["latin"],

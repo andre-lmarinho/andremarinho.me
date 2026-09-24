@@ -1,8 +1,8 @@
 ---
 title: Northstar
-description: A product analytics platform connecting usage signals to business outcomes, with ClickHouse, PostgreSQL, and a dashboard that keeps measurement context visible.
+description: Product analytics for following user behavior through to revenue, conversion, and experiments, with the context behind each result.
 date: 2026-04-12
-tags: Next.js, TypeScript, ClickHouse, PostgreSQL, SVG, Data visualization, React, Tailwind CSS
+tags: Next.js, ClickHouse, Data visualization, SVG
 image: /images/projects/northstar.webp
 kind: product analytics
 ---
@@ -17,9 +17,7 @@ The data model and dashboard had to carry the same definitions, so readers could
 
 ## My role
 
-I led technical delivery on a three-person team, defined the architecture and stack, and reviewed the other developers' pull requests. I worked across the frontend, backend, and telemetry infrastructure.
-
-I designed and built the dashboard, including the guiding metric, outcome cards, Signals to Outcomes table, trends, funnels, segments, experiments, and source setup. Backend and infrastructure implementation was shared with the team.
+On a three-person team, I defined the architecture and stack, led technical delivery, and reviewed pull requests. I designed and built the dashboard and shared backend and telemetry infrastructure work with the other developers.
 
 ## Scope
 
@@ -35,12 +33,6 @@ The product covered:
 
 The team used ClickHouse for events and analytical queries, and PostgreSQL for workspaces, sources, signals, outcomes, and experiment definitions. SDK events, server events, webhooks, and CSV imports fed the same event model.
 
-## Evidence
-
-The reconstructed overview above documents the guiding metric, a 90-day trend, outcome cards, experiments, and the Signals to Outcomes table.
-
-The company, users, events, values, lift figures, and confidence levels shown are illustrative. They demonstrate the information architecture and data states. They do not represent the client's real performance.
-
 ## Decisions
 
 ### Keep the qualifier beside the number
@@ -55,12 +47,8 @@ Event, signal, and outcome remained distinct from instrumentation through report
 
 Bespoke SVG charts kept the visual language consistent and gave the interface control over annotations, states, and hierarchy without shipping a general-purpose charting library.
 
-## Outcome
-
-The team delivered a product that connected event ingestion and analytical storage to a dashboard where readers could follow a metric through to the behavior and experiments associated with it. Comparisons, time windows, and confidence levels stayed visible as they explored.
-
 ## Disclosure
 
-This was client work completed by a three-person team. The client asked not to be named. "Northstar," its identity, company, data, values, integrations, and interface were created or altered for this portfolio reconstruction.
+The client asked not to be named. "Northstar," its identity, company, data, values, integrations, and interface were created or altered for this portfolio reconstruction. The overview shows a guiding metric, a 90-day trend, outcome cards, experiments, and the Signals to Outcomes table.
 
-The product model, delivered capabilities, and my responsibilities describe the engagement; the screenshot does not reveal the client's production data or original interface. No client repository or production metric is public, and the values in the reconstruction are not customer results.
+The product model, delivered capabilities, and my responsibilities describe the engagement. The screenshot uses illustrative users, events, values, lift figures, and confidence levels; it does not show the client's performance or original interface. No client repository or production metric is public.
