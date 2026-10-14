@@ -1,12 +1,12 @@
 import type { Metadata } from "next";
 import Image from "next/image";
+import Link from "next/link";
 import PageTitle from "@/components/PageTitle";
-import TransitionLink from "@/components/transitions/TransitionLink";
 import { Mail } from "@/components/ui/icon";
 import { email, socials } from "@/lib/site";
 
 export const description =
-  "About André Marinho: his path from business intelligence to software engineering, his work, and life in Salvador, Brazil.";
+  "About André Marinho, a software engineer building full-stack web products with TypeScript, React and Node.js. Open to remote roles with international teams.";
 
 export const metadata: Metadata = {
   title: "About - André Marinho",
@@ -23,7 +23,7 @@ export const metadata: Metadata = {
 export default function AboutPage() {
   return (
     <article className="mx-auto w-full max-w-3xl px-6 py-16 lg:px-8">
-      <PageTitle style={{ viewTransitionName: "about-title" }}>About</PageTitle>
+      <PageTitle>About</PageTitle>
 
       <div className="mt-10 flex items-center gap-6 sm:gap-10">
         <p className="min-w-0 flex-1 font-display text-xl font-medium leading-snug tracking-tight text-balance sm:text-3xl">
@@ -42,23 +42,62 @@ export default function AboutPage() {
 
       <div className="mt-8 space-y-5 text-sm leading-7 text-muted sm:text-base sm:leading-8">
         <p>
-          I build web products for clients and for myself, working from the
-          interface through the backend to deployment. Depending on the project,
-          I work on my own or lead a small development team.
+          I build full-stack web products with TypeScript, React, Next.js,
+          Node.js and PostgreSQL, from product decisions to deployment and
+          maintenance.
+        </p>
+        <p>
+          I work on my own or lead a small development team, depending on the
+          project.
         </p>
         <p>
           Some projects start as an idea I want to try; others as something I’m
           tired of doing by hand. This site is where I keep my{" "}
-          <TransitionLink href="/projects" className="about-inline-link">
+          <Link href="/projects" className="about-inline-link">
             projects
-          </TransitionLink>{" "}
+          </Link>{" "}
           and{" "}
-          <TransitionLink href="/posts" className="about-inline-link">
+          <Link href="/posts" className="about-inline-link">
             write about what I’m learning
-          </TransitionLink>
+          </Link>
           .
         </p>
       </div>
+
+      <section aria-labelledby="work" className="mt-12 sm:mt-14">
+        <h2 id="work" className="text-lg font-medium tracking-tight">
+          Work
+        </h2>
+        <div className="mt-5 space-y-5 text-sm leading-7 text-muted sm:text-base sm:leading-8">
+          <p>
+            My work spans interfaces, APIs, data models, authentication, tenant
+            isolation, payments and automated tests, with a focus on
+            accessibility and performance.
+          </p>
+          <p>
+            In{" "}
+            <Link href="/projects/turistar" className="about-inline-link">
+              Turistar
+            </Link>
+            , my open-source trip planner, I maintain real-time collaboration,
+            access controls and automated tests.
+          </p>
+          <p>
+            I’m open to remote software engineering roles, including
+            international teams. Portuguese is my native language, and I’m
+            fluent in English.
+          </p>
+          <p>
+            <a
+              href="/resume.pdf"
+              download="Andre-Marinho-Resume.pdf"
+              className="about-inline-link inline-flex min-h-11 items-center"
+            >
+              Download résumé (PDF, English)
+            </a>
+          </p>
+        </div>
+      </section>
 
       <section aria-labelledby="background" className="mt-12 sm:mt-14">
         <h2 id="background" className="text-lg font-medium tracking-tight">
@@ -77,13 +116,18 @@ export default function AboutPage() {
             focused on websites and software in 2023. In July 2025, I moved into
             independent software development as my main occupation. I wrote a
             longer version of{" "}
-            <TransitionLink
+            <Link
               href="/posts/before-i-called-it-code"
               className="about-inline-link"
             >
               that story here
-            </TransitionLink>
+            </Link>
             .
+          </p>
+          <p>
+            That work still shapes how I build software: understanding the
+            operation, agreeing on scope, and following a decision through to
+            delivery.
           </p>
         </div>
       </section>
