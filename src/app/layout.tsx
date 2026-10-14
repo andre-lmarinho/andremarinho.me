@@ -13,8 +13,6 @@ import {
 import "./globals.css";
 
 const siteTitle = `${siteName} - ${jobTitle}`;
-const socialDescription =
-  "Software engineer in Salvador, Brazil. I build full-stack web products and write about what I learn along the way.";
 
 const archivo = Archivo({
   subsets: ["latin"],
@@ -35,7 +33,7 @@ export const metadata: Metadata = {
   description: siteDescription,
   openGraph: {
     title: siteTitle,
-    description: socialDescription,
+    description: siteDescription,
     url: "https://andremarinho.me",
     siteName: "André Marinho",
     locale: "en_US",
@@ -44,7 +42,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: siteTitle,
-    description: socialDescription,
+    description: siteDescription,
   },
   metadataBase: new URL("https://andremarinho.me"),
   manifest: "/manifest.json",

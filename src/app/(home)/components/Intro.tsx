@@ -40,7 +40,7 @@ export default function Intro() {
             href="/about"
             className="group inline-flex items-center gap-x-2 text-muted transition-colors hover:text-accent"
           >
-            <span style={{ viewTransitionName: "about-title" }}>About Me</span>
+            About Me
             <ArrowRight
               className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5"
               aria-hidden="true"

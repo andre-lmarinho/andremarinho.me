@@ -6,7 +6,7 @@ export const siteName = "André Marinho";
 export const jobTitle = "Software Engineer";
 
 export const siteDescription =
-  "Software engineer in Salvador, Brazil. Full-stack web products, open-source tools, and notes on the work behind them.";
+  "Software engineer in Salvador, Brazil. Full-stack web products with TypeScript, React, Next.js, Node.js and PostgreSQL.";
 
 const author = {
   "@type": "Person",
