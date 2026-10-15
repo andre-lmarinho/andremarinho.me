@@ -1,10 +1,12 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import PostViews from "@/components/content/PostViews";
+import ProjectList from "@/components/content/ProjectList";
 import JsonLd from "@/components/JsonLd";
 import MorphTitle from "@/components/transitions/MorphTitle";
 import { formatDate } from "@/lib/content";
 import { getPost, getPosts } from "@/lib/posts";
+import { getProject } from "@/lib/projects";
 import { breadcrumbJsonLd, postJsonLd } from "@/lib/seo";
 
 export const dynamicParams = false;
@@ -52,6 +54,7 @@ export default async function PostPage({
   const { slug } = await params;
   const post = getPost(slug);
   if (!post) notFound();
+  const project = post.project ? getProject(post.project) : null;
 
   return (
     <>
@@ -108,6 +111,17 @@ export default async function PostPage({
             dangerouslySetInnerHTML={{ __html: post.html }}
           />
         </section>
+        {project ? (
+          <aside
+            aria-labelledby="related-project"
+            className="mt-12 border-t border-border pt-6"
+          >
+            <h2 id="related-project" className="text-sm font-medium text-muted">
+              Related project
+            </h2>
+            <ProjectList projects={[project]} />
+          </aside>
+        ) : null}
       </article>
     </>
   );

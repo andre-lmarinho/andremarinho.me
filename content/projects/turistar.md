@@ -41,15 +41,15 @@ I also measured the collaboration payload with the production diff code. For a m
 
 ### Keep the gesture local
 
-During a drag, Turistar updates a local draft so the card follows the pointer without waiting on a network write. It saves the move once on drop.
+During a drag, Turistar updates a [local draft in the board component](https://github.com/andre-lmarinho/turistar/blob/acec418455c17b70977bbc64a58e165ab703964f/src/features/activityBoard/components/ActivityBoard.tsx) so the card follows the pointer without waiting on a network write. The [drag handlers save the move once on drop](https://github.com/andre-lmarinho/turistar/blob/acec418455c17b70977bbc64a58e165ab703964f/src/features/activityBoard/hooks/useDragHandlers.ts).
 
-On a measured four-day board with four activities per day, moving a card across a full column and into the next reduced seven potential writes to one. Remote state does not reposition the card underneath the pointer while the gesture is active. A remote edit to that same card during the drag can still be misread when the final state is committed; that race remains a known edge case.
+On a measured four-day board with four activities per day, moving a card across a full column and into the next reduced seven potential writes to one. In that implementation, remote state did not reposition the card underneath the pointer while the gesture was active. A remote edit to that same card during the drag could still be misread when the final state was committed; that race was a known edge case of the linked revision.
 
 ### Send each change as an event
 
 Each itinerary-board change becomes an immutable event such as `activity.moved` or `day.reordered`, appended with a monotonic version. Other clients receive the event through Supabase Realtime and apply it optimistically.
 
-Snapshots keep replay bounded, and a gap in the version sequence triggers a refetch rather than allowing silent divergence. Fractional positions make concurrent reordering deterministic. This event log uses last-write-wins for concurrent edits to the same field. It does not provide CRDT conflict resolution.
+Snapshots keep replay bounded, and a gap in the version sequence triggers a refetch rather than allowing silent divergence. The [collaboration tests cover version gaps and snapshot recovery](https://github.com/andre-lmarinho/turistar/blob/acec418455c17b70977bbc64a58e165ab703964f/src/features/events/hooks/usePlanCollaboration.test.ts). Fractional positions make concurrent reordering deterministic. This event log uses last-write-wins for concurrent edits to the same field. It does not provide CRDT conflict resolution.
 
 ### Enforce access below the interface
 
