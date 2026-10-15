@@ -72,7 +72,7 @@ export const viewport: Viewport = {
 const RootLayout = ({ children }: { children: React.ReactNode }) => (
   <html
     lang="en"
-    className={`${archivo.variable} ${jetBrainsMono.variable} h-full scroll-smooth antialiased`}
+    className={`${archivo.variable} ${jetBrainsMono.variable} h-full antialiased`}
   >
     <body className="flex min-h-dvh flex-col bg-bg font-body text-foreground">
       <JsonLd data={websiteJsonLd} />
