@@ -14,7 +14,7 @@ const post = (overrides: Partial<Post> = {}): Post => ({
   description: "A description.",
   date: "2026-07-17",
   tags: ["one"],
-  html: "",
+  body: "",
   minutes: 2,
   ...overrides,
 });

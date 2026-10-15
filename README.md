@@ -33,5 +33,6 @@ For general articles that mention several projects, use contextual Markdown
 links. Link technical evidence directly to public source files, tests, PRs,
 or decision records, using commit permalinks for historical claims.
 
-External HTTP(S) Markdown links open in a new tab with `noopener noreferrer`;
-internal links stay in the same tab.
+Markdown is rendered directly as React elements on the server using
+`markdown-to-jsx`. Internal links use Next.js `Link`. External web links use
+native anchors that open in a new tab with `noopener noreferrer`.

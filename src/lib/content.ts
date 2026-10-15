@@ -1,7 +1,5 @@
 import { readdirSync, readFileSync } from "node:fs";
 import { join } from "node:path";
-import { marked } from "marked";
-import { siteUrl } from "./seo";
 
 // Flat `key: value` frontmatter between `---` fences. No YAML parser needed.
 export function readMarkdown(dir: string, slug: string) {
@@ -18,18 +16,7 @@ export function readMarkdown(dir: string, slug: string) {
   if (!meta.title) throw new Error(`"${slug}": missing title`);
   if (!meta.description) throw new Error(`"${slug}": missing description`);
 
-  const renderer = new marked.Renderer();
-  renderer.link = function (token) {
-    const html = marked.Renderer.prototype.link.call(this, token);
-    const url = URL.parse(token.href, siteUrl);
-    return url &&
-      ["https:", "http:"].includes(url.protocol) &&
-      url.origin !== siteUrl
-      ? html.replace("<a ", '<a target="_blank" rel="noopener noreferrer" ')
-      : html;
-  };
-
-  return { meta, html: marked.parse(body, { async: false, renderer }) };
+  return { meta, body };
 }
 
 const isPublished = (date: string) =>
