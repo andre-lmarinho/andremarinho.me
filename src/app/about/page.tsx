@@ -47,10 +47,6 @@ export default function AboutPage() {
           maintenance.
         </p>
         <p>
-          I work on my own or lead a small development team, depending on the
-          project.
-        </p>
-        <p>
           Some projects start as an idea I want to try; others as something I’m
           tired of doing by hand. This site is where I keep my{" "}
           <Link href="/projects" className="about-inline-link">
@@ -114,8 +110,8 @@ export default function AboutPage() {
             In 2017, I started Duonorth as a business intelligence consultancy.
             It grew to include digital strategy and marketing around 2020, then
             focused on websites and software in 2023. In July 2025, I moved into
-            independent software development as my main occupation. I wrote a
-            longer version of{" "}
+            software development as my main occupation. I wrote a longer version
+            of{" "}
             <Link
               href="/posts/before-i-called-it-code"
               className="about-inline-link"

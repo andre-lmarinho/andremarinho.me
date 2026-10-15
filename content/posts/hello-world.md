@@ -17,7 +17,7 @@ I wrote it from scratch instead of starting from a template, which cost me a wee
 
 ## Some context on who is typing
 
-I ran Duonorth from 2017 to 2025. It began as a business intelligence consultancy, expanded into digital strategy and marketing around 2020, and focused on websites and software from 2023. In July 2025, I moved into independent software product development as my main occupation.
+I ran Duonorth from 2017 to 2025. It began as a business intelligence consultancy, expanded into digital strategy and marketing around 2020, and focused on websites and software from 2023. In July 2025, software product development became my main occupation.
 
 Current projects include [Turistar](/projects/turistar), an open-source planner for my own trips; [create-mvp](/projects/create-mvp), a CLI on npm for the project setup I got tired of assembling by hand; and [client work](/projects) in production.
 
