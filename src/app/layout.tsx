@@ -74,6 +74,9 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => (
     lang="en"
     className={`${archivo.variable} ${jetBrainsMono.variable} h-full antialiased`}
   >
+    <head>
+      <link rel="describedby" href="/llms.txt" />
+    </head>
     <body className="flex min-h-dvh flex-col bg-bg font-body text-foreground">
       <JsonLd data={websiteJsonLd} />
       <JsonLd data={profileJsonLd} />

@@ -1,6 +1,6 @@
 ---
 title: I Was Building Software Before I Called It Code
-description: How work in finance, logistics and business intelligence led me to independent software product development.
+description: How work in finance, logistics and business intelligence led me to software product development.
 date: 2026-02-17
 tags: career, story, business-intelligence
 ---
@@ -37,7 +37,7 @@ Around 2020, Duonorth expanded into marketing and digital delivery. The work con
 
 From 2023, I concentrated the business on websites and software. I was both directing the work and implementing it: WordPress sites, themes, plugins, interfaces and integrations in HTML, CSS, JavaScript and PHP.
 
-In July 2025, I moved into independent software product development as my main occupation, working on my own or with a team depending on the project.
+In July 2025, software product development became my main occupation.
 
 ## What carried over
 
