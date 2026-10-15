@@ -369,10 +369,6 @@ button:active {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  html {
-    scroll-behavior: auto;
-  }
-
   ::view-transition-group(*),
   ::view-transition-old(*),
   ::view-transition-new(*) {
