@@ -9,6 +9,7 @@ export type Post = {
   description: string;
   date: string;
   tags: string[];
+  project?: string;
   html: string;
   minutes: number;
 };
@@ -31,6 +32,7 @@ function parse(slug: string): Post {
     description: meta.description,
     date: meta.date ?? "",
     tags: meta.tags ? meta.tags.split(",").map((t) => t.trim()) : [],
+    project: meta.project || undefined,
     html,
     minutes: readingTime(html),
   };

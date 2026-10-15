@@ -1,9 +1,11 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import { notFound } from "next/navigation";
+import PostList from "@/components/content/PostList";
 import JsonLd from "@/components/JsonLd";
 import MorphTitle from "@/components/transitions/MorphTitle";
 import { formatDate } from "@/lib/content";
+import { getPosts } from "@/lib/posts";
 import { getProject, getProjects } from "@/lib/projects";
 import { breadcrumbJsonLd, projectJsonLd } from "@/lib/seo";
 
@@ -50,6 +52,7 @@ export default async function ProjectPage({
   const { slug } = await params;
   const project = getProject(slug);
   if (!project) notFound();
+  const posts = getPosts().filter((post) => post.project === slug);
 
   return (
     <>
@@ -122,6 +125,17 @@ export default async function ProjectPage({
             dangerouslySetInnerHTML={{ __html: project.html }}
           />
         </section>
+        {posts.length > 0 ? (
+          <aside
+            aria-labelledby="related-notes"
+            className="mt-12 border-t border-border pt-6"
+          >
+            <h2 id="related-notes" className="text-sm font-medium text-muted">
+              Related notes
+            </h2>
+            <PostList posts={posts} />
+          </aside>
+        ) : null}
       </article>
     </>
   );

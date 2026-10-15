@@ -49,7 +49,7 @@ These are the habits I use to catch myself accepting code before I understand it
 
 3. **Delete and rewrite the parts I will have to live with.** For the core of a feature, I close the suggestion and write it again from memory. It is slow, so I reserve it for code I know I will come back to. If I cannot reproduce it, I need to work through it again.
 
-4. **Write down why.** [create-mvp](https://www.npmjs.com/package/@andre.marinho/create-mvp) has 35 architecture decision records in it. Explaining why I chose one approach over another makes it obvious when I cannot justify a decision yet.
+4. **Write down why.** [create-mvp](/projects/create-mvp) has 35 architecture decision records in it. Explaining why I chose one approach over another makes it obvious when I cannot justify a decision yet. The [decision records are public](https://github.com/andre-lmarinho/create-app-mvp/blob/0d617a39b391709c1c4bf08bd45e68b2ef902305/docs/decisions.md).
 
 5. **Break it on purpose.** Change a value, remove a guard, delete a line, and watch what fails. If nothing fails, either the code does nothing or the tests do not cover it, and both of those are worth finding out on a Tuesday instead of in production.
 
