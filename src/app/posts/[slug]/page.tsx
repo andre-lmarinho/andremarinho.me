@@ -8,7 +8,7 @@ import MorphTitle from "@/components/transitions/MorphTitle";
 import { formatDate } from "@/lib/content";
 import { getPost, getPosts } from "@/lib/posts";
 import { getProject } from "@/lib/projects";
-import { breadcrumbJsonLd, postJsonLd } from "@/lib/seo";
+import { breadcrumbJsonLd, postJsonLd, siteName, siteUrl } from "@/lib/seo";
 
 export const dynamicParams = false;
 
@@ -28,14 +28,17 @@ export async function generateMetadata({
   return {
     title: `${post.title} - André Marinho`,
     description: post.description,
-    authors: [{ name: "André Marinho", url: "https://andremarinho.me" }],
-    alternates: { canonical: `/posts/${slug}` },
+    authors: [{ name: siteName, url: `${siteUrl}/about` }],
+    alternates: {
+      canonical: `/posts/${slug}`,
+      types: { "text/markdown": `/posts/${slug}/index.md` },
+    },
     openGraph: {
       title: post.title,
       description: post.description,
       type: "article",
       publishedTime: post.date || undefined,
-      authors: ["André Marinho"],
+      authors: [`${siteUrl}/about`],
       tags: post.tags,
       url: `/posts/${slug}`,
     },

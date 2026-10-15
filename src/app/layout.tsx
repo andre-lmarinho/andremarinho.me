@@ -3,13 +3,7 @@ import { Archivo, JetBrains_Mono } from "next/font/google";
 import JsonLd from "@/components/JsonLd";
 import Layout from "@/components/Layout";
 import VercelInsights from "@/components/VercelInsights";
-import {
-  jobTitle,
-  profileJsonLd,
-  siteDescription,
-  siteName,
-  websiteJsonLd,
-} from "@/lib/seo";
+import { jobTitle, siteDescription, siteName, websiteJsonLd } from "@/lib/seo";
 import "./globals.css";
 
 const siteTitle = `${siteName} - ${jobTitle}`;
@@ -41,8 +35,6 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: siteTitle,
-    description: siteDescription,
   },
   metadataBase: new URL("https://andremarinho.me"),
   manifest: "/manifest.json",
@@ -79,7 +71,6 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => (
     </head>
     <body className="flex min-h-dvh flex-col bg-bg font-body text-foreground">
       <JsonLd data={websiteJsonLd} />
-      <JsonLd data={profileJsonLd} />
       <Layout>{children}</Layout>
       <VercelInsights />
     </body>

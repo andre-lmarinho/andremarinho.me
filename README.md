@@ -15,24 +15,6 @@ Lighthouse runs against the production build on pull requests.
 
 ## Content
 
-Posts live in `content/posts`; projects live in `content/projects`. Entries
-without a `date` are drafts and are visible only in development.
-
-When a post is about a specific project, add the optional `project` field to
-its frontmatter. Use the project's filename without `.md`:
-
-```yaml
-project: turistar
-```
-
-The post links to that project, and the project lists its related posts.
-Missing or unpublished projects produce no related link in production;
-projects without related posts show no related-content block.
-
-For general articles that mention several projects, use contextual Markdown
-links. Link technical evidence directly to public source files, tests, PRs,
-or decision records, using commit permalinks for historical claims.
-
-Markdown is rendered directly as React elements on the server using
-`markdown-to-jsx`. Internal links use Next.js `Link`. External web links use
-native anchors that open in a new tab with `noopener noreferrer`.
+Posts, project cases, and the professional overview for `/llms.txt` live in
+`content/`. See [the content guide](content/README.md) for frontmatter,
+publication rules, project relationships, and public Markdown URLs.

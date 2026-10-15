@@ -1,8 +1,10 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
+import JsonLd from "@/components/JsonLd";
 import PageTitle from "@/components/PageTitle";
 import { Mail } from "@/components/ui/icon";
+import { profileJsonLd } from "@/lib/seo";
 import { email, socials } from "@/lib/site";
 
 export const description =
@@ -23,6 +25,7 @@ export const metadata: Metadata = {
 export default function AboutPage() {
   return (
     <article className="mx-auto w-full max-w-3xl px-6 py-16 lg:px-8">
+      <JsonLd data={profileJsonLd} />
       <PageTitle>About</PageTitle>
 
       <div className="mt-10 flex items-center gap-6 sm:gap-10">

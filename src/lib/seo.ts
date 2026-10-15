@@ -1,5 +1,6 @@
 import type { Post } from "./posts";
 import type { Project } from "./projects";
+import { socials } from "./site";
 
 export const siteUrl = "https://andremarinho.me";
 export const siteName = "André Marinho";
@@ -10,15 +11,15 @@ export const siteDescription =
 
 const author = {
   "@type": "Person",
+  "@id": `${siteUrl}/#person`,
   name: siteName,
-  url: siteUrl,
+  url: `${siteUrl}/about`,
   jobTitle,
   description: siteDescription,
+  image: `${siteUrl}/images/me/andre-marinho.webp`,
+  sameAs: socials.map(({ href }) => href),
 };
 
-// Article schema is what search and AI answer engines read to attribute a post
-// to an author and a date. Undated posts are drafts, so datePublished is dropped
-// rather than faked.
 export const postJsonLd = (post: Post) => ({
   "@context": "https://schema.org",
   "@type": "BlogPosting",
@@ -27,8 +28,6 @@ export const postJsonLd = (post: Post) => ({
   url: `${siteUrl}/posts/${post.slug}`,
   mainEntityOfPage: `${siteUrl}/posts/${post.slug}`,
   keywords: post.tags,
-  // The per-post OG card is the only image a text post has; naming it here is
-  // what lets an answer engine show something next to the citation.
   image: `${siteUrl}/posts/${post.slug}/opengraph-image`,
   inLanguage: "en",
   timeRequired: `PT${post.minutes}M`,
@@ -37,34 +36,26 @@ export const postJsonLd = (post: Post) => ({
   publisher: author,
 });
 
-// Projects are software, so SoftwareSourceCode carries more than a generic
-// CreativeWork: it lets the tag list stand in for the languages used.
 export const projectJsonLd = (project: Project) => ({
   "@context": "https://schema.org",
-  "@type": "SoftwareSourceCode",
-  name: project.title,
+  "@type": "Article",
+  headline: project.title,
   description: project.description,
   url: `${siteUrl}/projects/${project.slug}`,
+  mainEntityOfPage: `${siteUrl}/projects/${project.slug}`,
   image: project.image ? `${siteUrl}${project.image}` : undefined,
-  programmingLanguage: project.tags,
+  keywords: project.tags,
   inLanguage: "en",
   ...(project.date && { datePublished: project.date }),
-  ...(project.link && { sameAs: project.link }),
   author,
+  publisher: author,
 });
 
 export const profileJsonLd = {
   "@context": "https://schema.org",
   "@type": "ProfilePage",
-  mainEntity: {
-    ...author,
-    image: `${siteUrl}/images/me/andre-marinho.webp`,
-    sameAs: [
-      "https://github.com/andre-lmarinho",
-      "https://linkedin.com/in/andre-lmarinho",
-      "https://www.instagram.com/andre.lmarinho/",
-    ],
-  },
+  url: `${siteUrl}/about`,
+  mainEntity: author,
 };
 
 // Names the site as an entity in its own right, so the person and the domain

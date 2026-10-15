@@ -22,7 +22,7 @@ ${readFileSync(join(process.cwd(), "content/llms.md"), "utf8").trim()}
 ${projects
   .map(
     (project) =>
-      `- [${project.title}](${siteUrl}/projects/${project.slug}): ${project.description}`,
+      `- [${project.title}](${siteUrl}/projects/${project.slug}/index.md): ${project.description}`,
   )
   .join("\n")}
 
@@ -31,7 +31,7 @@ ${projects
 ${posts
   .map(
     (post) =>
-      `- [${post.title}](${siteUrl}/posts/${post.slug}): ${post.description}`,
+      `- [${post.title}](${siteUrl}/posts/${post.slug}/index.md): ${post.description}`,
   )
   .join("\n")}
 
