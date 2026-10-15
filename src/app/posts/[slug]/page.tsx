@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import Markdown from "@/components/content/Markdown";
 import PostViews from "@/components/content/PostViews";
 import ProjectList from "@/components/content/ProjectList";
 import JsonLd from "@/components/JsonLd";
@@ -105,11 +106,7 @@ export default async function PostPage({
         </section>
 
         <section className="pt-10">
-          <div
-            className="prose"
-            // biome-ignore lint/security/noDangerouslySetInnerHtml: markdown authored in-repo, no user input.
-            dangerouslySetInnerHTML={{ __html: post.html }}
-          />
+          <Markdown>{post.body}</Markdown>
         </section>
         {project ? (
           <aside

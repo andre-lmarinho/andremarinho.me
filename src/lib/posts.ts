@@ -10,22 +10,18 @@ export type Post = {
   date: string;
   tags: string[];
   project?: string;
-  html: string;
+  body: string;
   minutes: number;
 };
 
-function readingTime(html: string) {
-  const words = html
-    .replace(/<[^>]*>/g, " ")
-    .trim()
-    .split(/\s+/)
-    .filter(Boolean).length;
+function readingTime(body: string) {
+  const words = body.trim().split(/\s+/).filter(Boolean).length;
 
   return Math.max(1, Math.round(words / 200));
 }
 
 function parse(slug: string): Post {
-  const { meta, html } = readMarkdown(DIR, slug);
+  const { meta, body } = readMarkdown(DIR, slug);
   return {
     slug,
     title: meta.title,
@@ -33,8 +29,8 @@ function parse(slug: string): Post {
     date: meta.date ?? "",
     tags: meta.tags ? meta.tags.split(",").map((t) => t.trim()) : [],
     project: meta.project || undefined,
-    html,
-    minutes: readingTime(html),
+    body,
+    minutes: readingTime(body),
   };
 }
 

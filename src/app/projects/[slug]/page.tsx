@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import { notFound } from "next/navigation";
+import Markdown from "@/components/content/Markdown";
 import PostList from "@/components/content/PostList";
 import JsonLd from "@/components/JsonLd";
 import MorphTitle from "@/components/transitions/MorphTitle";
@@ -112,18 +113,14 @@ export default async function ProjectPage({
               alt={project.title}
               width={1600}
               height={900}
-              className="aspect-video w-full rounded-lg border border-border object-cover"
+              className="mb-12 aspect-video w-full rounded-lg border border-border object-cover"
               sizes="(max-width: 768px) 100vw, 768px"
               style={{ viewTransitionName: `project-image-${slug}` }}
               priority
             />
           ) : null}
 
-          <div
-            className={`prose ${project.image ? "mt-12" : ""}`}
-            // biome-ignore lint/security/noDangerouslySetInnerHtml: markdown authored in-repo, no user input.
-            dangerouslySetInnerHTML={{ __html: project.html }}
-          />
+          <Markdown>{project.body}</Markdown>
         </section>
         {posts.length > 0 ? (
           <aside

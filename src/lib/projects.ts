@@ -13,11 +13,11 @@ export type Project = {
   link: string;
   featured: boolean;
   kind: string;
-  html: string;
+  body: string;
 };
 
 function parse(slug: string): Project {
-  const { meta, html } = readMarkdown(DIR, slug);
+  const { meta, body } = readMarkdown(DIR, slug);
   return {
     slug,
     title: meta.title,
@@ -28,7 +28,7 @@ function parse(slug: string): Project {
     link: meta.link ?? "",
     featured: meta.featured === "true",
     kind: meta.kind ?? "",
-    html,
+    body,
   };
 }
 

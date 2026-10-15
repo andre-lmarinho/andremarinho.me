@@ -14,7 +14,7 @@ const project = (overrides: Partial<Project> = {}): Project => ({
   link: "https://example.com",
   featured: true,
   kind: "kind",
-  html: "",
+  body: "",
   ...overrides,
 });
 
