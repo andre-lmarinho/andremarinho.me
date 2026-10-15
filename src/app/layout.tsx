@@ -3,13 +3,7 @@ import { Archivo, JetBrains_Mono } from "next/font/google";
 import JsonLd from "@/components/JsonLd";
 import Layout from "@/components/Layout";
 import VercelInsights from "@/components/VercelInsights";
-import {
-  jobTitle,
-  profileJsonLd,
-  siteDescription,
-  siteName,
-  websiteJsonLd,
-} from "@/lib/seo";
+import { jobTitle, siteDescription, siteName, websiteJsonLd } from "@/lib/seo";
 import "./globals.css";
 
 const siteTitle = `${siteName} - ${jobTitle}`;
@@ -79,7 +73,6 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => (
     </head>
     <body className="flex min-h-dvh flex-col bg-bg font-body text-foreground">
       <JsonLd data={websiteJsonLd} />
-      <JsonLd data={profileJsonLd} />
       <Layout>{children}</Layout>
       <VercelInsights />
     </body>
