@@ -29,7 +29,10 @@ export async function generateMetadata({
     title: `${project.title} - André Marinho`,
     description: project.description,
     authors: [{ name: siteName, url: `${siteUrl}/about` }],
-    alternates: { canonical: `/projects/${slug}` },
+    alternates: {
+      canonical: `/projects/${slug}`,
+      types: { "text/markdown": `/projects/${slug}/index.md` },
+    },
     openGraph: {
       title: project.title,
       description: project.description,

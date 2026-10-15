@@ -7,7 +7,7 @@ import { GET } from "./route";
 
 afterEach(() => vi.unstubAllEnvs());
 
-it("serves a professional overview and canonical links to published content", async () => {
+it("serves a professional overview and links to published Markdown", async () => {
   vi.stubEnv("NODE_ENV", "production");
   const response = GET();
   const body = await response.text();
@@ -29,7 +29,7 @@ it("serves a professional overview and canonical links to published content", as
   ] as const) {
     for (const entry of entries) {
       expect(body).toContain(
-        `[${entry.title}](${siteUrl}/${section}/${entry.slug})`,
+        `[${entry.title}](${siteUrl}/${section}/${entry.slug}/index.md)`,
       );
     }
   }
