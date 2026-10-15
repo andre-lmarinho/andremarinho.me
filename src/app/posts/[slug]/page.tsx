@@ -35,7 +35,7 @@ export async function generateMetadata({
       description: post.description,
       type: "article",
       publishedTime: post.date || undefined,
-      authors: [siteName],
+      authors: [`${siteUrl}/about`],
       tags: post.tags,
       url: `/posts/${slug}`,
     },

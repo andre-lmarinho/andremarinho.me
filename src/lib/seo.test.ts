@@ -59,6 +59,7 @@ it("preserves canonical URLs and identifies the profile as the content author", 
     expect(result.openGraph).toMatchObject({
       type: "article",
       publishedTime: entry.date,
+      authors: [`${siteUrl}/about`],
     });
   }
 });

@@ -35,7 +35,7 @@ export async function generateMetadata({
       description: project.description,
       type: "article",
       publishedTime: project.date || undefined,
-      authors: [siteName],
+      authors: [`${siteUrl}/about`],
       tags: project.tags,
       url: `/projects/${slug}`,
       ...(project.image && { images: [project.image] }),

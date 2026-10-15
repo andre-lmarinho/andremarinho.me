@@ -35,8 +35,6 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: siteTitle,
-    description: siteDescription,
   },
   metadataBase: new URL("https://andremarinho.me"),
   manifest: "/manifest.json",
