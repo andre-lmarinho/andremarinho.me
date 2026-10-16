@@ -9,7 +9,7 @@ import SectionRule from "./components/SectionRule";
 
 export default function HomePage() {
   const featuredProjects = getProjects().filter((project) => project.featured);
-  const posts = getPosts().slice(0, 3);
+  const posts = getPosts().slice(0, 8);
 
   return (
     // Each section would otherwise be auto-named and paired with the single
