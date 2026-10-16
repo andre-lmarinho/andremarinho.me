@@ -1,4 +1,5 @@
 import { afterEach, beforeEach, expect, it, vi } from "vitest";
+import { GET as fullContext } from "@/app/llms-full.txt/route";
 import {
   GET as postMarkdown,
   generateStaticParams as postParams,
@@ -76,3 +77,27 @@ it.each([
     }
   },
 );
+
+it("exports the public overview and complete published bodies without drafts", async () => {
+  fs.readFileSync.mockImplementation((path: string) => {
+    if (path.endsWith("content/llms.md"))
+      return "Public professional overview.";
+    const published = path.endsWith("published.md");
+    return `---\ntitle: ${published ? "Published" : "Unpublished"}\ndescription: A technical decision.\n${published ? "date: 2026-07-17\n" : ""}---\n\n${body}\n`;
+  });
+
+  const response = fullContext();
+  const text = await response.text();
+
+  expect(response.headers.get("content-type")).toBe(
+    "text/plain; charset=utf-8",
+  );
+  expect(text).toContain("Public professional overview.");
+  expect(text).toContain(`By [${siteName}](${siteUrl}/about)`);
+  expect(text).toContain("Published: 2026-07-17");
+  expect(text).not.toContain("Unpublished");
+  for (const section of ["projects", "posts"]) {
+    expect(text).toContain(`Source: ${siteUrl}/${section}/published`);
+  }
+  expect(text.split(body)).toHaveLength(3);
+});

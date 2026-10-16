@@ -37,6 +37,7 @@ it("describes project cases as articles with topics, not source code or product 
 
 it("preserves publication dates and omits dates on drafts", () => {
   expect(postJsonLd(post).datePublished).toBe(post.date);
+  expect(postJsonLd(post)).not.toHaveProperty("dateModified");
   expect(projectJsonLd(project).datePublished).toBe(project.date);
   expect(postJsonLd({ ...post, date: "" })).not.toHaveProperty("datePublished");
   expect(projectJsonLd({ ...project, date: "" })).not.toHaveProperty(

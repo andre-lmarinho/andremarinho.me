@@ -122,7 +122,7 @@ export default function NotFound() {
   useEffect(() => init(), [init]);
 
   return (
-    <div className="relative flex flex-1 flex-col items-center justify-center px-6">
+    <div className="relative flex flex-1 flex-col items-center justify-center overflow-x-clip px-6">
       <div
         ref={containerRef}
         className="pointer-events-auto relative flex select-none items-center justify-center"
