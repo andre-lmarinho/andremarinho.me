@@ -94,15 +94,11 @@ export function initIntentPrefetch() {
   document.addEventListener("pointerover", onIntent, { passive: true });
   document.addEventListener("focusin", onIntent);
   document.addEventListener("touchstart", onIntent, { passive: true });
-  window.addEventListener(
-    "pagehide",
-    () => {
-      document.removeEventListener("pointerover", onIntent);
-      document.removeEventListener("focusin", onIntent);
-      document.removeEventListener("touchstart", onIntent);
-    },
-    { once: true },
-  );
+  return () => {
+    document.removeEventListener("pointerover", onIntent);
+    document.removeEventListener("focusin", onIntent);
+    document.removeEventListener("touchstart", onIntent);
+  };
 }
 
 export function initNotFound() {
@@ -190,8 +186,9 @@ export function initNotFound() {
       state.vy *= 0.3;
     }
   });
-  window.addEventListener("pagehide", () => cancelAnimationFrame(frame), {
-    once: true,
+  window.addEventListener("pagehide", () => {
+    cancelAnimationFrame(frame);
+    frame = 0;
   });
 }
 

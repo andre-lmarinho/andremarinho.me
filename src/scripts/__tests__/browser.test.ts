@@ -7,10 +7,14 @@ vi.mock("@/lib/abacus", async () => ({
   getAbacusCount,
 }));
 
+let stopPrefetch: (() => void) | undefined;
+
 const flush = () => new Promise<void>((resolve) => queueMicrotask(resolve));
 
 afterEach(() => {
   window.dispatchEvent(new Event("pagehide"));
+  stopPrefetch?.();
+  stopPrefetch = undefined;
   document.head.querySelectorAll('link[rel="prefetch"]').forEach((link) => {
     link.remove();
   });
@@ -89,7 +93,7 @@ describe("native prefetch", () => {
   };
 
   it("prefetches same-origin HTML once after intent, with a bounded budget", () => {
-    initIntentPrefetch();
+    stopPrefetch = initIntentPrefetch();
     expect(prefetches()).toHaveLength(0);
     focus("/posts");
     focus("/posts");
@@ -107,20 +111,52 @@ describe("native prefetch", () => {
     ["/posts", 'data-prefetch="false"'],
     ["mailto:hello@example.com", ""],
   ])("skips ineligible destination %s %s", (href, attributes) => {
-    initIntentPrefetch();
+    stopPrefetch = initIntentPrefetch();
     focus(href, attributes);
     expect(prefetches()).toHaveLength(0);
   });
 
+  it("keeps intent handling when a document returns from the back-forward cache", () => {
+    stopPrefetch = initIntentPrefetch();
+    window.dispatchEvent(new Event("pagehide"));
+    window.dispatchEvent(new Event("pageshow"));
+    focus("/posts");
+    expect(prefetches()).toHaveLength(1);
+  });
+
   it("respects a data-saving connection", () => {
     vi.stubGlobal("navigator", { connection: { saveData: true } });
-    initIntentPrefetch();
+    stopPrefetch = initIntentPrefetch();
     focus("/posts");
     expect(prefetches()).toHaveLength(0);
   });
 });
 
 describe("404 motion", () => {
+  it("resumes pointer animation after a document returns from the back-forward cache", () => {
+    document.body.innerHTML =
+      '<div data-not-found><div data-not-found-glow></div><span class="nf-digit">4</span><span class="nf-digit">0</span><span class="nf-digit">4</span></div>';
+    vi.stubGlobal("matchMedia", vi.fn().mockReturnValue({ matches: false }));
+    const frame = vi.spyOn(window, "requestAnimationFrame").mockReturnValue(1);
+    const cancelFrame = vi.spyOn(window, "cancelAnimationFrame");
+    const pointer = () =>
+      document
+        .querySelector("[data-not-found]")
+        ?.dispatchEvent(
+          new MouseEvent("pointermove", { clientX: 50, clientY: 50 }),
+        );
+    initNotFound();
+    pointer();
+    expect(frame).toHaveBeenCalledTimes(1);
+
+    window.dispatchEvent(new Event("pagehide"));
+    expect(cancelFrame).toHaveBeenCalledWith(1);
+    window.dispatchEvent(new Event("pageshow"));
+    pointer();
+
+    expect(frame).toHaveBeenCalledTimes(2);
+  });
+
   it("respects reduced motion before scheduling animation", () => {
     document.body.innerHTML =
       '<div data-not-found><div data-not-found-glow></div><span class="nf-digit">4</span><span class="nf-digit">0</span><span class="nf-digit">4</span></div>';
