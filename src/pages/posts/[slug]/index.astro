@@ -1,0 +1,15 @@
+---
+import Page from "@/components/pages/Post";
+import Base from "@/layouts/Base.astro";
+import { getPostMetadata } from "@/lib/metadata";
+import { getPosts } from "@/lib/posts";
+
+export function getStaticPaths() {
+  return getPosts().map((entry) => ({ params: { slug: entry.slug } }));
+}
+const { slug } = Astro.params;
+if (!slug) throw new Error("Missing route slug");
+const metadata = getPostMetadata(slug);
+if (!metadata) throw new Error(`Unknown posts: ${slug}`);
+---
+<Base metadata={metadata}><Page slug={slug} /></Base>

@@ -84,13 +84,13 @@ const toRgb = (hex: string) => {
   return `rgb(${r}, ${g}, ${b})`;
 };
 
-// The card cannot import globals.css, so its palette is a second copy of the
+// The card cannot import global.css, so its palette is a second copy of the
 // tokens. This is what stops that copy from drifting silently: change a color
-// in globals.css and the suite names the one the card still has.
+// in global.css and the suite names the one the card still has.
 describe("palette", () => {
-  it("matches the tokens in globals.css", async () => {
+  it("matches the tokens in global.css", async () => {
     const css = await readFile(
-      join(process.cwd(), "src/app/globals.css"),
+      join(process.cwd(), "src/styles/global.css"),
       "utf8",
     );
     const declared = new Map(
@@ -106,7 +106,7 @@ describe("palette", () => {
 
     for (const token of ["bg", "foreground", "muted", "border", "accent"]) {
       const value = declared.get(token);
-      expect(value, `globals.css is missing --color-${token}`).toBeDefined();
+      expect(value, `global.css is missing --color-${token}`).toBeDefined();
       expect(html, `the card no longer uses --color-${token}`).toContain(
         toRgb(value as string),
       );

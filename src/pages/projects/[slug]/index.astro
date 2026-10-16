@@ -1,0 +1,15 @@
+---
+import Page from "@/components/pages/Project";
+import Base from "@/layouts/Base.astro";
+import { getProjectMetadata } from "@/lib/metadata";
+import { getProjects } from "@/lib/projects";
+
+export function getStaticPaths() {
+  return getProjects().map((entry) => ({ params: { slug: entry.slug } }));
+}
+const { slug } = Astro.params;
+if (!slug) throw new Error("Missing route slug");
+const metadata = getProjectMetadata(slug);
+if (!metadata) throw new Error(`Unknown projects: ${slug}`);
+---
+<Base metadata={metadata}><Page slug={slug} /></Base>

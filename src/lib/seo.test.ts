@@ -1,6 +1,8 @@
 import { expect, it } from "vitest";
-import { generateMetadata as postMetadata } from "@/app/posts/[slug]/page";
-import { generateMetadata as projectMetadata } from "@/app/projects/[slug]/page";
+import {
+  getPostMetadata as postMetadata,
+  getProjectMetadata as projectMetadata,
+} from "./metadata";
 import * as posts from "./posts";
 import * as projects from "./projects";
 import {
@@ -50,14 +52,12 @@ it("preserves canonical URLs and identifies the profile as the content author", 
     [post, postMetadata, "posts"],
     [project, projectMetadata, "projects"],
   ] as const) {
-    const result = await metadata({
-      params: Promise.resolve({ slug: entry.slug }),
-    });
-    expect(result.alternates?.canonical).toBe(`/${section}/${entry.slug}`);
-    expect(result.authors).toEqual([
+    const result = metadata(entry.slug);
+    expect(result?.canonical).toBe(`/${section}/${entry.slug}`);
+    expect(result?.authors).toEqual([
       { name: profileJsonLd.mainEntity.name, url: `${siteUrl}/about` },
     ]);
-    expect(result.openGraph).toMatchObject({
+    expect(result?.openGraph).toMatchObject({
       type: "article",
       publishedTime: entry.date,
       authors: [`${siteUrl}/about`],

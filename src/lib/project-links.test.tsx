@@ -1,8 +1,8 @@
 import { join } from "node:path";
 import { cleanup, render, within } from "@testing-library/react";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
-import PostPage from "@/app/posts/[slug]/page";
-import ProjectPage from "@/app/projects/[slug]/page";
+import PostPage from "@/components/pages/Post";
+import ProjectPage from "@/components/pages/Project";
 import { getPost, getPosts } from "./posts";
 
 const fs = vi.hoisted(() => ({ readdirSync: vi.fn(), readFileSync: vi.fn() }));
@@ -68,9 +68,7 @@ describe("project links", () => {
   });
 
   it("links an article to its published project", async () => {
-    const page = render(
-      await PostPage({ params: Promise.resolve({ slug: "related" }) }),
-    );
+    const page = render(PostPage({ slug: "related" }));
     expect(page.getByRole("link", { name: /Tool/ }).getAttribute("href")).toBe(
       "/projects/tool",
     );
@@ -79,9 +77,7 @@ describe("project links", () => {
   it.each(["general", "missing", "draft-project"])(
     "omits the project block for %s instead of generating a broken link",
     async (slug) => {
-      const page = render(
-        await PostPage({ params: Promise.resolve({ slug }) }),
-      );
+      const page = render(PostPage({ slug }));
       expect(
         page.queryByRole("heading", { name: "Related project" }),
       ).toBeNull();
@@ -89,9 +85,7 @@ describe("project links", () => {
   );
 
   it("lists only published notes assigned to the current project", async () => {
-    const page = render(
-      await ProjectPage({ params: Promise.resolve({ slug: "tool" }) }),
-    );
+    const page = render(ProjectPage({ slug: "tool" }));
     const section = within(
       page.getByRole("complementary", { name: "Related notes" }),
     );
@@ -101,9 +95,7 @@ describe("project links", () => {
   });
 
   it("omits an empty related-notes section", async () => {
-    const page = render(
-      await ProjectPage({ params: Promise.resolve({ slug: "empty" }) }),
-    );
+    const page = render(ProjectPage({ slug: "empty" }));
     expect(page.queryByRole("heading", { name: "Related notes" })).toBeNull();
   });
 });

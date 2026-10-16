@@ -1,9 +1,8 @@
 import { readFile } from "node:fs/promises";
 import { join } from "node:path";
-import type { ImageResponse } from "next/og";
+import type { ImageResponse } from "@vercel/og";
 
-// satori ships inside next/og rather than as a resolvable package, so the font
-// type is taken from the constructor that consumes it.
+// Keep font data aligned with the image renderer constructor.
 type Font = NonNullable<
   NonNullable<ConstructorParameters<typeof ImageResponse>[1]>["fonts"]
 >[number];
@@ -19,9 +18,7 @@ const ACCENT = "#22c55e";
 
 const FONT_DIR = join(process.cwd(), "src/components/OpengraphImage/fonts");
 
-// Satori reads TTF, not the woff2 next/font emits, so the two families the site
-// already uses are vendored beside this file and read at build time. Every OG
-// route is prerendered, so this never runs on a request.
+// Satori uses the vendored TTF files; all cards are generated during the build.
 export const getFonts = async (): Promise<Font[]> => {
   const [archivo, archivoSemiBold, jetBrainsMono] = await Promise.all([
     readFile(join(FONT_DIR, "Archivo-Regular.ttf")),
