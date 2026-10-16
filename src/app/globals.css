@@ -62,24 +62,23 @@ html {
 }
 
 a:focus-visible,
-button:focus-visible,
-.content-row:focus-visible .content-title {
+button:focus-visible {
   outline: 2px solid var(--color-accent);
   outline-offset: 4px;
   transition-property: none;
 }
 
+/* The whole row is the link, so the whole row is the focus target. */
 .content-row:focus-visible {
-  outline: none;
+  outline: 2px solid var(--color-accent);
+  outline-offset: -2px;
+  background-color: var(--color-surface);
+  transition-property: none;
 }
 
 a:active,
 button:active {
   color: var(--color-accent);
-}
-
-.content-row:active {
-  background-color: var(--color-surface);
 }
 
 ::selection {
@@ -151,6 +150,16 @@ button:active {
   transition:
     opacity 200ms ease,
     background-color 90ms ease-out;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .content-row:hover {
+    background-color: var(--color-surface);
+  }
+}
+
+.content-row:active {
+  background-color: var(--color-surface-2);
 }
 
 .project-peek {
