@@ -1,9 +1,25 @@
-import { render } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
 import { viewTransitionNames } from "@/components/content/__tests__/helpers";
 import MorphTitle from "../MorphTitle";
 
 describe("MorphTitle", () => {
+  it("preserves the complete heading in its enclosing link's accessible name", () => {
+    render(
+      <a href="/posts/two-words">
+        <MorphTitle as="h2" title="Two Words" id="post-two-words" />
+        <p>Post description</p>
+      </a>,
+    );
+
+    expect(
+      screen.getByRole("heading", { name: "Two Words", level: 2 }),
+    ).toBeTruthy();
+    expect(
+      screen.getByRole("link", { name: "Two Words Post description" }),
+    ).toBeTruthy();
+  });
+
   it("names one span per word", () => {
     const { container } = render(
       <MorphTitle as="h3" title="Two Words" id="post-first" />,
