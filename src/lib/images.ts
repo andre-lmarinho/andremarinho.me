@@ -38,9 +38,9 @@ export function responsiveImageProps(source: string, width: number) {
 
   const widths =
     width <= 256
-      ? [80, 128, 160, 256]
+      ? [80, 128, 160, 256, 432, 640]
       : width <= 432
-        ? [216, 432]
+        ? [216, 432, 640, 960]
         : [640, 960, 1440, 1600];
 
   return {

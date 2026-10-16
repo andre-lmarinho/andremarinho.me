@@ -8,7 +8,9 @@
       "*.ts",
       "*.mts",
       "*.mjs",
-      "*.cjs"
+      "*.cjs",
+      "!**/*.trace.json",
+      "!**/*.devtoolslog.json"
     ]
   },
   "formatter": {

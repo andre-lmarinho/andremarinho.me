@@ -22,7 +22,7 @@ describe("static responsive images", () => {
 
   it("uses the portrait, hover and hero width sets", () => {
     const source = "/images/me/andre-marinho.webp";
-    expect(responsiveImageProps(source, 128).srcSet).toMatch(/-256.webp 256w$/);
+    expect(responsiveImageProps(source, 128).srcSet).toMatch(/-640.webp 640w$/);
     expect(responsiveImageProps(source, 432).srcSet).toMatch(
       /-216.webp 216w, /,
     );
