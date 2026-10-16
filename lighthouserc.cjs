@@ -1,22 +1,18 @@
-const { readFileSync } = require("node:fs");
 const { getLighthouseUrls } = require("./scripts/lighthouse-routes.cjs");
 
 const baseUrl = process.env.LHCI_BASE_URL || "http://localhost:3100";
 const remote = Boolean(process.env.LHCI_BASE_URL);
 const preview = remote && process.env.LHCI_PREVIEW === "1";
-const manifest = JSON.parse(
-  readFileSync(".next/prerender-manifest.json", "utf8"),
-);
+const distDir = "dist";
 
 module.exports = {
   ci: {
     collect: {
       ...(!remote && {
-        startServerCommand: "node_modules/.bin/next start -p 3100",
-        startServerReadyPattern: "Ready in",
+        staticDistDir: distDir,
       }),
       url: getLighthouseUrls(
-        manifest,
+        distDir,
         baseUrl,
         Number(process.env.LHCI_SHARD_INDEX || 0),
         Number(process.env.LHCI_SHARD_COUNT || 1),

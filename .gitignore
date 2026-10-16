@@ -16,9 +16,11 @@
 /*.trace.json
 /*.devtoolslog.json
 
-# next.js
-/.next/
-/out/
+# Astro generated output
+/.astro/
+/dist/
+/public/_images/
+/.performance-artifacts/
 
 # production
 /build
@@ -41,7 +43,6 @@ yarn-error.log*
 
 # typescript
 *.tsbuildinfo
-next-env.d.ts
 
 # local skills
 .agents/skills
