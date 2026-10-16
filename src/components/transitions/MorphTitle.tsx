@@ -18,12 +18,13 @@ export default function MorphTitle({
   className,
 }: MorphTitleProps) {
   return (
-    <Tag className={className}>
+    <Tag className={className} aria-label={title}>
       {title.split(" ").map((word, i) => (
         // biome-ignore lint/suspicious/noArrayIndexKey: the words of a fixed title never reorder, and the index is the pairing key
         <Fragment key={`${i}-${word}`}>
           {i > 0 && " "}
           <span
+            aria-hidden="true"
             className="inline-block"
             style={{ viewTransitionName: `title-${id}-${i}` }}
           >

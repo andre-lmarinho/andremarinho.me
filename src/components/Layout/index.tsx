@@ -9,11 +9,7 @@ export default function Layout({ children }: { children: ReactNode }) {
         Skip to content
       </a>
       <Header />
-      <main
-        id="main-content"
-        tabIndex={-1}
-        className="grow flex flex-col pt-16"
-      >
+      <main id="main-content" tabIndex={-1} className="grow flex flex-col">
         <ViewTransition>{children}</ViewTransition>
       </main>
       <Footer />

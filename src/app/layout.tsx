@@ -69,7 +69,7 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => (
     <head>
       <link rel="describedby" href="/llms.txt" />
     </head>
-    <body className="flex min-h-dvh flex-col bg-bg font-body text-foreground">
+    <body className="flex min-h-dvh flex-col bg-bg font-body text-foreground wrap-anywhere">
       <JsonLd data={websiteJsonLd} />
       <Layout>{children}</Layout>
       <VercelInsights />
