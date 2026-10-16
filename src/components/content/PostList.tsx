@@ -1,5 +1,5 @@
-import Link from "next/link";
 import PostViews from "@/components/content/PostViews";
+import Link from "@/components/IntentLink";
 import MorphTitle from "@/components/transitions/MorphTitle";
 import { formatShortDate } from "@/lib/content";
 import type { Post } from "@/lib/posts";

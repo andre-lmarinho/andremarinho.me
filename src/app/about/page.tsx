@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Image from "next/image";
-import Link from "next/link";
+import Link from "@/components/IntentLink";
 import JsonLd from "@/components/JsonLd";
 import PageTitle from "@/components/PageTitle";
 import { Mail } from "@/components/ui/icon";

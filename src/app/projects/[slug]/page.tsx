@@ -131,9 +131,10 @@ export default async function ProjectPage({
               width={1600}
               height={900}
               className="mb-12 aspect-video w-full rounded-lg border border-border object-cover"
-              sizes="(max-width: 768px) 100vw, 768px"
+              sizes="(min-width: 1024px) 704px, (min-width: 768px) 720px, calc(100vw - 48px)"
               style={{ viewTransitionName: `project-image-${slug}` }}
-              priority
+              loading="eager"
+              fetchPriority="high"
             />
           ) : null}
 

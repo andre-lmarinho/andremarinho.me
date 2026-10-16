@@ -1,7 +1,7 @@
 "use client";
 
-import Link from "next/link";
 import { startTransition } from "react";
+import Link from "@/components/IntentLink";
 import { settleScrollForTransition } from "./utils";
 
 export default function TransitionLink({

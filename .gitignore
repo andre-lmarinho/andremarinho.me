@@ -13,6 +13,8 @@
 # testing
 /coverage
 /.lighthouseci
+/*.trace.json
+/*.devtoolslog.json
 
 # next.js
 /.next/

@@ -1,6 +1,6 @@
 import Markdown from "markdown-to-jsx/react";
-import Link from "next/link";
 import type { ComponentProps } from "react";
+import Link from "@/components/IntentLink";
 import { siteUrl } from "@/lib/seo";
 
 function ContentLink({ href = "", ...props }: ComponentProps<"a">) {

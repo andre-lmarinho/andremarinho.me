@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Archivo, JetBrains_Mono } from "next/font/google";
+import localFont from "next/font/local";
 import JsonLd from "@/components/JsonLd";
 import Layout from "@/components/Layout";
 import VercelInsights from "@/components/VercelInsights";
@@ -8,16 +8,16 @@ import "./globals.css";
 
 const siteTitle = `${siteName} - ${jobTitle}`;
 
-const archivo = Archivo({
-  subsets: ["latin"],
-  weight: ["400", "500", "600"],
+const archivo = localFont({
+  src: "./fonts/Archivo-latin.woff2",
+  weight: "400 600",
   display: "swap",
   variable: "--font-archivo",
 });
 
-const jetBrainsMono = JetBrains_Mono({
-  subsets: ["latin"],
-  weight: ["400", "500"],
+const jetBrainsMono = localFont({
+  src: "./fonts/JetBrainsMono-latin.woff2",
+  weight: "400 600",
   display: "swap",
   variable: "--font-jetbrains-mono",
 });
