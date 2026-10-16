@@ -68,6 +68,25 @@ describe("visible post counters", () => {
     expect(element.textContent).toBe("1,234 views");
   });
 
+  it("reads the real count without recording automation as a visit", async () => {
+    document.body.innerHTML =
+      '<span data-post-counter="post-first" data-increment="true">… views</span>';
+    Reflect.deleteProperty(window, "IntersectionObserver");
+    vi.stubGlobal("navigator", {
+      userAgent: "Chrome-Lighthouse",
+      webdriver: true,
+    });
+    getAbacusCount.mockResolvedValue(42);
+
+    initPostViews();
+    await flush();
+
+    expect(getAbacusCount).toHaveBeenCalledWith("post-first", {
+      increment: false,
+    });
+    expect(document.querySelector("span")?.textContent).toBe("42 views");
+  });
+
   it("shows the fallback on service failure without rejecting", async () => {
     document.body.innerHTML =
       '<span data-post-counter="post-first">… views</span>';

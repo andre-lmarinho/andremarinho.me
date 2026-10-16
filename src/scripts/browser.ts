@@ -21,7 +21,9 @@ export function initPostViews() {
   const update = async (element: HTMLElement) => {
     try {
       const count = await getAbacusCount(element.dataset.postCounter ?? "", {
-        increment: element.dataset.increment === "true",
+        increment:
+          element.dataset.increment === "true" &&
+          !isAutomatedBrowser(navigator),
       });
       element.textContent = `${formatAbacusCount(count)} views`;
     } catch {
