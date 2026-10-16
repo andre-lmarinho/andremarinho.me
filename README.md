@@ -38,10 +38,12 @@ After `pnpm build`, run the same checks with `pnpm lighthouse`. To validate an
 existing Vercel preview before publishing to production:
 
 ```bash
-LHCI_BASE_URL=https://your-preview.vercel.app pnpm lighthouse
+LHCI_BASE_URL=https://your-preview.vercel.app LHCI_PREVIEW=1 pnpm lighthouse
 ```
 
-The preview gate requires at least 97 for every page and run. It includes the
+The preview gate requires at least 97 for every page and run. `LHCI_PREVIEW=1`
+excludes only the SEO `is-crawlable` audit because Vercel intentionally sends
+`X-Robots-Tag: noindex` on previews. Omit that flag when testing production. Both remote modes include the
 Vercel Analytics and Speed Insights scripts, which are blocked only in local
 build measurements because their endpoints require Vercel hosting. Both modes
 save traces and network logs in the project root and reports in `.lighthouseci/`.
