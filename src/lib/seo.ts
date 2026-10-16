@@ -31,7 +31,7 @@ export const postJsonLd = (post: Post) => ({
   image: `${siteUrl}/posts/${post.slug}/opengraph-image`,
   inLanguage: "en",
   timeRequired: `PT${post.minutes}M`,
-  ...(post.date && { datePublished: post.date, dateModified: post.date }),
+  ...(post.date && { datePublished: post.date }),
   author,
   publisher: author,
 });

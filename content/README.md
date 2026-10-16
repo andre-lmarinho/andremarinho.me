@@ -82,4 +82,9 @@ facts consistent with the About page and résumé, and project-specific evidence
 in the cases. The `/llms.txt` route adds the site title, description, contacts,
 and lists of published projects and posts linked to their Markdown versions.
 
+`/llms-full.txt` combines this public overview with every published case and
+post, preserving authorship, publication dates, source URLs, and complete bodies.
+It uses the same publication rules as HTML and is linked from `/llms.txt`.
+Edit the existing sources to update it.
+
 Before publishing, run the [checks in the root README](../README.md#checks).

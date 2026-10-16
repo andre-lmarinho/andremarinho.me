@@ -1,9 +1,9 @@
 import { afterEach, expect, it, vi } from "vitest";
+import { GET } from "@/app/llms.txt/route";
 import { getPosts } from "@/lib/posts";
 import { getProjects } from "@/lib/projects";
 import { siteName, siteUrl } from "@/lib/seo";
 import { email } from "@/lib/site";
-import { GET } from "./route";
 
 afterEach(() => vi.unstubAllEnvs());
 
@@ -22,6 +22,7 @@ it("serves a professional overview and links to published Markdown", async () =>
   expect(body).toContain("reconstructed visuals");
   expect(body).toContain(`[Résumé](${siteUrl}/resume.pdf)`);
   expect(body).toContain(`[Email](mailto:${email})`);
+  expect(body).toContain(`${siteUrl}/llms-full.txt`);
 
   for (const [section, entries] of [
     ["projects", getProjects()],

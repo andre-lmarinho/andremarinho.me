@@ -24,6 +24,16 @@ export async function generateMetadata({
   const { slug } = await params;
   const project = getProject(slug);
   if (!project) return {};
+  const images = project.image
+    ? [
+        {
+          url: project.image,
+          width: 1600,
+          height: 900,
+          alt: `${project.title} interface`,
+        },
+      ]
+    : undefined;
 
   return {
     title: `${project.title} - André Marinho`,
@@ -41,13 +51,13 @@ export async function generateMetadata({
       authors: [`${siteUrl}/about`],
       tags: project.tags,
       url: `/projects/${slug}`,
-      ...(project.image && { images: [project.image] }),
+      images,
     },
     twitter: {
       card: "summary_large_image",
       title: project.title,
       description: project.description,
-      ...(project.image && { images: [project.image] }),
+      images,
     },
   };
 }

@@ -17,6 +17,10 @@ export function GET() {
 
 ${readFileSync(join(process.cwd(), "content/llms.md"), "utf8").trim()}
 
+## Full context
+
+- [Complete professional context](${siteUrl}/llms-full.txt): Public overview and complete published project cases and posts in one file.
+
 ## Projects
 
 ${projects
