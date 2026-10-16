@@ -19,7 +19,7 @@ export default function PostList({
         <li key={post.slug}>
           <Link
             href={`/posts/${post.slug}`}
-            className="content-row group -mx-3 block rounded-md px-3 py-5"
+            className="content-row group -mx-3 block rounded-md px-3 py-3"
           >
             <div className="grid grid-cols-1 gap-x-6 gap-y-1.5 sm:grid-cols-[7rem_minmax(0,1fr)]">
               <time
@@ -29,24 +29,19 @@ export default function PostList({
                 {post.date ? formatShortDate(post.date) : "Draft"}
               </time>
 
-              <div>
-                <div className="flex items-baseline justify-between gap-x-4">
-                  <MorphTitle
-                    as={titleAs}
-                    title={post.title}
-                    id={`post-${post.slug}`}
-                    className="content-title text-base leading-6 font-medium transition-colors group-hover:text-accent"
-                  />
-                  <span
-                    title="Post views"
-                    className="shrink-0 text-xs text-faint tabular-nums"
-                  >
-                    <PostViews slug={post.slug} />
-                  </span>
-                </div>
-                <p className="mt-2 text-sm leading-relaxed text-muted">
-                  {post.description}
-                </p>
+              <div className="flex items-baseline justify-between gap-x-4">
+                <MorphTitle
+                  as={titleAs}
+                  title={post.title}
+                  id={`post-${post.slug}`}
+                  className="content-title text-base leading-6 font-medium transition-colors group-hover:text-accent"
+                />
+                <span
+                  title="Post views"
+                  className="shrink-0 text-xs text-faint tabular-nums"
+                >
+                  <PostViews slug={post.slug} />
+                </span>
               </div>
             </div>
           </Link>
