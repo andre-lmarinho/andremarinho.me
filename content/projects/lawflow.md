@@ -33,7 +33,7 @@ The work spanned two engagements. I delivered the backend and deployment in the 
 
 For the pipeline, the most repeated interaction in the product, I moved the card immediately in the local cache, then reconciled with the server, using a snapshot, rollback, and refetch to recover from failures. In the documented scenario with two sequential round trips to Supabase in São Paulo, this removed roughly 350–700 milliseconds of waiting before visible feedback. The card moves within one frame while the server processes the change.
 
-The complete path from clicking Log in to a rendered CRM initially took ≈7,441ms. Under high server latency, the same path could exceed 15,000ms. Session hydration, workspace resolution, billing, bootstrap, and screen data ran in sequence in the browser. I moved the authorised bootstrap to the server and hydrated the frontend from the resulting snapshot. In measurements during the implementation, the same full flow then took ≈760ms, an ≈90% reduction.
+The complete path from clicking Log in to a rendered CRM initially took ≈7,441ms. Under high server latency, the same path could exceed 15,000ms. Session hydration, workspace resolution, billing, bootstrap, and screen data ran in sequence in the browser. I moved the authorised bootstrap to the server and hydrated the frontend from the resulting snapshot. In measurements during the implementation, the same full flow then took ≈760ms, an ≈90% reduction. The [login waterfall article](/posts/removing-login-dashboard-waterfall) explains the dependency changes, authorization boundary and measurement limits.
 
 The end-to-end suite covers the paths whose failure would affect the operation directly: authentication, pipeline, proposals, the public acceptance page, and subscription billing.
 
@@ -50,6 +50,14 @@ The first dashboard implementation transported accepted proposals to Node and ag
 ### Handle billing retries safely
 
 Billing webhook events are authenticated, persisted before processing, and handled idempotently so a gateway retry cannot apply the same transition twice.
+
+### Persist notification candidates in one batch
+
+Reminder calculations return candidate rows, which the repository inserts in one batch while ignoring existing deduplication keys. A redundant partial-index predicate initially prevented the conflict target from matching. The [upsert article](/posts/partial-index-supabase-upsert) explains the index change and why conflicts preserve the existing notification.
+
+### Page through notification history by position
+
+Read notifications use a timestamp-and-ID cursor with a stable descending order. The [pagination article](/posts/postgres-cursor-timestamp-and-id) covers timestamp ties, the extra row used to detect another page and the limits of the available indexes.
 
 ## Disclosure
 

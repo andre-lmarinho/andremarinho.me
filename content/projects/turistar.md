@@ -33,7 +33,7 @@ I created and maintain Turistar, from product design and the data model to the d
 
 The [live product](https://turistar.me/) is the version I use, and the complete [source code is public](https://github.com/andre-lmarinho/turistar) under the AGPL-3.0 license. The repository includes the implementation, tests, CI, and architectural history.
 
-The documented test surface includes 79 Vitest files for unit and integration behavior and 12 Playwright specs covering authentication, the dashboard, inspirations, the world map, and the planner surfaces: activities, drag-and-drop, map, budget, members, search, and sharing.
+The test suite includes Vitest unit and integration checks and Playwright journeys covering authentication, the dashboard, inspirations, the world map, and the planner surfaces: activities, drag-and-drop, map, budget, members, search, and sharing.
 
 I also measured the collaboration payload with the production diff code. For a modeled seven-day itinerary with four enriched activities per day, one edit serialized to 740 bytes as an event instead of resending a 15,940-byte snapshot. That is a code-level payload measurement, not user telemetry.
 
@@ -41,15 +41,27 @@ I also measured the collaboration payload with the production diff code. For a m
 
 ### Keep the gesture local
 
-During a drag, Turistar updates a [local draft in the board component](https://github.com/andre-lmarinho/turistar/blob/acec418455c17b70977bbc64a58e165ab703964f/src/features/activityBoard/components/ActivityBoard.tsx) so the card follows the pointer without waiting on a network write. The [drag handlers save the move once on drop](https://github.com/andre-lmarinho/turistar/blob/acec418455c17b70977bbc64a58e165ab703964f/src/features/activityBoard/hooks/useDragHandlers.ts).
+The January implementation updated a [local draft in the board component](https://github.com/andre-lmarinho/turistar/blob/acec418455c17b70977bbc64a58e165ab703964f/src/features/activityBoard/components/ActivityBoard.tsx) so the card followed the pointer without waiting on a network write. The [drag handlers saved the move once on drop](https://github.com/andre-lmarinho/turistar/blob/acec418455c17b70977bbc64a58e165ab703964f/src/features/activityBoard/hooks/useDragHandlers.ts).
 
-On a measured four-day board with four activities per day, moving a card across a full column and into the next reduced seven potential writes to one. In that implementation, remote state did not reposition the card underneath the pointer while the gesture was active. A remote edit to that same card during the drag could still be misread when the final state was committed; that race was a known edge case of the linked revision.
+In a simulation using that revision's code, moving a card across a full column and into the next on a four-day board with four activities per day reduced seven potential writes to one. Remote state did not reposition the card underneath the pointer while the gesture was active. Concurrent edits to the same itinerary could still be misread when the whole draft was committed; that race was a known edge case of the linked revision.
+
+The [later implementation commits an activity ID and destination](https://github.com/andre-lmarinho/turistar/blob/151498387e729ca5759137a7de6a37686452a817/src/modules/planner/hooks/useDragHandlers.ts), projecting the preview over current shared state instead of submitting an entire draft. I explain the historical conflict and the change in [Keeping drag-and-drop stable during realtime updates](/posts/drag-and-drop-with-realtime).
 
 ### Send each change as an event
 
-Each itinerary-board change becomes an immutable event such as `activity.moved` or `day.reordered`, appended with a monotonic version. Other clients receive the event through Supabase Realtime and apply it optimistically.
+Each itinerary-board change becomes an immutable event such as `activity.moved` or `day.reordered`, appended with a monotonic version. The originating client applies the change optimistically; other clients receive the versioned event through Supabase Realtime.
 
 Snapshots keep replay bounded, and a gap in the version sequence triggers a refetch rather than allowing silent divergence. The [collaboration tests cover version gaps and snapshot recovery](https://github.com/andre-lmarinho/turistar/blob/acec418455c17b70977bbc64a58e165ab703964f/src/features/events/hooks/usePlanCollaboration.test.ts). Fractional positions make concurrent reordering deterministic. This event log uses last-write-wins for concurrent edits to the same field. It does not provide CRDT conflict resolution.
+
+I also corrected a write path that could advance a snapshot's version while retaining old content. [The event-version investigation](/posts/event-version-and-stale-snapshot) follows the missing RPC argument, server-side state construction, and the limits of replay recovery.
+
+### Load the dashboard's summaries
+
+The dashboard uses one PostgreSQL summary query for trip cards and map destinations, counting activities without transferring each itinerary snapshot. A controlled benchmark with 50 plans, 40 activities per plan, and 30 ms added database API latency reduced median data-loading time from 129.10 ms to 39.03 ms. Those are HTTP-to-parsed-JSON timings, not full-page rendering. [The dashboard note](/posts/dashboard-summaries-instead-of-snapshots) explains the query, access rules, and why the 50-card limit must not truncate the map.
+
+### Let visitors use the real product
+
+The [demo button on the login page](https://turistar.me/login) opens a real shared account with prepared trips. On dashboard entry, the database can restore its baseline if at least an hour has passed since the last reset, without a scheduler or a reset on every visit. Visitors can see each other's changes, and already-open tabs need a refresh after restoration. [The demo note](/posts/shared-demo-without-reset-scheduler) covers the restore mechanism and access boundary.
 
 ### Enforce access below the interface
 
