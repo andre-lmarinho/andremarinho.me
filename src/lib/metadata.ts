@@ -2,7 +2,13 @@ import { getPost } from "./posts";
 import { getProject } from "./projects";
 import { jobTitle, siteDescription, siteName, siteUrl } from "./seo";
 
-type SocialImage = { url: string; width: number; height: number; alt: string };
+type SocialImage = {
+  url: string;
+  type?: string;
+  width: number;
+  height: number;
+  alt: string;
+};
 
 export type PageMetadata = {
   title: string;
@@ -41,6 +47,7 @@ function pageMetadata(
       url: path,
       image: {
         url: `${path === "/" ? "" : path}/opengraph-image`,
+        type: "image/png",
         width: 1200,
         height: 630,
         alt: imageAlt,
@@ -94,6 +101,7 @@ export function getPostMetadata(slug: string): PageMetadata | undefined {
       url: `/posts/${slug}`,
       image: {
         url: `/posts/${slug}/opengraph-image`,
+        type: "image/png",
         width: 1200,
         height: 630,
         alt: "Writing by André Marinho",
