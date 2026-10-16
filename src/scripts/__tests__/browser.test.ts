@@ -43,19 +43,22 @@ describe("visible post counters", () => {
     );
     const element = document.querySelector("span") as HTMLElement;
     getAbacusCount.mockResolvedValue(1234);
+    const entry = (isIntersecting: boolean): IntersectionObserverEntry => ({
+      target: element,
+      isIntersecting,
+      boundingClientRect: element.getBoundingClientRect(),
+      intersectionRect: element.getBoundingClientRect(),
+      rootBounds: null,
+      intersectionRatio: isIntersecting ? 1 : 0,
+      time: 0,
+    });
 
     initPostViews();
     expect(observe).toHaveBeenCalledWith(element);
     expect(getAbacusCount).not.toHaveBeenCalled();
-    onIntersect(
-      [{ isIntersecting: false, target: element } as IntersectionObserverEntry],
-      {} as IntersectionObserver,
-    );
+    onIntersect([entry(false)], {} as IntersectionObserver);
     expect(getAbacusCount).not.toHaveBeenCalled();
-    onIntersect(
-      [{ isIntersecting: true, target: element } as IntersectionObserverEntry],
-      {} as IntersectionObserver,
-    );
+    onIntersect([entry(true)], {} as IntersectionObserver);
     await flush();
 
     expect(unobserve).toHaveBeenCalledWith(element);
