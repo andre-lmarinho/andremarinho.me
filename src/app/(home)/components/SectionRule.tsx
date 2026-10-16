@@ -13,7 +13,7 @@ export default function SectionRule({
   const labelClass = "text-[10px] uppercase tracking-[0.2em]";
 
   return (
-    <div className="mb-8 flex items-center gap-x-3">
+    <div className="mb-8 flex flex-wrap items-center gap-x-3 gap-y-3">
       <span className={`${labelClass} text-muted tabular-nums`}>{index}</span>
       <h2 className={`${labelClass} shrink-0 text-foreground`}>{label}</h2>
 

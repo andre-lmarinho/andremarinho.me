@@ -14,10 +14,10 @@ export default function Header() {
   const pathname = usePathname();
 
   return (
-    <header className="site-header fixed inset-x-0 top-0 z-40">
-      <div className="mx-auto flex h-16 w-full max-w-3xl items-center justify-between px-6 lg:px-8">
+    <header className="site-header sticky top-0 z-40">
+      <div className="mx-auto flex min-h-16 w-full max-w-3xl items-center justify-between px-6 lg:px-8">
         <nav aria-label="Site">
-          <ul className="flex gap-x-5 text-sm">
+          <ul className="flex flex-wrap gap-x-5 text-sm">
             {routes.map(({ label, href }) => {
               const active =
                 href === "/"

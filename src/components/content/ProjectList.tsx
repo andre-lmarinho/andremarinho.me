@@ -45,7 +45,7 @@ export default function ProjectList({
             {project.image ? (
               <span
                 aria-hidden="true"
-                className="project-peek pointer-events-none absolute top-1/2 left-full ml-8 hidden w-54 xl:block"
+                className="project-peek pointer-events-none absolute top-1/2 left-full hidden w-62 pl-8 xl:block"
               >
                 <Image
                   src={project.image}
