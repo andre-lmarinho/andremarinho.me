@@ -1,15 +1,8 @@
 import { render, screen, within } from "@testing-library/react";
-import { describe, expect, it, vi } from "vitest";
+import { describe, expect, it } from "vitest";
 import Header from "../Header";
 
-const { usePathname } = vi.hoisted(() => ({ usePathname: vi.fn() }));
-
-vi.mock("next/navigation", () => ({ usePathname }));
-
-const atRoute = (pathname: string) => {
-  usePathname.mockReturnValue(pathname);
-  return render(<Header />);
-};
+const atRoute = (pathname: string) => render(<Header pathname={pathname} />);
 
 const siteNav = () => screen.getByRole("navigation", { name: "Site" });
 

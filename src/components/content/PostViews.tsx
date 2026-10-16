@@ -1,7 +1,4 @@
-"use client";
-
-import useAbacusCount from "@/hooks/useAbacusCount";
-import { formatAbacusCount, postCounter } from "@/lib/abacus";
+import { postCounter } from "@/lib/abacus";
 
 export default function PostViews({
   slug,
@@ -10,7 +7,13 @@ export default function PostViews({
   slug: string;
   increment?: boolean;
 }) {
-  const views = useAbacusCount(postCounter(slug), { increment });
-
-  return <>{formatAbacusCount(views)} views</>;
+  return (
+    <span
+      data-post-counter={postCounter(slug)}
+      data-increment={increment ? "true" : undefined}
+      style={{ display: "inline-block", minWidth: "12ch" }}
+    >
+      … views
+    </span>
+  );
 }

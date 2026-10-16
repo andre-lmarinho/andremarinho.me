@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { isAutomatedBrowser } from "../VercelInsights";
+import { isAutomatedBrowser } from "@/scripts/browser";
 
 describe("isAutomatedBrowser", () => {
   it("keeps normal browser sessions", () => {

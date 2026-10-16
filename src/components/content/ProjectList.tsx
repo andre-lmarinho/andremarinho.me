@@ -1,5 +1,5 @@
-import Image from "next/image";
 import Link from "@/components/IntentLink";
+import Image from "@/components/ResponsiveImage";
 import MorphTitle from "@/components/transitions/MorphTitle";
 import type { Project } from "@/lib/projects";
 

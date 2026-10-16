@@ -1,22 +1,13 @@
 import { cleanup, render } from "@testing-library/react";
-import Link from "next/link";
-import type { ComponentProps } from "react";
-import { afterEach, describe, expect, it, vi } from "vitest";
+import { afterEach, describe, expect, it } from "vitest";
 import Markdown from "../Markdown";
-
-vi.mock("next/link", () => ({
-  default: vi.fn(({ children, ...props }: ComponentProps<"a">) => (
-    <a {...props}>{children}</a>
-  )),
-}));
 
 afterEach(() => {
   cleanup();
-  vi.clearAllMocks();
 });
 
 describe("Markdown", () => {
-  it("uses Next Link for internal links and native anchors for external URLs", () => {
+  it("renders native anchors and opens external destinations in another tab", () => {
     const links = [
       ["Source", "https://github.com/example/repo?a=1&b=2", true],
       ["HTTP", "http://example.com", true],
@@ -33,11 +24,6 @@ describe("Markdown", () => {
       </Markdown>,
     );
 
-    expect(vi.mocked(Link).mock.calls.map(([props]) => props.href)).toEqual([
-      "/projects/turistar",
-      "https://andremarinho.me/about",
-      "#context",
-    ]);
     for (const [label, href, external] of links) {
       const link = page.getByRole("link", { name: label });
       expect(link.getAttribute("href")).toBe(href);
@@ -64,6 +50,5 @@ describe("Markdown", () => {
     expect(page.container.querySelector("pre code")?.textContent).toContain(
       '<a href="/about">Example</a>',
     );
-    expect(Link).not.toHaveBeenCalled();
   });
 });

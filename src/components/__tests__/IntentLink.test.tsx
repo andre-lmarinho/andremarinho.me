@@ -1,57 +1,26 @@
-import { fireEvent, render, screen } from "@testing-library/react";
-import type { ComponentProps } from "react";
-import { describe, expect, it, vi } from "vitest";
+import { render, screen } from "@testing-library/react";
+import { describe, expect, it } from "vitest";
 import IntentLink from "../IntentLink";
 
-vi.mock("next/link", () => ({
-  default: ({
-    prefetch,
-    ...props
-  }: ComponentProps<"a"> & { prefetch?: boolean | "auto" | null }) => (
-    <a {...props} data-prefetch={String(prefetch)} />
-  ),
-}));
-
 describe("IntentLink", () => {
-  it.each(["mouseEnter", "focus", "touchStart"] as const)(
-    "prefetches only after %s indicates navigation intent",
-    (event) => {
-      render(<IntentLink href="/posts">Posts</IntentLink>);
-      const link = screen.getByRole("link");
+  it("renders a native link with its attributes", () => {
+    render(
+      <IntentLink href="/posts" aria-current="page" className="posts">
+        Posts
+      </IntentLink>,
+    );
+    const link = screen.getByRole("link", { name: "Posts" });
+    expect(link.getAttribute("href")).toBe("/posts");
+    expect(link.getAttribute("aria-current")).toBe("page");
+    expect(link.className).toBe("posts");
+  });
 
-      expect(link.getAttribute("data-prefetch")).toBe("false");
-
-      fireEvent[event](link);
-
-      expect(link.getAttribute("data-prefetch")).toBe("null");
-    },
-  );
-
-  it("preserves an explicit prefetch choice", () => {
+  it("preserves an explicit prefetch opt-out", () => {
     render(
       <IntentLink href="/posts" prefetch={false}>
         Posts
       </IntentLink>,
     );
-    const link = screen.getByRole("link");
-
-    fireEvent.mouseEnter(link);
-
-    expect(link.getAttribute("data-prefetch")).toBe("false");
-  });
-
-  it("preserves the consumer handler and cancellation", () => {
-    const onFocus = vi.fn((event: React.FocusEvent) => event.preventDefault());
-    render(
-      <IntentLink href="/posts" onFocus={onFocus}>
-        Posts
-      </IntentLink>,
-    );
-    const link = screen.getByRole("link");
-
-    fireEvent.focus(link);
-
-    expect(onFocus).toHaveBeenCalledOnce();
-    expect(link.getAttribute("data-prefetch")).toBe("false");
+    expect(screen.getByRole("link").dataset.prefetch).toBe("false");
   });
 });

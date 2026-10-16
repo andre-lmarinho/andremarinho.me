@@ -1,6 +1,3 @@
-"use client";
-
-import { usePathname } from "next/navigation";
 import TransitionLink from "@/components/transitions/TransitionLink";
 
 const routes = [
@@ -10,9 +7,7 @@ const routes = [
   { label: "posts", href: "/posts" },
 ] as const;
 
-export default function Header() {
-  const pathname = usePathname();
-
+export default function Header({ pathname }: { pathname: string }) {
   return (
     <header className="site-header sticky top-0 z-40">
       <div className="mx-auto flex min-h-16 w-full max-w-3xl items-center justify-between px-6 lg:px-8">
