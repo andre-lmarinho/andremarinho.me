@@ -1,0 +1,84 @@
+---
+import Markdown from "@/components/content/Markdown.astro";
+import ProjectList from "@/components/content/ProjectList.astro";
+import JsonLd from "@/components/JsonLd.astro";
+import MorphTitle from "@/components/transitions/MorphTitle.astro";
+import Base from "@/layouts/Base.astro";
+import { postCounter } from "@/lib/abacus";
+import { formatDate } from "@/lib/content";
+import { getPostMetadata } from "@/lib/metadata";
+import { getPost, getPosts } from "@/lib/posts";
+import { getProject } from "@/lib/projects";
+import { breadcrumbJsonLd, postJsonLd } from "@/lib/seo";
+
+export async function getStaticPaths() {
+  return (await getPosts()).map((entry) => ({ params: { slug: entry.slug } }));
+}
+const { slug } = Astro.params;
+if (!slug) throw new Error("Missing route slug");
+const post = await getPost(slug);
+const metadata = await getPostMetadata(slug);
+if (!post || !metadata) throw new Error(`Unknown post: ${slug}`);
+const project = post.project ? await getProject(post.project) : null;
+---
+<Base metadata={metadata}>
+  <JsonLd data={postJsonLd(post)} />
+  <JsonLd
+    data={breadcrumbJsonLd([
+      { name: "Posts", path: "/posts" },
+      { name: post.title, path: `/posts/${slug}` },
+    ])}
+  />
+  <article class="mx-auto w-full max-w-3xl px-6 py-16 lg:px-8">
+    <section>
+      <MorphTitle
+        as="h1"
+        title={post.title}
+        id={`post-${slug}`}
+        class="text-balance text-4xl leading-[1.05] font-semibold tracking-[-0.02em] sm:text-5xl"
+      />
+      <p class="mt-5 max-w-2xl text-sm leading-relaxed text-muted sm:text-base">
+        {post.description}
+      </p>
+
+      <div class="mt-5 flex flex-wrap items-center gap-x-3 gap-y-2 text-xs">
+        <time datetime={post.date || undefined} class="text-muted">
+          {post.date ? formatDate(post.date) : "Draft"}
+        </time>
+        <span class="text-border" aria-hidden="true">
+          /
+        </span>
+        <span class="text-faint tabular-nums">
+          {post.minutes} min read
+        </span>
+        <span class="text-border" aria-hidden="true">
+          /
+        </span>
+        <span title="Post views" class="text-faint tabular-nums" data-post-counter={postCounter(slug)} data-increment="true">… views</span>
+      </div>
+
+      {post.tags.length > 0 ? (
+        <p class="mt-4 text-xs leading-relaxed text-faint">
+          {post.tags.join(" · ")}
+        </p>
+      ) : null}
+
+      <div aria-hidden="true" class="mt-8 h-px w-full bg-border" />
+    </section>
+
+    <section class="pt-10">
+      <Markdown content={post.body} />
+    </section>
+    {project ? (
+      <aside
+        aria-labelledby="related-project"
+        class="mt-12 border-t border-border pt-6"
+      >
+        <h2 id="related-project" class="text-sm font-medium text-muted">
+          Related project
+        </h2>
+        <ProjectList projects={[project]} />
+      </aside>
+    ) : null}
+  </article>
+</Base>

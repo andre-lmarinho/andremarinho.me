@@ -1,6 +1,5 @@
 export const ABACUS_BASE_URL = "https://abacus.jasoncameron.dev";
 export const ABACUS_NAMESPACE = "andremarinho";
-export const ABACUS_SITE_COUNTER = "portfolio";
 export const ABACUS_TIMEOUT_MS = 600;
 export const ABACUS_FALLBACK = "∞" as const;
 

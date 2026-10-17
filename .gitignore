@@ -14,9 +14,10 @@
 /coverage
 /.lighthouseci
 
-# next.js
-/.next/
-/out/
+# Astro generated output
+/.astro/
+/dist/
+/.performance-artifacts/
 
 # production
 /build
@@ -39,7 +40,6 @@ yarn-error.log*
 
 # typescript
 *.tsbuildinfo
-next-env.d.ts
 
 # local skills
 .agents/skills
