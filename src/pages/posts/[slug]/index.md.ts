@@ -1,5 +1,5 @@
 import { getPost, getPosts } from "@/lib/posts";
-import { siteName, siteUrl } from "@/lib/seo";
+import { siteName, siteUrl } from "@/lib/site";
 
 export function getStaticPaths() {
   return getPosts().map(({ slug }) => ({ params: { slug } }));

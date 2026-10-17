@@ -1,6 +1,6 @@
 import { getPosts } from "@/lib/posts";
 import { getProjects } from "@/lib/projects";
-import { siteUrl } from "@/lib/seo";
+import { siteUrl } from "@/lib/site";
 
 export function GET() {
   const paths = [

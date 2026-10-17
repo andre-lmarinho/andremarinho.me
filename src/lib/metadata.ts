@@ -1,6 +1,6 @@
 import { getPost } from "./posts";
 import { getProject } from "./projects";
-import { jobTitle, siteDescription, siteName, siteUrl } from "./seo";
+import { jobTitle, siteDescription, siteName, siteUrl } from "./site";
 
 type SocialImage = {
   url: string;
@@ -138,5 +138,3 @@ export function getProjectMetadata(slug: string): PageMetadata | undefined {
     },
   };
 }
-
-export const absoluteUrl = (path: string) => new URL(path, siteUrl).href;

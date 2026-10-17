@@ -1,8 +1,7 @@
 import { afterEach, expect, it, vi } from "vitest";
 import { getPosts } from "@/lib/posts";
 import { getProjects } from "@/lib/projects";
-import { siteName, siteUrl } from "@/lib/seo";
-import { email } from "@/lib/site";
+import { email, siteName, siteUrl } from "@/lib/site";
 import { GET } from "@/pages/llms.txt";
 
 afterEach(() => vi.unstubAllEnvs());

@@ -2,8 +2,7 @@ import { readFileSync } from "node:fs";
 import { join } from "node:path";
 import { getPosts } from "@/lib/posts";
 import { getProjects } from "@/lib/projects";
-import { siteDescription, siteName, siteUrl } from "@/lib/seo";
-import { email, socials } from "@/lib/site";
+import { email, siteDescription, siteName, siteUrl, socials } from "@/lib/site";
 
 export function GET() {
   const documents = (

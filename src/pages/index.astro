@@ -7,8 +7,7 @@ import Base from "@/layouts/Base.astro";
 import { homeMetadata } from "@/lib/metadata";
 import { getPosts } from "@/lib/posts";
 import { getProjects } from "@/lib/projects";
-import { jobTitle } from "@/lib/seo";
-import { socials } from "@/lib/site";
+import { jobTitle, socials } from "@/lib/site";
 
 const featuredProjects = getProjects().filter((project) => project.featured);
 const posts = getPosts().slice(0, 8);

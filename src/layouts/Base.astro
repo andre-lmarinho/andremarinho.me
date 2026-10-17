@@ -2,8 +2,9 @@
 import { ClientRouter } from "astro:transitions";
 import Footer from "@/components/Footer.astro";
 import Header from "@/components/Header.astro";
-import { absoluteUrl, type PageMetadata } from "@/lib/metadata";
-import { siteName, websiteJsonLd } from "@/lib/seo";
+import type { PageMetadata } from "@/lib/metadata";
+import { websiteJsonLd } from "@/lib/seo";
+import { absoluteUrl, siteName } from "@/lib/site";
 import archivo from "@/styles/fonts/Archivo-latin.woff2?url";
 import jetBrainsMono from "@/styles/fonts/JetBrainsMono-latin.woff2?url";
 import "@/styles/global.css";

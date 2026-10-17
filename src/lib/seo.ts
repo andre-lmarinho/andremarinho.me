@@ -1,13 +1,6 @@
 import type { Post } from "./posts";
 import type { Project } from "./projects";
-import { socials } from "./site";
-
-export const siteUrl = "https://andremarinho.me";
-export const siteName = "André Marinho";
-export const jobTitle = "Software Engineer";
-
-export const siteDescription =
-  "Software engineer in Salvador, Brazil. Full-stack web products with TypeScript, React, Next.js, Node.js and PostgreSQL.";
+import { jobTitle, siteDescription, siteName, siteUrl, socials } from "./site";
 
 const author = {
   "@type": "Person",

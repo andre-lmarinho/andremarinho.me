@@ -5,13 +5,8 @@ import {
 } from "./metadata";
 import * as posts from "./posts";
 import * as projects from "./projects";
-import {
-  postJsonLd,
-  profileJsonLd,
-  projectJsonLd,
-  siteUrl,
-  websiteJsonLd,
-} from "./seo";
+import { postJsonLd, profileJsonLd, projectJsonLd, websiteJsonLd } from "./seo";
+import { siteUrl } from "./site";
 
 const post = posts.getPosts()[0];
 const project = projects.getProjects()[0];

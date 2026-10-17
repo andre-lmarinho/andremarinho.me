@@ -3,7 +3,7 @@ import {
   getPostMetadata as postMetadata,
   getProjectMetadata as projectMetadata,
 } from "@/lib/metadata";
-import { siteName, siteUrl } from "@/lib/seo";
+import { siteName, siteUrl } from "@/lib/site";
 import { GET as fullContext } from "@/pages/llms-full.txt";
 import {
   GET as postMarkdown,
