@@ -1,14 +1,14 @@
 import { getPost, getPosts } from "@/lib/posts";
 import { siteName, siteUrl } from "@/lib/site";
 
-export function getStaticPaths() {
-  return getPosts().map(({ slug }) => ({ params: { slug } }));
+export async function getStaticPaths() {
+  return (await getPosts()).map(({ slug }) => ({ params: { slug } }));
 }
 
-export function GET({ params }: { params: { slug?: string } }) {
+export async function GET({ params }: { params: { slug?: string } }) {
   const { slug } = params;
   if (!slug) return new Response(null, { status: 404 });
-  const post = getPost(slug);
+  const post = await getPost(slug);
   if (!post) return new Response(null, { status: 404 });
 
   return new Response(

@@ -4,11 +4,11 @@ import { getPosts } from "@/lib/posts";
 import { getProjects } from "@/lib/projects";
 import { email, siteDescription, siteName, siteUrl, socials } from "@/lib/site";
 
-export function GET() {
+export async function GET() {
   const documents = (
     [
-      ["projects", getProjects()],
-      ["posts", getPosts()],
+      ["projects", await getProjects()],
+      ["posts", await getPosts()],
     ] as const
   ).flatMap(([section, entries]) =>
     entries.map(
@@ -24,7 +24,7 @@ export function GET() {
 
 Public professional overview followed by the complete published project cases and posts. Each document retains its source URL, evidence and limitations.
 
-${readFileSync(join(process.cwd(), "content/llms.md"), "utf8").trim()}
+${readFileSync(join(process.cwd(), "src/content/llms.md"), "utf8").trim()}
 
 ## Contact
 

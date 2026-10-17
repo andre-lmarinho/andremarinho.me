@@ -4,15 +4,15 @@ import { getPosts } from "@/lib/posts";
 import { getProjects } from "@/lib/projects";
 import { email, siteDescription, siteName, siteUrl, socials } from "@/lib/site";
 
-export function GET() {
-  const posts = getPosts();
-  const projects = getProjects();
+export async function GET() {
+  const posts = await getPosts();
+  const projects = await getProjects();
 
   const body = `# ${siteName}
 
 > ${siteDescription}
 
-${readFileSync(join(process.cwd(), "content/llms.md"), "utf8").trim()}
+${readFileSync(join(process.cwd(), "src/content/llms.md"), "utf8").trim()}
 
 ## Full context
 

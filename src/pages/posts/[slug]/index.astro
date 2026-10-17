@@ -11,15 +11,15 @@ import { getPost, getPosts } from "@/lib/posts";
 import { getProject } from "@/lib/projects";
 import { breadcrumbJsonLd, postJsonLd } from "@/lib/seo";
 
-export function getStaticPaths() {
-  return getPosts().map((entry) => ({ params: { slug: entry.slug } }));
+export async function getStaticPaths() {
+  return (await getPosts()).map((entry) => ({ params: { slug: entry.slug } }));
 }
 const { slug } = Astro.params;
 if (!slug) throw new Error("Missing route slug");
-const post = getPost(slug);
-const metadata = getPostMetadata(slug);
+const post = await getPost(slug);
+const metadata = await getPostMetadata(slug);
 if (!post || !metadata) throw new Error(`Unknown post: ${slug}`);
-const project = post.project ? getProject(post.project) : null;
+const project = post.project ? await getProject(post.project) : null;
 ---
 <Base metadata={metadata}>
   <JsonLd data={postJsonLd(post)} />

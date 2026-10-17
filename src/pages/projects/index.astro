@@ -5,7 +5,7 @@ import Base from "@/layouts/Base.astro";
 import { projectsMetadata } from "@/lib/metadata";
 import { getProjects } from "@/lib/projects";
 
-const projects = getProjects();
+const projects = await getProjects();
 ---
 <Base metadata={projectsMetadata}>
   <section class="mx-auto w-full max-w-3xl px-6 py-16 lg:px-8">

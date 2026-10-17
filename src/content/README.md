@@ -11,9 +11,9 @@ Write public content in English:
 Create a `.md` file in the appropriate folder. Its filename becomes the URL
 slug: `posts/example.md` produces `/posts/example`. Keep published filenames stable.
 
-Start with flat `key: value` frontmatter. `title` and `description` are required;
-use unquoted values and comma-separated tags. YAML arrays and multiline values
-are not supported.
+Frontmatter is validated against the collection schemas in
+`src/content.config.ts`: `title` and `description` are required, `tags` accepts
+a comma-separated string or a YAML list, and `date` uses `YYYY-MM-DD`.
 
 ```markdown
 ---
@@ -88,4 +88,4 @@ post, preserving authorship, publication dates, source URLs, and complete bodies
 It uses the same publication rules as HTML and is linked from `/llms.txt`.
 Edit the existing sources to update it.
 
-Before publishing, run the [checks in the root README](../README.md#checks).
+Before publishing, run the [checks in the root README](../../README.md#checks).

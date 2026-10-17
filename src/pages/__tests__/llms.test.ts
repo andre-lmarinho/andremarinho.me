@@ -1,3 +1,4 @@
+// @vitest-environment node
 import { afterEach, expect, it, vi } from "vitest";
 import { getPosts } from "@/lib/posts";
 import { getProjects } from "@/lib/projects";
@@ -8,7 +9,7 @@ afterEach(() => vi.unstubAllEnvs());
 
 it("serves a professional overview and links to published Markdown", async () => {
   vi.stubEnv("NODE_ENV", "production");
-  const response = GET();
+  const response = await GET();
   const body = await response.text();
 
   expect(response.status).toBe(200);
@@ -24,8 +25,8 @@ it("serves a professional overview and links to published Markdown", async () =>
   expect(body).toContain(`${siteUrl}/llms-full.txt`);
 
   for (const [section, entries] of [
-    ["projects", getProjects()],
-    ["posts", getPosts()],
+    ["projects", await getProjects()],
+    ["posts", await getPosts()],
   ] as const) {
     for (const entry of entries) {
       expect(body).toContain(

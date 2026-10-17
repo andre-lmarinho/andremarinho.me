@@ -1,14 +1,14 @@
 import { getProject, getProjects } from "@/lib/projects";
 import { siteName, siteUrl } from "@/lib/site";
 
-export function getStaticPaths() {
-  return getProjects().map(({ slug }) => ({ params: { slug } }));
+export async function getStaticPaths() {
+  return (await getProjects()).map(({ slug }) => ({ params: { slug } }));
 }
 
-export function GET({ params }: { params: { slug?: string } }) {
+export async function GET({ params }: { params: { slug?: string } }) {
   const { slug } = params;
   if (!slug) return new Response(null, { status: 404 });
-  const project = getProject(slug);
+  const project = await getProject(slug);
   if (!project) return new Response(null, { status: 404 });
 
   return new Response(

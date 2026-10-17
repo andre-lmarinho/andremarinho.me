@@ -2,14 +2,14 @@ import { getPosts } from "@/lib/posts";
 import { getProjects } from "@/lib/projects";
 import { siteUrl } from "@/lib/site";
 
-export function GET() {
+export async function GET() {
   const paths = [
     "",
     "/about",
     "/posts",
     "/projects",
-    ...getPosts().map(({ slug }) => `/posts/${slug}`),
-    ...getProjects().map(({ slug }) => `/projects/${slug}`),
+    ...(await getPosts()).map(({ slug }) => `/posts/${slug}`),
+    ...(await getProjects()).map(({ slug }) => `/projects/${slug}`),
   ];
   const escapeXml = (value: string) =>
     value.replace(/[<>&"']/g, (char) => `&#${char.charCodeAt(0)};`);

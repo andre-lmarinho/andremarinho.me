@@ -82,8 +82,10 @@ export const projectsMetadata = pageMetadata(
   "Projects by André Marinho",
 );
 
-export function getPostMetadata(slug: string): PageMetadata | undefined {
-  const post = getPost(slug);
+export async function getPostMetadata(
+  slug: string,
+): Promise<PageMetadata | undefined> {
+  const post = await getPost(slug);
   if (!post) return;
   return {
     title: `${post.title} - ${siteName}`,
@@ -110,8 +112,10 @@ export function getPostMetadata(slug: string): PageMetadata | undefined {
   };
 }
 
-export function getProjectMetadata(slug: string): PageMetadata | undefined {
-  const project = getProject(slug);
+export async function getProjectMetadata(
+  slug: string,
+): Promise<PageMetadata | undefined> {
+  const project = await getProject(slug);
   if (!project) return;
   return {
     title: `${project.title} - ${siteName}`,

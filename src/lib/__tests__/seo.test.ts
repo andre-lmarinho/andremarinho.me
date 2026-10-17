@@ -1,3 +1,4 @@
+// @vitest-environment node
 import { expect, it } from "vitest";
 import {
   getPostMetadata as postMetadata,
@@ -13,8 +14,8 @@ import {
 } from "../seo";
 import { siteUrl } from "../site";
 
-const post = posts.getPosts()[0];
-const project = projects.getProjects()[0];
+const post = (await posts.getPosts())[0];
+const project = (await projects.getProjects())[0];
 
 it("uses the same identified person for the profile, site, and content authors", () => {
   const person = profileJsonLd.mainEntity;
@@ -26,8 +27,8 @@ it("uses the same identified person for the profile, site, and content authors",
   expect(projectJsonLd(project).author).toEqual(person);
 });
 
-it("describes project cases as articles with topics, not source code or product identities", () => {
-  for (const entry of projects.getProjects()) {
+it("describes project cases as articles with topics, not source code or product identities", async () => {
+  for (const entry of await projects.getProjects()) {
     const schema = projectJsonLd(entry);
     expect(schema["@type"]).toBe("Article");
     expect(schema.headline).toBe(entry.title);
@@ -52,7 +53,7 @@ it("preserves canonical URLs and identifies the profile as the content author", 
     [post, postMetadata, "posts"],
     [project, projectMetadata, "projects"],
   ] as const) {
-    const result = metadata(entry.slug);
+    const result = await metadata(entry.slug);
     expect(result?.canonical).toBe(`/${section}/${entry.slug}`);
     expect(result?.authors).toEqual([
       { name: profileJsonLd.mainEntity.name, url: `${siteUrl}/about` },

@@ -1,5 +1,4 @@
 // @vitest-environment node
-import { join } from "node:path";
 import { experimental_AstroContainer as AstroContainer } from "astro/container";
 import { JSDOM } from "jsdom";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
@@ -12,64 +11,56 @@ type ContainerComponent = Parameters<AstroContainer["renderToString"]>[0];
 const postPage = PostPage as unknown as ContainerComponent;
 const projectPage = ProjectPage as unknown as ContainerComponent;
 
-const fs = vi.hoisted(() => ({ readdirSync: vi.fn(), readFileSync: vi.fn() }));
-vi.mock("node:fs", async (importOriginal) => {
-  const actual = await importOriginal<typeof import("node:fs")>();
-  return { ...actual, ...fs, default: { ...actual, ...fs } };
+const content = vi.hoisted(() => {
+  const entry = (id: string, data: Record<string, unknown>) => ({
+    id,
+    body: "The content.",
+    data: { title: id, description: `About ${id}.`, tags: [], ...data },
+  });
+  const published = "2026-07-17";
+  return {
+    posts: [
+      entry("related", { date: published, project: "tool" }),
+      entry("general", { date: published }),
+      entry("missing", { date: published, project: "missing" }),
+      entry("draft-project", { date: published, project: "draft" }),
+      entry("draft", { project: "tool" }),
+      entry("other", { date: published, project: "other" }),
+    ],
+    projects: [
+      entry("tool", { date: published }),
+      entry("other", { date: published }),
+      entry("empty", { date: published }),
+      entry("draft", {}),
+    ],
+  };
 });
 
-const markdown = (title: string, fields = "date: 2026-07-17") =>
-  `---\ntitle: ${title}\ndescription: About ${title}.\n${fields}\n---\n\nThe content.`;
-
-const files = {
-  "projects/tool.md": markdown("Tool"),
-  "projects/other.md": markdown("Other project"),
-  "projects/empty.md": markdown("Project without notes"),
-  "projects/draft.md": markdown("Draft project", ""),
-  "posts/related.md": markdown(
-    "Related note",
-    "date: 2026-07-17\nproject: tool",
-  ),
-  "posts/general.md": markdown("General note"),
-  "posts/missing.md": markdown(
-    "Missing project",
-    "date: 2026-07-17\nproject: missing",
-  ),
-  "posts/draft-project.md": markdown(
-    "Unpublished project",
-    "date: 2026-07-17\nproject: draft",
-  ),
-  "posts/draft.md": markdown("Draft note", "project: tool"),
-  "posts/other.md": markdown("Other note", "date: 2026-07-17\nproject: other"),
-};
+vi.mock("astro:content", () => ({
+  getCollection: async (
+    name: string,
+    filter?: (entry: { id: string }) => boolean,
+  ) => {
+    const entries = name === "posts" ? content.posts : content.projects;
+    return filter ? entries.filter(filter) : entries;
+  },
+}));
 
 describe("project links", () => {
   beforeEach(() => {
     vi.stubEnv("NODE_ENV", "production");
-    fs.readdirSync.mockImplementation((dir: string) =>
-      Object.keys(files)
-        .filter((file) =>
-          join(process.cwd(), "content", file).startsWith(`${dir}/`),
-        )
-        .map((file) => file.split("/").at(-1)),
-    );
-    fs.readFileSync.mockImplementation((path: string) => {
-      const file = Object.keys(files).find(
-        (file) => join(process.cwd(), "content", file) === path,
-      );
-      if (!file) throw new Error(`Unexpected content path: ${path}`);
-      return files[file as keyof typeof files];
-    });
   });
 
   afterEach(() => {
     vi.unstubAllEnvs();
   });
 
-  it("reads the optional project field without requiring it on general posts", () => {
-    expect(getPost("related")?.project).toBe("tool");
-    expect(getPost("general")?.project).toBeUndefined();
-    expect(getPosts().some((post) => post.slug === "draft")).toBe(false);
+  it("reads the optional project field without requiring it on general posts", async () => {
+    expect((await getPost("related"))?.project).toBe("tool");
+    expect((await getPost("general"))?.project).toBeUndefined();
+    expect((await getPosts()).some((post) => post.slug === "draft")).toBe(
+      false,
+    );
   });
 
   it("links an article to its published project", async () => {

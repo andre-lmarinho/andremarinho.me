@@ -6,9 +6,9 @@ import Markdown from "@/components/content/Markdown.astro";
 import { getPosts } from "../posts";
 import { getProjects } from "../projects";
 
-// Real content/, not fixtures: this failure arrives by publishing.
-const posts = getPosts();
-const projects = getProjects();
+// Real src/content/, not fixtures: this failure arrives by publishing.
+const posts = await getPosts();
+const projects = await getProjects();
 const container = await AstroContainer.create();
 
 describe("content", () => {

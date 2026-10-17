@@ -48,10 +48,10 @@ their availability and failure behavior require separate checks.
 
 ## Content
 
-Edit Markdown in `content/`. The [content guide](content/README.md) describes
-frontmatter, drafts, project links, and publication rules. Astro's Markdown
-processor renders the articles, preserving external link behavior and the site's
-existing typography.
+Edit Markdown in `src/content/`. The [content guide](src/content/README.md)
+describes frontmatter, drafts, project links, and publication rules. Astro's
+Markdown processor renders the articles, preserving external link behavior and
+the site's existing typography.
 
 Images live in `src/assets/images/` and enter the build as imported assets. The
 shared `ResponsiveImage` component resolves content image paths and delegates

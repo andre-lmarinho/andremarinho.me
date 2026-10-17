@@ -9,8 +9,10 @@ import { getPosts } from "@/lib/posts";
 import { getProjects } from "@/lib/projects";
 import { jobTitle, socials } from "@/lib/site";
 
-const featuredProjects = getProjects().filter((project) => project.featured);
-const posts = getPosts().slice(0, 8);
+const featuredProjects = (await getProjects()).filter(
+  (project) => project.featured,
+);
+const posts = (await getPosts()).slice(0, 8);
 ---
 <Base metadata={homeMetadata}>
   <section

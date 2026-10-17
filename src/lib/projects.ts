@@ -1,9 +1,7 @@
-import { join } from "node:path";
+import { type CollectionEntry, getCollection } from "astro:content";
 import type { ImageMetadata } from "astro";
-import { readAllContent, readMarkdown } from "./content";
+import { isPublished } from "./content";
 import { imageFor } from "./images";
-
-const DIR = join(process.cwd(), "content/projects");
 
 export type Project = {
   slug: string;
@@ -18,23 +16,32 @@ export type Project = {
   body: string;
 };
 
-function parse(slug: string): Project {
-  const { meta, body } = readMarkdown(DIR, slug);
+function toProject({ id, data, body }: CollectionEntry<"projects">): Project {
   return {
-    slug,
-    title: meta.title,
-    description: meta.description,
-    date: meta.date ?? "",
-    tags: meta.tags ? meta.tags.split(",").map((t) => t.trim()) : [],
-    image: meta.image ? imageFor(meta.image) : undefined,
-    link: meta.link ?? "",
-    featured: meta.featured === "true",
-    kind: meta.kind ?? "",
-    body,
+    slug: id,
+    title: data.title,
+    description: data.description,
+    date: data.date ?? "",
+    tags: data.tags,
+    image: data.image ? imageFor(data.image) : undefined,
+    link: data.link ?? "",
+    featured: data.featured ?? false,
+    kind: data.kind ?? "",
+    body: body ?? "",
   };
 }
 
-export const getProjects = () => readAllContent(DIR, parse);
+export async function getProjects() {
+  const entries = await getCollection("projects");
+  return entries
+    .map(toProject)
+    .filter((project) => isPublished(project.date))
+    .sort((a, b) => b.date.localeCompare(a.date));
+}
 
-export const getProject = (slug: string) =>
-  getProjects().find((project) => project.slug === slug) ?? null;
+export async function getProject(slug: string) {
+  const [entry] = await getCollection("projects", ({ id }) => id === slug);
+  if (!entry) return null;
+  const project = toProject(entry);
+  return isPublished(project.date) ? project : null;
+}

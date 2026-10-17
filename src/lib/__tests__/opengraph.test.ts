@@ -7,7 +7,7 @@ import { createOpenGraphImage } from "../opengraph";
 import { getPosts } from "../posts";
 
 it("generates a complete PNG card using the published content and vendored fonts", async () => {
-  const post = getPosts().reduce((longest, entry) =>
+  const post = (await getPosts()).reduce((longest, entry) =>
     entry.title.length > longest.title.length ? entry : longest,
   );
   const response = await createOpenGraphImage({
@@ -34,8 +34,8 @@ it("renders a card without an optional description", async () => {
 });
 
 // JetBrains Mono advances 0.6em: a 22px footer must fit between the 72px gutters.
-it("keeps every published post footer inside the card", () => {
-  const widest = getPosts()
+it("keeps every published post footer inside the card", async () => {
+  const widest = (await getPosts())
     .map((post) => `andremarinho.me/posts/${post.slug}`)
     .sort((a, b) => b.length - a.length)[0];
   expect(widest.length * 13.2, `"${widest}" overflows`).toBeLessThan(1056);
