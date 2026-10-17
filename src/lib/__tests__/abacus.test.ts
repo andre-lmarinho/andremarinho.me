@@ -4,7 +4,7 @@ import {
   formatAbacusCount,
   getAbacusCount,
   postCounter,
-} from "./abacus";
+} from "../abacus";
 
 const response = (
   value: number | string,

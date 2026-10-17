@@ -3,9 +3,9 @@ import { join } from "node:path";
 import { experimental_AstroContainer as AstroContainer } from "astro/container";
 import { JSDOM } from "jsdom";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
+import { getPost, getPosts } from "@/lib/posts";
 import PostPage from "@/pages/posts/[slug]/index.astro";
 import ProjectPage from "@/pages/projects/[slug]/index.astro";
-import { getPost, getPosts } from "./posts";
 
 // Vitest loads server factories; Astro check types page imports as components.
 type ContainerComponent = Parameters<AstroContainer["renderToString"]>[0];

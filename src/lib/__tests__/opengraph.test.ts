@@ -3,8 +3,8 @@ import { readFile } from "node:fs/promises";
 import { join } from "node:path";
 import sharp from "sharp";
 import { expect, it } from "vitest";
-import { createOpenGraphImage } from "./opengraph";
-import { getPosts } from "./posts";
+import { createOpenGraphImage } from "../opengraph";
+import { getPosts } from "../posts";
 
 it("generates a complete PNG card using the published content and vendored fonts", async () => {
   const post = getPosts().reduce((longest, entry) =>
