@@ -3,7 +3,7 @@ import { join } from "node:path";
 import { ImageResponse } from "@vercel/og";
 
 const size = { width: 1200, height: 630 };
-const fontDir = join(process.cwd(), "src/styles/fonts");
+const fontDir = join(process.cwd(), "src/assets/fonts");
 
 export async function createOpenGraphImage({
   title,

@@ -1,6 +1,6 @@
 @font-face {
   font-family: "Archivo";
-  src: url("./fonts/Archivo-vietnamese.woff2") format("woff2");
+  src: url("../assets/fonts/Archivo-vietnamese.woff2") format("woff2");
   font-style: normal;
   font-weight: 400 600;
   font-stretch: 100%;
@@ -11,7 +11,7 @@
 
 @font-face {
   font-family: "Archivo";
-  src: url("./fonts/Archivo-latin-ext.woff2") format("woff2");
+  src: url("../assets/fonts/Archivo-latin-ext.woff2") format("woff2");
   font-style: normal;
   font-weight: 400 600;
   font-stretch: 100%;
@@ -22,7 +22,7 @@
 
 @font-face {
   font-family: "Archivo";
-  src: url("./fonts/Archivo-latin.woff2") format("woff2");
+  src: url("../assets/fonts/Archivo-latin.woff2") format("woff2");
   font-style: normal;
   font-weight: 400 600;
   font-stretch: 100%;
@@ -33,7 +33,7 @@
 
 @font-face {
   font-family: "JetBrains Mono";
-  src: url("./fonts/JetBrainsMono-cyrillic-ext.woff2") format("woff2");
+  src: url("../assets/fonts/JetBrainsMono-cyrillic-ext.woff2") format("woff2");
   font-style: normal;
   font-weight: 400 500;
   font-display: swap;
@@ -43,7 +43,7 @@
 
 @font-face {
   font-family: "JetBrains Mono";
-  src: url("./fonts/JetBrainsMono-cyrillic.woff2") format("woff2");
+  src: url("../assets/fonts/JetBrainsMono-cyrillic.woff2") format("woff2");
   font-style: normal;
   font-weight: 400 500;
   font-display: swap;
@@ -52,7 +52,7 @@
 
 @font-face {
   font-family: "JetBrains Mono";
-  src: url("./fonts/JetBrainsMono-greek.woff2") format("woff2");
+  src: url("../assets/fonts/JetBrainsMono-greek.woff2") format("woff2");
   font-style: normal;
   font-weight: 400 500;
   font-display: swap;
@@ -61,7 +61,7 @@
 
 @font-face {
   font-family: "JetBrains Mono";
-  src: url("./fonts/JetBrainsMono-vietnamese.woff2") format("woff2");
+  src: url("../assets/fonts/JetBrainsMono-vietnamese.woff2") format("woff2");
   font-style: normal;
   font-weight: 400 500;
   font-display: swap;
@@ -71,7 +71,7 @@
 
 @font-face {
   font-family: "JetBrains Mono";
-  src: url("./fonts/JetBrainsMono-latin-ext.woff2") format("woff2");
+  src: url("../assets/fonts/JetBrainsMono-latin-ext.woff2") format("woff2");
   font-style: normal;
   font-weight: 400 500;
   font-display: swap;
@@ -81,7 +81,7 @@
 
 @font-face {
   font-family: "JetBrains Mono";
-  src: url("./fonts/JetBrainsMono-latin.woff2") format("woff2");
+  src: url("../assets/fonts/JetBrainsMono-latin.woff2") format("woff2");
   font-style: normal;
   font-weight: 400 500;
   font-display: swap;
