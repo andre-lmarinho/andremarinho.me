@@ -4,7 +4,7 @@ import { JSDOM } from "jsdom";
 import { expect, it } from "vitest";
 import portrait from "@/assets/images/me/andre-marinho.webp";
 import { imageFor } from "@/lib/images";
-import ResponsiveImage from "../ui/ResponsiveImage.astro";
+import ResponsiveImage from "../ResponsiveImage.astro";
 
 const container = await AstroContainer.create();
 const props = {
