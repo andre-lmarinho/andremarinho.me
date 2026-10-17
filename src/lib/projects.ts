@@ -1,5 +1,7 @@
 import { join } from "node:path";
+import type { ImageMetadata } from "astro";
 import { readAllContent, readMarkdown } from "./content";
+import { imageFor } from "./images";
 
 const DIR = join(process.cwd(), "content/projects");
 
@@ -9,7 +11,7 @@ export type Project = {
   description: string;
   date: string;
   tags: string[];
-  image: string;
+  image?: ImageMetadata;
   link: string;
   featured: boolean;
   kind: string;
@@ -24,7 +26,7 @@ function parse(slug: string): Project {
     description: meta.description,
     date: meta.date ?? "",
     tags: meta.tags ? meta.tags.split(",").map((t) => t.trim()) : [],
-    image: meta.image ?? "",
+    image: meta.image ? imageFor(meta.image) : undefined,
     link: meta.link ?? "",
     featured: meta.featured === "true",
     kind: meta.kind ?? "",

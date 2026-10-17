@@ -129,9 +129,9 @@ export function getProjectMetadata(slug: string): PageMetadata | undefined {
       url: `/projects/${slug}`,
       image: project.image
         ? {
-            url: project.image,
-            width: 1600,
-            height: 900,
+            url: project.image.src,
+            width: project.image.width,
+            height: project.image.height,
             alt: `${project.title} interface`,
           }
         : projectsMetadata.openGraph.image,

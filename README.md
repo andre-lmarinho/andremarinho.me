@@ -53,11 +53,11 @@ frontmatter, drafts, project links, and publication rules. Astro's Markdown
 processor renders the articles, preserving external link behavior and the site's
 existing typography.
 
-Images in `public/images/` retain stable public URLs for sharing. The shared
-`ResponsiveImage` component imports their metadata and delegates AVIF/WebP
-variants, dimensions, hashing, and caching to Astro's native `Picture` component.
-Development processes edits on demand; production emits optimized files in
-`dist/_astro/`.
+Images live in `src/assets/images/` and enter the build as imported assets. The
+shared `ResponsiveImage` component resolves content image paths and delegates
+AVIF/WebP variants, dimensions, hashing, and caching to Astro's native `Picture`
+component. Development processes edits on demand; production emits optimized
+files with content-hashed URLs in `dist/_astro/`.
 In Astro 7.4 dev, image edits that keep the same dimensions can require bypassing
-the browser cache. Production URLs change when the image contents change.
+the browser cache.
 Replace `public/resume.pdf` to update the downloadable résumé.

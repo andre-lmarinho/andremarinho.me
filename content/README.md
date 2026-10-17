@@ -45,7 +45,8 @@ using commit permalinks for historical claims.
 
 Optional project fields:
 
-- `image`: screenshot path, such as `/images/projects/turistar.webp`.
+- `image`: screenshot path, such as `/images/projects/turistar.webp`, resolved
+  against `src/assets/images/` at build time.
 - `link`: public product, repository, or package URL.
 - `featured: true`: show the case on the home page.
 - `kind`: category label, such as `open source` or `npm CLI`.

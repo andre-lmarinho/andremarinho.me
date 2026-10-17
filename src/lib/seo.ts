@@ -1,3 +1,4 @@
+import portrait from "@/assets/images/me/andre-marinho.webp";
 import type { Post } from "./posts";
 import type { Project } from "./projects";
 import { jobTitle, siteDescription, siteName, siteUrl, socials } from "./site";
@@ -9,7 +10,7 @@ const author = {
   url: `${siteUrl}/about`,
   jobTitle,
   description: siteDescription,
-  image: `${siteUrl}/images/me/andre-marinho.webp`,
+  image: `${siteUrl}${portrait.src}`,
   sameAs: socials.map(({ href }) => href),
 };
 
@@ -36,7 +37,7 @@ export const projectJsonLd = (project: Project) => ({
   description: project.description,
   url: `${siteUrl}/projects/${project.slug}`,
   mainEntityOfPage: `${siteUrl}/projects/${project.slug}`,
-  image: project.image ? `${siteUrl}${project.image}` : undefined,
+  image: project.image ? `${siteUrl}${project.image.src}` : undefined,
   keywords: project.tags,
   inLanguage: "en",
   ...(project.date && { datePublished: project.date }),
