@@ -1,5 +1,4 @@
-import { readFileSync } from "node:fs";
-import { join } from "node:path";
+import overview from "@/content/llms.md?raw";
 import { getPosts } from "@/lib/posts";
 import { getProjects } from "@/lib/projects";
 import { email, siteDescription, siteName, siteUrl, socials } from "@/lib/site";
@@ -12,7 +11,7 @@ export async function GET() {
 
 > ${siteDescription}
 
-${readFileSync(join(process.cwd(), "src/content/llms.md"), "utf8").trim()}
+${overview.trim()}
 
 ## Full context
 

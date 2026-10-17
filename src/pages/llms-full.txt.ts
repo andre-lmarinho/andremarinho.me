@@ -1,5 +1,4 @@
-import { readFileSync } from "node:fs";
-import { join } from "node:path";
+import overview from "@/content/llms.md?raw";
 import { getPosts } from "@/lib/posts";
 import { getProjects } from "@/lib/projects";
 import { email, siteDescription, siteName, siteUrl, socials } from "@/lib/site";
@@ -24,7 +23,7 @@ export async function GET() {
 
 Public professional overview followed by the complete published project cases and posts. Each document retains its source URL, evidence and limitations.
 
-${readFileSync(join(process.cwd(), "src/content/llms.md"), "utf8").trim()}
+${overview.trim()}
 
 ## Contact
 

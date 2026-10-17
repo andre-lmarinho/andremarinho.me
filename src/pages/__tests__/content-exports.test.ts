@@ -44,20 +44,12 @@ vi.mock("astro:content", () => ({
   },
 }));
 
-const fs = vi.hoisted(() => ({ readFileSync: vi.fn() }));
-vi.mock("node:fs", async (importOriginal) => {
-  const actual = await importOriginal<typeof import("node:fs")>();
-  return { ...actual, ...fs, default: { ...actual, ...fs } };
-});
-
 beforeEach(() => {
   vi.stubEnv("NODE_ENV", "production");
-  fs.readFileSync.mockReturnValue("Public professional overview.");
 });
 
 afterEach(() => {
   vi.unstubAllEnvs();
-  vi.clearAllMocks();
 });
 
 it.each([
@@ -109,7 +101,7 @@ it("exports the public overview and complete published bodies without drafts", a
   expect(response.headers.get("content-type")).toBe(
     "text/plain; charset=utf-8",
   );
-  expect(text).toContain("Public professional overview.");
+  expect(text).toContain("remote software engineering roles");
   expect(text).toContain(`By [${siteName}](${siteUrl}/about)`);
   expect(text).toContain("Published: 2026-07-17");
   expect(text).not.toContain("Draft");

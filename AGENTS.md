@@ -8,8 +8,9 @@ and typecheck on commit; CI adds build and tests.
 
 - `src/pages/`: file-based routes, including `.ts` endpoints (`llms.txt`,
   `llms-full.txt`, `sitemap.xml`, `<slug>/index.md`, `opengraph-image`).
-- `src/content/`: posts, projects, and `llms.md`; loaded through the glob
-  collections in `src/content.config.ts` (schema: `astro/zod`).
+- `src/content/`: posts and projects, loaded through the glob collections in
+  `src/content.config.ts` (schema: `astro/zod`), plus `llms.md`, imported raw
+  by the `llms.txt` endpoints.
 - `src/lib/`: `site.ts` (name, URL, socials), `posts.ts` / `projects.ts`
   (async collection queries), `content.ts` (dates, draft rule), `images.ts`
   (`imageFor`), `metadata.ts`, `seo.ts`, `opengraph.ts`, `abacus.ts`.
