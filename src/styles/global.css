@@ -1,38 +1,5 @@
 @import "tailwindcss";
-
-@font-face {
-  font-family: "Archivo";
-  src: url("./fonts/Archivo-latin.woff2") format("woff2");
-  font-style: normal;
-  font-weight: 400 600;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "JetBrains Mono";
-  src: url("./fonts/JetBrainsMono-latin.woff2") format("woff2");
-  font-style: normal;
-  font-weight: 400 600;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Archivo Fallback";
-  src: local("Arial");
-  ascent-override: 85.41%;
-  descent-override: 20.43%;
-  line-gap-override: 0%;
-  size-adjust: 102.8%;
-}
-
-@font-face {
-  font-family: "JetBrains Mono Fallback";
-  src: local("Arial");
-  ascent-override: 77.57%;
-  descent-override: 22.82%;
-  line-gap-override: 0%;
-  size-adjust: 131.49%;
-}
+@import "./fonts.css";
 
 @view-transition {
   navigation: auto;
