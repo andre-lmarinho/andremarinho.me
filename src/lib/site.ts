@@ -1,17 +1,19 @@
-import { GitHub, Instagram, Linkedin } from "@/components/ui/icon";
-
 export const email = "hey@andremarinho.me";
 
 export const socials = [
-  { label: "GitHub", href: "https://github.com/andre-lmarinho", icon: GitHub },
+  {
+    label: "GitHub",
+    href: "https://github.com/andre-lmarinho",
+    icon: "github",
+  },
   {
     label: "LinkedIn",
     href: "https://linkedin.com/in/andre-lmarinho",
-    icon: Linkedin,
+    icon: "linkedin",
   },
   {
     label: "Instagram",
     href: "https://www.instagram.com/andre.lmarinho/",
-    icon: Instagram,
+    icon: "instagram",
   },
 ] as const;

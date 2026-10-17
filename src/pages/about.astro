@@ -1,6 +1,155 @@
 ---
-import Page from "@/components/pages/About";
+import JsonLd from "@/components/JsonLd.astro";
+import PageTitle from "@/components/PageTitle.astro";
+import Image from "@/components/ResponsiveImage.astro";
+import Icon from "@/components/ui/Icon.astro";
 import Base from "@/layouts/Base.astro";
 import { aboutMetadata } from "@/lib/metadata";
+import { profileJsonLd } from "@/lib/seo";
+import { email, socials } from "@/lib/site";
 ---
-<Base metadata={aboutMetadata}><Page /></Base>
+<Base metadata={aboutMetadata}>
+  <article class="mx-auto w-full max-w-3xl px-6 py-16 lg:px-8">
+    <JsonLd data={profileJsonLd} />
+    <PageTitle>About</PageTitle>
+
+    <div class="mt-10 flex items-center gap-6 sm:gap-10">
+      <p class="min-w-0 flex-1 font-display text-xl font-medium leading-snug tracking-tight text-balance sm:text-3xl">
+        I’m André, a software engineer in Salvador, Brazil.
+      </p>
+      <Image
+        src="/images/me/andre-marinho.webp"
+        alt="André Marinho smiling"
+        width={128}
+        height={128}
+        sizes="(min-width: 640px) 128px, 80px"
+        loading="eager"
+        fetchpriority="high"
+        class="size-20 shrink-0 rounded-xl border border-border sm:size-32"
+      />
+    </div>
+
+    <div class="mt-8 space-y-5 text-sm leading-7 text-muted sm:text-base sm:leading-8">
+      <p>
+        I build full-stack web products with TypeScript, React, Next.js,
+        Node.js and PostgreSQL, from product decisions to deployment and
+        maintenance.
+      </p>
+      <p>
+        Some projects start as an idea I want to try; others as something I’m
+        tired of doing by hand. This site is where I keep my{" "}
+        <a href="/projects" class="about-inline-link">projects</a>{" "}
+        and{" "}<a href="/posts" class="about-inline-link">write about what I’m learning</a>.
+      </p>
+    </div>
+
+    <section aria-labelledby="work" class="mt-12 sm:mt-14">
+      <h2 id="work" class="text-lg font-medium tracking-tight">
+        Work
+      </h2>
+      <div class="mt-5 space-y-5 text-sm leading-7 text-muted sm:text-base sm:leading-8">
+        <p>
+          My work spans interfaces, APIs, data models, authentication, tenant
+          isolation, payments and automated tests, with a focus on
+          accessibility and performance.
+        </p>
+        <p>
+          In{" "}
+          <a href="/projects/turistar" class="about-inline-link">Turistar</a>,
+          my open-source trip planner, I maintain real-time collaboration,
+          access controls and automated tests.
+        </p>
+        <p>
+          I’m open to remote software engineering roles, including
+          international teams. Portuguese is my native language, and I’m
+          fluent in English.
+        </p>
+        <p>
+          <a
+            href="/resume.pdf"
+            download="Andre-Marinho-Resume.pdf"
+            class="about-inline-link inline-flex min-h-11 items-center"
+          >
+            Download résumé (PDF, English)
+          </a>
+        </p>
+      </div>
+    </section>
+
+    <section aria-labelledby="background" class="mt-12 sm:mt-14">
+      <h2 id="background" class="text-lg font-medium tracking-tight">
+        How I got here
+      </h2>
+      <div class="mt-5 space-y-5 text-sm leading-7 text-muted sm:text-base sm:leading-8">
+        <p>
+          My first technical project was at Grupo Hemocat, connecting a
+          financial planning spreadsheet to the company’s database. Later, in
+          logistics, I built Power BI dashboards around stock availability and
+          purchasing.
+        </p>
+        <p>
+          In 2017, I started Duonorth as a business intelligence consultancy.
+          It grew to include digital strategy and marketing around 2020, then
+          focused on websites and software in 2023. In July 2025, I moved into
+          software development as my main occupation. I wrote a longer version
+          of{" "}
+          <a href="/posts/before-i-called-it-code" class="about-inline-link">that story here</a>.
+        </p>
+        <p>
+          That work still shapes how I build software: understanding the
+          operation, agreeing on scope, and following a decision through to
+          delivery.
+        </p>
+      </div>
+    </section>
+
+    <section aria-labelledby="off-screen" class="mt-12 sm:mt-14">
+      <h2 id="off-screen" class="text-lg font-medium tracking-tight">
+        Away from the screen
+      </h2>
+      <div class="mt-5 space-y-5 text-sm leading-7 text-muted sm:text-base sm:leading-8">
+        <p>
+          I spend my time reading, running, lifting weights, playing classical
+          guitar, and going to the beach.
+        </p>
+        <p>
+          I like always having something new to learn. Right now, I’m learning
+          to juggle.
+        </p>
+      </div>
+    </section>
+
+    <section
+      aria-labelledby="elsewhere"
+      class="mt-12 flex flex-wrap items-center justify-between gap-x-6 gap-y-3 border-t border-border pt-6 sm:mt-14"
+    >
+      <h2 id="elsewhere" class="text-base font-medium">
+        Elsewhere
+      </h2>
+      <ul class="flex flex-wrap gap-x-6 text-xs">
+        {socials.slice(0, 2).map(({ label, href, icon }) => (
+          <li>
+            <a
+              href={href}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="inline-flex min-h-11 items-center gap-2 text-muted transition-colors hover:text-accent"
+            >
+              <Icon name={icon} aria-hidden="true" class="size-3.5" />
+              {label}
+            </a>
+          </li>
+        ))}
+        <li>
+          <a
+            href={`mailto:${email}`}
+            class="inline-flex min-h-11 items-center gap-2 text-muted transition-colors hover:text-accent"
+          >
+            <Icon name="mail" aria-hidden="true" class="size-3.5" />
+            Email
+          </a>
+        </li>
+      </ul>
+    </section>
+  </article>
+</Base>

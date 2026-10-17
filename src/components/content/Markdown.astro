@@ -1,0 +1,59 @@
+---
+import { createSatteriMarkdownProcessor } from "@astrojs/markdown-satteri";
+import { siteUrl } from "@/lib/seo";
+
+interface Props {
+  content: string;
+}
+
+const processor = await createSatteriMarkdownProcessor({
+  syntaxHighlight: false,
+  features: { smartPunctuation: false },
+  hastPlugins: [
+    {
+      name: "content-markup",
+      element: {
+        filter: ["a", "code", "ol"],
+        visit(node, context) {
+          if (node.tagName === "a") {
+            const href = String(node.properties.href ?? "");
+            if (URL.parse(href, siteUrl)?.origin !== siteUrl) {
+              context.setProperty(node, "target", "_blank");
+              context.setProperty(node, "rel", "noopener noreferrer");
+            }
+          } else if (node.tagName === "ol") {
+            context.setProperty(node, "start", node.properties.start ?? 1);
+          } else {
+            const parent = context.parent(node);
+            if (parent?.type !== "element" || parent.tagName !== "pre") return;
+            const classes = Array.isArray(node.properties.className)
+              ? node.properties.className
+              : [];
+            return {
+              ...node,
+              properties: {
+                ...node.properties,
+                className: classes.flatMap((name) =>
+                  typeof name === "string" && name.startsWith("language-")
+                    ? [name, name.replace("language-", "lang-")]
+                    : [name],
+                ),
+              },
+              // Keep the existing code block height and language classes.
+              children: [
+                {
+                  type: "text",
+                  value: context.textContent(node).replace(/\n$/, ""),
+                },
+              ],
+            };
+          }
+        },
+      },
+    },
+  ],
+});
+const { code } = await processor.render(Astro.props.content);
+---
+
+<div class="prose" set:html={code} />

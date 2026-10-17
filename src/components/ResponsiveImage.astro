@@ -1,0 +1,22 @@
+---
+import type { HTMLAttributes } from "astro/types";
+import { responsiveImageProps } from "@/lib/images";
+
+type Props = Omit<HTMLAttributes<"img">, "src" | "width" | "height"> & {
+  src: string;
+  alt: string;
+  width: number;
+  height: number;
+};
+const {
+  src,
+  alt,
+  width,
+  height,
+  loading = "lazy",
+  decoding = "async",
+  ...props
+} = Astro.props;
+const image = responsiveImageProps(src, width);
+---
+<img {...image} alt={alt} width={width} height={height} loading={loading} decoding={decoding} {...props} />

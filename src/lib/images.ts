@@ -49,7 +49,7 @@ export function responsiveImageProps(source: string, width: number) {
       fingerprint,
       widths.find((w) => w >= width) ?? 1600,
     ),
-    srcSet: widths
+    srcset: widths
       .map((w) => `${imageVariant(source, fingerprint, w)} ${w}w`)
       .join(", "),
   };

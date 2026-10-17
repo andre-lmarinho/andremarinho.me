@@ -1,16 +1,22 @@
+// @vitest-environment node
 import { join } from "node:path";
-import { cleanup, render, within } from "@testing-library/react";
+import { experimental_AstroContainer as AstroContainer } from "astro/container";
+import { JSDOM } from "jsdom";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
-import PostPage from "@/components/pages/Post";
-import ProjectPage from "@/components/pages/Project";
+import PostPage from "@/pages/posts/[slug]/index.astro";
+import ProjectPage from "@/pages/projects/[slug]/index.astro";
 import { getPost, getPosts } from "./posts";
+
+// Vitest loads server factories; Astro check types page imports as components.
+type ContainerComponent = Parameters<AstroContainer["renderToString"]>[0];
+const postPage = PostPage as unknown as ContainerComponent;
+const projectPage = ProjectPage as unknown as ContainerComponent;
 
 const fs = vi.hoisted(() => ({ readdirSync: vi.fn(), readFileSync: vi.fn() }));
 vi.mock("node:fs", async (importOriginal) => {
   const actual = await importOriginal<typeof import("node:fs")>();
   return { ...actual, ...fs, default: { ...actual, ...fs } };
 });
-vi.mock("@/components/content/PostViews", () => ({ default: () => null }));
 
 const markdown = (title: string, fields = "date: 2026-07-17") =>
   `---\ntitle: ${title}\ndescription: About ${title}.\n${fields}\n---\n\nThe content.`;
@@ -57,7 +63,6 @@ describe("project links", () => {
   });
 
   afterEach(() => {
-    cleanup();
     vi.unstubAllEnvs();
   });
 
@@ -68,8 +73,15 @@ describe("project links", () => {
   });
 
   it("links an article to its published project", async () => {
-    const page = render(PostPage({ slug: "related" }));
-    expect(page.getByRole("link", { name: /Tool/ }).getAttribute("href")).toBe(
+    const container = await AstroContainer.create();
+    const html = await container.renderToString(postPage, {
+      params: { slug: "related" },
+    });
+    const page = new JSDOM(html).window.document;
+    const section = page.querySelector(
+      'aside[aria-labelledby="related-project"]',
+    );
+    expect(section?.querySelector("a")?.getAttribute("href")).toBe(
       "/projects/tool",
     );
   });
@@ -77,25 +89,34 @@ describe("project links", () => {
   it.each(["general", "missing", "draft-project"])(
     "omits the project block for %s instead of generating a broken link",
     async (slug) => {
-      const page = render(PostPage({ slug }));
-      expect(
-        page.queryByRole("heading", { name: "Related project" }),
-      ).toBeNull();
+      const container = await AstroContainer.create();
+      const html = await container.renderToString(postPage, {
+        params: { slug },
+      });
+      const page = new JSDOM(html).window.document;
+      expect(page.querySelector("#related-project")).toBeNull();
     },
   );
 
   it("lists only published notes assigned to the current project", async () => {
-    const page = render(ProjectPage({ slug: "tool" }));
-    const section = within(
-      page.getByRole("complementary", { name: "Related notes" }),
+    const container = await AstroContainer.create();
+    const html = await container.renderToString(projectPage, {
+      params: { slug: "tool" },
+    });
+    const page = new JSDOM(html).window.document;
+    const links = page.querySelectorAll(
+      'aside[aria-labelledby="related-notes"] li a',
     );
-    const notes = within(section.getByRole("list"));
-    expect(notes.getAllByRole("link")).toHaveLength(1);
-    expect(notes.getByRole("link").getAttribute("href")).toBe("/posts/related");
+    expect(links).toHaveLength(1);
+    expect(links[0].getAttribute("href")).toBe("/posts/related");
   });
 
   it("omits an empty related-notes section", async () => {
-    const page = render(ProjectPage({ slug: "empty" }));
-    expect(page.queryByRole("heading", { name: "Related notes" })).toBeNull();
+    const container = await AstroContainer.create();
+    const html = await container.renderToString(projectPage, {
+      params: { slug: "empty" },
+    });
+    const page = new JSDOM(html).window.document;
+    expect(page.querySelector("#related-notes")).toBeNull();
   });
 });

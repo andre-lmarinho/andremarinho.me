@@ -13,8 +13,6 @@
 # testing
 /coverage
 /.lighthouseci
-/*.trace.json
-/*.devtoolslog.json
 
 # Astro generated output
 /.astro/

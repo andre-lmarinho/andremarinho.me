@@ -1,12 +1,15 @@
-import { renderToStaticMarkup } from "react-dom/server";
+// @vitest-environment node
+
+import { experimental_AstroContainer as AstroContainer } from "astro/container";
 import { describe, expect, it } from "vitest";
-import Markdown from "@/components/content/Markdown";
+import Markdown from "@/components/content/Markdown.astro";
 import { getPosts } from "./posts";
 import { getProjects } from "./projects";
 
 // Real content/, not fixtures: this failure arrives by publishing.
 const posts = getPosts();
 const projects = getProjects();
+const container = await AstroContainer.create();
 
 describe("content", () => {
   it("finds posts and projects to check", () => {
@@ -41,9 +44,11 @@ describe("content", () => {
     expect(shared).toEqual([]);
   });
 
-  it("explains each project's context, ownership, scope, and decisions", () => {
+  it("explains each project's context, ownership, scope, and decisions", async () => {
     for (const project of projects) {
-      const html = renderToStaticMarkup(<Markdown>{project.body}</Markdown>);
+      const html = await container.renderToString(Markdown, {
+        props: { content: project.body },
+      });
       const headings = [...html.matchAll(/<h2[^>]*>(.*?)<\/h2>/g)].map(
         ([, heading]) => heading,
       );

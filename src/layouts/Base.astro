@@ -1,5 +1,6 @@
 ---
-import Layout from "@/components/Layout";
+import Footer from "@/components/Footer.astro";
+import Header from "@/components/Header.astro";
 import { absoluteUrl, type PageMetadata } from "@/lib/metadata";
 import { siteName, websiteJsonLd } from "@/lib/seo";
 import archivo from "@/styles/fonts/Archivo-latin.woff2?url";
@@ -59,7 +60,10 @@ const jsonLd = JSON.stringify(websiteJsonLd).replace(/</g, "\\u003c");
   </head>
   <body class="flex min-h-dvh flex-col bg-bg font-body text-foreground wrap-anywhere">
     <script type="application/ld+json" set:html={jsonLd} />
-    <Layout pathname={Astro.url.pathname}><slot /></Layout>
+    <a class="skip-link" href="#main-content">Skip to content</a>
+    <Header pathname={Astro.url.pathname} />
+    <main id="main-content" tabindex={-1} class="grow flex flex-col"><slot /></main>
+    <Footer />
     <script>
       import { initBrowser } from "@/scripts/browser";
       initBrowser();

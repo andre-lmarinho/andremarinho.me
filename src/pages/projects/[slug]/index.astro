@@ -1,15 +1,103 @@
 ---
-import Page from "@/components/pages/Project";
+import Markdown from "@/components/content/Markdown.astro";
+import PostList from "@/components/content/PostList.astro";
+import JsonLd from "@/components/JsonLd.astro";
+import Image from "@/components/ResponsiveImage.astro";
+import MorphTitle from "@/components/transitions/MorphTitle.astro";
 import Base from "@/layouts/Base.astro";
+import { formatDate } from "@/lib/content";
 import { getProjectMetadata } from "@/lib/metadata";
-import { getProjects } from "@/lib/projects";
+import { getPosts } from "@/lib/posts";
+import { getProject, getProjects } from "@/lib/projects";
+import { breadcrumbJsonLd, projectJsonLd } from "@/lib/seo";
 
 export function getStaticPaths() {
   return getProjects().map((entry) => ({ params: { slug: entry.slug } }));
 }
 const { slug } = Astro.params;
 if (!slug) throw new Error("Missing route slug");
+const project = getProject(slug);
 const metadata = getProjectMetadata(slug);
-if (!metadata) throw new Error(`Unknown projects: ${slug}`);
+if (!project || !metadata) throw new Error(`Unknown project: ${slug}`);
+const posts = getPosts().filter((post) => post.project === slug);
 ---
-<Base metadata={metadata}><Page slug={slug} /></Base>
+<Base metadata={metadata}>
+  <JsonLd data={projectJsonLd(project)} />
+  <JsonLd
+    data={breadcrumbJsonLd([
+      { name: "Projects", path: "/projects" },
+      { name: project.title, path: `/projects/${slug}` },
+    ])}
+  />
+  <article class="mx-auto w-full max-w-3xl px-6 py-16 lg:px-8">
+    <section>
+      <MorphTitle
+        as="h1"
+        title={project.title}
+        id={`project-${slug}`}
+        class="text-balance text-4xl leading-[1.05] font-semibold tracking-[-0.02em] sm:text-5xl"
+      />
+      <p class="mt-5 max-w-2xl text-sm leading-relaxed text-muted sm:text-base">
+        {project.description}
+      </p>
+
+      <div class="mt-5 flex flex-wrap items-center gap-x-3 gap-y-2 text-xs">
+        <time datetime={project.date || undefined} class="text-muted">
+          {project.date ? `Published ${formatDate(project.date)}` : "Draft"}
+        </time>
+        {project.link ? (
+          <>
+            <span class="text-border" aria-hidden="true">
+              /
+            </span>
+            <a
+              href={project.link}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="text-accent underline-offset-4 hover:underline"
+            >
+              View project →
+            </a>
+          </>
+        ) : null}
+      </div>
+
+      {project.tags.length > 0 ? (
+        <p class="mt-4 text-xs leading-relaxed text-faint">
+          {project.tags.join(" · ")}
+        </p>
+      ) : null}
+
+      <div aria-hidden="true" class="mt-8 h-px w-full bg-border" />
+    </section>
+
+    <section class="pt-10">
+      {project.image ? (
+        <Image
+          src={project.image}
+          alt={project.title}
+          width={1600}
+          height={900}
+          class="mb-12 aspect-video w-full rounded-lg border border-border object-cover"
+          sizes="(min-width: 1024px) 704px, (min-width: 768px) 720px, calc(100vw - 48px)"
+          style={`view-transition-name:project-image-${slug}`}
+          loading="eager"
+          fetchpriority="high"
+        />
+      ) : null}
+
+      <Markdown content={project.body} />
+    </section>
+    {posts.length > 0 ? (
+      <aside
+        aria-labelledby="related-notes"
+        class="mt-12 border-t border-border pt-6"
+      >
+        <h2 id="related-notes" class="text-sm font-medium text-muted">
+          Related notes
+        </h2>
+        <PostList posts={posts} />
+      </aside>
+    ) : null}
+  </article>
+</Base>

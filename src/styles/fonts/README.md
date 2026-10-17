@@ -19,3 +19,6 @@ then the default `subset.Subsetter`, populated with every Unicode code point in
 the original font's best cmap. Export as WOFF2. Keep the licenses when updating.
 These files are committed assets; the application build needs no font tooling
 or Google Fonts requests.
+
+The three TTF files are used only when generating Open Graph images: Archivo
+Regular and SemiBold, and JetBrains Mono Regular. They are not served to browsers.
