@@ -44,6 +44,8 @@ frontmatter, drafts, project links, and publication rules. Astro's Markdown
 processor renders the articles, preserving external link behavior and the site's
 existing typography.
 
-Images in `public/images/` get responsive WebP variants during development and
-build. Generated files have content hashes and live in `public/_images/`.
+Images in `public/images/` get responsive AVIF and WebP variants during development
+and build. Existing variants in `src/assets/image-cache/` preserve the previous
+production images exactly; new or changed sources are encoded automatically.
+Generated files have content hashes and live in `public/_images/`.
 Replace `public/resume.pdf` to update the downloadable résumé.

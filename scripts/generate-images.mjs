@@ -1,8 +1,18 @@
-import { mkdir, readdir, readFile, rm, writeFile } from "node:fs/promises";
+import {
+  copyFile,
+  mkdir,
+  readdir,
+  readFile,
+  rm,
+  writeFile,
+} from "node:fs/promises";
 import path from "node:path";
 import sharp from "sharp";
 import {
+  avifEffort,
+  avifQuality,
   imageFingerprint,
+  imageFormats,
   imageQuality,
   imageVariant,
   imageWidths,
@@ -10,6 +20,7 @@ import {
 
 const publicDir = path.resolve("public");
 const outputDir = path.join(publicDir, "_images");
+const cacheDir = path.resolve("src/assets/image-cache");
 await rm(outputDir, { recursive: true, force: true });
 await mkdir(outputDir, { recursive: true });
 
@@ -28,16 +39,29 @@ for (const entry of sources) {
   const content = await readFile(input);
   const fingerprint = imageFingerprint(source, content);
   for (const width of imageWidths) {
-    const output = await sharp(content)
-      .resize({ width })
-      .webp({ quality: imageQuality })
-      .toBuffer();
-    await writeFile(
-      path.join(publicDir, imageVariant(source, fingerprint, width)),
-      output,
-    );
+    for (const format of imageFormats) {
+      const variant = imageVariant(source, fingerprint, width, format);
+      const destination = path.join(publicDir, variant);
+      try {
+        await copyFile(
+          path.join(cacheDir, path.basename(variant)),
+          destination,
+        );
+        continue;
+      } catch (error) {
+        if (error.code !== "ENOENT") throw error;
+      }
+      const image = sharp(content)
+        .rotate()
+        .resize(width, undefined, { withoutEnlargement: true });
+      const output = await (format === "avif"
+        ? image.avif({ quality: avifQuality, effort: avifEffort })
+        : image.webp({ quality: imageQuality })
+      ).toBuffer();
+      await writeFile(destination, output);
+    }
   }
 }
 console.log(
-  `Generated ${sources.length * imageWidths.length} responsive WebP images.`,
+  `Generated ${sources.length * imageWidths.length * imageFormats.length} responsive AVIF/WebP images.`,
 );

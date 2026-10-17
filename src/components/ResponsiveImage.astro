@@ -17,6 +17,9 @@ const {
   decoding = "async",
   ...props
 } = Astro.props;
-const image = responsiveImageProps(src, width);
+const { avifSrcset, ...image } = responsiveImageProps(src, width);
 ---
-<img {...image} alt={alt} width={width} height={height} loading={loading} decoding={decoding} {...props} />
+<picture style="display:contents">
+  {avifSrcset && <source type="image/avif" srcset={avifSrcset} sizes={props.sizes} />}
+  <img {...image} alt={alt} width={width} height={height} loading={loading} decoding={decoding} {...props} />
+</picture>

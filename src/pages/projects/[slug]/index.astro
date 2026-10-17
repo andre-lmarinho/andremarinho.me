@@ -79,7 +79,7 @@ const posts = getPosts().filter((post) => post.project === slug);
           width={1600}
           height={900}
           class="mb-12 aspect-video w-full rounded-lg border border-border object-cover"
-          sizes="(min-width: 1024px) 704px, (min-width: 768px) 720px, calc(100vw - 48px)"
+          sizes="(max-width: 768px) 100vw, 768px"
           style={`view-transition-name:project-image-${slug}`}
           loading="eager"
           fetchpriority="high"
