@@ -25,7 +25,8 @@ and typecheck on commit; CI adds build and tests.
 - Frontmatter `image` paths like `/images/projects/turistar.webp` resolve
   through `imageFor` against `src/assets/images`; a missing file fails the
   build. Project Open Graph images use the hashed `/_astro/` URL.
-- Tests that call `astro:content` need `// @vitest-environment node` and a
-  populated data store; `vitest.global-setup.ts` boots `astro dev` once to
-  write it. Page tests mock `getCollection` instead.
+- Tests never start the content layer: route tests mock `astro:content`, and
+  real-content checks read `src/content` from disk. Frontmatter is governed by
+  the `src/content.config.ts` schema, enforced at dev/build time (non-empty
+  `title` included).
 - Guides: `README.md` (setup, checks) and `src/content/README.md` (authoring).

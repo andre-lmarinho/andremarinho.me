@@ -1,58 +1,48 @@
 // @vitest-environment node
-
-import { experimental_AstroContainer as AstroContainer } from "astro/container";
+import { readdirSync, readFileSync } from "node:fs";
+import { join } from "node:path";
 import { describe, expect, it } from "vitest";
-import Markdown from "@/components/content/Markdown.astro";
-import { getPosts } from "../posts";
-import { getProjects } from "../projects";
 
-// Real src/content/, not fixtures: this failure arrives by publishing.
-const posts = await getPosts();
-const projects = await getProjects();
-const container = await AstroContainer.create();
+const directory = (section: string) =>
+  join(process.cwd(), "src/content", section);
+
+const markdownFiles = (section: string) => {
+  const names = readdirSync(directory(section));
+  // flat directories mirror the glob loader ids; revisit if content nests.
+  expect(
+    names.filter((name) => !name.endsWith(".md")),
+    section,
+  ).toEqual([]);
+  return names;
+};
+
+const slugOf = (name: string) => name.slice(0, -".md".length);
 
 describe("content", () => {
   it("finds posts and projects to check", () => {
-    expect(posts.length).toBeGreaterThan(0);
-    expect(projects.length).toBeGreaterThan(0);
+    for (const section of ["posts", "projects"]) {
+      expect(markdownFiles(section).length, section).toBeGreaterThan(0);
+    }
   });
 
-  it.each([
-    ["posts", posts],
-    ["projects", projects],
-  ])("gives every %s entry a unique slug", (_, entries) => {
-    const slugs = entries.map((entry) => entry.slug);
+  it("gives every entry a unique slug across posts and projects", () => {
+    const slugs = ["posts", "projects"].flatMap((section) =>
+      markdownFiles(section).map(slugOf),
+    );
 
     expect(new Set(slugs).size).toBe(slugs.length);
   });
 
-  it.each([
-    ["posts", posts],
-    ["projects", projects],
-  ])("gives every %s entry a title", (_, entries) => {
-    for (const entry of entries) {
-      expect(entry.title.trim(), `${entry.slug} has no title`).not.toBe("");
-    }
-  });
-
-  it("shares no slug between posts and projects", () => {
-    const postSlugs = new Set(posts.map((post) => post.slug));
-    const shared = projects
-      .map((project) => project.slug)
-      .filter((slug) => postSlugs.has(slug));
-
-    expect(shared).toEqual([]);
-  });
-
-  it("explains each project's context, ownership, scope, and decisions", async () => {
-    for (const project of projects) {
-      const html = await container.renderToString(Markdown, {
-        props: { content: project.body },
-      });
-      const headings = [...html.matchAll(/<h2[^>]*>(.*?)<\/h2>/g)].map(
-        ([, heading]) => heading,
+  it("explains each project's context, ownership, scope, and decisions", () => {
+    for (const name of markdownFiles("projects")) {
+      const source = readFileSync(join(directory("projects"), name), "utf8");
+      // raw scan, no markdown parse; a "## X" inside a code fence would false-pass.
+      const body = source.replace(/^---\r?\n[\s\S]*?\r?\n---\r?\n/, "");
+      const headings = [...body.matchAll(/^## (.+)$/gm)].map(([, heading]) =>
+        heading.trim(),
       );
-      expect(headings, `${project.slug} is missing essential context`).toEqual(
+
+      expect(headings, `${name} is missing essential context`).toEqual(
         expect.arrayContaining(["Context", "My role", "Scope", "Decisions"]),
       );
     }

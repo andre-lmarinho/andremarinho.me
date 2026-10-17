@@ -7,7 +7,6 @@ export default getViteConfig(
     test: {
       environment: "jsdom",
       globals: true,
-      globalSetup: ["./vitest.global-setup.ts"],
       unstubGlobals: true,
     },
     resolve: {

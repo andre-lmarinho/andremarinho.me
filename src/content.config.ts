@@ -21,7 +21,7 @@ const tags = z
 const posts = defineCollection({
   loader: glob({ pattern: "**/*.md", base: "./src/content/posts" }),
   schema: z.object({
-    title: z.string(),
+    title: z.string().trim().min(1),
     description: z.string(),
     date,
     tags,
@@ -32,7 +32,7 @@ const posts = defineCollection({
 const projects = defineCollection({
   loader: glob({ pattern: "**/*.md", base: "./src/content/projects" }),
   schema: z.object({
-    title: z.string(),
+    title: z.string().trim().min(1),
     description: z.string(),
     date,
     tags,

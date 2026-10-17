@@ -1,19 +1,16 @@
 // @vitest-environment node
+import { readdirSync, readFileSync } from "node:fs";
 import { readFile } from "node:fs/promises";
 import { join } from "node:path";
 import sharp from "sharp";
 import { expect, it } from "vitest";
 import { createOpenGraphImage } from "../opengraph";
-import { getPosts } from "../posts";
 
-it("generates a complete PNG card using the published content and vendored fonts", async () => {
-  const post = (await getPosts()).reduce((longest, entry) =>
-    entry.title.length > longest.title.length ? entry : longest,
-  );
+it("generates a complete PNG card with the vendored fonts", async () => {
   const response = await createOpenGraphImage({
-    title: post.title,
-    description: post.description,
-    path: `/posts/${post.slug}`,
+    title: "Postgres cursors older than a second trip over timestamps and ids",
+    description: "A realistic long headline, so the card renders at its worst.",
+    path: "/posts/example",
   });
   const png = new Uint8Array(await response.arrayBuffer());
   const header = new DataView(png.buffer);
@@ -34,9 +31,14 @@ it("renders a card without an optional description", async () => {
 });
 
 // JetBrains Mono advances 0.6em: a 22px footer must fit between the 72px gutters.
-it("keeps every published post footer inside the card", async () => {
-  const widest = (await getPosts())
-    .map((post) => `andremarinho.me/posts/${post.slug}`)
+it("keeps every published post footer inside the card", () => {
+  const posts = join(process.cwd(), "src/content/posts");
+  const published = readdirSync(posts).filter((name) =>
+    // date presence mirrors the isPublished rule; no YAML parse.
+    /^---\r?\n[\s\S]*?\ndate:/.test(readFileSync(join(posts, name), "utf8")),
+  );
+  const widest = published
+    .map((name) => `andremarinho.me/posts/${name.slice(0, -".md".length)}`)
     .sort((a, b) => b.length - a.length)[0];
   expect(widest.length * 13.2, `"${widest}" overflows`).toBeLessThan(1056);
 });

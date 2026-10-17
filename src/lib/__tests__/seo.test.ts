@@ -1,11 +1,11 @@
 // @vitest-environment node
-import { expect, it } from "vitest";
+import { expect, it, vi } from "vitest";
 import {
   getPostMetadata as postMetadata,
   getProjectMetadata as projectMetadata,
 } from "../metadata";
-import * as posts from "../posts";
-import * as projects from "../projects";
+import type { Post } from "../posts";
+import type { Project } from "../projects";
 import {
   postJsonLd,
   profileJsonLd,
@@ -14,8 +14,51 @@ import {
 } from "../seo";
 import { siteUrl } from "../site";
 
-const post = (await posts.getPosts())[0];
-const project = (await projects.getProjects())[0];
+const content = vi.hoisted(() => {
+  const entry = {
+    id: "example",
+    body: "The content.",
+    data: {
+      title: "Example",
+      description: "A technical decision.",
+      date: "2026-07-17",
+      tags: ["astro", "testing"],
+    },
+  };
+  return { posts: [entry], projects: [entry] };
+});
+
+vi.mock("astro:content", () => ({
+  getCollection: async (
+    name: string,
+    filter?: (entry: { id: string }) => boolean,
+  ) => {
+    const entries = name === "posts" ? content.posts : content.projects;
+    return filter ? entries.filter(filter) : entries;
+  },
+}));
+
+const post: Post = {
+  slug: "example",
+  title: "Example",
+  description: "A technical decision.",
+  date: "2026-07-17",
+  tags: ["astro", "testing"],
+  body: "The content.",
+  minutes: 1,
+};
+
+const project: Project = {
+  slug: "example",
+  title: "Example",
+  description: "A technical decision.",
+  date: "2026-07-17",
+  tags: ["astro", "testing"],
+  link: "",
+  featured: false,
+  kind: "",
+  body: "The content.",
+};
 
 it("uses the same identified person for the profile, site, and content authors", () => {
   const person = profileJsonLd.mainEntity;
@@ -27,8 +70,8 @@ it("uses the same identified person for the profile, site, and content authors",
   expect(projectJsonLd(project).author).toEqual(person);
 });
 
-it("describes project cases as articles with topics, not source code or product identities", async () => {
-  for (const entry of await projects.getProjects()) {
+it("describes project cases as articles with topics, not source code or product identities", () => {
+  for (const entry of [project, { ...project, tags: [] }]) {
     const schema = projectJsonLd(entry);
     expect(schema["@type"]).toBe("Article");
     expect(schema.headline).toBe(entry.title);
@@ -49,18 +92,18 @@ it("preserves publication dates and omits dates on drafts", () => {
 });
 
 it("preserves canonical URLs and identifies the profile as the content author", async () => {
-  for (const [entry, metadata, section] of [
-    [post, postMetadata, "posts"],
-    [project, projectMetadata, "projects"],
+  for (const [metadata, section] of [
+    [postMetadata, "posts"],
+    [projectMetadata, "projects"],
   ] as const) {
-    const result = await metadata(entry.slug);
-    expect(result?.canonical).toBe(`/${section}/${entry.slug}`);
+    const result = await metadata("example");
+    expect(result?.canonical).toBe(`/${section}/example`);
     expect(result?.authors).toEqual([
       { name: profileJsonLd.mainEntity.name, url: `${siteUrl}/about` },
     ]);
     expect(result?.openGraph).toMatchObject({
       type: "article",
-      publishedTime: entry.date,
+      publishedTime: post.date,
       authors: [`${siteUrl}/about`],
     });
   }
