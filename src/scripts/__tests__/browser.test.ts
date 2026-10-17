@@ -180,10 +180,15 @@ it("initializes each swapped page without duplicating SDKs or retaining old obse
   sdk.src = "/_vercel/insights/script.js";
   document.head.append(sdk);
   const newDocument = document.implementation.createHTMLDocument();
+  document.documentElement.dataset.fontsPending = "";
   document.dispatchEvent(
     Object.assign(new Event("astro:before-swap"), { newDocument }),
   );
   expect(disconnect).toHaveBeenCalledTimes(1);
+  expect(newDocument.documentElement.hasAttribute("data-fonts-pending")).toBe(
+    true,
+  );
+  delete document.documentElement.dataset.fontsPending;
   expect(
     newDocument.head.querySelector("script")?.dataset.astroTransitionPersist,
   ).toBe("@vercel/analytics");

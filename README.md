@@ -8,6 +8,8 @@ prefetching, page transitions, Vercel Analytics, and Speed Insights.
 Astro's client router swaps pages without reloading the document. The header stays
 outside page animations; title and project-image transitions retain their existing
 styles. Navigation links are prefetched by Astro.
+On the initial visit, content appears once its two preloaded fonts are ready;
+subsequent client navigations reuse them.
 
 ## Development
 

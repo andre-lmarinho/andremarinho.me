@@ -189,6 +189,9 @@ export function initBrowser() {
     "astro:before-swap",
     (event: TransitionBeforeSwapEvent) => {
       cleanup();
+      if (document.documentElement.hasAttribute("data-fonts-pending")) {
+        event.newDocument.documentElement.dataset.fontsPending = "";
+      }
       // Keep the already running SDKs when Astro updates the document head.
       for (const script of document.head.querySelectorAll<HTMLScriptElement>(
         'script[data-sdkn^="@vercel/"]',
