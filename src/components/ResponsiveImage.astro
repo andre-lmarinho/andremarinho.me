@@ -20,6 +20,6 @@ const {
 const { avifSrcset, ...image } = responsiveImageProps(src, width);
 ---
 <picture style="display:contents">
-  {avifSrcset && <source type="image/avif" srcset={avifSrcset} sizes={props.sizes} />}
+  {avifSrcset && <source hidden type="image/avif" srcset={avifSrcset} sizes={props.sizes} />}
   <img {...image} alt={alt} width={width} height={height} loading={loading} decoding={decoding} {...props} />
 </picture>

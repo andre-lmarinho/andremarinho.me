@@ -4,7 +4,7 @@ import { mkdir, mkdtemp, readFile, rm, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import path from "node:path";
 import sharp from "sharp";
-import { describe, expect, it } from "vitest";
+import { describe, expect, it, vi } from "vitest";
 import {
   imageFingerprint,
   imageVariant,
@@ -97,6 +97,34 @@ it("copies cached bytes and invalidates them when the original image changes", a
       readFile(path.join(directory, "public", variant)),
     ).rejects.toMatchObject({ code: "ENOENT" });
   } finally {
+    await rm(directory, { recursive: true, force: true });
+  }
+});
+
+it("keeps edited and newly added development images usable without generated variants", async () => {
+  const directory = await mkdtemp(path.join(tmpdir(), "dev-images-"));
+  const cwd = vi.spyOn(process, "cwd").mockReturnValue(directory);
+  vi.stubEnv("NODE_ENV", "development");
+  try {
+    const images = path.join(directory, "public/images");
+    await mkdir(images, { recursive: true });
+    const source = "/images/live.webp";
+    const original = Buffer.from([1, 2, 3]);
+    await writeFile(path.join(images, "live.webp"), original);
+    const requested = (url: string) =>
+      readFile(
+        path.join(directory, "public", responsiveImageProps(url, 128).src),
+      );
+    expect(await requested(source)).toEqual(original);
+
+    const edited = Buffer.from([4, 5, 6]);
+    await writeFile(path.join(images, "live.webp"), edited);
+    expect(await requested(source)).toEqual(edited);
+    await writeFile(path.join(images, "added.webp"), original);
+    expect(await requested("/images/added.webp")).toEqual(original);
+  } finally {
+    cwd.mockRestore();
+    vi.unstubAllEnvs();
     await rm(directory, { recursive: true, force: true });
   }
 });

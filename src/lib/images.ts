@@ -36,7 +36,8 @@ export function responsiveImageProps(
   source: string,
   width: number,
 ): { src: string; srcset?: string; avifSrcset?: string } {
-  if (!source.startsWith("/images/")) return { src: source };
+  if (process.env.NODE_ENV === "development" || !source.startsWith("/images/"))
+    return { src: source };
 
   let fingerprint = fingerprints.get(source);
   if (!fingerprint) {
