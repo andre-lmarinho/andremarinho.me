@@ -15,11 +15,12 @@ const {
   height,
   loading = "lazy",
   decoding = "async",
+  style,
   ...props
 } = Astro.props;
 const { avifSrcset, ...image } = responsiveImageProps(src, width);
 ---
 <picture style="display:contents">
   {avifSrcset && <source hidden type="image/avif" srcset={avifSrcset} sizes={props.sizes} />}
-  <img {...image} alt={alt} width={width} height={height} loading={loading} decoding={decoding} {...props} />
+  <img {...image} alt={alt} width={width} height={height} loading={loading} decoding={decoding} {...props} style={typeof style === "object" ? { color: "transparent", ...style } : `color:transparent;${style ?? ""}`} />
 </picture>

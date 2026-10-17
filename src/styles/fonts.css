@@ -91,7 +91,7 @@
 
 @font-face {
   font-family: "Archivo Fallback";
-  src: local("Arial");
+  src: local("Arial"), local("Liberation Sans");
   ascent-override: 88.96%;
   descent-override: 21.28%;
   line-gap-override: 0%;
@@ -100,7 +100,7 @@
 
 @font-face {
   font-family: "JetBrains Mono Fallback";
-  src: local("Arial");
+  src: local("Arial"), local("Liberation Sans");
   ascent-override: 75.79%;
   descent-override: 22.29%;
   line-gap-override: 0%;
