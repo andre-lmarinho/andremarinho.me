@@ -5,6 +5,10 @@ Markdown. Pages, social cards, and responsive images are generated during the
 build. Fonts are self-hosted; small browser scripts handle counters, link
 prefetching, page transitions, Vercel Analytics, and Speed Insights.
 
+Astro's client router swaps pages without reloading the document. The header stays
+outside page animations; title and project-image transitions retain their existing
+styles. Navigation links are prefetched by Astro.
+
 ## Development
 
 Use Node.js 24 and the pnpm version declared in [package.json](package.json).

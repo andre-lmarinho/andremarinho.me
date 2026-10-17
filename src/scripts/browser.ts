@@ -1,3 +1,4 @@
+import type { TransitionBeforeSwapEvent } from "astro:transitions/client";
 import { inject as injectAnalytics } from "@vercel/analytics";
 import { injectSpeedInsights } from "@vercel/speed-insights";
 import {
@@ -44,63 +45,7 @@ export function initPostViews() {
     }
   });
   for (const element of counters) observer.observe(element);
-}
-
-export function initIntentPrefetch() {
-  const connection = (
-    navigator as Navigator & {
-      connection?: { saveData?: boolean; effectiveType?: string };
-    }
-  ).connection;
-  if (
-    connection?.saveData ||
-    /(^|-)2g$/.test(connection?.effectiveType ?? "")
-  ) {
-    return;
-  }
-
-  const prefetched = new Set<string>();
-  const onIntent = (event: Event) => {
-    if (event.defaultPrevented || !(event.target instanceof Element)) return;
-    const anchor = event.target.closest<HTMLAnchorElement>("a[href]");
-    if (
-      !anchor ||
-      anchor.hasAttribute("download") ||
-      anchor.dataset.prefetch === "false" ||
-      (anchor.target && anchor.target !== "_self") ||
-      anchor.relList.contains("external")
-    ) {
-      return;
-    }
-    const url = URL.parse(anchor.href, location.href);
-    if (
-      !url ||
-      !/^https?:$/.test(url.protocol) ||
-      url.origin !== location.origin ||
-      url.hash ||
-      url.href === location.href ||
-      prefetched.has(url.href) ||
-      prefetched.size >= 8
-    ) {
-      return;
-    }
-
-    prefetched.add(url.href);
-    const link = document.createElement("link");
-    link.rel = "prefetch";
-    link.setAttribute("as", "document");
-    link.href = url.href;
-    document.head.append(link);
-  };
-
-  document.addEventListener("pointerover", onIntent, { passive: true });
-  document.addEventListener("focusin", onIntent);
-  document.addEventListener("touchstart", onIntent, { passive: true });
-  return () => {
-    document.removeEventListener("pointerover", onIntent);
-    document.removeEventListener("focusin", onIntent);
-    document.removeEventListener("touchstart", onIntent);
-  };
+  return () => observer.disconnect();
 }
 
 export function initNotFound() {
@@ -127,6 +72,7 @@ export function initNotFound() {
   let height = 0;
   let previousTime = 0;
   let frame = 0;
+  const controller = new AbortController();
 
   const rubberband = (offset: number, distance: number) =>
     (offset * distance * 0.55) / (distance + 0.55 * Math.abs(offset));
@@ -180,18 +126,27 @@ export function initNotFound() {
         frame = requestAnimationFrame(tick);
       }
     },
-    { passive: true },
+    { passive: true, signal: controller.signal },
   );
-  element.addEventListener("pointerleave", () => {
-    for (const state of states) {
-      state.vx *= 0.3;
-      state.vy *= 0.3;
-    }
-  });
-  window.addEventListener("pagehide", () => {
+  element.addEventListener(
+    "pointerleave",
+    () => {
+      for (const state of states) {
+        state.vx *= 0.3;
+        state.vy *= 0.3;
+      }
+    },
+    { signal: controller.signal },
+  );
+  const stop = () => {
     cancelAnimationFrame(frame);
     frame = 0;
-  });
+  };
+  window.addEventListener("pagehide", stop, { signal: controller.signal });
+  return () => {
+    stop();
+    controller.abort();
+  };
 }
 
 export function initBrowser() {
@@ -204,8 +159,47 @@ export function initBrowser() {
     framework: "astro",
     beforeSend: (event) => (isAutomatedBrowser(navigator) ? null : event),
   });
-  initIntentPrefetch();
-  initNotFound();
-  if (document.readyState === "complete") initPostViews();
-  else window.addEventListener("load", initPostViews, { once: true });
+  let stopCounters: (() => void) | undefined;
+  let stopNotFound: (() => void) | undefined;
+  const startCounters = () => {
+    stopCounters = initPostViews();
+  };
+  const cleanup = () => {
+    window.removeEventListener("load", startCounters);
+    stopCounters?.();
+    stopNotFound?.();
+    stopCounters = undefined;
+    stopNotFound = undefined;
+  };
+  const initPage = () => {
+    cleanup();
+    stopNotFound = initNotFound();
+    if (document.readyState === "complete") startCounters();
+    else window.addEventListener("load", startCounters, { once: true });
+  };
+  document.addEventListener("astro:page-load", initPage);
+  document.addEventListener("astro:before-preparation", (event) => {
+    if (
+      event.navigationType !== "traverse" &&
+      event.from.pathname !== event.to.pathname
+    )
+      window.scrollTo({ top: 0, behavior: "instant" });
+  });
+  document.addEventListener(
+    "astro:before-swap",
+    (event: TransitionBeforeSwapEvent) => {
+      cleanup();
+      // Keep the already running SDKs when Astro updates the document head.
+      for (const script of document.head.querySelectorAll<HTMLScriptElement>(
+        'script[data-sdkn^="@vercel/"]',
+      )) {
+        script.dataset.astroTransitionPersist = script.dataset.sdkn;
+        script.dataset.astroExec = "";
+        event.newDocument.head.append(script.cloneNode(true));
+      }
+    },
+  );
+  window.addEventListener("pageshow", (event) => {
+    if (event.persisted) initPage();
+  });
 }

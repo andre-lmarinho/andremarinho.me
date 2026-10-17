@@ -1,4 +1,5 @@
 ---
+import { ClientRouter } from "astro:transitions";
 import Footer from "@/components/Footer.astro";
 import Header from "@/components/Header.astro";
 import { absoluteUrl, type PageMetadata } from "@/lib/metadata";
@@ -14,10 +15,11 @@ const image = absoluteUrl(social.image.url);
 const jsonLd = JSON.stringify(websiteJsonLd).replace(/</g, "\\u003c");
 ---
 <!doctype html>
-<html lang="en" class="h-full antialiased">
+<html lang="en" class="h-full antialiased" transition:animate="none">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <ClientRouter fallback="swap" />
     <title>{metadata.title}</title>
     <meta name="description" content={metadata.description} />
     <meta name="color-scheme" content="dark" />
@@ -62,7 +64,7 @@ const jsonLd = JSON.stringify(websiteJsonLd).replace(/</g, "\\u003c");
     <script type="application/ld+json" set:html={jsonLd} />
     <a class="skip-link" href="#main-content">Skip to content</a>
     <Header pathname={Astro.url.pathname} />
-    <main id="main-content" tabindex={-1} class="grow flex flex-col"><slot /></main>
+    <main id="main-content" tabindex={-1} class="grow flex flex-col" style="view-transition-name:page-content"><slot /></main>
     <Footer />
     <script>
       import { initBrowser } from "@/scripts/browser";

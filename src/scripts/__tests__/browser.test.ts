@@ -1,5 +1,10 @@
+import { inject } from "@vercel/analytics";
+import { injectSpeedInsights } from "@vercel/speed-insights";
 import { afterEach, describe, expect, it, vi } from "vitest";
-import { initIntentPrefetch, initNotFound, initPostViews } from "../browser";
+import { initBrowser, initNotFound, initPostViews } from "../browser";
+
+vi.mock("@vercel/analytics", () => ({ inject: vi.fn() }));
+vi.mock("@vercel/speed-insights", () => ({ injectSpeedInsights: vi.fn() }));
 
 const { getAbacusCount } = vi.hoisted(() => ({ getAbacusCount: vi.fn() }));
 vi.mock("@/lib/abacus", async () => ({
@@ -7,17 +12,14 @@ vi.mock("@/lib/abacus", async () => ({
   getAbacusCount,
 }));
 
-let stopPrefetch: (() => void) | undefined;
+let stopNotFound: (() => void) | undefined;
 
 const flush = () => new Promise<void>((resolve) => queueMicrotask(resolve));
 
 afterEach(() => {
   window.dispatchEvent(new Event("pagehide"));
-  stopPrefetch?.();
-  stopPrefetch = undefined;
-  document.head.querySelectorAll('link[rel="prefetch"]').forEach((link) => {
-    link.remove();
-  });
+  stopNotFound?.();
+  stopNotFound = undefined;
   document.body.replaceChildren();
   vi.unstubAllGlobals();
   vi.restoreAllMocks();
@@ -104,56 +106,6 @@ describe("visible post counters", () => {
   });
 });
 
-describe("native prefetch", () => {
-  const prefetches = () =>
-    document.head.querySelectorAll('link[rel="prefetch"]');
-  const focus = (href: string, attributes = "") => {
-    document.body.innerHTML = `<a href="${href}" ${attributes}><span>Open</span></a>`;
-    document
-      .querySelector("span")
-      ?.dispatchEvent(new Event("focusin", { bubbles: true }));
-  };
-
-  it("prefetches same-origin HTML once after intent, with a bounded budget", () => {
-    stopPrefetch = initIntentPrefetch();
-    expect(prefetches()).toHaveLength(0);
-    focus("/posts");
-    focus("/posts");
-    expect(prefetches()).toHaveLength(1);
-    expect(prefetches()[0].getAttribute("as")).toBe("document");
-    for (let i = 0; i < 12; i++) focus(`/posts/${i}`);
-    expect(prefetches()).toHaveLength(8);
-  });
-
-  it.each([
-    ["https://external.example/posts", ""],
-    ["/posts#section", ""],
-    ["/download.pdf", "download"],
-    ["/posts", 'target="_blank"'],
-    ["/posts", 'data-prefetch="false"'],
-    ["mailto:hello@example.com", ""],
-  ])("skips ineligible destination %s %s", (href, attributes) => {
-    stopPrefetch = initIntentPrefetch();
-    focus(href, attributes);
-    expect(prefetches()).toHaveLength(0);
-  });
-
-  it("keeps intent handling when a document returns from the back-forward cache", () => {
-    stopPrefetch = initIntentPrefetch();
-    window.dispatchEvent(new Event("pagehide"));
-    window.dispatchEvent(new Event("pageshow"));
-    focus("/posts");
-    expect(prefetches()).toHaveLength(1);
-  });
-
-  it("respects a data-saving connection", () => {
-    vi.stubGlobal("navigator", { connection: { saveData: true } });
-    stopPrefetch = initIntentPrefetch();
-    focus("/posts");
-    expect(prefetches()).toHaveLength(0);
-  });
-});
-
 describe("404 motion", () => {
   it("resumes pointer animation after a document returns from the back-forward cache", () => {
     document.body.innerHTML =
@@ -167,7 +119,7 @@ describe("404 motion", () => {
         ?.dispatchEvent(
           new MouseEvent("pointermove", { clientX: 50, clientY: 50 }),
         );
-    initNotFound();
+    stopNotFound = initNotFound();
     pointer();
     expect(frame).toHaveBeenCalledTimes(1);
 
@@ -185,11 +137,72 @@ describe("404 motion", () => {
     vi.stubGlobal("matchMedia", vi.fn().mockReturnValue({ matches: true }));
     const frame = vi.spyOn(window, "requestAnimationFrame");
 
-    initNotFound();
+    stopNotFound = initNotFound();
     document
       .querySelector("[data-not-found]")
       ?.dispatchEvent(new Event("pointermove", { bubbles: true }));
 
     expect(frame).not.toHaveBeenCalled();
   });
+});
+
+it("initializes each swapped page without duplicating SDKs or retaining old observers", async () => {
+  vi.spyOn(document, "readyState", "get").mockReturnValue("complete");
+  const disconnect = vi.fn();
+  vi.stubGlobal(
+    "IntersectionObserver",
+    class {
+      constructor(private callback: IntersectionObserverCallback) {}
+      observe(element: Element) {
+        this.callback(
+          [
+            {
+              target: element,
+              isIntersecting: true,
+            } as IntersectionObserverEntry,
+          ],
+          this as unknown as IntersectionObserver,
+        );
+      }
+      unobserve() {}
+      disconnect = disconnect;
+    },
+  );
+  getAbacusCount.mockResolvedValue(42);
+  document.body.innerHTML = '<span data-post-counter="first">… views</span>';
+  initBrowser();
+  document.dispatchEvent(new Event("astro:page-load"));
+  await flush();
+  expect(document.body.textContent).toBe("42 views");
+
+  const sdk = document.createElement("script");
+  sdk.dataset.sdkn = "@vercel/analytics";
+  sdk.src = "/_vercel/insights/script.js";
+  document.head.append(sdk);
+  const newDocument = document.implementation.createHTMLDocument();
+  document.dispatchEvent(
+    Object.assign(new Event("astro:before-swap"), { newDocument }),
+  );
+  expect(disconnect).toHaveBeenCalledTimes(1);
+  expect(
+    newDocument.head.querySelector("script")?.dataset.astroTransitionPersist,
+  ).toBe("@vercel/analytics");
+  expect(newDocument.head.querySelector("script")?.dataset.astroExec).toBe("");
+  sdk.remove();
+
+  document.body.innerHTML = '<span data-post-counter="second">… views</span>';
+  document.dispatchEvent(new Event("astro:page-load"));
+  await flush();
+  expect(document.body.textContent).toBe("42 views");
+  expect(getAbacusCount.mock.calls.map(([key]) => key)).toEqual([
+    "first",
+    "second",
+  ]);
+  expect(disconnect).toHaveBeenCalledTimes(1);
+  expect(inject).toHaveBeenCalledTimes(1);
+  expect(injectSpeedInsights).toHaveBeenCalledTimes(1);
+  document.dispatchEvent(
+    Object.assign(new Event("astro:before-swap"), { newDocument }),
+  );
+  expect(disconnect).toHaveBeenCalledTimes(2);
 });

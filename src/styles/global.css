@@ -1,10 +1,6 @@
 @import "tailwindcss";
 @import "./fonts.css";
 
-@view-transition {
-  navigation: auto;
-}
-
 @theme {
   --color-bg: #070a11;
   --color-surface: #0c1020;
@@ -111,7 +107,6 @@ button:active {
 }
 
 .site-header {
-  view-transition-name: site-header;
   background-color: color-mix(in srgb, var(--color-bg) 80%, transparent);
   backdrop-filter: blur(16px) saturate(140%);
 }
