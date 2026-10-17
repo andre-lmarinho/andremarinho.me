@@ -12,7 +12,7 @@ export function GET({ params }: { params: { slug?: string } }) {
   if (!post) return new Response(null, { status: 404 });
 
   return new Response(
-    `# ${post.title}\n\n> ${post.description}\n\nBy [${siteName}](${siteUrl}/about)\n\n${post.body.trim()}\n`,
+    `# ${post.title}\n\n> ${post.description}\n\nBy [${siteName}](${siteUrl}/about)\n\n${post.date ? `Published: ${post.date}\n\n` : ""}${post.body.trim()}\n`,
     {
       headers: {
         "content-type": "text/markdown; charset=utf-8",

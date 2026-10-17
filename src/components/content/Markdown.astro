@@ -13,9 +13,11 @@ const processor = await createSatteriMarkdownProcessor({
     {
       name: "content-markup",
       element: {
-        filter: ["a", "code", "ol"],
+        filter: ["a", "code", "ol", "pre"],
         visit(node, context) {
-          if (node.tagName === "a") {
+          if (node.tagName === "pre") {
+            context.setProperty(node, "tabIndex", 0);
+          } else if (node.tagName === "a") {
             const href = String(node.properties.href ?? "");
             if (URL.parse(href, siteUrl)?.origin !== siteUrl) {
               context.setProperty(node, "target", "_blank");

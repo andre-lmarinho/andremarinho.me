@@ -59,6 +59,7 @@ it.each([
     const text = await response.text();
     expect(text).toMatch(/^# Example\n\n> A technical decision\./);
     expect(text).toContain(`[${siteName}](${siteUrl}/about)`);
+    expect(text).toContain("Published: 2026-07-17");
     expect(text).toContain(body);
     expect(text).not.toContain("date:");
 
@@ -70,6 +71,11 @@ it.each([
       const result = get({ params: { slug } });
       expect(result.status, slug).toBe(404);
     }
+
+    vi.stubEnv("NODE_ENV", "development");
+    const draft = await get({ params: { slug: "draft" } }).text();
+    expect(draft).toContain(body);
+    expect(draft).not.toContain("Published:");
   },
 );
 

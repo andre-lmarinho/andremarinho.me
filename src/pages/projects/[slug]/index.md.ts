@@ -12,7 +12,7 @@ export function GET({ params }: { params: { slug?: string } }) {
   if (!project) return new Response(null, { status: 404 });
 
   return new Response(
-    `# ${project.title}\n\n> ${project.description}\n\nBy [${siteName}](${siteUrl}/about)\n\n${project.body.trim()}\n`,
+    `# ${project.title}\n\n> ${project.description}\n\nBy [${siteName}](${siteUrl}/about)\n\n${project.date ? `Published: ${project.date}\n\n` : ""}${project.body.trim()}\n`,
     {
       headers: {
         "content-type": "text/markdown; charset=utf-8",

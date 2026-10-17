@@ -19,30 +19,13 @@ const jsonLd = JSON.stringify(websiteJsonLd).replace(/</g, "\\u003c");
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <script is:inline>
-      if (HTMLScriptElement.supports && HTMLScriptElement.supports("module")) {
-        document.documentElement.dataset.fontsPending = "";
-      }
-    </script>
-    <script is:inline type="module">
-      try {
-        await Promise.all([
-          document.fonts.load('400 16px "JetBrains Mono"'),
-          document.fonts.load("600 16px Archivo"),
-        ]);
-      } catch {
-        // Keep the system fallback usable if a font cannot load.
-      } finally {
-        delete document.documentElement.dataset.fontsPending;
-      }
-    </script>
     <ClientRouter fallback="swap" />
     <title>{metadata.title}</title>
     <meta name="description" content={metadata.description} />
     <meta name="color-scheme" content="dark" />
     <meta name="theme-color" content="#070a11" />
     {metadata.noindex && <meta name="robots" content="noindex" />}
-    <link rel="canonical" href={absoluteUrl(metadata.canonical)} />
+    {metadata.canonical && <link rel="canonical" href={absoluteUrl(metadata.canonical)} />}
     <link rel="describedby" href="/llms.txt" />
     {metadata.markdown && <link rel="alternate" type="text/markdown" href={absoluteUrl(metadata.markdown)} />}
     {metadata.authors?.map((author) => <><meta name="author" content={author.name} /><link rel="author" href={author.url} /></>)}
@@ -79,9 +62,9 @@ const jsonLd = JSON.stringify(websiteJsonLd).replace(/</g, "\\u003c");
   </head>
   <body class="flex min-h-dvh flex-col bg-bg font-body text-foreground wrap-anywhere">
     <script type="application/ld+json" set:html={jsonLd} />
-    <a class="skip-link" href="#main-content">Skip to content</a>
+    <a class="skip-link" href="#main-content" data-astro-reload>Skip to content</a>
     <Header pathname={Astro.url.pathname} />
-    <main id="main-content" tabindex={-1} class="grow flex flex-col" style="view-transition-name:page-content"><slot /></main>
+    <main id="main-content" class="grow flex flex-col" style="view-transition-name:page-content"><slot /></main>
     <Footer />
     <script>
       import { initBrowser } from "@/scripts/browser";

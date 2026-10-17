@@ -3,10 +3,20 @@ import NotFound from "@/components/NotFound.astro";
 import Base from "@/layouts/Base.astro";
 import { homeMetadata } from "@/lib/metadata";
 
+const title = "Page not found - André Marinho";
+const description = "The page you requested could not be found.";
 const metadata = {
   ...homeMetadata,
-  title: "Page not found - André Marinho",
+  title,
+  description,
+  canonical: undefined,
   noindex: true,
+  openGraph: {
+    ...homeMetadata.openGraph,
+    title,
+    description,
+    url: "/404",
+  },
 };
 ---
 <Base metadata={metadata}><NotFound /></Base>

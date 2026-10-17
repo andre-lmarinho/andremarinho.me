@@ -22,11 +22,6 @@
   --font-jetbrains-mono: "JetBrains Mono", "JetBrains Mono Fallback";
 }
 
-html[data-fonts-pending] main,
-html[data-fonts-pending] footer {
-  visibility: hidden;
-}
-
 html {
   scroll-padding-top: 6rem;
 }
@@ -112,7 +107,7 @@ button:active {
 }
 
 .site-header {
-  background-color: color-mix(in srgb, var(--color-bg) 80%, transparent);
+  background-color: color-mix(in srgb, var(--color-bg) 82%, transparent);
   backdrop-filter: blur(16px) saturate(140%);
 }
 

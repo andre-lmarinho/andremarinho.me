@@ -13,7 +13,7 @@ type SocialImage = {
 export type PageMetadata = {
   title: string;
   description: string;
-  canonical: string;
+  canonical?: string;
   markdown?: string;
   authors?: { name: string; url: string }[];
   openGraph: {
@@ -104,7 +104,7 @@ export function getPostMetadata(slug: string): PageMetadata | undefined {
         type: "image/png",
         width: 1200,
         height: 630,
-        alt: "Writing by André Marinho",
+        alt: `${post.title} - ${siteName}`,
       },
     },
   };

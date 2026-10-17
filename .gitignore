@@ -17,7 +17,6 @@
 # Astro generated output
 /.astro/
 /dist/
-/public/_images/
 /.performance-artifacts/
 
 # production

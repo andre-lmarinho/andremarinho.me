@@ -8,7 +8,7 @@ prefetching, page transitions, Vercel Analytics, and Speed Insights.
 Astro's client router swaps pages without reloading the document. The header stays
 outside page animations; title and project-image transitions retain their existing
 styles. Navigation links are prefetched by Astro.
-On the initial visit, content appears once its two preloaded fonts are ready;
+Text remains visible with fallback fonts while the two preloaded fonts load;
 subsequent client navigations reuse them.
 
 ## Development
@@ -39,9 +39,12 @@ pnpm build
 pnpm lighthouse
 ```
 
-Lighthouse keeps the original CI policy: one run on the homepage and Turistar,
-a performance warning below 90, and a minimum of 100 for accessibility, best
-practices, and SEO. Reports are retained as CI artifacts on pull requests.
+Lighthouse checks the home, About, both indexes, a project, and an article. It
+warns below 90 for performance and requires 100 for accessibility, best practices,
+and SEO. Reports are retained as CI artifacts on pull requests. Its user agent
+identifies the audit to avoid recording synthetic visits. Analytics and the
+external view counter are blocked in these repeatable local measurements;
+their availability and failure behavior require separate checks.
 
 ## Content
 
@@ -50,9 +53,11 @@ frontmatter, drafts, project links, and publication rules. Astro's Markdown
 processor renders the articles, preserving external link behavior and the site's
 existing typography.
 
-Development serves the original images in `public/images/`, so edits and new files
-appear immediately. The production build generates responsive AVIF and WebP
-variants. Existing variants in `src/assets/image-cache/` preserve the previous
-production images exactly; new or changed sources are encoded automatically.
-Generated files have content hashes and live in `public/_images/`.
+Images in `public/images/` retain stable public URLs for sharing. The shared
+`ResponsiveImage` component imports their metadata and delegates AVIF/WebP
+variants, dimensions, hashing, and caching to Astro's native `Picture` component.
+Development processes edits on demand; production emits optimized files in
+`dist/_astro/`.
+In Astro 7.4 dev, image edits that keep the same dimensions can require bypassing
+the browser cache. Production URLs change when the image contents change.
 Replace `public/resume.pdf` to update the downloadable résumé.

@@ -1,13 +1,11 @@
 {
   "name": "andremarinho-me",
   "version": "0.1.0",
-  "private": true,
-  "engines": {
-    "node": "24.x"
-  },
+  "type": "module",
+  "packageManager": "pnpm@11.11.0",
   "scripts": {
     "dev": "astro dev",
-    "build": "node scripts/generate-images.mjs && astro build",
+    "build": "astro build",
     "start": "astro preview --port 3100",
     "prepare": "husky",
     "typecheck": "astro check",
@@ -37,7 +35,5 @@
     "tailwindcss": "^4.3.3",
     "typescript": "6.0.3",
     "vitest": "^5.0.3"
-  },
-  "packageManager": "pnpm@11.11.0",
-  "type": "module"
+  }
 }

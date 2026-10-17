@@ -62,5 +62,6 @@ describe("Markdown", () => {
       "language-html lang-html",
     );
     expect(page.querySelector("pre span")).toBeNull();
+    expect(page.querySelector("pre")?.getAttribute("tabindex")).toBe("0");
   });
 });
