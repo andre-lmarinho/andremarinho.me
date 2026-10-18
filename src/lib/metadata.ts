@@ -64,7 +64,7 @@ export const homeMetadata = pageMetadata(
 );
 export const aboutMetadata = pageMetadata(
   `About - ${siteName}`,
-  "About André Marinho, a software engineer building full-stack web products with TypeScript, React and Node.js. Open to remote roles with international teams.",
+  "Full-stack engineer in Salvador, Brazil, building websites and web applications since 2023. My work, background in business operations, and life outside code.",
   "/about",
   "About André Marinho",
   "profile",
