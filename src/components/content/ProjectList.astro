@@ -1,0 +1,57 @@
+---
+import MorphTitle from "@/components/motion/MorphTitle.astro";
+import Image from "@/components/ui/ResponsiveImage.astro";
+import type { Project } from "@/lib/projects";
+
+type Props = { projects: Project[]; titleAs?: "h2" | "h3" };
+const { projects, titleAs = "h3" } = Astro.props;
+---
+
+<ol class="content-list flex flex-col mt-6">
+  {projects.map((project) => (
+    <li>
+      <a
+        href={`/projects/${project.slug}`}
+        class="content-row group relative -mx-3 block rounded-md px-3 py-5"
+      >
+        <div class="grid grid-cols-1 gap-x-6 gap-y-1.5 sm:grid-cols-[7rem_minmax(0,1fr)]">
+          <p class="text-xs leading-6 text-muted sm:text-right">
+            {project.kind}
+          </p>
+          <div>
+            <MorphTitle
+              as={titleAs}
+              title={project.title}
+              id={`project-${project.slug}`}
+              class="text-base leading-6 font-medium transition-colors group-hover:text-accent"
+            />
+            <p class="mt-2 text-sm leading-relaxed text-muted">
+              {project.description}
+            </p>
+            {project.tags.length > 0 && (
+              <p class="mt-2.5 text-xs text-faint">
+                {project.tags.slice(0, 6).join("  ·  ")}
+              </p>
+            )}
+          </div>
+        </div>
+        {project.image && (
+          <span
+            aria-hidden="true"
+            class="pointer-events-none absolute top-1/2 left-full hidden w-62 origin-left translate-y-[calc(-50%+6px)] scale-98 pl-8 opacity-0 transition-[opacity,translate,scale] duration-200 ease-[cubic-bezier(0.23,1,0.32,1)] xl:block [@media(hover:hover)_and_(pointer:fine)]:group-hover:pointer-events-auto [@media(hover:hover)_and_(pointer:fine)]:group-hover:-translate-y-1/2 [@media(hover:hover)_and_(pointer:fine)]:group-hover:scale-100 [@media(hover:hover)_and_(pointer:fine)]:group-hover:opacity-100"
+          >
+            <Image
+              src={project.image}
+              alt=""
+              width={432}
+              height={243}
+              sizes="216px"
+              style={`view-transition-name:project-image-${project.slug}`}
+              class="w-full rounded-lg border border-border shadow-[4px_6px_25px_rgba(0,0,0,0.56)]"
+            />
+          </span>
+        )}
+      </a>
+    </li>
+  ))}
+</ol>

@@ -1,10 +1,12 @@
 overrides:
+  # astro2tsx uses core 1.x; the auto-installed runtime 2.x alpha has a different ABI.
+  "@emnapi/runtime": "1.11.3"
   tmp: ">=0.2.6"
   uuid: ">=11.1.1"
+  "@vercel/og>sharp": "0.35.5"
+  "qs@<6.16.0": "6.16.0"
+  "basic-ftp@<6.2.1": "6.2.1"
 
 allowBuilds:
   sharp: true
-  unrs-resolver: true
-ignoredBuiltDependencies:
-  - sharp
-  - unrs-resolver
+  esbuild: true

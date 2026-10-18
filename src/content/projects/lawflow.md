@@ -1,0 +1,63 @@
+---
+title: LawFlow
+description: A CRM I built for law firms to manage leads, follow-ups, and proposals through to client acceptance.
+date: 2026-06-15
+tags: Next.js, tRPC, Supabase, Asaas, Playwright
+kind: CRM
+link: https://www.lawflowhub.com/
+featured: true
+---
+
+## Context
+
+When leads live across messages, notes, and individual follow-ups, opportunities disappear without anyone deciding to lose them. LawFlow puts that work in one flow, from intake and qualification to proposal, acceptance, and follow-up.
+
+## My role
+
+I was the sole developer responsible for the implementation now in production, from architecture and product workflows to the interface, API, data model, authentication, tenant isolation, billing, tests, and deployment.
+
+The work spanned two engagements. I delivered the backend and deployment in the first. In the second, I took responsibility for the complete product, reworking the interface and extending the backend into the production system described here.
+
+## Scope
+
+- A drag-and-drop commercial pipeline that derives client status from each stage.
+- Client records with legal area, lead source, urgency, owner, and interaction history.
+- Scheduled activities and in-app reminders.
+- Proposals created in the CRM, exported to PDF, and shared through a public page where the client can accept without an account.
+- Reusable message templates and a fee simulator based on costs, taxes, billable hours, and target margin.
+- Team invitations, owner-only settings, guided onboarding, and subscription management.
+- Two Next.js applications in one Turborepo: the authenticated product and its marketing site.
+
+## Performance and testing
+
+For the pipeline, the most repeated interaction in the product, I moved the card immediately in the local cache, then reconciled with the server, using a snapshot, rollback, and refetch to recover from failures. In the documented scenario with two sequential round trips to Supabase in São Paulo, this removed roughly 350–700 milliseconds of waiting before visible feedback. The card moves within one frame while the server processes the change.
+
+The complete path from clicking Log in to a rendered CRM initially took ≈7,441ms. Under high server latency, the same path could exceed 15,000ms. Session hydration, workspace resolution, billing, bootstrap, and screen data ran in sequence in the browser. I moved the authorised bootstrap to the server and hydrated the frontend from the resulting snapshot. In measurements during the implementation, the same full flow then took ≈760ms, an ≈90% reduction. The [login waterfall article](/posts/removing-login-dashboard-waterfall) explains the dependency changes, authorization boundary and measurement limits.
+
+The end-to-end suite covers the paths whose failure would affect the operation directly: authentication, pipeline, proposals, the public acceptance page, and subscription billing.
+
+## Decisions
+
+### Keep tenant boundaries explicit
+
+Every domain record carries a `workspace_id`. A protected tRPC procedure resolves the caller and workspace, a service owns the business rule, and a repository performs an explicitly scoped query with explicit column selection. The backend enforces isolation on each query.
+
+### Aggregate revenue in the database
+
+The first dashboard implementation transported accepted proposals to Node and aggregated them in JavaScript. I promoted the acceptance date from JSON to a queryable column and moved revenue aggregation into Postgres, so the cost no longer grows by shipping the full proposal history across the network. At around 1,000 proposals, the payload fell from 1–3 MB to under 1 KB.
+
+### Handle billing retries safely
+
+Billing webhook events are authenticated, persisted before processing, and handled idempotently so a gateway retry cannot apply the same transition twice.
+
+### Persist notification candidates in one batch
+
+Reminder calculations return candidate rows, which the repository inserts in one batch while ignoring existing deduplication keys. A redundant partial-index predicate initially prevented the conflict target from matching. The [upsert article](/posts/partial-index-supabase-upsert) explains the index change and why conflicts preserve the existing notification.
+
+### Page through notification history by position
+
+Read notifications use a timestamp-and-ID cursor with a stable descending order. The [pagination article](/posts/postgres-cursor-timestamp-and-id) covers timestamp ties, the extra row used to detect another page and the limits of the available indexes.
+
+## Disclosure
+
+LawFlow is a [live, client-owned product](https://www.lawflowhub.com/) with subscription-based access. The production implementation described here is my work. Subscriber and revenue figures remain private.

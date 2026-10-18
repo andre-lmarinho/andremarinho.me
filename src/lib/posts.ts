@@ -1,7 +1,5 @@
-import { join } from "node:path";
-import { readAllContent, readMarkdown } from "./content";
-
-const DIR = join(process.cwd(), "content/posts");
+import { type CollectionEntry, getCollection } from "astro:content";
+import { isPublished } from "./content";
 
 export type Post = {
   slug: string;
@@ -20,21 +18,31 @@ function readingTime(body: string) {
   return Math.max(1, Math.round(words / 200));
 }
 
-function parse(slug: string): Post {
-  const { meta, body } = readMarkdown(DIR, slug);
+function toPost({ id, data, body }: CollectionEntry<"posts">): Post {
+  const content = body ?? "";
   return {
-    slug,
-    title: meta.title,
-    description: meta.description,
-    date: meta.date ?? "",
-    tags: meta.tags ? meta.tags.split(",").map((t) => t.trim()) : [],
-    project: meta.project || undefined,
-    body,
-    minutes: readingTime(body),
+    slug: id,
+    title: data.title,
+    description: data.description,
+    date: data.date ?? "",
+    tags: data.tags,
+    project: data.project,
+    body: content,
+    minutes: readingTime(content),
   };
 }
 
-export const getPosts = () => readAllContent(DIR, parse);
+export async function getPosts() {
+  const entries = await getCollection("posts");
+  return entries
+    .map(toPost)
+    .filter((post) => isPublished(post.date))
+    .sort((a, b) => b.date.localeCompare(a.date));
+}
 
-export const getPost = (slug: string) =>
-  getPosts().find((post) => post.slug === slug) ?? null;
+export async function getPost(slug: string) {
+  const [entry] = await getCollection("posts", ({ id }) => id === slug);
+  if (!entry) return null;
+  const post = toPost(entry);
+  return isPublished(post.date) ? post : null;
+}

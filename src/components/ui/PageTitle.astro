@@ -1,0 +1,15 @@
+---
+import type { HTMLAttributes } from "astro/types";
+
+type Props = { style?: HTMLAttributes<"h1">["style"] };
+const { style } = Astro.props;
+---
+
+<!-- biome-ignore lint/a11y/useHeadingContent: Heading content is supplied through the Astro slot. -->
+<h1
+  class="text-4xl leading-[1.05] font-semibold tracking-[-0.02em] sm:text-5xl"
+  style={style}
+>
+  <slot />
+</h1>
+<div aria-hidden="true" class="mt-8 h-px w-full bg-border" />

@@ -1,0 +1,23 @@
+---
+import { Picture } from "astro:assets";
+import type { ImageMetadata } from "astro";
+import type { HTMLAttributes } from "astro/types";
+
+type Props = Omit<HTMLAttributes<"img">, "src" | "width" | "height"> & {
+  src: ImageMetadata;
+  alt: string;
+  width: number;
+  height: number;
+  sizes: string;
+};
+const { src, ...props } = Astro.props;
+---
+
+<Picture
+  src={src}
+  formats={["avif"]}
+  fallbackFormat="webp"
+  widths={[96, 128, 256, 384, 640, 750, 828, 1080, 1200, 1920]}
+  pictureAttributes={{ style: "display:contents", class: "[&>source]:hidden" }}
+  {...props}
+/>

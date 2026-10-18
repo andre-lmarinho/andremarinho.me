@@ -1,7 +1,6 @@
-import { join } from "node:path";
-import { readAllContent, readMarkdown } from "./content";
-
-const DIR = join(process.cwd(), "content/projects");
+import { type CollectionEntry, getCollection, getEntry } from "astro:content";
+import type { ImageMetadata } from "astro";
+import { isPublished } from "./content";
 
 export type Project = {
   slug: string;
@@ -9,30 +8,48 @@ export type Project = {
   description: string;
   date: string;
   tags: string[];
-  image: string;
+  image?: ImageMetadata;
   link: string;
   featured: boolean;
   kind: string;
   body: string;
 };
 
-function parse(slug: string): Project {
-  const { meta, body } = readMarkdown(DIR, slug);
+const images = import.meta.glob<ImageMetadata>(
+  "/src/assets/images/projects/*.webp",
+  { eager: true, import: "default" },
+);
+
+function imageFor(slug: string) {
+  return images[`/src/assets/images/projects/${slug}.webp`];
+}
+
+function toProject({ id, data, body }: CollectionEntry<"projects">): Project {
   return {
-    slug,
-    title: meta.title,
-    description: meta.description,
-    date: meta.date ?? "",
-    tags: meta.tags ? meta.tags.split(",").map((t) => t.trim()) : [],
-    image: meta.image ?? "",
-    link: meta.link ?? "",
-    featured: meta.featured === "true",
-    kind: meta.kind ?? "",
-    body,
+    slug: id,
+    title: data.title,
+    description: data.description,
+    date: data.date ?? "",
+    tags: data.tags,
+    image: imageFor(id),
+    link: data.link ?? "",
+    featured: data.featured,
+    kind: data.kind ?? "",
+    body: body ?? "",
   };
 }
 
-export const getProjects = () => readAllContent(DIR, parse);
+export async function getProjects() {
+  const entries = await getCollection("projects");
+  return entries
+    .map(toProject)
+    .filter((project) => isPublished(project.date))
+    .sort((a, b) => b.date.localeCompare(a.date));
+}
 
-export const getProject = (slug: string) =>
-  getProjects().find((project) => project.slug === slug) ?? null;
+export async function getProject(slug: string) {
+  const entry = await getEntry("projects", slug);
+  if (!entry) return null;
+  const project = toProject(entry);
+  return isPublished(project.date) ? project : null;
+}

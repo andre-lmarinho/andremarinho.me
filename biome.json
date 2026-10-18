@@ -8,6 +8,12 @@
     "indentStyle": "space",
     "indentWidth": 2
   },
+  "html": {
+    "experimentalFullSupportEnabled": true,
+    "formatter": {
+      "enabled": true
+    }
+  },
   "css": {
     "parser": {
       "tailwindDirectives": true

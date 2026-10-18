@@ -1,0 +1,40 @@
+---
+import Base from "@/layouts/Base.astro";
+import { homeMetadata } from "@/lib/metadata";
+
+const title = "Page not found - André Marinho";
+const description = "The page you requested could not be found.";
+const metadata = {
+  ...homeMetadata,
+  title,
+  description,
+  canonical: undefined,
+  noindex: true,
+  openGraph: {
+    ...homeMetadata.openGraph,
+    title,
+    description,
+    url: "/404",
+  },
+};
+---
+
+<Base metadata={metadata}>
+  <div class="flex flex-1 flex-col items-center justify-center px-6 py-12">
+    <div data-not-found="" class="select-none">
+      <h1
+        class="flex items-baseline gap-3 font-display text-[clamp(6rem,20vw,14rem)] font-semibold leading-none tracking-tighter motion-safe:translate-x-(--nf-x,0px) motion-safe:translate-y-(--nf-y,0px) motion-safe:transition-transform motion-safe:duration-200 motion-safe:ease-out print:translate-none"
+      >
+        <span>4</span><span class="text-accent">0</span><span>4</span>
+      </h1>
+    </div>
+    <p class="mt-10 max-w-md text-center font-body text-lg text-muted">
+      I couldn&apos;t find this page.
+    </p>
+    <a
+      href="/"
+      class="mt-8 inline-flex items-center gap-2 rounded-full border border-border bg-surface px-6 py-3 font-body text-sm text-foreground transition-colors hover:border-accent hover:text-accent"
+      ><span aria-hidden="true">←</span>Back to home</a
+    >
+  </div>
+</Base>
