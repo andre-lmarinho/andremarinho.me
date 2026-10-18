@@ -174,65 +174,6 @@ button:active {
     transform 200ms cubic-bezier(0.23, 1, 0.32, 1);
 }
 
-/* 404 — not-found page */
-
-.nf-digit {
-  color: var(--color-foreground);
-  filter: drop-shadow(0 0 24px rgb(var(--color-accent-rgb) / var(--glow, 0)));
-  transition: filter 180ms ease-out;
-}
-
-.nf-digit:nth-child(2) {
-  color: var(--color-accent);
-}
-
-@keyframes nf-enter {
-  from {
-    opacity: 0;
-  }
-}
-
-.nf-digits {
-  animation: nf-enter 700ms cubic-bezier(0.16, 1, 0.3, 1) both;
-}
-
-.nf-message {
-  animation: nf-enter 700ms cubic-bezier(0.16, 1, 0.3, 1) 120ms both;
-}
-
-.nf-button {
-  animation: nf-enter 700ms cubic-bezier(0.16, 1, 0.3, 1) 200ms both;
-}
-
-.nf-arrow {
-  display: inline-block;
-  transition: transform 280ms cubic-bezier(0.34, 1.56, 0.64, 1);
-}
-
-.nf-button:hover .nf-arrow {
-  transform: translateX(-3px);
-}
-
-.nf-button:active {
-  transform: scale(0.97);
-  transition: transform 100ms ease-out;
-}
-
-.nf-glow-dot {
-  position: absolute;
-  width: 400px;
-  height: 400px;
-  border-radius: 50%;
-  background: radial-gradient(
-    circle,
-    rgb(var(--color-accent-rgb) / 0.08),
-    transparent 70%
-  );
-  pointer-events: none;
-  transition: transform 600ms cubic-bezier(0.16, 1, 0.3, 1);
-  z-index: 0;
-}
-
 @media (hover: hover) and (pointer: fine) {
   .content-list:has(.content-row:hover) .content-row:not(:hover) {
     opacity: 0.9;
@@ -397,22 +338,6 @@ button:active {
       text-decoration-color, fill, stroke, opacity !important;
     transition-duration: 150ms !important;
   }
-
-  .nf-digit {
-    filter: none !important;
-    transition: none !important;
-  }
-
-  .nf-digits,
-  .nf-message,
-  .nf-button {
-    animation: none !important;
-    opacity: 1 !important;
-  }
-
-  .nf-glow-dot {
-    transition: none !important;
-  }
 }
 
 @media print {
@@ -424,14 +349,5 @@ button:active {
 
   .site-header::after {
     display: none;
-  }
-
-  .nf-digit {
-    filter: none !important;
-    transform: none !important;
-  }
-
-  .nf-glow-dot {
-    display: none !important;
   }
 }

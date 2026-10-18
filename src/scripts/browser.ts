@@ -52,99 +52,39 @@ export function initNotFound() {
   const element = document.querySelector<HTMLElement>("[data-not-found]");
   if (
     !element ||
-    window.matchMedia("(prefers-reduced-motion: reduce)").matches
+    window.matchMedia("(prefers-reduced-motion: reduce)").matches ||
+    !window.matchMedia("(hover: hover) and (pointer: fine)").matches
   ) {
     return;
   }
-  const glow = element.querySelector<HTMLElement>("[data-not-found-glow]");
-  const digits = element.querySelectorAll<HTMLElement>(".nf-digit");
-  if (!glow || digits.length !== 3) return;
-
-  const springs = [
-    { damping: 28, stiffness: 180 },
-    { damping: 22, stiffness: 140 },
-    { damping: 28, stiffness: 180 },
-  ];
-  const states = springs.map(() => ({ x: 0, y: 0, vx: 0, vy: 0 }));
-  let px = 0;
-  let py = 0;
-  let width = 0;
-  let height = 0;
-  let previousTime = 0;
-  let frame = 0;
   const controller = new AbortController();
-
-  const rubberband = (offset: number, distance: number) =>
-    (offset * distance * 0.55) / (distance + 0.55 * Math.abs(offset));
-
-  const tick = (time: number) => {
-    const dt = Math.min(time - previousTime, 32) / 1000;
-    previousTime = time;
-    let moving = false;
-
-    for (let i = 0; i < digits.length; i++) {
-      const state = states[i];
-      const spring = springs[i];
-      let tx = px - width / 2;
-      let ty = py - height / 2;
-      if (px < 0) tx += rubberband(px, width / 2);
-      else if (px > width) tx += rubberband(px - width, width / 2);
-      if (py < 0) ty += rubberband(py, height / 2);
-      else if (py > height) ty += rubberband(py - height, height / 2);
-
-      state.vx +=
-        (-spring.damping * state.vx + spring.stiffness * (tx - state.x)) * dt;
-      state.vy +=
-        (-spring.damping * state.vy + spring.stiffness * (ty - state.y)) * dt;
-      state.x += state.vx * dt;
-      state.y += state.vy * dt;
-      digits[i].style.transform =
-        `translate3d(${state.x.toFixed(1)}px, ${state.y.toFixed(1)}px, 0)`;
-      const speed = Math.hypot(state.vx, state.vy);
-      digits[i].style.setProperty(
-        "--glow",
-        (Math.min(speed / 300, 1) * 0.6).toFixed(2),
-      );
-      if (speed > 0.05 || Math.hypot(tx - state.x, ty - state.y) > 0.05)
-        moving = true;
-    }
-
-    glow.style.transform = `translate3d(${px.toFixed(0)}px, ${py.toFixed(0)}px, 0) translate(-50%, -50%)`;
-    frame = moving ? requestAnimationFrame(tick) : 0;
+  const reset = () => {
+    element.style.removeProperty("--nf-x");
+    element.style.removeProperty("--nf-y");
   };
-
   element.addEventListener(
     "pointermove",
     (event) => {
+      if (event.pointerType !== "mouse") return;
       const rect = element.getBoundingClientRect();
-      width = rect.width;
-      height = rect.height;
-      px = event.clientX - rect.left;
-      py = event.clientY - rect.top;
-      if (!frame) {
-        previousTime = performance.now();
-        frame = requestAnimationFrame(tick);
-      }
+      if (!rect.width || !rect.height) return;
+      element.style.setProperty(
+        "--nf-x",
+        `${Math.max(-12, Math.min(12, ((event.clientX - rect.left) / rect.width - 0.5) * 24))}px`,
+      );
+      element.style.setProperty(
+        "--nf-y",
+        `${Math.max(-12, Math.min(12, ((event.clientY - rect.top) / rect.height - 0.5) * 24))}px`,
+      );
     },
     { passive: true, signal: controller.signal },
   );
-  element.addEventListener(
-    "pointerleave",
-    () => {
-      for (const state of states) {
-        state.vx *= 0.3;
-        state.vy *= 0.3;
-      }
-    },
-    { signal: controller.signal },
-  );
-  const stop = () => {
-    cancelAnimationFrame(frame);
-    frame = 0;
-  };
-  window.addEventListener("pagehide", stop, { signal: controller.signal });
+  element.addEventListener("pointerleave", reset, {
+    signal: controller.signal,
+  });
+  window.addEventListener("pagehide", reset, { signal: controller.signal });
   return () => {
-    stop();
+    reset();
     controller.abort();
   };
 }

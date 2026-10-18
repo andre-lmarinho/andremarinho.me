@@ -107,43 +107,76 @@ describe("visible post counters", () => {
 });
 
 describe("404 motion", () => {
-  it("resumes pointer animation after a document returns from the back-forward cache", () => {
-    document.body.innerHTML =
-      '<div data-not-found><div data-not-found-glow></div><span class="nf-digit">4</span><span class="nf-digit">0</span><span class="nf-digit">4</span></div>';
-    vi.stubGlobal("matchMedia", vi.fn().mockReturnValue({ matches: false }));
-    const frame = vi.spyOn(window, "requestAnimationFrame").mockReturnValue(1);
-    const cancelFrame = vi.spyOn(window, "cancelAnimationFrame");
-    const pointer = () =>
-      document
-        .querySelector("[data-not-found]")
-        ?.dispatchEvent(
-          new MouseEvent("pointermove", { clientX: 50, clientY: 50 }),
-        );
+  const setup = ({ reduced = false, fine = true } = {}) => {
+    document.body.innerHTML = "<div data-not-found><h1>404</h1></div>";
+    vi.stubGlobal(
+      "matchMedia",
+      vi.fn((query: string) => ({
+        matches: query.includes("reduced-motion") ? reduced : fine,
+      })),
+    );
+    const element = document.querySelector("[data-not-found]") as HTMLElement;
+    vi.spyOn(element, "getBoundingClientRect").mockReturnValue({
+      left: 0,
+      top: 0,
+      width: 200,
+      height: 100,
+    } as DOMRect);
     stopNotFound = initNotFound();
-    pointer();
-    expect(frame).toHaveBeenCalledTimes(1);
+    const move = (pointerType = "mouse") => {
+      const event = Object.assign(
+        new MouseEvent("pointermove", {
+          clientX: 200,
+          clientY: 0,
+          cancelable: true,
+        }),
+        { pointerType },
+      );
+      element.dispatchEvent(event);
+      return event;
+    };
+    return { element, move };
+  };
 
+  it("moves at most 12px and resets on pointer leave", () => {
+    const { element, move } = setup();
+    move();
+    expect(element.style.getPropertyValue("--nf-x")).toBe("12px");
+    expect(element.style.getPropertyValue("--nf-y")).toBe("-12px");
+    element.dispatchEvent(new Event("pointerleave"));
+    expect(element.style.cssText).toBe("");
+    stopNotFound?.();
+    move();
+    expect(element.style.cssText).toBe("");
+  });
+
+  it("resumes after a document returns from the back-forward cache", () => {
+    const { element, move } = setup();
+    move();
     window.dispatchEvent(new Event("pagehide"));
-    expect(cancelFrame).toHaveBeenCalledWith(1);
+    expect(element.style.cssText).toBe("");
     window.dispatchEvent(new Event("pageshow"));
-    pointer();
-
-    expect(frame).toHaveBeenCalledTimes(2);
+    move();
+    expect(element.style.getPropertyValue("--nf-x")).toBe("12px");
   });
 
-  it("respects reduced motion before scheduling animation", () => {
-    document.body.innerHTML =
-      '<div data-not-found><div data-not-found-glow></div><span class="nf-digit">4</span><span class="nf-digit">0</span><span class="nf-digit">4</span></div>';
-    vi.stubGlobal("matchMedia", vi.fn().mockReturnValue({ matches: true }));
-    const frame = vi.spyOn(window, "requestAnimationFrame");
+  it.each(["touch", "pen"])(
+    "ignores %s input without preventing native gestures",
+    (pointerType) => {
+      const { element, move } = setup();
+      expect(move(pointerType).defaultPrevented).toBe(false);
+      expect(element.style.cssText).toBe("");
+    },
+  );
 
-    stopNotFound = initNotFound();
-    document
-      .querySelector("[data-not-found]")
-      ?.dispatchEvent(new Event("pointermove", { bubbles: true }));
-
-    expect(frame).not.toHaveBeenCalled();
-  });
+  it.each([{ reduced: true }, { fine: false }])(
+    "disables motion for %o",
+    (preferences) => {
+      const { element, move } = setup(preferences);
+      move();
+      expect(element.style.cssText).toBe("");
+    },
+  );
 });
 
 it("initializes each swapped page without duplicating SDKs or retaining old observers", async () => {
