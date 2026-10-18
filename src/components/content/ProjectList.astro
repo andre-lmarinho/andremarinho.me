@@ -23,7 +23,7 @@ const { projects, titleAs = "h3" } = Astro.props;
               as={titleAs}
               title={project.title}
               id={`project-${project.slug}`}
-              class="content-title text-base leading-6 font-medium transition-colors group-hover:text-accent"
+              class="text-base leading-6 font-medium transition-colors group-hover:text-accent"
             />
             <p class="mt-2 text-sm leading-relaxed text-muted">
               {project.description}
@@ -38,7 +38,7 @@ const { projects, titleAs = "h3" } = Astro.props;
         {project.image && (
           <span
             aria-hidden="true"
-            class="project-peek pointer-events-none absolute top-1/2 left-full hidden w-62 pl-8 xl:block"
+            class="pointer-events-none absolute top-1/2 left-full hidden w-62 origin-left translate-y-[calc(-50%+6px)] scale-98 pl-8 opacity-0 transition-[opacity,translate,scale] duration-200 ease-[cubic-bezier(0.23,1,0.32,1)] xl:block [@media(hover:hover)_and_(pointer:fine)]:group-hover:pointer-events-auto [@media(hover:hover)_and_(pointer:fine)]:group-hover:-translate-y-1/2 [@media(hover:hover)_and_(pointer:fine)]:group-hover:scale-100 [@media(hover:hover)_and_(pointer:fine)]:group-hover:opacity-100"
           >
             <Image
               src={project.image}

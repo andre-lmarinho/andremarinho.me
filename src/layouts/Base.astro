@@ -115,7 +115,10 @@ const jsonLd = JSON.stringify(websiteJsonLd).replace(/</g, "\\u003c");
     class="flex min-h-dvh flex-col bg-bg font-body text-foreground wrap-anywhere"
   >
     <script type="application/ld+json" set:html={jsonLd} />
-    <a class="skip-link" href="#main-content" data-astro-reload
+    <a
+      class="fixed top-3 left-3 z-100 translate-y-[-200%] rounded-sm bg-accent px-3 py-2 text-xs text-bg focus:translate-y-0"
+      href="#main-content"
+      data-astro-reload
       >Skip to content</a
     >
     <Header pathname={Astro.url.pathname} />
