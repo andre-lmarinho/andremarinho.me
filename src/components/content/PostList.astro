@@ -7,16 +7,38 @@ import type { Post } from "@/lib/posts";
 type Props = { posts: Post[]; titleAs?: "h2" | "h3" };
 const { posts, titleAs = "h3" } = Astro.props;
 ---
+
 <ol class="content-list flex flex-col mt-6">
-  {posts.map((post) => <li>
-    <a href={`/posts/${post.slug}`} class="content-row group -mx-3 block rounded-md px-3 py-3">
-      <div class="grid grid-cols-1 gap-x-6 gap-y-1.5 sm:grid-cols-[7rem_minmax(0,1fr)]">
-        <time datetime={post.date || undefined} class="text-xs leading-6 text-muted sm:text-right">{post.date ? formatShortDate(post.date) : "Draft"}</time>
-        <div class="flex items-baseline justify-between gap-x-4">
-          <MorphTitle as={titleAs} title={post.title} id={`post-${post.slug}`} class="content-title text-base leading-6 font-medium transition-colors group-hover:text-accent" />
-          <span title="Post views" class="shrink-0 text-xs text-faint tabular-nums" data-post-counter={postCounter(post.slug)}>… views</span>
+  {posts.map((post) => (
+    <li>
+      <a
+        href={`/posts/${post.slug}`}
+        class="content-row group -mx-3 block rounded-md px-3 py-3"
+      >
+        <div class="grid grid-cols-1 gap-x-6 gap-y-1.5 sm:grid-cols-[7rem_minmax(0,1fr)]">
+          <time
+            datetime={post.date || undefined}
+            class="text-xs leading-6 text-muted sm:text-right"
+          >
+            {post.date ? formatShortDate(post.date) : "Draft"}
+          </time>
+          <div class="flex items-baseline justify-between gap-x-4">
+            <MorphTitle
+              as={titleAs}
+              title={post.title}
+              id={`post-${post.slug}`}
+              class="content-title text-base leading-6 font-medium transition-colors group-hover:text-accent"
+            />
+            <span
+              title="Post views"
+              class="shrink-0 text-xs text-faint tabular-nums"
+              data-post-counter={postCounter(post.slug)}
+            >
+              … views
+            </span>
+          </div>
         </div>
-      </div>
-    </a>
-  </li>)}
+      </a>
+    </li>
+  ))}
 </ol>

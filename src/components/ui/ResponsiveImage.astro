@@ -12,6 +12,7 @@ type Props = Omit<HTMLAttributes<"img">, "src" | "width" | "height"> & {
 };
 const { src, ...props } = Astro.props;
 ---
+
 <Picture
   src={src}
   formats={["avif"]}

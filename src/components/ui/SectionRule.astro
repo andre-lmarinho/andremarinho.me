@@ -9,6 +9,7 @@ type Props = {
 const { index, label, link } = Astro.props;
 const labelClass = "text-[10px] uppercase tracking-[0.2em]";
 ---
+
 <div class="mb-8 flex flex-wrap items-center gap-x-3 gap-y-3">
   <span class={`${labelClass} text-muted tabular-nums`}>{index}</span>
   <h2 class={`${labelClass} shrink-0 text-foreground`}>{label}</h2>

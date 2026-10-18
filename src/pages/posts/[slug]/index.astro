@@ -21,6 +21,7 @@ const metadata = await getPostMetadata(slug);
 if (!post || !metadata) throw new Error(`Unknown post: ${slug}`);
 const project = post.project ? await getProject(post.project) : null;
 ---
+
 <Base metadata={metadata}>
   <JsonLd data={postJsonLd(post)} />
   <JsonLd
@@ -45,16 +46,16 @@ const project = post.project ? await getProject(post.project) : null;
         <time datetime={post.date || undefined} class="text-muted">
           {post.date ? formatDate(post.date) : "Draft"}
         </time>
-        <span class="text-border" aria-hidden="true">
-          /
-        </span>
-        <span class="text-faint tabular-nums">
-          {post.minutes} min read
-        </span>
-        <span class="text-border" aria-hidden="true">
-          /
-        </span>
-        <span title="Post views" class="text-faint tabular-nums" data-post-counter={postCounter(slug)} data-increment="true">… views</span>
+        <span class="text-border" aria-hidden="true"> / </span>
+        <span class="text-faint tabular-nums"> {post.minutes} min read </span>
+        <span class="text-border" aria-hidden="true"> / </span>
+        <span
+          title="Post views"
+          class="text-faint tabular-nums"
+          data-post-counter={postCounter(slug)}
+          data-increment="true"
+          >… views</span
+        >
       </div>
 
       {post.tags.length > 0 ? (

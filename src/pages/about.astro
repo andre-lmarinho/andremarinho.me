@@ -9,14 +9,18 @@ import { aboutMetadata } from "@/lib/metadata";
 import { profileJsonLd } from "@/lib/seo";
 import { email, socials } from "@/lib/site";
 ---
+
 <Base metadata={aboutMetadata}>
   <article class="mx-auto w-full max-w-3xl px-6 py-16 lg:px-8">
     <JsonLd data={profileJsonLd} />
     <PageTitle>About</PageTitle>
 
     <div class="mt-10 flex items-center gap-6 sm:gap-10">
-      <p class="min-w-0 flex-1 font-display text-xl font-medium leading-snug tracking-tight text-balance sm:text-3xl">
-        I’m André, a full-stack engineer with a background in business operations and data.
+      <p
+        class="min-w-0 flex-1 font-display text-xl font-medium leading-snug tracking-tight text-balance sm:text-3xl"
+      >
+        I’m André, a full-stack engineer with a background in business
+        operations and data.
       </p>
       <Image
         src={portrait}
@@ -32,116 +36,149 @@ import { email, socials } from "@/lib/site";
 
     <section aria-labelledby="context" class="prose">
       <h2 id="context">A little context</h2>
-        <p>
-          I live in Salvador, Brazil, and have been building websites and web
-          applications professionally since 2023. Before that, I worked in
-          business operations, data, and consulting.
-        </p>
-        <p>
-          I work with TypeScript, React, Next.js, Node.js, and PostgreSQL,
-          from interfaces and APIs to data models, tests, and deployment.
-          I draw on my consulting experience when working out what a client
-          needs and deciding what to build.
-        </p>
-        <p>
-          Alongside client work, I build and maintain open-source projects like{" "}
-          <a href="/projects/turistar" class="about-inline-link">Turistar</a>,
-          a collaborative trip planner. This site is where I keep my{" "}
-          <a href="/projects" class="about-inline-link">projects</a>{" "}and{" "}
-          <a href="/posts" class="about-inline-link">write about what I’m learning</a>.
-        </p>
+      <p>
+        I live in Salvador, Brazil, and have been building websites and web
+        applications professionally since 2023. Before that, I worked in
+        business operations, data, and consulting.
+      </p>
+      <p>
+        I work with TypeScript, React, Next.js, Node.js, and PostgreSQL, from
+        interfaces and APIs to data models, tests, and deployment. I draw on my
+        consulting experience when working out what a client needs and deciding
+        what to build.
+      </p>
+      <p>
+        Alongside client work, I build and maintain open-source projects like{" "}
+        <a href="/projects/turistar" class="about-inline-link">Turistar</a>, a
+        collaborative trip planner. This site is where I keep my{" "}
+        <a href="/projects" class="about-inline-link">projects</a>{" "}and{" "}
+        <a href="/posts" class="about-inline-link"
+          >write about what I’m learning</a
+        >.
+      </p>
     </section>
 
     <section aria-labelledby="experience" class="mt-12 sm:mt-14">
       <div class="prose">
-      <h2 id="experience">What I’ve been working on</h2>
+        <h2 id="experience">What I’ve been working on</h2>
       </div>
       <ol class="mt-6 flex flex-col">
         <li class="-mx-3 px-3 py-5">
-          <div class="grid grid-cols-1 gap-x-6 gap-y-1.5 sm:grid-cols-[7rem_minmax(0,1fr)]">
-            <p class="text-xs leading-6 text-muted sm:text-right">2025 – present</p>
+          <div
+            class="grid grid-cols-1 gap-x-6 gap-y-1.5 sm:grid-cols-[7rem_minmax(0,1fr)]"
+          >
+            <p class="text-xs leading-6 text-muted sm:text-right">
+              2025 – present
+            </p>
             <div>
-              <h3 class="text-base font-medium leading-6 text-foreground">Full Stack Engineer · Freelance</h3>
+              <h3 class="text-base font-medium leading-6 text-foreground">
+                Full Stack Engineer · Freelance
+              </h3>
               <p class="mt-2 text-sm leading-relaxed text-muted">
-            Building full-stack products for clients, from architecture to deployment,
-            independently and with teams.
-          </p>
+                Building full-stack products for clients, from architecture to
+                deployment, independently and with teams.
+              </p>
             </div>
           </div>
         </li>
         <li class="-mx-3 px-3 py-5">
-          <div class="grid grid-cols-1 gap-x-6 gap-y-1.5 sm:grid-cols-[7rem_minmax(0,1fr)]">
-            <p class="text-xs leading-6 text-muted sm:text-right">2023 – 2025</p>
+          <div
+            class="grid grid-cols-1 gap-x-6 gap-y-1.5 sm:grid-cols-[7rem_minmax(0,1fr)]"
+          >
+            <p class="text-xs leading-6 text-muted sm:text-right">
+              2023 – 2025
+            </p>
             <div>
-              <h3 class="text-base font-medium leading-6 text-foreground">Full Stack Engineer · Duonorth Studio</h3>
+              <h3 class="text-base font-medium leading-6 text-foreground">
+                Full Stack Engineer · Duonorth Studio
+              </h3>
               <p class="mt-2 text-sm leading-relaxed text-muted">
-            Built websites, ecommerce stores, and custom integrations, working
-            directly with clients from brief to launch.
-          </p>
+                Built websites, ecommerce stores, and custom integrations,
+                working directly with clients from brief to launch.
+              </p>
             </div>
           </div>
         </li>
         <li class="-mx-3 px-3 py-5">
-          <div class="grid grid-cols-1 gap-x-6 gap-y-1.5 sm:grid-cols-[7rem_minmax(0,1fr)]">
-            <p class="text-xs leading-6 text-muted sm:text-right">2017 – 2022</p>
+          <div
+            class="grid grid-cols-1 gap-x-6 gap-y-1.5 sm:grid-cols-[7rem_minmax(0,1fr)]"
+          >
+            <p class="text-xs leading-6 text-muted sm:text-right">
+              2017 – 2022
+            </p>
             <div>
-              <h3 class="text-base font-medium leading-6 text-foreground">Digital Solutions Consultant · Duonorth Studio</h3>
+              <h3 class="text-base font-medium leading-6 text-foreground">
+                Digital Solutions Consultant · Duonorth Studio
+              </h3>
               <p class="mt-2 text-sm leading-relaxed text-muted">
-            Founded a BI consultancy, building dashboards and automations before
-            expanding into digital strategy and marketing.
-          </p>
+                Founded a BI consultancy, building dashboards and automations
+                before expanding into digital strategy and marketing.
+              </p>
             </div>
           </div>
         </li>
         <li class="-mx-3 px-3 py-5">
-          <div class="grid grid-cols-1 gap-x-6 gap-y-1.5 sm:grid-cols-[7rem_minmax(0,1fr)]">
-            <p class="text-xs leading-6 text-muted sm:text-right">2015 – 2017</p>
+          <div
+            class="grid grid-cols-1 gap-x-6 gap-y-1.5 sm:grid-cols-[7rem_minmax(0,1fr)]"
+          >
+            <p class="text-xs leading-6 text-muted sm:text-right">
+              2015 – 2017
+            </p>
             <div>
-              <h3 class="text-base font-medium leading-6 text-foreground">Logistics Supervisor · Grupo Hemocat</h3>
+              <h3 class="text-base font-medium leading-6 text-foreground">
+                Logistics Supervisor · Grupo Hemocat
+              </h3>
               <p class="mt-2 text-sm leading-relaxed text-muted">
-            Led 16 people across three logistics bases and built Power BI dashboards
-            for stock and purchasing decisions.
-          </p>
+                Led 16 people across three logistics bases and built Power BI
+                dashboards for stock and purchasing decisions.
+              </p>
             </div>
           </div>
         </li>
       </ol>
 
-      <a href="/resume.pdf" download="Andre-Marinho-Resume.pdf" class="about-inline-link mt-6 inline-flex min-h-11 flex-wrap items-center gap-2">
-        Download résumé <span class="mt-1 text-xs leading-6 text-muted">(PDF, English)</span>
+      <a
+        href="/resume.pdf"
+        download="Andre-Marinho-Resume.pdf"
+        class="about-inline-link mt-6 inline-flex min-h-11 flex-wrap items-center gap-2"
+      >
+        Download résumé
+        <span class="mt-1 text-xs leading-6 text-muted">(PDF, English)</span>
       </a>
     </section>
 
     <section aria-labelledby="history" class="prose">
       <h2 id="history">How I got here</h2>
       <p>
-        At Hemocat, my manager spent about two hours a day copying numbers
-        from the company’s system into a financial planning spreadsheet.
-        I asked if I could try automating it. That became my first technical
-        project: learning how the database worked and connecting it directly
-        to Excel so she no longer had to copy the numbers by hand.
+        At Hemocat, my manager spent about two hours a day copying numbers from
+        the company’s system into a financial planning spreadsheet. I asked if I
+        could try automating it. That became my first technical project:
+        learning how the database worked and connecting it directly to Excel so
+        she no longer had to copy the numbers by hand.
       </p>
       <p>
-        In logistics, I worked on stock availability and the data behind
-        the dashboards. Later, consulting brought me into websites and
-        integrations with clients’ existing tools. By 2023, I had focused
-        Duonorth on websites and software, implementing the solutions myself.
-        In July 2025, I moved into freelance full-stack engineering.
+        In logistics, I worked on stock availability and the data behind the
+        dashboards. Later, consulting brought me into websites and integrations
+        with clients’ existing tools. By 2023, I had focused Duonorth on
+        websites and software, implementing the solutions myself. In July 2025,
+        I moved into freelance full-stack engineering.
       </p>
       <p>
-        I still spend time understanding how people work before deciding
-        how the software should work. I wrote more about that path in{" "}
-        <a href="/posts/before-i-called-it-code" class="about-inline-link">that story here</a>.
+        I still spend time understanding how people work before deciding how the
+        software should work. I wrote more about that path in{" "}
+        <a href="/posts/before-i-called-it-code" class="about-inline-link"
+          >that story here</a
+        >.
       </p>
     </section>
 
     <section aria-labelledby="off-screen" class="prose">
       <h2 id="off-screen">Away from the screen</h2>
-        <p>
-          I live in Salvador, close enough to the beach to go regularly.
-          I read a lot, run, lift weights, and play classical guitar.
-          I’m also learning to juggle, though I’m still a beginner.
-        </p>
+      <p>
+        I live in Salvador, close enough to the beach to go regularly. I read a
+        lot, run, lift weights, and play classical guitar. I’m also learning to
+        juggle, though I’m still a beginner.
+      </p>
     </section>
   </article>
 </Base>

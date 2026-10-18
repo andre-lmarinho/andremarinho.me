@@ -8,4 +8,18 @@ type Props = {
 const { as: Tag, title, id, class: className } = Astro.props;
 // Name each word because a title wrapping onto two lines has multiple box fragments.
 ---
-<Tag class={className} aria-label={title}>{title.split(" ").map((word, i) => <Fragment>{i > 0 && " "}<span aria-hidden="true" class="inline-block" style={`view-transition-name:title-${id}-${i}`}>{word}</span></Fragment>)}</Tag>
+
+<Tag class={className} aria-label={title}
+  >{title.split(" ").map((word, i) => (
+    <Fragment>
+      {i > 0 && " "}
+      <span
+        aria-hidden="true"
+        class="inline-block"
+        style={`view-transition-name:title-${id}-${i}`}
+      >
+        {word}
+      </span>
+    </Fragment>
+  ))}</Tag
+>
