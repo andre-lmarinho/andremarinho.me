@@ -1,5 +1,5 @@
-import { getPost } from "./posts";
-import { getProject } from "./projects";
+import type { Post } from "./posts";
+import type { Project } from "./projects";
 import { jobTitle, siteDescription, siteName, siteUrl } from "./site";
 
 type SocialImage = {
@@ -82,11 +82,8 @@ export const projectsMetadata = pageMetadata(
   "Projects by André Marinho",
 );
 
-export async function getPostMetadata(
-  slug: string,
-): Promise<PageMetadata | undefined> {
-  const post = await getPost(slug);
-  if (!post) return;
+export function getPostMetadata(post: Post): PageMetadata {
+  const { slug } = post;
   return {
     title: `${post.title} - ${siteName}`,
     description: post.description,
@@ -112,11 +109,8 @@ export async function getPostMetadata(
   };
 }
 
-export async function getProjectMetadata(
-  slug: string,
-): Promise<PageMetadata | undefined> {
-  const project = await getProject(slug);
-  if (!project) return;
+export function getProjectMetadata(project: Project): PageMetadata {
+  const { slug } = project;
   return {
     title: `${project.title} - ${siteName}`,
     description: project.description,

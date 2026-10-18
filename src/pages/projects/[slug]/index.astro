@@ -19,8 +19,8 @@ export async function getStaticPaths() {
 const { slug } = Astro.params;
 if (!slug) throw new Error("Missing route slug");
 const project = await getProject(slug);
-const metadata = await getProjectMetadata(slug);
-if (!project || !metadata) throw new Error(`Unknown project: ${slug}`);
+if (!project) throw new Error(`Unknown project: ${slug}`);
+const metadata = getProjectMetadata(project);
 const posts = (await getPosts()).filter((post) => post.project === slug);
 ---
 

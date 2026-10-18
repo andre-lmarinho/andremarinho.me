@@ -1,5 +1,5 @@
 // @vitest-environment node
-import { expect, it, vi } from "vitest";
+import { expect, it } from "vitest";
 import {
   getPostMetadata as postMetadata,
   getProjectMetadata as projectMetadata,
@@ -13,30 +13,6 @@ import {
   websiteJsonLd,
 } from "../seo";
 import { siteUrl } from "../site";
-
-const content = vi.hoisted(() => {
-  const entry = {
-    id: "example",
-    body: "The content.",
-    data: {
-      title: "Example",
-      description: "A technical decision.",
-      date: "2026-07-17",
-      tags: ["astro", "testing"],
-    },
-  };
-  return { posts: [entry], projects: [entry] };
-});
-
-vi.mock("astro:content", () => ({
-  getCollection: async (
-    name: string,
-    filter?: (entry: { id: string }) => boolean,
-  ) => {
-    const entries = name === "posts" ? content.posts : content.projects;
-    return filter ? entries.filter(filter) : entries;
-  },
-}));
 
 const post: Post = {
   slug: "example",
@@ -91,20 +67,47 @@ it("preserves publication dates and omits dates on drafts", () => {
   );
 });
 
-it("preserves canonical URLs and identifies the profile as the content author", async () => {
-  for (const [metadata, section] of [
-    [postMetadata, "posts"],
-    [projectMetadata, "projects"],
+it("preserves canonical URLs and identifies the profile as the content author", () => {
+  for (const [result, section] of [
+    [postMetadata(post), "posts"],
+    [projectMetadata(project), "projects"],
   ] as const) {
-    const result = await metadata("example");
-    expect(result?.canonical).toBe(`/${section}/example`);
-    expect(result?.authors).toEqual([
+    expect(result.canonical).toBe(`/${section}/example`);
+    expect(result.markdown).toBe(`/${section}/example/index.md`);
+    expect(result.authors).toEqual([
       { name: profileJsonLd.mainEntity.name, url: `${siteUrl}/about` },
     ]);
-    expect(result?.openGraph).toMatchObject({
+    expect(result.openGraph).toMatchObject({
       type: "article",
       publishedTime: post.date,
       authors: [`${siteUrl}/about`],
     });
   }
+});
+
+it("omits draft dates from page metadata", () => {
+  expect(
+    postMetadata({ ...post, date: "" }).openGraph.publishedTime,
+  ).toBeUndefined();
+  expect(
+    projectMetadata({ ...project, date: "" }).openGraph.publishedTime,
+  ).toBeUndefined();
+});
+
+it("uses the project's image when available and the listing image otherwise", () => {
+  const image = {
+    src: "/example.webp",
+    width: 800,
+    height: 600,
+    format: "webp",
+  } as const;
+  expect(projectMetadata({ ...project, image }).openGraph.image).toEqual({
+    url: image.src,
+    width: image.width,
+    height: image.height,
+    alt: "Example interface",
+  });
+  expect(projectMetadata(project).openGraph.image.url).toBe(
+    "/projects/opengraph-image",
+  );
 });
