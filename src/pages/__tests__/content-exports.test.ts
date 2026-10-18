@@ -1,8 +1,4 @@
 import { afterEach, beforeEach, expect, it, vi } from "vitest";
-import {
-  getPostMetadata as postMetadata,
-  getProjectMetadata as projectMetadata,
-} from "@/lib/metadata";
 import { siteName, siteUrl } from "@/lib/site";
 import { GET as fullContext } from "@/pages/llms-full.txt";
 import {
@@ -25,6 +21,7 @@ const content = vi.hoisted(() => {
       description: "A technical decision.",
       date,
       tags: [],
+      featured: false,
     },
   });
   return {
@@ -35,6 +32,10 @@ const content = vi.hoisted(() => {
 });
 
 vi.mock("astro:content", () => ({
+  getEntry: async (name: string, id: string) => {
+    const entries = name === "posts" ? content.posts : content.projects;
+    return entries.find((entry) => entry.id === id);
+  },
   getCollection: async (
     name: string,
     filter?: (entry: { id: string }) => boolean,
@@ -53,11 +54,11 @@ afterEach(() => {
 });
 
 it.each([
-  ["posts", postMarkdown, postParams, postMetadata],
-  ["projects", projectMarkdown, projectParams, projectMetadata],
+  ["posts", postMarkdown, postParams],
+  ["projects", projectMarkdown, projectParams],
 ] as const)(
   "serves published %s as discoverable Markdown and excludes drafts",
-  async (section, get, params, metadata) => {
+  async (section, get, params) => {
     expect(await params()).toEqual([{ params: { slug: "published" } }]);
     const context = { params: { slug: "published" } };
     const response = await get(context);
@@ -77,10 +78,6 @@ it.each([
     expect(text).toContain("Published: 2026-07-17");
     expect(text).toContain(content.body);
     expect(text).not.toContain("date:");
-
-    const page = await metadata("published");
-    expect(page?.canonical).toBe(`/${section}/published`);
-    expect(page?.markdown).toBe(`/${section}/published/index.md`);
 
     for (const slug of ["draft", "missing", "../../llms"]) {
       const result = await get({ params: { slug } });

@@ -3,7 +3,6 @@ import { experimental_AstroContainer as AstroContainer } from "astro/container";
 import { JSDOM } from "jsdom";
 import { expect, it } from "vitest";
 import portrait from "@/assets/images/me/andre-marinho.webp";
-import { imageFor } from "@/lib/images";
 import ResponsiveImage from "../ResponsiveImage.astro";
 
 const container = await AstroContainer.create();
@@ -33,10 +32,4 @@ it("resolves imported images through Astro while preserving layout and attribute
   expect(image?.sizes).toBe(props.sizes);
   expect(image?.srcset).toContain("512w");
   expect(image?.srcset).not.toContain("1920w");
-});
-
-it("fails the build when content references a missing local image", () => {
-  expect(() => imageFor("/images/missing.webp")).toThrow(
-    "Image not found: /images/missing.webp",
-  );
 });

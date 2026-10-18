@@ -3,7 +3,6 @@ title: typed-svg-sprite
 description: A React SVG sprite reference implementation that generates icon names and symbols from one validated list, with a Node.js build step and a typed component API.
 date: 2026-08-18
 tags: TypeScript, React, SVG, Code generation, Vite
-image: /images/projects/typed-svg-sprite.webp
 kind: developer tooling
 link: https://github.com/andre-lmarinho/typed-svg-sprite
 ---

@@ -1,7 +1,6 @@
-import { type CollectionEntry, getCollection } from "astro:content";
+import { type CollectionEntry, getCollection, getEntry } from "astro:content";
 import type { ImageMetadata } from "astro";
 import { isPublished } from "./content";
-import { imageFor } from "./images";
 
 export type Project = {
   slug: string;
@@ -16,6 +15,15 @@ export type Project = {
   body: string;
 };
 
+const images = import.meta.glob<ImageMetadata>(
+  "/src/assets/images/projects/*.webp",
+  { eager: true, import: "default" },
+);
+
+function imageFor(slug: string) {
+  return images[`/src/assets/images/projects/${slug}.webp`];
+}
+
 function toProject({ id, data, body }: CollectionEntry<"projects">): Project {
   return {
     slug: id,
@@ -23,9 +31,9 @@ function toProject({ id, data, body }: CollectionEntry<"projects">): Project {
     description: data.description,
     date: data.date ?? "",
     tags: data.tags,
-    image: data.image ? imageFor(data.image) : undefined,
+    image: imageFor(id),
     link: data.link ?? "",
-    featured: data.featured ?? false,
+    featured: data.featured,
     kind: data.kind ?? "",
     body: body ?? "",
   };
@@ -40,7 +48,7 @@ export async function getProjects() {
 }
 
 export async function getProject(slug: string) {
-  const [entry] = await getCollection("projects", ({ id }) => id === slug);
+  const entry = await getEntry("projects", slug);
   if (!entry) return null;
   const project = toProject(entry);
   return isPublished(project.date) ? project : null;

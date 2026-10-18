@@ -3,7 +3,6 @@ title: Turistar
 description: An open-source planner I built for my own trips, where a group can organize an itinerary, map out stops, and share a budget.
 date: 2025-10-20
 tags: Next.js, Supabase, Event Sourcing, Leaflet, Playwright
-image: /images/projects/turistar.webp
 kind: open source
 link: https://turistar.me/
 featured: true

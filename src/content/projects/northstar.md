@@ -3,7 +3,6 @@ title: Northstar
 description: Product analytics for following user behavior through to revenue, conversion, and experiments, with the context behind each result.
 date: 2026-04-12
 tags: Next.js, ClickHouse, Data visualization, SVG
-image: /images/projects/northstar.webp
 kind: product analytics
 ---
 

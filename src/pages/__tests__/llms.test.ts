@@ -7,7 +7,13 @@ const content = vi.hoisted(() => {
   const entry = (id: string, date: string) => ({
     id,
     body: "The content.",
-    data: { title: id, description: `About ${id}.`, date, tags: [] },
+    data: {
+      title: id,
+      description: `About ${id}.`,
+      date,
+      tags: [],
+      featured: false,
+    },
   });
   return {
     posts: [entry("first-post", "2026-07-17"), entry("draft", "")],
@@ -16,6 +22,10 @@ const content = vi.hoisted(() => {
 });
 
 vi.mock("astro:content", () => ({
+  getEntry: async (name: string, id: string) => {
+    const entries = name === "posts" ? content.posts : content.projects;
+    return entries.find((entry) => entry.id === id);
+  },
   getCollection: async (
     name: string,
     filter?: (entry: { id: string }) => boolean,

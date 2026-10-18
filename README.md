@@ -46,10 +46,11 @@ Projects — `src/content/projects/*.md`:
 | `description` | string | yes |
 | `date` | `YYYY-MM-DD` string or date | no |
 | `tags` | string (`"a, b"`) or string array | no |
-| `image` | string | no |
 | `link` | string | no |
 | `featured` | `true` (boolean or `"true"`) | no |
 | `kind` | string | no |
+
+Project images are picked automatically from `src/assets/images/projects/<slug>.webp`. If no file matches, the project has no image.
 
 Tags accept either a comma-separated string (`"postgres, supabase"`) or an array; `featured` accepts `true` or `"true"`.
 
