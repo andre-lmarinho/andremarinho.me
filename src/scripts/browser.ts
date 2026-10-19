@@ -1,11 +1,14 @@
-import type { TransitionBeforeSwapEvent } from "astro:transitions/client";
-import { inject as injectAnalytics } from "@vercel/analytics";
-import { injectSpeedInsights } from "@vercel/speed-insights";
 import {
   ABACUS_FALLBACK,
   formatAbacusCount,
   getAbacusCount,
 } from "@/lib/abacus";
+
+declare global {
+  interface Window {
+    umamiBeforeSend: (type: string, payload: unknown) => unknown;
+  }
+}
 
 export const isAutomatedBrowser = ({
   userAgent,
@@ -90,15 +93,10 @@ export function initNotFound() {
 }
 
 export function initBrowser() {
-  // Automation still downloads and executes the same scripts; only telemetry is discarded.
-  injectAnalytics({
-    framework: "astro",
-    beforeSend: (event) => (isAutomatedBrowser(navigator) ? null : event),
-  });
-  injectSpeedInsights({
-    framework: "astro",
-    beforeSend: (event) => (isAutomatedBrowser(navigator) ? null : event),
-  });
+  window.umamiBeforeSend = (_type, payload) => {
+    // Telemetry hook read by the Umami tracker (data-before-send).
+    return isAutomatedBrowser(navigator) ? undefined : payload;
+  };
   let stopCounters: (() => void) | undefined;
   let stopNotFound: (() => void) | undefined;
   const startCounters = () => {
@@ -125,20 +123,7 @@ export function initBrowser() {
     )
       window.scrollTo({ top: 0, behavior: "instant" });
   });
-  document.addEventListener(
-    "astro:before-swap",
-    (event: TransitionBeforeSwapEvent) => {
-      cleanup();
-      // Keep the already running SDKs when Astro updates the document head.
-      for (const script of document.head.querySelectorAll<HTMLScriptElement>(
-        'script[data-sdkn^="@vercel/"]',
-      )) {
-        script.dataset.astroTransitionPersist = script.dataset.sdkn;
-        script.dataset.astroExec = "";
-        event.newDocument.head.append(script.cloneNode(true));
-      }
-    },
-  );
+  document.addEventListener("astro:before-swap", () => cleanup());
   window.addEventListener("pageshow", (event) => {
     if (event.persisted) initPage();
   });
