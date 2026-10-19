@@ -1,10 +1,5 @@
-import { inject } from "@vercel/analytics";
-import { injectSpeedInsights } from "@vercel/speed-insights";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { initBrowser, initNotFound, initPostViews } from "../browser";
-
-vi.mock("@vercel/analytics", () => ({ inject: vi.fn() }));
-vi.mock("@vercel/speed-insights", () => ({ injectSpeedInsights: vi.fn() }));
 
 const { getAbacusCount } = vi.hoisted(() => ({ getAbacusCount: vi.fn() }));
 vi.mock("@/lib/abacus", async () => ({
@@ -179,7 +174,7 @@ describe("404 motion", () => {
   );
 });
 
-it("initializes each swapped page without duplicating SDKs or retaining old observers", async () => {
+it("initializes each swapped page without duplicating work or retaining old observers", async () => {
   vi.spyOn(document, "readyState", "get").mockReturnValue("complete");
   const disconnect = vi.fn();
   vi.stubGlobal(
@@ -208,20 +203,11 @@ it("initializes each swapped page without duplicating SDKs or retaining old obse
   await flush();
   expect(document.body.textContent).toBe("42 views");
 
-  const sdk = document.createElement("script");
-  sdk.dataset.sdkn = "@vercel/analytics";
-  sdk.src = "/_vercel/insights/script.js";
-  document.head.append(sdk);
   const newDocument = document.implementation.createHTMLDocument();
   document.dispatchEvent(
     Object.assign(new Event("astro:before-swap"), { newDocument }),
   );
   expect(disconnect).toHaveBeenCalledTimes(1);
-  expect(
-    newDocument.head.querySelector("script")?.dataset.astroTransitionPersist,
-  ).toBe("@vercel/analytics");
-  expect(newDocument.head.querySelector("script")?.dataset.astroExec).toBe("");
-  sdk.remove();
 
   document.body.innerHTML = '<span data-post-counter="second">… views</span>';
   document.dispatchEvent(new Event("astro:page-load"));
@@ -232,10 +218,27 @@ it("initializes each swapped page without duplicating SDKs or retaining old obse
     "second",
   ]);
   expect(disconnect).toHaveBeenCalledTimes(1);
-  expect(inject).toHaveBeenCalledTimes(1);
-  expect(injectSpeedInsights).toHaveBeenCalledTimes(1);
   document.dispatchEvent(
     Object.assign(new Event("astro:before-swap"), { newDocument }),
   );
   expect(disconnect).toHaveBeenCalledTimes(2);
+});
+
+describe("umami before-send filter", () => {
+  it("drops telemetry from automated browsers", () => {
+    document.body.innerHTML = "";
+    initBrowser();
+    vi.stubGlobal("navigator", {
+      userAgent: "Chrome-Lighthouse",
+      webdriver: false,
+    });
+    expect(window.umamiBeforeSend("event", { url: "/" })).toBeUndefined();
+  });
+
+  it("passes human telemetry through untouched", () => {
+    document.body.innerHTML = "";
+    initBrowser();
+    const payload = { url: "/posts" };
+    expect(window.umamiBeforeSend("performance", payload)).toBe(payload);
+  });
 });
