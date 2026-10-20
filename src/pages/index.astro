@@ -18,7 +18,7 @@ const posts = (await getPosts()).slice(0, 8);
 <Base metadata={homeMetadata}>
   <section
     id="intro"
-    class="flex flex-col mx-auto w-full max-w-3xl px-6 pt-40 pb-28 max-md:pt-32 max-md:pb-20 lg:px-8"
+    class="mx-auto w-full max-w-3xl px-6 py-16 sm:py-20 lg:px-8 lg:pt-24"
   >
     <h1
       class="text-[clamp(38px,5vw,62px)] leading-[1.04] font-semibold tracking-[-0.045em]"
@@ -41,14 +41,14 @@ const posts = (await getPosts()).slice(0, 8);
       beach, and whatever I’ve just become curious about.
     </p>
 
-    <ul class="mt-9 flex flex-wrap items-center gap-x-6 gap-y-4 text-xs">
+    <ul class="mt-6 flex flex-wrap items-center gap-x-6 gap-y-4 text-xs">
       {socials.slice(0, 2).map(({ label, href, icon }) => (
         <li>
           <a
             href={href}
             target="_blank"
             rel="noopener noreferrer"
-            class="inline-flex items-center gap-x-2 text-muted transition-colors hover:text-accent"
+            class="inline-flex min-h-11 items-center gap-x-2 text-muted transition-colors hover:text-accent"
           >
             <Icon name={icon} class="h-3.5 w-3.5" aria-hidden="true" />
             {label}
@@ -58,7 +58,7 @@ const posts = (await getPosts()).slice(0, 8);
       <li>
         <a
           href="/about"
-          class="group inline-flex items-center gap-x-2 text-muted transition-colors hover:text-accent"
+          class="group inline-flex min-h-11 items-center gap-x-2 text-muted transition-colors hover:text-accent"
         >
           About Me
           <Icon
