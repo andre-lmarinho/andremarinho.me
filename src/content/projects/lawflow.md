@@ -1,6 +1,6 @@
 ---
 title: LawFlow
-description: A CRM I built for law firms to manage leads, follow-ups, and proposals through to client acceptance.
+description: A CRM I built from architecture to deployment for law firms to manage leads, follow-ups, proposals, and client acceptance.
 date: 2026-06-15
 tags: Next.js, tRPC, Supabase, Asaas, Playwright
 kind: CRM

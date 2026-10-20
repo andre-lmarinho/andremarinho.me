@@ -3,7 +3,7 @@ export const siteName = "André Marinho";
 export const jobTitle = "Software Engineer";
 
 export const siteDescription =
-  "Software engineer in Salvador, Brazil. Full-stack web products with TypeScript, React, Next.js, Node.js and PostgreSQL.";
+  "Software engineer in Salvador, Brazil, with a background in business operations and data. Full-stack web products and open-source tools.";
 
 export const absoluteUrl = (path: string) => new URL(path, siteUrl).href;
 
