@@ -1,6 +1,6 @@
 ---
 title: create-mvp
-description: An open-source npm CLI for setting up a SaaS project, built from infrastructure I use in four production products.
+description: An open-source npm CLI I built to scaffold SaaS projects using the same foundation I use in production.
 date: 2026-07-07
 tags: TypeScript, Turborepo, Next.js, tRPC, Prisma, Better Auth
 kind: npm CLI
