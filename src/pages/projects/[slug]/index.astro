@@ -32,71 +32,67 @@ const posts = (await getPosts()).filter((post) => post.project === slug);
       { name: project.title, path: `/projects/${slug}` },
     ])}
   />
-  <article class="mx-auto w-full max-w-3xl px-6 py-16 lg:px-8">
-    <section>
+  <article class="mx-auto w-full max-w-3xl px-6 py-12 sm:py-16 lg:px-8">
+    <header class="space-y-5">
       <MorphTitle
         as="h1"
         title={project.title}
         id={`project-${slug}`}
         class="text-balance text-4xl leading-[1.05] font-semibold tracking-[-0.02em] sm:text-5xl"
       />
-      <p class="mt-5 max-w-2xl text-sm leading-relaxed text-muted sm:text-base">
+      <p class="text-base leading-relaxed text-muted sm:text-lg">
         {project.description}
       </p>
 
-      <div class="mt-5 flex flex-wrap items-center gap-x-3 gap-y-2 text-xs">
-        <time datetime={project.date || undefined} class="text-muted">
-          {project.date ? `Published ${formatDate(project.date)}` : "Draft"}
-        </time>
-        {project.link ? (
-          <>
-            <span class="text-border" aria-hidden="true">
-              /
-            </span>
-            <a
-              href={project.link}
-              target="_blank"
-              rel="noopener noreferrer"
-              class="text-accent underline-offset-4 hover:underline"
-            >
-              View project →
-            </a>
-          </>
-        ) : null}
+      <div class="flex flex-col gap-4 sm:flex-row sm:justify-between sm:gap-6">
+        <div class="min-w-0 flex-1 space-y-3">
+          <p class="text-xs leading-5 text-muted">
+            <time datetime={project.date || undefined}>
+              {project.date ? `Published ${formatDate(project.date)}` : "Draft"}
+            </time>
+          </p>
+          {project.tags.length > 0 && (
+            <p class="text-xs leading-relaxed text-faint">
+              {project.tags.join(" · ")}
+            </p>
+          )}
+        </div>
+        {project.link && (
+          <a
+            href={project.link}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="text-link inline-flex min-h-11 shrink-0 items-center self-start text-sm"
+          >
+            View project
+          </a>
+        )}
       </div>
+    </header>
 
-      {project.tags.length > 0 ? (
-        <p class="mt-4 text-xs leading-relaxed text-faint">
-          {project.tags.join(" · ")}
-        </p>
-      ) : null}
-
-      <div aria-hidden="true" class="mt-8 h-px w-full bg-border" />
-    </section>
-
-    <section class="pt-10">
-      {project.image ? (
+    {project.image && (
+      <div class="mt-8 sm:mt-10">
         <Image
           src={project.image}
           alt={project.title}
           width={1600}
           height={900}
-          class="mb-12 aspect-video w-full rounded-lg border border-border object-cover"
+          class="block aspect-video w-full rounded-md border border-border object-contain"
           sizes="(min-width: 1024px) 704px, (min-width: 768px) 720px, calc(100vw - 48px)"
           style={`view-transition-name:project-image-${slug}`}
           loading="eager"
           fetchpriority="high"
         />
-      ) : null}
+      </div>
+    )}
 
-      <Markdown content={project.body} />
-    </section>
+    <Markdown content={project.body} />
     {posts.length > 0 ? (
       <aside
         aria-labelledby="related-notes"
-        class="mt-12 border-t border-border pt-6"
+        class="mt-12 border-t border-border pt-8 sm:mt-16"
       >
-        <h2 id="related-notes" class="text-sm font-medium text-muted">
+        <h2 id="related-notes" class="text-2xl font-semibold">
           Related notes
         </h2>
         <PostList posts={posts} />
