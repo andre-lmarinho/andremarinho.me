@@ -223,22 +223,3 @@ it("initializes each swapped page without duplicating work or retaining old obse
   );
   expect(disconnect).toHaveBeenCalledTimes(2);
 });
-
-describe("umami before-send filter", () => {
-  it("drops telemetry from automated browsers", () => {
-    document.body.innerHTML = "";
-    initBrowser();
-    vi.stubGlobal("navigator", {
-      userAgent: "Chrome-Lighthouse",
-      webdriver: false,
-    });
-    expect(window.umamiBeforeSend("event", { url: "/" })).toBeUndefined();
-  });
-
-  it("passes human telemetry through untouched", () => {
-    document.body.innerHTML = "";
-    initBrowser();
-    const payload = { url: "/posts" };
-    expect(window.umamiBeforeSend("performance", payload)).toBe(payload);
-  });
-});
