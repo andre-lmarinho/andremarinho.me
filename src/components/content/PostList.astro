@@ -13,29 +13,27 @@ const { posts, titleAs = "h3" } = Astro.props;
     <li>
       <a
         href={`/posts/${post.slug}`}
-        class="content-row group -mx-2 p-2 flex flex-col gap-1.5 rounded-md sm:flex-row sm:gap-6"
+        class="content-row group -mx-2 flex flex-wrap items-baseline gap-x-4 gap-y-1 rounded-md p-2 sm:flex-nowrap"
       >
+        <MorphTitle
+          as={titleAs}
+          title={post.title}
+          id={`post-${post.slug}`}
+          class="w-full min-w-0 truncate text-base leading-6 font-medium transition-colors group-hover:text-accent sm:w-auto"
+        />
         <time
           datetime={post.date || undefined}
-          class="text-xs leading-6 text-muted sm:w-28 sm:shrink-0"
+          class="text-xs leading-5 text-muted sm:-order-1 sm:mr-2 sm:w-24 sm:shrink-0 sm:self-start sm:leading-6"
         >
           {post.date ? formatShortDate(post.date) : "Draft"}
         </time>
-        <div class="flex min-w-0 flex-1 items-baseline justify-between gap-4">
-          <MorphTitle
-            as={titleAs}
-            title={post.title}
-            id={`post-${post.slug}`}
-            class="text-base leading-6 font-medium transition-colors group-hover:text-accent"
-          />
-          <span
-            title="Post views"
-            class="shrink-0 text-xs text-faint tabular-nums"
-            data-post-counter={postCounter(post.slug)}
-          >
-            … views
-          </span>
-        </div>
+        <span
+          title="Post views"
+          class="ml-auto shrink-0 text-xs text-faint tabular-nums"
+          data-post-counter={postCounter(post.slug)}
+        >
+          … views
+        </span>
       </a>
     </li>
   ))}
