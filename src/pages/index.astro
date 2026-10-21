@@ -2,15 +2,16 @@
 import PostList from "@/components/content/PostList.astro";
 import ProjectList from "@/components/content/ProjectList.astro";
 import Icon from "@/components/ui/Icon.astro";
-import SectionRule from "@/components/ui/SectionRule.astro";
 import Base from "@/layouts/Base.astro";
 import { homeMetadata } from "@/lib/metadata";
 import { getPosts } from "@/lib/posts";
-import { getProjects } from "@/lib/projects";
+import { getProject } from "@/lib/projects";
 import { jobTitle, socials } from "@/lib/site";
 
-const featuredProjects = (await getProjects()).filter(
-  (project) => project.featured,
+const FEATURED = ["turistar", "create-mvp", "typed-svg-sprite"];
+
+const projects = (await Promise.all(FEATURED.map(getProject))).filter(
+  (project) => project !== null,
 );
 const posts = (await getPosts()).slice(0, 8);
 ---
@@ -18,7 +19,7 @@ const posts = (await getPosts()).slice(0, 8);
 <Base metadata={homeMetadata}>
   <section
     id="intro"
-    class="flex flex-col mx-auto w-full max-w-3xl px-6 pt-40 pb-28 max-md:pt-32 max-md:pb-20 lg:px-8"
+    class="mx-auto w-full max-w-3xl px-6 py-16 sm:py-20 lg:px-8 lg:pt-24"
   >
     <h1
       class="text-[clamp(38px,5vw,62px)] leading-[1.04] font-semibold tracking-[-0.045em]"
@@ -41,14 +42,14 @@ const posts = (await getPosts()).slice(0, 8);
       beach, and whatever I’ve just become curious about.
     </p>
 
-    <ul class="mt-9 flex flex-wrap items-center gap-x-6 gap-y-4 text-xs">
+    <ul class="mt-6 flex flex-wrap items-center gap-x-6 gap-y-4 text-xs">
       {socials.slice(0, 2).map(({ label, href, icon }) => (
         <li>
           <a
             href={href}
             target="_blank"
             rel="noopener noreferrer"
-            class="inline-flex items-center gap-x-2 text-muted transition-colors hover:text-accent"
+            class="inline-flex min-h-11 items-center gap-x-2 text-muted transition-colors hover:text-accent"
           >
             <Icon name={icon} class="h-3.5 w-3.5" aria-hidden="true" />
             {label}
@@ -58,7 +59,7 @@ const posts = (await getPosts()).slice(0, 8);
       <li>
         <a
           href="/about"
-          class="group inline-flex items-center gap-x-2 text-muted transition-colors hover:text-accent"
+          class="group inline-flex min-h-11 items-center gap-x-2 text-muted transition-colors hover:text-accent"
         >
           About Me
           <Icon
@@ -75,23 +76,21 @@ const posts = (await getPosts()).slice(0, 8);
     id="projects"
     class="mx-auto w-full max-w-3xl scroll-mt-24 px-6 pb-28 max-md:pb-20 lg:px-8"
   >
-    <SectionRule
-      index="01"
-      label="projects"
-      link={{ href: "/projects", label: "all projects" }}
-    />
-    <ProjectList projects={featuredProjects} />
+    <div class="flex flex-wrap items-center justify-between gap-x-6 gap-y-1">
+      <h2 class="text-2xl font-semibold">Projects</h2>
+      <a href="/projects" class="text-xs text-link">All projects</a>
+    </div>
+    <ProjectList projects={projects} />
   </section>
 
   <section
     id="writing"
     class="mx-auto w-full max-w-3xl scroll-mt-24 px-6 pb-10 lg:px-8"
   >
-    <SectionRule
-      index="02"
-      label="writing"
-      link={{ href: "/posts", label: "all posts" }}
-    />
+    <div class="flex flex-wrap items-center justify-between gap-x-6 gap-y-1">
+      <h2 class="text-2xl font-semibold">Writing</h2>
+      <a href="/posts" class="text-xs text-link">All posts</a>
+    </div>
     <PostList posts={posts} />
   </section>
 </Base>

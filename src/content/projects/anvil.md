@@ -3,7 +3,6 @@ title: Anvil
 description: A browser IDE for working with an AI agent, inspecting its changes, and running the result in the same workspace.
 date: 2026-05-22
 tags: TypeScript, WebSockets, Git, xterm.js
-kind: browser IDE
 ---
 
 ## Context

@@ -30,52 +30,47 @@ const project = post.project ? await getProject(post.project) : null;
       { name: post.title, path: `/posts/${slug}` },
     ])}
   />
-  <article class="mx-auto w-full max-w-3xl px-6 py-16 lg:px-8">
-    <section>
+  <article class="mx-auto w-full max-w-3xl px-6 py-12 sm:py-16 lg:px-8">
+    <header class="space-y-5">
       <MorphTitle
         as="h1"
         title={post.title}
         id={`post-${slug}`}
         class="text-balance text-4xl leading-[1.05] font-semibold tracking-[-0.02em] sm:text-5xl"
       />
-      <p class="mt-5 max-w-2xl text-sm leading-relaxed text-muted sm:text-base">
+      <p class="text-base leading-relaxed text-muted sm:text-lg">
         {post.description}
       </p>
 
-      <div class="mt-5 flex flex-wrap items-center gap-x-3 gap-y-2 text-xs">
-        <time datetime={post.date || undefined} class="text-muted">
-          {post.date ? formatDate(post.date) : "Draft"}
-        </time>
-        <span class="text-border" aria-hidden="true"> / </span>
-        <span class="text-faint tabular-nums"> {post.minutes} min read </span>
-        <span class="text-border" aria-hidden="true"> / </span>
-        <span
-          title="Post views"
-          class="text-faint tabular-nums"
-          data-post-counter={postCounter(slug)}
-          data-increment="true"
-          >… views</span
-        >
-      </div>
-
-      {post.tags.length > 0 ? (
-        <p class="mt-4 text-xs leading-relaxed text-faint">
-          {post.tags.join(" · ")}
+      <div class="space-y-3">
+        <p class="flex flex-wrap gap-x-4 gap-y-1 text-xs leading-5 text-muted">
+          <time datetime={post.date || undefined}>
+            {post.date ? formatDate(post.date) : "Draft"}
+          </time>
+          <span class="tabular-nums">{post.minutes} min read</span>
+          <span
+            title="Post views"
+            class="tabular-nums"
+            data-post-counter={postCounter(slug)}
+            data-increment="true"
+            >… views</span
+          >
         </p>
-      ) : null}
+        {post.tags.length > 0 && (
+          <p class="text-xs leading-relaxed text-faint">
+            {post.tags.join(" · ")}
+          </p>
+        )}
+      </div>
+    </header>
 
-      <div aria-hidden="true" class="mt-8 h-px w-full bg-border" />
-    </section>
-
-    <section class="pt-10">
-      <Markdown content={post.body} />
-    </section>
+    <Markdown content={post.body} />
     {project ? (
       <aside
         aria-labelledby="related-project"
-        class="mt-12 border-t border-border pt-6"
+        class="mt-12 border-t border-border pt-8 sm:mt-16"
       >
-        <h2 id="related-project" class="text-sm font-medium text-muted">
+        <h2 id="related-project" class="text-2xl font-semibold">
           Related project
         </h2>
         <ProjectList projects={[project]} />
