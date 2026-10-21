@@ -9,9 +9,11 @@ Built with Astro (static output), Tailwind CSS 4 and TypeScript. Deployed on Ver
 ```bash
 pnpm install
 pnpm dev    # dev server
-pnpm build  # static build to dist/
-pnpm start  # preview the build on :3100
+pnpm build  # generate the Vercel deployment artifact
+pnpm start  # static-only preview on :3100
 ```
+
+Use `pnpm dev` to verify the counters and local API. The static preview does not run `/api/views` endpoints.
 
 `pnpm install` also sets up a pre-commit hook (husky) that runs `lint` and `typecheck`.
 

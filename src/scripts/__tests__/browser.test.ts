@@ -1,103 +1,275 @@
-import { afterEach, describe, expect, it, vi } from "vitest";
-import { initBrowser, initNotFound, initPostViews } from "../browser";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
+import { mockViews, viewCounts } from "@/__tests__/views.mock";
+import { initNotFound } from "../browser";
 
-const { getAbacusCount } = vi.hoisted(() => ({ getAbacusCount: vi.fn() }));
-vi.mock("@/lib/abacus", async () => ({
-  ...(await vi.importActual<typeof import("@/lib/abacus")>("@/lib/abacus")),
-  getAbacusCount,
-}));
-
+let browser: typeof import("../browser");
+let stopBrowser: (() => void) | undefined;
 let stopNotFound: (() => void) | undefined;
 
-const flush = () => new Promise<void>((resolve) => queueMicrotask(resolve));
+const counter = (slug = "first") =>
+  document.querySelector<HTMLElement>(`[data-post-counter="${slug}"]`);
+
+const openPage = (slugs = ["first"], increment = false) => {
+  const newDocument = document.implementation.createHTMLDocument();
+  newDocument.body.innerHTML = slugs
+    .map(
+      (slug) =>
+        `<span data-post-counter="${slug}"${increment ? ' data-increment="true"' : ""}></span>`,
+    )
+    .join("");
+  document.dispatchEvent(
+    Object.assign(new Event("astro:before-swap"), { newDocument }),
+  );
+  document.body.innerHTML = newDocument.body.innerHTML;
+  document.dispatchEvent(new Event("astro:page-load"));
+};
 
 afterEach(() => {
+  stopBrowser?.();
+  stopBrowser = undefined;
   window.dispatchEvent(new Event("pagehide"));
   stopNotFound?.();
   stopNotFound = undefined;
   document.body.replaceChildren();
+  localStorage.clear();
+  vi.useRealTimers();
   vi.unstubAllGlobals();
   vi.restoreAllMocks();
   vi.clearAllMocks();
 });
 
-describe("visible post counters", () => {
-  it("waits for visibility before reading or incrementing counters", async () => {
-    document.body.innerHTML =
-      '<span data-post-counter="post-first" data-increment="true">… views</span>';
-    let onIntersect: IntersectionObserverCallback = () => {};
-    const observe = vi.fn();
-    const unobserve = vi.fn();
-    vi.stubGlobal(
-      "IntersectionObserver",
-      class {
-        constructor(callback: IntersectionObserverCallback) {
-          onIntersect = callback;
-        }
-        observe = observe;
-        unobserve = unobserve;
-      },
+describe("post counters", () => {
+  beforeEach(async () => {
+    vi.resetModules();
+    browser = await import("../browser");
+    stopBrowser = browser.initBrowser();
+  });
+
+  it("updates all eight counters with one aggregate GET", async () => {
+    const views = Object.fromEntries(
+      Array.from({ length: 8 }, (_, i) => [`post-${i}`, 1000 + i]),
     );
-    const element = document.querySelector("span") as HTMLElement;
-    getAbacusCount.mockResolvedValue(1234);
-    const entry = (isIntersecting: boolean): IntersectionObserverEntry => ({
-      target: element,
-      isIntersecting,
-      boundingClientRect: element.getBoundingClientRect(),
-      intersectionRect: element.getBoundingClientRect(),
-      rootBounds: null,
-      intersectionRatio: isIntersecting ? 1 : 0,
-      time: 0,
-    });
-
-    initPostViews();
-    expect(observe).toHaveBeenCalledWith(element);
-    expect(getAbacusCount).not.toHaveBeenCalled();
-    onIntersect([entry(false)], {} as IntersectionObserver);
-    expect(getAbacusCount).not.toHaveBeenCalled();
-    onIntersect([entry(true)], {} as IntersectionObserver);
-    await flush();
-
-    expect(unobserve).toHaveBeenCalledWith(element);
-    expect(getAbacusCount).toHaveBeenCalledWith("post-first", {
-      increment: true,
-    });
-    expect(element.textContent).toBe("1,234 views");
+    const fetch = mockViews(views);
+    openPage(Object.keys(views));
+    await vi.waitFor(() =>
+      expect(counter("post-7")?.textContent).toBe("1,007 views"),
+    );
+    expect(fetch).toHaveBeenCalledExactlyOnceWith(
+      "/api/views",
+      expect.objectContaining({ method: "GET" }),
+    );
+    expect(
+      [...document.querySelectorAll("span")].map(
+        (element) => element.textContent,
+      ),
+    ).toEqual(
+      Object.values(views).map(
+        (count) => `${count.toLocaleString("en-US")} views`,
+      ),
+    );
   });
 
-  it("reads the real count without recording automation as a visit", async () => {
-    document.body.innerHTML =
-      '<span data-post-counter="post-first" data-increment="true">… views</span>';
-    Reflect.deleteProperty(window, "IntersectionObserver");
-    vi.stubGlobal("navigator", {
-      userAgent: "Chrome-Lighthouse",
-      webdriver: true,
-    });
-    getAbacusCount.mockResolvedValue(42);
-
-    initPostViews();
-    await flush();
-
-    expect(getAbacusCount).toHaveBeenCalledWith("post-first", {
-      increment: false,
-    });
-    expect(document.querySelector("span")?.textContent).toBe("42 views");
+  it("shares a pending GET and reuses its counts during rapid navigation", async () => {
+    const response = Promise.withResolvers<Response>();
+    const fetch = mockViews().mockReturnValueOnce(response.promise);
+    openPage();
+    openPage(["first", "second"]);
+    window.dispatchEvent(new Event("focus"));
+    window.dispatchEvent(new Event("online"));
+    expect(fetch).toHaveBeenCalledTimes(1);
+    response.resolve(Response.json({ views: viewCounts }));
+    await vi.waitFor(() =>
+      expect(counter("second")?.textContent).toBe("34 views"),
+    );
+    openPage();
+    expect(counter()?.textContent).toBe("12 views");
+    expect(fetch).toHaveBeenCalledTimes(1);
   });
 
-  it("shows the fallback on service failure without rejecting", async () => {
+  it.each(["navigation", "focus", "online", "visibilitychange"])(
+    "refreshes on %s after the two-second deduplication window",
+    async (event) => {
+      const fetch = mockViews();
+      openPage();
+      await vi.waitFor(() => expect(counter()?.textContent).toBe("12 views"));
+      vi.spyOn(Date, "now").mockReturnValue(Date.now() + 2001);
+      fetch.mockImplementation(async () =>
+        Response.json({ views: { first: 13 } }),
+      );
+      if (event === "navigation") openPage();
+      else if (event === "visibilitychange") {
+        vi.spyOn(document, "hidden", "get").mockReturnValue(false);
+        document.dispatchEvent(new Event(event));
+      } else window.dispatchEvent(new Event(event));
+      await vi.waitFor(() => expect(counter()?.textContent).toBe("13 views"));
+      expect(fetch).toHaveBeenCalledTimes(2);
+      expect(fetch).toHaveBeenNthCalledWith(
+        2,
+        "/api/views",
+        expect.objectContaining({ method: "GET" }),
+      );
+    },
+  );
+
+  it("does not refresh a hidden page or a page without counters", async () => {
+    const fetch = mockViews();
+    openPage();
+    await vi.waitFor(() => expect(counter()?.textContent).toBe("12 views"));
+    vi.spyOn(Date, "now").mockReturnValue(Date.now() + 2001);
+    vi.spyOn(document, "hidden", "get").mockReturnValue(true);
+    document.dispatchEvent(new Event("visibilitychange"));
+    openPage([]);
+    window.dispatchEvent(new Event("online"));
+    expect(fetch).toHaveBeenCalledTimes(1);
+  });
+
+  it.each([false, true])(
+    "POSTs on every opening, including owner and automation (webdriver=%s)",
+    async (webdriver) => {
+      vi.stubGlobal("navigator", { userAgent: "Chrome", webdriver });
+      localStorage.setItem("umami.disabled", "1");
+      const fetch = mockViews()
+        .mockImplementationOnce(async () =>
+          Response.json({ views: { first: 13 } }),
+        )
+        .mockImplementationOnce(async () =>
+          Response.json({ views: { first: 14 } }),
+        );
+      for (let opening = 0; opening < 2; opening++) {
+        openPage(["first"], true);
+        await vi.waitFor(() =>
+          expect(counter()?.textContent).toBe(`${13 + opening} views`),
+        );
+      }
+      expect(fetch).toHaveBeenCalledTimes(2);
+      for (const call of [1, 2])
+        expect(fetch).toHaveBeenNthCalledWith(
+          call,
+          "/api/views/first",
+          expect.objectContaining({ method: "POST", keepalive: true }),
+        );
+    },
+  );
+
+  it("uses the POST response to update the shared cache without an extra GET", async () => {
+    const fetch = mockViews();
+    openPage();
+    await vi.waitFor(() => expect(counter()?.textContent).toBe("12 views"));
+    const response = Promise.withResolvers<Response>();
+    fetch.mockReturnValueOnce(response.promise);
+    openPage(["first"], true);
+    expect(counter()?.textContent).toBe("12 views");
+    response.resolve(Response.json({ views: { first: 13 } }));
+    await vi.waitFor(() => expect(counter()?.textContent).toBe("13 views"));
+    openPage();
+    expect(counter()?.textContent).toBe("13 views");
+    expect(fetch).toHaveBeenCalledTimes(2);
+  });
+
+  const failures = [
+    ["network", () => Promise.reject(new Error("offline"))],
+    ["HTTP", () => Response.json({ error: "unavailable" }, { status: 503 })],
+    ["JSON", () => new Response("invalid JSON")],
+    ["counts", () => Response.json({ views: { first: "invalid" } })],
+  ] satisfies [string, () => Response | Promise<Response>][];
+
+  it.each(failures)(
+    "leaves an unknown count blank on %s failure and waits for an approved event",
+    async (_kind, fail) => {
+      const fetch = mockViews().mockImplementationOnce(async () => fail());
+      vi.useFakeTimers();
+      openPage();
+      await vi.runAllTimersAsync();
+      await vi.advanceTimersByTimeAsync(10000);
+      expect(counter()?.textContent).toBe("");
+      expect(fetch).toHaveBeenCalledTimes(1);
+      window.dispatchEvent(new Event("online"));
+      await vi.runAllTimersAsync();
+      expect(counter()?.textContent).toBe("12 views");
+      expect(fetch).toHaveBeenCalledTimes(2);
+    },
+  );
+
+  it.each(failures)(
+    "preserves an existing count on %s failure",
+    async (_kind, fail) => {
+      const fetch = mockViews();
+      openPage();
+      await vi.waitFor(() => expect(counter()?.textContent).toBe("12 views"));
+      vi.spyOn(Date, "now").mockReturnValue(Date.now() + 2001);
+      fetch.mockImplementationOnce(async () => fail());
+      await browser.initPostViews();
+      expect(counter()?.textContent).toBe("12 views");
+      expect(fetch).toHaveBeenCalledTimes(2);
+    },
+  );
+
+  it("preserves the last value when an increment fails, without retrying", async () => {
+    const fetch = mockViews();
+    openPage();
+    await vi.waitFor(() => expect(counter()?.textContent).toBe("12 views"));
+    counter()?.setAttribute("data-increment", "true");
+    fetch.mockRejectedValueOnce(new Error("connection lost"));
+    await browser.initPostViews();
+    expect(counter()?.textContent).toBe("12 views");
+    expect(fetch).toHaveBeenCalledTimes(2);
+    expect(fetch).toHaveBeenLastCalledWith(
+      "/api/views/first",
+      expect.objectContaining({ method: "POST" }),
+    );
+  });
+
+  it("does not replace a newer POST count with a late GET response", async () => {
+    const response = Promise.withResolvers<Response>();
+    mockViews()
+      .mockReturnValueOnce(response.promise)
+      .mockImplementationOnce(async () =>
+        Response.json({ views: { first: 13 } }),
+      );
+    document.body.innerHTML = '<span data-post-counter="first"></span>';
+    const reading = browser.initPostViews();
+    counter()?.setAttribute("data-increment", "true");
+    await browser.initPostViews();
+    response.resolve(Response.json({ views: { first: 12 } }));
+    await reading;
+    expect(counter()?.textContent).toBe("13 views");
+  });
+
+  it("does not replace a newer opening's count with a late POST response", async () => {
+    const response = Promise.withResolvers<Response>();
+    const fetch = mockViews()
+      .mockReturnValueOnce(response.promise)
+      .mockImplementationOnce(async () =>
+        Response.json({ views: { first: 14 } }),
+      );
     document.body.innerHTML =
-      '<span data-post-counter="post-first">… views</span>';
-    // Older browsers can still read counters without IntersectionObserver.
-    Reflect.deleteProperty(window, "IntersectionObserver");
-    getAbacusCount.mockRejectedValue(new Error("offline"));
+      '<span data-post-counter="first" data-increment="true"></span>';
+    const first = browser.initPostViews();
+    await browser.initPostViews();
+    response.resolve(Response.json({ views: { first: 13 } }));
+    await first;
+    expect(counter()?.textContent).toBe("14 views");
+    expect(fetch).toHaveBeenCalledTimes(2);
+  });
 
-    initPostViews();
-    await flush();
+  it("renders zero when the API returns zero and leaves an unknown field blank", async () => {
+    mockViews({ first: 0 });
+    openPage(["first", "unknown"]);
+    await vi.waitFor(() => expect(counter()?.textContent).toBe("0 views"));
+    expect(counter("unknown")?.textContent).toBe("");
+  });
 
-    expect(getAbacusCount).toHaveBeenCalledWith("post-first", {
-      increment: false,
-    });
-    expect(document.querySelector("span")?.textContent).toBe("∞ views");
+  it("restores cached numbers into the incoming document before Astro swaps it", async () => {
+    const fetch = mockViews();
+    openPage();
+    await vi.waitFor(() => expect(counter()?.textContent).toBe("12 views"));
+    const newDocument = document.implementation.createHTMLDocument();
+    newDocument.body.innerHTML = '<span data-post-counter="first"></span>';
+    document.dispatchEvent(
+      Object.assign(new Event("astro:before-swap"), { newDocument }),
+    );
+    expect(newDocument.querySelector("span")?.textContent).toBe("12 views");
+    expect(fetch).toHaveBeenCalledTimes(1);
   });
 });
 
@@ -172,54 +344,4 @@ describe("404 motion", () => {
       expect(element.style.cssText).toBe("");
     },
   );
-});
-
-it("initializes each swapped page without duplicating work or retaining old observers", async () => {
-  vi.spyOn(document, "readyState", "get").mockReturnValue("complete");
-  const disconnect = vi.fn();
-  vi.stubGlobal(
-    "IntersectionObserver",
-    class {
-      constructor(private callback: IntersectionObserverCallback) {}
-      observe(element: Element) {
-        this.callback(
-          [
-            {
-              target: element,
-              isIntersecting: true,
-            } as IntersectionObserverEntry,
-          ],
-          this as unknown as IntersectionObserver,
-        );
-      }
-      unobserve() {}
-      disconnect = disconnect;
-    },
-  );
-  getAbacusCount.mockResolvedValue(42);
-  document.body.innerHTML = '<span data-post-counter="first">… views</span>';
-  initBrowser();
-  document.dispatchEvent(new Event("astro:page-load"));
-  await flush();
-  expect(document.body.textContent).toBe("42 views");
-
-  const newDocument = document.implementation.createHTMLDocument();
-  document.dispatchEvent(
-    Object.assign(new Event("astro:before-swap"), { newDocument }),
-  );
-  expect(disconnect).toHaveBeenCalledTimes(1);
-
-  document.body.innerHTML = '<span data-post-counter="second">… views</span>';
-  document.dispatchEvent(new Event("astro:page-load"));
-  await flush();
-  expect(document.body.textContent).toBe("42 views");
-  expect(getAbacusCount.mock.calls.map(([key]) => key)).toEqual([
-    "first",
-    "second",
-  ]);
-  expect(disconnect).toHaveBeenCalledTimes(1);
-  document.dispatchEvent(
-    Object.assign(new Event("astro:before-swap"), { newDocument }),
-  );
-  expect(disconnect).toHaveBeenCalledTimes(2);
 });
