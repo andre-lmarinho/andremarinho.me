@@ -11,7 +11,6 @@ export type Project = {
   image?: ImageMetadata;
   link: string;
   featured: boolean;
-  kind: string;
   body: string;
 };
 
@@ -34,7 +33,6 @@ function toProject({ id, data, body }: CollectionEntry<"projects">): Project {
     image: imageFor(id),
     link: data.link ?? "",
     featured: data.featured,
-    kind: data.kind ?? "",
     body: body ?? "",
   };
 }

@@ -41,7 +41,6 @@ const projects = defineCollection({
       .union([z.boolean(), z.string()])
       .optional()
       .transform((value) => value === true || value === "true"),
-    kind: z.string().optional(),
   }),
 });
 

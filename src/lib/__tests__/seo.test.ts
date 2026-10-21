@@ -32,7 +32,6 @@ const project: Project = {
   tags: ["astro", "testing"],
   link: "",
   featured: false,
-  kind: "",
   body: "The content.",
 };
 

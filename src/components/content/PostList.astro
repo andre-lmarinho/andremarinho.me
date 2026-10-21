@@ -13,30 +13,28 @@ const { posts, titleAs = "h3" } = Astro.props;
     <li>
       <a
         href={`/posts/${post.slug}`}
-        class="content-row group -mx-3 block rounded-md px-3 py-3"
+        class="content-row group -mx-3 flex flex-col gap-1.5 rounded-md p-3 sm:flex-row sm:gap-6"
       >
-        <div class="grid grid-cols-1 gap-x-6 gap-y-1.5 sm:grid-cols-[7rem_minmax(0,1fr)]">
-          <time
-            datetime={post.date || undefined}
-            class="text-xs leading-6 text-muted sm:text-right"
+        <time
+          datetime={post.date || undefined}
+          class="text-xs leading-6 text-muted sm:w-28 sm:shrink-0"
+        >
+          {post.date ? formatShortDate(post.date) : "Draft"}
+        </time>
+        <div class="flex min-w-0 flex-1 items-baseline justify-between gap-4">
+          <MorphTitle
+            as={titleAs}
+            title={post.title}
+            id={`post-${post.slug}`}
+            class="text-base leading-6 font-medium transition-colors group-hover:text-accent"
+          />
+          <span
+            title="Post views"
+            class="shrink-0 text-xs text-faint tabular-nums"
+            data-post-counter={postCounter(post.slug)}
           >
-            {post.date ? formatShortDate(post.date) : "Draft"}
-          </time>
-          <div class="flex items-baseline justify-between gap-x-4">
-            <MorphTitle
-              as={titleAs}
-              title={post.title}
-              id={`post-${post.slug}`}
-              class="text-base leading-6 font-medium transition-colors group-hover:text-accent"
-            />
-            <span
-              title="Post views"
-              class="shrink-0 text-xs text-faint tabular-nums"
-              data-post-counter={postCounter(post.slug)}
-            >
-              … views
-            </span>
-          </div>
+            … views
+          </span>
         </div>
       </a>
     </li>

@@ -48,7 +48,6 @@ Projects — `src/content/projects/*.md`:
 | `tags` | string (`"a, b"`) or string array | no |
 | `link` | string | no |
 | `featured` | `true` (boolean or `"true"`) | no |
-| `kind` | string | no |
 
 Project images are picked automatically from `src/assets/images/projects/<slug>.webp`. If no file matches, the project has no image.
 
