@@ -1,0 +1,13 @@
+---
+const enabled = process.env.VERCEL_ENV === "production";
+---
+
+{enabled && (
+  <script
+    defer
+    src="https://cloud.umami.is/script.js"
+    data-website-id="b67f34ee-1c86-46d7-87e6-978c8af82cea"
+    data-domains="andremarinho.me"
+    data-performance="true"
+  ></script>
+)}

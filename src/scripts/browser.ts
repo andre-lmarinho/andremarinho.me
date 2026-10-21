@@ -4,12 +4,6 @@ import {
   getAbacusCount,
 } from "@/lib/abacus";
 
-declare global {
-  interface Window {
-    umamiBeforeSend: (type: string, payload: unknown) => unknown;
-  }
-}
-
 export const isAutomatedBrowser = ({
   userAgent,
   webdriver,
@@ -93,10 +87,6 @@ export function initNotFound() {
 }
 
 export function initBrowser() {
-  window.umamiBeforeSend = (_type, payload) => {
-    // Telemetry hook read by the Umami tracker (data-before-send).
-    return isAutomatedBrowser(navigator) ? undefined : payload;
-  };
   let stopCounters: (() => void) | undefined;
   let stopNotFound: (() => void) | undefined;
   const startCounters = () => {
