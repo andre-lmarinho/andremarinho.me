@@ -8,12 +8,12 @@ type Props = { posts: Post[]; titleAs?: "h2" | "h3" };
 const { posts, titleAs = "h3" } = Astro.props;
 ---
 
-<ol class="content-list flex flex-col mt-6">
+<ol class="content-list mt-4 flex flex-col">
   {posts.map((post) => (
     <li>
       <a
         href={`/posts/${post.slug}`}
-        class="content-row group -mx-3 flex flex-col gap-1.5 rounded-md p-3 sm:flex-row sm:gap-6"
+        class="content-row group -mx-2 p-2 flex flex-col gap-1.5 rounded-md sm:flex-row sm:gap-6"
       >
         <time
           datetime={post.date || undefined}

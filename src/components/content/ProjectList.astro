@@ -7,7 +7,7 @@ type Props = { projects: Project[]; titleAs?: "h2" | "h3" };
 const { projects, titleAs = "h3" } = Astro.props;
 ---
 
-<ol class="content-list mt-6 flex flex-col gap-y-4">
+<ol class="content-list mt-4 flex flex-col gap-y-4">
   {projects.map((project) => (
     <li>
       <a
