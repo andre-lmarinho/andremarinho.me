@@ -47,11 +47,12 @@ Projects — `src/content/projects/*.md`:
 | `date` | `YYYY-MM-DD` string or date | no |
 | `tags` | string (`"a, b"`) or string array | no |
 | `link` | string | no |
-| `featured` | `true` (boolean or `"true"`) | no |
 
 Project images are picked automatically from `src/assets/images/projects/<slug>.webp`. If no file matches, the project has no image.
 
-Tags accept either a comma-separated string (`"postgres, supabase"`) or an array; `featured` accepts `true` or `"true"`.
+Tags accept either a comma-separated string (`"postgres, supabase"`) or an array.
+
+Home projects are selected by the slug array in `src/pages/index.astro`, in display order. Missing or unpublished projects are omitted in production.
 
 ## Structure
 

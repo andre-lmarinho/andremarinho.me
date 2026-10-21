@@ -4,7 +4,6 @@ description: A CRM I built from architecture to deployment for law firms to mana
 date: 2026-06-15
 tags: Next.js, tRPC, Supabase, Asaas, Playwright
 link: https://www.lawflowhub.com/
-featured: true
 ---
 
 ## Context

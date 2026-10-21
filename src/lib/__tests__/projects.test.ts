@@ -13,7 +13,6 @@ vi.mock("astro:content", () => ({
         description: "Example project.",
         date: id === "draft" ? undefined : "2026-07-17",
         tags: [],
-        featured: false,
       },
     };
   },

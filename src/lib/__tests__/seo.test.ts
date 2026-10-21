@@ -31,7 +31,6 @@ const project: Project = {
   date: "2026-07-17",
   tags: ["astro", "testing"],
   link: "",
-  featured: false,
   body: "The content.",
 };
 

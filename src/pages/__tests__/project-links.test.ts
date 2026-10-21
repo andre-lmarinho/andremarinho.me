@@ -19,7 +19,6 @@ const content = vi.hoisted(() => {
       title: id,
       description: `About ${id}.`,
       tags: [],
-      featured: false,
       ...data,
     },
   });

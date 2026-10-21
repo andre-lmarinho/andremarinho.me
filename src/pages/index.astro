@@ -5,11 +5,13 @@ import Icon from "@/components/ui/Icon.astro";
 import Base from "@/layouts/Base.astro";
 import { homeMetadata } from "@/lib/metadata";
 import { getPosts } from "@/lib/posts";
-import { getProjects } from "@/lib/projects";
+import { getProject } from "@/lib/projects";
 import { jobTitle, socials } from "@/lib/site";
 
-const featuredProjects = (await getProjects()).filter(
-  (project) => project.featured,
+const FEATURED = ["turistar", "create-mvp", "typed-svg-sprite"];
+
+const projects = (await Promise.all(FEATURED.map(getProject))).filter(
+  (project) => project !== null,
 );
 const posts = (await getPosts()).slice(0, 8);
 ---
@@ -78,7 +80,7 @@ const posts = (await getPosts()).slice(0, 8);
       <h2 class="text-2xl font-semibold">Projects</h2>
       <a href="/projects" class="text-xs text-link">All projects</a>
     </div>
-    <ProjectList projects={featuredProjects} />
+    <ProjectList projects={projects} />
   </section>
 
   <section
