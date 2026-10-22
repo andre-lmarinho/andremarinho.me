@@ -32,6 +32,12 @@ const jsonLd = JSON.stringify(websiteJsonLd).replace(/</g, "\\u003c");
       <link rel="canonical" href={absoluteUrl(metadata.canonical)} />
     )}
     <link rel="describedby" href="/llms.txt">
+    <link
+      rel="alternate"
+      type="application/rss+xml"
+      title={`${siteName} - Posts`}
+      href={absoluteUrl("/rss.xml")}
+    >
     {metadata.markdown && (
       <link
         rel="alternate"
