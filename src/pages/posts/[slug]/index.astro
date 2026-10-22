@@ -4,7 +4,6 @@ import ProjectList from "@/components/content/ProjectList.astro";
 import MorphTitle from "@/components/motion/MorphTitle.astro";
 import JsonLd from "@/components/seo/JsonLd.astro";
 import Base from "@/layouts/Base.astro";
-import { postCounter } from "@/lib/abacus";
 import { formatDate } from "@/lib/content";
 import { getPostMetadata } from "@/lib/metadata";
 import { getPost, getPosts } from "@/lib/posts";
@@ -51,10 +50,9 @@ const project = post.project ? await getProject(post.project) : null;
           <span
             title="Post views"
             class="tabular-nums"
-            data-post-counter={postCounter(slug)}
+            data-post-counter={slug}
             data-increment="true"
-            >… views</span
-          >
+          ></span>
         </p>
         {post.tags.length > 0 && (
           <p class="text-xs leading-relaxed text-faint">

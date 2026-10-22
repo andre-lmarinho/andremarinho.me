@@ -1,6 +1,5 @@
 ---
 import MorphTitle from "@/components/motion/MorphTitle.astro";
-import { postCounter } from "@/lib/abacus";
 import { formatShortDate } from "@/lib/content";
 import type { Post } from "@/lib/posts";
 
@@ -30,10 +29,8 @@ const { posts, titleAs = "h3" } = Astro.props;
         <span
           title="Post views"
           class="ml-auto shrink-0 text-xs text-faint tabular-nums"
-          data-post-counter={postCounter(post.slug)}
-        >
-          … views
-        </span>
+          data-post-counter={post.slug}
+        ></span>
       </a>
     </li>
   ))}

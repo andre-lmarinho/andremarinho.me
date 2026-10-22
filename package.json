@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
-    "start": "astro preview --port 3100",
+    "start": "vite preview --outDir .vercel/output/static --port 3100",
     "prepare": "husky",
     "typecheck": "astro check",
     "lint": "biome check .",
@@ -17,6 +17,8 @@
   },
   "dependencies": {
     "@astrojs/markdown-satteri": "0.4.4",
+    "@astrojs/vercel": "^11.0.16",
+    "@upstash/redis": "^1.39.0",
     "@vercel/og": "0.11.1",
     "astro": "7.4.0",
     "sharp": "0.35.5"
@@ -32,6 +34,7 @@
     "jsdom": "^30.1.2",
     "tailwindcss": "^4.3.3",
     "typescript": "6.0.3",
+    "vite": "8.3.4",
     "vitest": "^5.0.3"
   }
 }

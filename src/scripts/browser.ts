@@ -1,48 +1,63 @@
-import {
-  ABACUS_FALLBACK,
-  formatAbacusCount,
-  getAbacusCount,
-} from "@/lib/abacus";
+const postViews: Record<string, number> = Object.create(null);
+let readingViews: Promise<void> | undefined;
+let readAgainAt = 0;
 
-export const isAutomatedBrowser = ({
-  userAgent,
-  webdriver,
-}: Pick<Navigator, "userAgent" | "webdriver">) =>
-  webdriver || /(?:Chrome-Lighthouse|HeadlessChrome)/i.test(userAgent);
+const renderPostViews = (root: ParentNode) => {
+  for (const element of root.querySelectorAll<HTMLElement>(
+    "[data-post-counter]",
+  )) {
+    const count = postViews[element.dataset.postCounter ?? ""];
+    if (!Number.isSafeInteger(count) || count < 0) continue;
+    element.textContent = `${count.toLocaleString("en-US")} views`;
+  }
+};
+
+async function loadPostViews(slug?: string) {
+  const response = await fetch(
+    slug ? `/api/views/${encodeURIComponent(slug)}` : "/api/views",
+    { method: slug ? "POST" : "GET", cache: "no-store", keepalive: !!slug },
+  );
+  if (!response.ok) throw new Error("Views unavailable");
+  const { views } = await response.json();
+  if (
+    !views ||
+    typeof views !== "object" ||
+    Array.isArray(views) ||
+    Object.values(views).some(
+      (count) =>
+        typeof count !== "number" || !Number.isSafeInteger(count) || count < 0,
+    )
+  )
+    throw new Error("Invalid view counts");
+  for (const [key, count] of Object.entries<number>(views)) {
+    // A response can arrive after a newer increment.
+    postViews[key] = Math.max(postViews[key] ?? 0, count);
+  }
+  renderPostViews(document);
+}
+
+const refreshPostViews = () => {
+  if (!document.querySelector("[data-post-counter]")) return;
+  if (!readingViews && Date.now() >= readAgainAt)
+    readingViews = loadPostViews()
+      .then(() => {
+        readAgainAt = Date.now() + 2000;
+      })
+      .catch(() => {})
+      .finally(() => {
+        readingViews = undefined;
+      });
+  return readingViews;
+};
 
 export function initPostViews() {
-  const counters = document.querySelectorAll<HTMLElement>(
-    "[data-post-counter]",
+  renderPostViews(document);
+  const post = document.querySelector<HTMLElement>(
+    "[data-post-counter][data-increment='true']",
   );
-  if (!counters.length) return;
-
-  const update = async (element: HTMLElement) => {
-    try {
-      const count = await getAbacusCount(element.dataset.postCounter ?? "", {
-        increment:
-          element.dataset.increment === "true" &&
-          !isAutomatedBrowser(navigator),
-      });
-      element.textContent = `${formatAbacusCount(count)} views`;
-    } catch {
-      element.textContent = `${ABACUS_FALLBACK} views`;
-    }
-  };
-
-  if (!("IntersectionObserver" in window)) {
-    for (const element of counters) void update(element);
-    return;
-  }
-
-  const observer = new IntersectionObserver((entries) => {
-    for (const entry of entries) {
-      if (!entry.isIntersecting) continue;
-      observer.unobserve(entry.target);
-      void update(entry.target as HTMLElement);
-    }
-  });
-  for (const element of counters) observer.observe(element);
-  return () => observer.disconnect();
+  return post
+    ? loadPostViews(post.dataset.postCounter).catch(() => {})
+    : refreshPostViews();
 }
 
 export function initNotFound() {
@@ -87,34 +102,56 @@ export function initNotFound() {
 }
 
 export function initBrowser() {
-  let stopCounters: (() => void) | undefined;
+  const controller = new AbortController();
+  const options = { signal: controller.signal };
   let stopNotFound: (() => void) | undefined;
-  const startCounters = () => {
-    stopCounters = initPostViews();
-  };
   const cleanup = () => {
-    window.removeEventListener("load", startCounters);
-    stopCounters?.();
     stopNotFound?.();
-    stopCounters = undefined;
     stopNotFound = undefined;
   };
   const initPage = () => {
     cleanup();
     stopNotFound = initNotFound();
-    if (document.readyState === "complete") startCounters();
-    else window.addEventListener("load", startCounters, { once: true });
+    initPostViews();
   };
-  document.addEventListener("astro:page-load", initPage);
-  document.addEventListener("astro:before-preparation", (event) => {
-    if (
-      event.navigationType !== "traverse" &&
-      event.from.pathname !== event.to.pathname
-    )
-      window.scrollTo({ top: 0, behavior: "instant" });
-  });
-  document.addEventListener("astro:before-swap", () => cleanup());
-  window.addEventListener("pageshow", (event) => {
-    if (event.persisted) initPage();
-  });
+  document.addEventListener("astro:page-load", initPage, options);
+  document.addEventListener(
+    "astro:before-preparation",
+    (event) => {
+      if (
+        event.navigationType !== "traverse" &&
+        event.from.pathname !== event.to.pathname
+      )
+        window.scrollTo({ top: 0, behavior: "instant" });
+    },
+    options,
+  );
+  document.addEventListener(
+    "astro:before-swap",
+    (event) => {
+      cleanup();
+      if (event.newDocument) renderPostViews(event.newDocument);
+    },
+    options,
+  );
+  window.addEventListener(
+    "pageshow",
+    (event) => {
+      if (event.persisted) initPage();
+    },
+    options,
+  );
+  window.addEventListener("focus", refreshPostViews, options);
+  window.addEventListener("online", refreshPostViews, options);
+  document.addEventListener(
+    "visibilitychange",
+    () => {
+      if (!document.hidden) void refreshPostViews();
+    },
+    options,
+  );
+  return () => {
+    controller.abort();
+    cleanup();
+  };
 }
