@@ -6,10 +6,10 @@ import type { HTMLAttributes } from "astro/types";
 type Props = Omit<HTMLAttributes<"img">, "src" | "width" | "height"> & {
   src: ImageMetadata;
   alt: string;
-  width: number;
-  height: number;
   sizes: string;
+  priority?: boolean;
 };
+
 const { src, ...props } = Astro.props;
 ---
 
@@ -17,7 +17,7 @@ const { src, ...props } = Astro.props;
   src={src}
   formats={["avif"]}
   fallbackFormat="webp"
-  widths={[96, 128, 256, 384, 640, 750, 828, 1080, 1200, 1920]}
+  layout="constrained"
   pictureAttributes={{ style: "display:contents", class: "[&>source]:hidden" }}
   {...props}
 />
