@@ -9,7 +9,7 @@ import { profileJsonLd } from "@/lib/seo";
 ---
 
 <Base metadata={aboutMetadata}>
-  <article class="mx-auto w-full max-w-3xl px-6 py-16 lg:px-8">
+  <article class="page-container">
     <JsonLd data={profileJsonLd} />
     <PageTitle>About</PageTitle>
 
@@ -52,7 +52,7 @@ import { profileJsonLd } from "@/lib/seo";
     </section>
 
     <section aria-labelledby="experience" class="mt-10 sm:mt-12">
-      <h2 class="prose-h2" id="experience">What I’ve been working on</h2>
+      <h2 class="section-heading" id="experience">What I’ve been working on</h2>
       <ol class="mt-4 flex flex-col">
         <li
           class="grid items-start gap-x-6 gap-y-1 py-3 sm:grid-cols-[6rem_minmax(0,1fr)]"
@@ -123,10 +123,10 @@ import { profileJsonLd } from "@/lib/seo";
       <a
         href="/resume.pdf"
         download="Andre-Marinho-Resume.pdf"
-        class="text-link mt-6 inline-flex min-h-11 flex-wrap items-center gap-2"
+        class="action-link text-link mt-6 flex-wrap gap-2"
       >
         Download résumé
-        <span class="mt-1 text-xs leading-6 text-muted">(PDF, English)</span>
+        <span class="text-xs leading-6 text-muted">(PDF, English)</span>
       </a>
     </section>
 

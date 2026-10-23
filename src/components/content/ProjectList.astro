@@ -34,7 +34,7 @@ const { projects, titleAs = "h3" } = Astro.props;
             {project.description}
           </p>
           {project.tags.length > 0 && (
-            <p class="mt-2.5 text-xs text-faint">
+            <p class="mt-2 text-xs leading-relaxed text-faint">
               {project.tags.slice(0, 6).join("  ·  ")}
             </p>
           )}
