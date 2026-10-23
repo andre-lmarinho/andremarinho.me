@@ -89,13 +89,20 @@ button:active {
 
 .content-row {
   transition:
-    opacity 200ms ease,
-    background-color 90ms ease-out;
+    opacity 220ms ease,
+    background-color 90ms ease-out,
+    box-shadow 180ms ease-out;
 }
 
 @media (hover: hover) and (pointer: fine) {
   .content-row:hover {
     background-color: var(--color-surface);
+    box-shadow: 0 12px 28px -20px rgb(0 0 0 / 80%);
+  }
+
+  .content-list:has(.content-row:hover)
+    .content-row:not(:hover):not(:focus-visible) {
+    opacity: 0.55;
   }
 }
 
@@ -103,13 +110,59 @@ button:active {
   background-color: var(--color-surface-2);
 }
 
-@media (hover: hover) and (pointer: fine) {
-  .content-list:has(.content-row:hover) .content-row:not(:hover) {
-    opacity: 0.9;
-  }
-}
-
 @layer components {
+  .page-container {
+    width: 100%;
+    max-width: 48rem;
+    margin-inline: auto;
+    padding: 3rem 1.5rem;
+  }
+
+  @media (width >= 40rem) {
+    .page-container {
+      padding-block: 4rem;
+    }
+  }
+
+  @media (width >= 64rem) {
+    .page-container {
+      padding-inline: 2rem;
+    }
+  }
+
+  .page-heading {
+    font-size: 2.25rem;
+    line-height: 1.05;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    text-wrap: balance;
+  }
+
+  @media (width >= 40rem) {
+    .page-heading {
+      font-size: 3rem;
+    }
+  }
+
+  .page-description {
+    color: var(--color-muted);
+    font-size: 1rem;
+    line-height: 1.625;
+  }
+
+  @media (width >= 40rem) {
+    .page-description {
+      font-size: 1.125rem;
+    }
+  }
+
+  /* Layout only; compose with .text-link for the editorial appearance. */
+  .action-link {
+    display: inline-flex;
+    min-height: 2.75rem;
+    align-items: center;
+  }
+
   .prose {
     margin-top: 2.5rem;
     color: var(--color-foreground);
@@ -128,18 +181,21 @@ button:active {
 
   .prose h2,
   .prose h3,
-  .prose-h2 {
+  .section-heading {
     font-weight: 600;
     line-height: 1.3;
     text-wrap: balance;
   }
 
   .prose h2,
-  .prose-h2 {
-    margin-top: 3rem;
-    margin-bottom: 1rem;
+  .section-heading {
     font-size: 1.5rem;
     letter-spacing: -0.01em;
+  }
+
+  .prose h2 {
+    margin-top: 3rem;
+    margin-bottom: 1rem;
   }
 
   .prose h3 {
@@ -149,8 +205,7 @@ button:active {
   }
 
   .prose :is(h2, h3) + *,
-  .prose > :first-child,
-  .prose-h2:first-child {
+  .prose > :first-child {
     margin-top: 0;
   }
 
@@ -216,7 +271,7 @@ button:active {
   .prose pre {
     overflow-x: auto;
     border: 1px solid var(--color-border);
-    border-radius: 0.5rem;
+    border-radius: 0.375rem;
     background: var(--color-surface);
     padding: 1rem;
     font-size: 0.875rem;
@@ -237,7 +292,7 @@ button:active {
   .prose img {
     height: auto;
     max-width: 100%;
-    border-radius: 0.5rem;
+    border-radius: 0.375rem;
   }
 
   .prose hr {

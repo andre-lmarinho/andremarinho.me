@@ -9,7 +9,7 @@ const posts = await getPosts();
 ---
 
 <Base metadata={postsMetadata}>
-  <section class="mx-auto w-full max-w-3xl px-6 py-16 lg:px-8">
+  <section class="page-container">
     <PageTitle>Posts</PageTitle>
     <PostList posts={posts} titleAs="h2" />
   </section>

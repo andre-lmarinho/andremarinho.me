@@ -35,6 +35,8 @@ task history here.
 
 ## Implementation
 
+- Before changing shared styles, UI composition or interactions, read
+  `src/styles/README.md` for the styling conventions.
 - Follow the existing Astro component structure, content helpers and style
   tokens. Reuse the project's components before adding alternatives.
 - Use TypeScript with the existing strict configuration and `@/` import alias.
