@@ -75,13 +75,10 @@ const posts = (await getPosts()).filter((post) => post.project === slug);
         <Image
           src={project.image}
           alt={project.title}
-          width={1600}
-          height={900}
-          class="block aspect-video w-full rounded-md border border-border object-contain"
           sizes="(min-width: 1024px) 704px, (min-width: 768px) 720px, calc(100vw - 48px)"
           style={`view-transition-name:project-image-${slug}`}
-          loading="eager"
-          fetchpriority="high"
+          class="block aspect-video w-full rounded-md border border-border object-contain"
+          priority
         />
       </div>
     )}

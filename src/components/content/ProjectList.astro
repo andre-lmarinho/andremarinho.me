@@ -18,12 +18,9 @@ const { projects, titleAs = "h3" } = Astro.props;
           <Image
             src={project.image}
             alt=""
-            width={640}
-            height={360}
             sizes="(min-width: 40rem) 11rem, calc(100vw - 5.625rem)"
             style={`view-transition-name:project-image-${project.slug}`}
             class="aspect-video w-full rounded-md border border-border object-contain sm:w-44 sm:shrink-0"
-            loading="lazy"
           />
         )}
         <div class="min-w-0 flex-1">
