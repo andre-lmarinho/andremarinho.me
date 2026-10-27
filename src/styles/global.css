@@ -253,6 +253,12 @@ button:active {
     margin-top: 0.5em;
   }
 
+  .prose th,
+  .prose td {
+    padding: 0.25em 0.5em;
+    vertical-align: top;
+  }
+
   .prose blockquote {
     border-left: 2px solid var(--color-border);
     padding-left: 1em;
