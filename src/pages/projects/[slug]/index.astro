@@ -1,9 +1,9 @@
 ---
 import Markdown from "@/components/content/Markdown.astro";
 import PostList from "@/components/content/PostList.astro";
+import ProjectImage from "@/components/content/ProjectImage.astro";
 import MorphTitle from "@/components/motion/MorphTitle.astro";
 import JsonLd from "@/components/seo/JsonLd.astro";
-import Image from "@/components/ui/ResponsiveImage.astro";
 import Base from "@/layouts/Base.astro";
 import { formatDate } from "@/lib/content";
 import { getProjectMetadata } from "@/lib/metadata";
@@ -32,8 +32,8 @@ const posts = (await getPosts()).filter((post) => post.project === slug);
       { name: project.title, path: `/projects/${slug}` },
     ])}
   />
-  <article class="page-container">
-    <header class="space-y-5">
+  <article class="py-12 sm:py-16">
+    <header class="page-container project-copy space-y-5">
       <MorphTitle
         as="h1"
         title={project.title}
@@ -70,30 +70,27 @@ const posts = (await getPosts()).filter((post) => post.project === slug);
       </div>
     </header>
 
-    {project.image && (
-      <div class="mt-8 sm:mt-10">
-        <Image
-          src={project.image}
-          alt={project.title}
-          sizes="(min-width: 1024px) 704px, (min-width: 768px) 720px, calc(100vw - 48px)"
-          style={`view-transition-name:project-image-${slug}`}
-          class="block aspect-video w-full rounded-md border border-border object-contain"
-          priority
-        />
-      </div>
-    )}
+    <ProjectImage project={project} />
 
-    <Markdown content={project.body} />
-    {posts.length > 0 ? (
-      <aside
-        aria-labelledby="related-notes"
-        class="mt-12 border-t border-border pt-8 sm:mt-16"
-      >
-        <h2 id="related-notes" class="section-heading">
-          Related notes
-        </h2>
-        <PostList posts={posts} />
-      </aside>
-    ) : null}
+    <div class="page-container project-copy">
+      <Markdown content={project.body} />
+      {posts.length > 0 ? (
+        <aside
+          aria-labelledby="related-notes"
+          class="mt-12 border-t border-border pt-8 sm:mt-16"
+        >
+          <h2 id="related-notes" class="section-heading">
+            Related notes
+          </h2>
+          <PostList posts={posts} />
+        </aside>
+      ) : null}
+    </div>
   </article>
 </Base>
+
+<style>
+.project-copy {
+  padding-block: 0;
+}
+</style>

@@ -8,15 +8,12 @@ const directory = (section: string) =>
 
 const markdownFiles = (section: string) => {
   const names = readdirSync(directory(section));
-  // flat directories mirror the glob loader ids; revisit if content nests.
-  expect(
-    names.filter((name) => !name.endsWith(".md")),
-    section,
-  ).toEqual([]);
-  return names;
+  return section === "projects"
+    ? names.map((name) => join(name, "index.md"))
+    : names.filter((name) => name.endsWith(".md"));
 };
 
-const slugOf = (name: string) => name.slice(0, -".md".length);
+const slugOf = (name: string) => name.replace(/(?:\/index)?\.md$/, "");
 
 describe("content", () => {
   it("finds posts and projects to check", () => {

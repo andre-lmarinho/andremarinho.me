@@ -3,6 +3,15 @@ title: Kestrel
 description: An agent for Outlook email and calendars, with controls over what it can do and which actions need approval.
 date: 2026-01-22
 tags: TypeScript, Node.js, MCP, Microsoft Graph, SSE
+images:
+  01-cover.webp:
+    alt: Kestrel anonymised application and reconstructed homepage
+  02-application.webp:
+    alt: Kestrel agent conversation and tool permissions with illustrative data
+    caption: Application experience
+  03-website.webp:
+    alt: Kestrel product homepage reconstructed for the portfolio
+    caption: Product website
 ---
 
 ## Context

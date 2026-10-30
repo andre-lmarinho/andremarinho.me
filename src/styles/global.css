@@ -16,8 +16,16 @@
 
 :root {
   color-scheme: dark;
+  --page-width: 48rem;
+  --page-gutter: 1.5rem;
   --font-archivo: "Archivo", "Archivo Fallback";
   --font-jetbrains-mono: "JetBrains Mono", "JetBrains Mono Fallback";
+}
+
+@media (width >= 64rem) {
+  :root {
+    --page-gutter: 2rem;
+  }
 }
 
 html {
@@ -113,20 +121,14 @@ button:active {
 @layer components {
   .page-container {
     width: 100%;
-    max-width: 48rem;
+    max-width: var(--page-width);
     margin-inline: auto;
-    padding: 3rem 1.5rem;
+    padding: 3rem var(--page-gutter);
   }
 
   @media (width >= 40rem) {
     .page-container {
       padding-block: 4rem;
-    }
-  }
-
-  @media (width >= 64rem) {
-    .page-container {
-      padding-inline: 2rem;
     }
   }
 

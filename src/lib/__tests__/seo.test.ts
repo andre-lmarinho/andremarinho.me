@@ -31,6 +31,16 @@ const project: Project = {
   date: "2026-07-17",
   tags: ["astro", "testing"],
   link: "",
+  images: [
+    {
+      src: { src: "/first.webp", width: 800, height: 600, format: "webp" },
+      alt: "First image",
+    },
+    {
+      src: { src: "/second.webp", width: 800, height: 600, format: "webp" },
+      alt: "Second image",
+    },
+  ],
   body: "The content.",
 };
 
@@ -92,20 +102,13 @@ it("omits draft dates from page metadata", () => {
   ).toBeUndefined();
 });
 
-it("uses the project's image when available and the listing image otherwise", () => {
-  const image = {
-    src: "/example.webp",
-    width: 800,
-    height: 600,
-    format: "webp",
-  } as const;
-  expect(projectMetadata({ ...project, image }).openGraph.image).toEqual({
-    url: image.src,
-    width: image.width,
-    height: image.height,
-    alt: "Example interface",
+it("always uses the first project image for metadata and structured data", () => {
+  const first = project.images[0];
+  expect(projectMetadata(project).openGraph.image).toEqual({
+    url: first.src.src,
+    width: first.src.width,
+    height: first.src.height,
+    alt: first.alt,
   });
-  expect(projectMetadata(project).openGraph.image.url).toBe(
-    "/projects/opengraph-image",
-  );
+  expect(projectJsonLd(project).image).toBe(`${siteUrl}${first.src.src}`);
 });

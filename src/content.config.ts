@@ -30,13 +30,24 @@ const posts = defineCollection({
 });
 
 const projects = defineCollection({
-  loader: glob({ pattern: "**/*.md", base: "./src/content/projects" }),
+  loader: glob({
+    pattern: "*/index.md",
+    base: "./src/content/projects",
+    generateId: ({ entry }) => entry.split("/")[0],
+  }),
   schema: z.object({
     title: z.string().trim().min(1),
     description: z.string(),
     date,
     tags,
     link: z.string().optional(),
+    images: z.record(
+      z.string(),
+      z.object({
+        alt: z.string().trim().min(1),
+        caption: z.string().optional(),
+      }),
+    ),
   }),
 });
 

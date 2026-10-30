@@ -8,38 +8,39 @@ const { projects, titleAs = "h3" } = Astro.props;
 ---
 
 <ol class="content-list mt-4 flex flex-col gap-y-4">
-  {projects.map((project) => (
-    <li>
-      <a
-        href={`/projects/${project.slug}`}
-        class="content-row group flex flex-col gap-4 rounded-md border border-border p-5 sm:flex-row sm:items-start sm:gap-6"
-      >
-        {project.image && (
+  {projects.map((project) => {
+    const cover = project.images[0];
+    return (
+      <li>
+        <a
+          href={`/projects/${project.slug}`}
+          class="content-row group flex flex-col gap-4 rounded-md border border-border p-5 sm:flex-row sm:items-start sm:gap-6"
+        >
           <Image
-            src={project.image}
+            src={cover.src}
             alt=""
             sizes="(min-width: 40rem) 11rem, calc(100vw - 5.625rem)"
             style={`view-transition-name:project-image-${project.slug}`}
-            class="aspect-video w-full rounded-md border border-border object-contain sm:w-44 sm:shrink-0"
+            class="aspect-1280/769 w-full rounded-md border border-border object-contain sm:w-44 sm:shrink-0"
           />
-        )}
-        <div class="min-w-0 flex-1">
-          <MorphTitle
-            as={titleAs}
-            title={project.title}
-            id={`project-${project.slug}`}
-            class="text-base leading-6 font-medium transition-colors group-hover:text-accent"
-          />
-          <p class="mt-2 text-sm leading-relaxed text-muted">
-            {project.description}
-          </p>
-          {project.tags.length > 0 && (
-            <p class="mt-2 text-xs leading-relaxed text-faint">
-              {project.tags.slice(0, 6).join("  ·  ")}
+          <div class="min-w-0 flex-1">
+            <MorphTitle
+              as={titleAs}
+              title={project.title}
+              id={`project-${project.slug}`}
+              class="text-base leading-6 font-medium transition-colors group-hover:text-accent"
+            />
+            <p class="mt-2 text-sm leading-relaxed text-muted">
+              {project.description}
             </p>
-          )}
-        </div>
-      </a>
-    </li>
-  ))}
+            {project.tags.length > 0 && (
+              <p class="mt-2 text-xs leading-relaxed text-faint">
+                {project.tags.slice(0, 6).join("  ·  ")}
+              </p>
+            )}
+          </div>
+        </a>
+      </li>
+    );
+  })}
 </ol>

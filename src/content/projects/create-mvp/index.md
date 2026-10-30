@@ -4,6 +4,9 @@ description: An open-source npm CLI I built to scaffold SaaS projects using the 
 date: 2026-07-07
 tags: TypeScript, Turborepo, Next.js, tRPC, Prisma, Better Auth
 link: https://www.npmjs.com/package/@andre.marinho/create-mvp
+images:
+  01-cover.webp:
+    alt: create-mvp CLI showing the generated SaaS foundation
 ---
 
 ```bash
