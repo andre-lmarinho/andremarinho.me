@@ -19,23 +19,28 @@ const content = vi.hoisted(() => {
       title: id,
       description: `About ${id}.`,
       tags: [],
+      images: {
+        "01-cover.webp": { alt: "Project cover" },
+        "02-application.webp": { alt: "Application" },
+        "03-website.webp": { alt: "Website" },
+      },
       ...data,
     },
   });
   const published = "2026-07-17";
   return {
     posts: [
-      entry("related", { date: published, project: "tool" }),
+      entry("related", { date: published, project: "turistar" }),
       entry("general", { date: published }),
       entry("missing", { date: published, project: "missing" }),
       entry("draft-project", { date: published, project: "draft" }),
-      entry("draft", { project: "tool" }),
+      entry("draft", { project: "turistar" }),
       entry("other", { date: published, project: "other" }),
     ],
     projects: [
-      entry("tool", { date: published }),
+      entry("turistar", { date: published }),
       entry("other", { date: published }),
-      entry("empty", { date: published }),
+      entry("skills", { date: published }),
       entry("draft", {}),
     ],
   };
@@ -65,7 +70,7 @@ describe("project links", () => {
   });
 
   it("reads the optional project field without requiring it on general posts", async () => {
-    expect((await getPost("related"))?.project).toBe("tool");
+    expect((await getPost("related"))?.project).toBe("turistar");
     expect((await getPost("general"))?.project).toBeUndefined();
     expect((await getPosts()).some((post) => post.slug === "draft")).toBe(
       false,
@@ -82,7 +87,7 @@ describe("project links", () => {
       'aside[aria-labelledby="related-project"]',
     );
     expect(section?.querySelector("a")?.getAttribute("href")).toBe(
-      "/projects/tool",
+      "/projects/turistar",
     );
   });
 
@@ -101,7 +106,7 @@ describe("project links", () => {
   it("lists only published notes assigned to the current project", async () => {
     const container = await AstroContainer.create();
     const html = await container.renderToString(projectPage, {
-      params: { slug: "tool" },
+      params: { slug: "turistar" },
     });
     const page = new JSDOM(html).window.document;
     const links = page.querySelectorAll(
@@ -109,14 +114,20 @@ describe("project links", () => {
     );
     expect(links).toHaveLength(1);
     expect(links[0].getAttribute("href")).toBe("/posts/related");
+    const carousel = page.querySelector("[data-carousel]");
+    expect(carousel?.querySelectorAll("figure")).toHaveLength(3);
+    expect(carousel?.querySelectorAll("button")).toHaveLength(0);
+    expect(page.querySelector("#product-presentation")).toBeNull();
   });
 
   it("omits an empty related-notes section", async () => {
     const container = await AstroContainer.create();
     const html = await container.renderToString(projectPage, {
-      params: { slug: "empty" },
+      params: { slug: "skills" },
     });
     const page = new JSDOM(html).window.document;
     expect(page.querySelector("#related-notes")).toBeNull();
+    expect(page.querySelectorAll(".project-images figure")).toHaveLength(1);
+    expect(page.querySelector("[data-carousel]")).toBeNull();
   });
 });

@@ -8,19 +8,15 @@ export type Project = {
   description: string;
   date: string;
   tags: string[];
-  image?: ImageMetadata;
+  images: { src: ImageMetadata; alt: string; caption?: string }[];
   link: string;
   body: string;
 };
 
 const images = import.meta.glob<ImageMetadata>(
-  "/src/assets/images/projects/*.webp",
+  "/src/content/projects/*/*.{avif,gif,jpeg,jpg,png,svg,webp}",
   { eager: true, import: "default" },
 );
-
-function imageFor(slug: string) {
-  return images[`/src/assets/images/projects/${slug}.webp`];
-}
 
 function toProject({ id, data, body }: CollectionEntry<"projects">): Project {
   return {
@@ -29,7 +25,14 @@ function toProject({ id, data, body }: CollectionEntry<"projects">): Project {
     description: data.description,
     date: data.date ?? "",
     tags: data.tags,
-    image: imageFor(id),
+    images: Object.entries(images)
+      .filter(([path]) => path.startsWith(`/src/content/projects/${id}/`))
+      .sort(([a], [b]) => a.localeCompare(b))
+      .map(([path, src]) => {
+        const { alt, caption } =
+          data.images[path.slice(path.lastIndexOf("/") + 1)];
+        return { src, alt, caption };
+      }),
     link: data.link ?? "",
     body: body ?? "",
   };

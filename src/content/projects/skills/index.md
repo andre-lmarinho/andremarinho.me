@@ -4,6 +4,9 @@ description: Four open-source agent skills for engineering documentation, techni
 date: 2026-10-16
 tags: AI agents, Developer tooling, Python, GitHub Actions, Accessibility, SEO
 link: https://github.com/andre-lmarinho/skills
+images:
+  01-cover.webp:
+    alt: Engineering Skills installation command and four review workflows
 ---
 
 ## Context

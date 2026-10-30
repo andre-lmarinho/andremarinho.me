@@ -4,6 +4,9 @@ description: A validated SVG sprite pipeline with typed React icon names and two
 date: 2026-08-18
 tags: TypeScript, React, SVG, Code generation, Vite, Performance
 link: https://github.com/andre-lmarinho/typed-svg-sprite
+images:
+  01-cover.webp:
+    alt: typed-svg-sprite showcase with typed icons and display controls
 ---
 
 ## Context

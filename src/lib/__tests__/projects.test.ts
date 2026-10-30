@@ -1,6 +1,8 @@
 // @vitest-environment node
 import { afterEach, expect, it, vi } from "vitest";
-import image from "@/assets/images/projects/turistar.webp";
+import cover from "@/content/projects/turistar/01-cover.webp";
+import application from "@/content/projects/turistar/02-application.webp";
+import website from "@/content/projects/turistar/03-website.webp";
 import { getProject } from "../projects";
 
 vi.mock("astro:content", () => ({
@@ -13,16 +15,17 @@ vi.mock("astro:content", () => ({
         description: "Example project.",
         date: id === "draft" ? undefined : "2026-07-17",
         tags: [],
+        images: {
+          "03-website.webp": { alt: "Website" },
+          "02-application.webp": { alt: "Application", caption: "Detail" },
+          "01-cover.webp": { alt: "Cover" },
+        },
       },
     };
   },
 }));
 
 afterEach(() => vi.unstubAllEnvs());
-
-it("finds the project image by slug without an image field", async () => {
-  expect((await getProject("turistar"))?.image).toEqual(image);
-});
 
 it("returns null for missing projects and unpublished drafts", async () => {
   vi.stubEnv("NODE_ENV", "production");
@@ -35,6 +38,16 @@ it("allows draft previews during development", async () => {
   expect((await getProject("draft"))?.date).toBe("");
 });
 
-it("leaves the image optional when no file matches the slug", async () => {
-  expect((await getProject("without-image"))?.image).toBeUndefined();
+it("discovers the slug's images in file-name order regardless of description order", async () => {
+  expect((await getProject("turistar"))?.images).toEqual([
+    { src: cover, alt: "Cover" },
+    { src: application, alt: "Application", caption: "Detail" },
+    { src: website, alt: "Website" },
+  ]);
+});
+
+it("discovers a single cover without adding images from other projects", async () => {
+  const project = await getProject("skills");
+  expect(project?.images).toHaveLength(1);
+  expect(project?.images[0].alt).toBe("Cover");
 });

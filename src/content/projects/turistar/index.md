@@ -4,6 +4,15 @@ description: An open-source trip planner I built and maintain, with shared itine
 date: 2025-10-20
 tags: Next.js, Supabase, Event Sourcing, Leaflet, Playwright
 link: https://turistar.me/
+images:
+  01-cover.webp:
+    alt: Turistar application and historical marketing website
+  02-application.webp:
+    alt: Turistar shared itinerary, map and budget
+    caption: Application experience
+  03-website.webp:
+    alt: Turistar original marketing website
+    caption: Product website
 ---
 
 ## Context
