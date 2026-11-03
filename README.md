@@ -100,5 +100,5 @@ Home projects are selected by the slug array in `src/pages/index.astro`, in disp
 
 - `/rss.xml` — full-content feed for RSS readers
 - `/llms.txt` and `/llms-full.txt` — generated Markdown for AI crawlers (`src/pages/llms.txt.ts`)
-- Per-page `/opengraph-image` routes rendered with `@vercel/og`
+- Per-page `/opengraph-image` routes rendered with Satori and Sharp
 - `vercel.json` serves each post/project as raw Markdown with canonical `Link` headers
