@@ -1,6 +1,7 @@
 import { readFile } from "node:fs/promises";
 import { join } from "node:path";
-import { ImageResponse } from "@vercel/og";
+import satori from "satori";
+import sharp from "sharp";
 
 const size = { width: 1200, height: 630 };
 const fontDir = join(process.cwd(), "src/assets/fonts");
@@ -24,6 +25,7 @@ export async function createOpenGraphImage({
     type: "div",
     props: {
       style: {
+        boxSizing: "border-box",
         width: "100%",
         height: "100%",
         display: "flex",
@@ -83,6 +85,7 @@ export async function createOpenGraphImage({
                   style: {
                     display: "flex",
                     height: 1,
+                    width: "100%",
                     backgroundColor: "#1e293b",
                     marginTop: 44,
                   },
@@ -106,25 +109,26 @@ export async function createOpenGraphImage({
     },
   };
 
-  return new ImageResponse(
-    card as ConstructorParameters<typeof ImageResponse>[0],
-    {
-      ...size,
-      fonts: [
-        { name: "Archivo", data: archivo, style: "normal", weight: 400 },
-        {
-          name: "Archivo",
-          data: archivoSemiBold,
-          style: "normal",
-          weight: 600,
-        },
-        {
-          name: "JetBrains Mono",
-          data: jetBrainsMono,
-          style: "normal",
-          weight: 400,
-        },
-      ],
-    },
-  );
+  const svg = await satori(card as Parameters<typeof satori>[0], {
+    ...size,
+    fonts: [
+      { name: "Archivo", data: archivo, style: "normal", weight: 400 },
+      {
+        name: "Archivo",
+        data: archivoSemiBold,
+        style: "normal",
+        weight: 600,
+      },
+      {
+        name: "JetBrains Mono",
+        data: jetBrainsMono,
+        style: "normal",
+        weight: 400,
+      },
+    ],
+  });
+  const png = await sharp(Buffer.from(svg)).png().toBuffer();
+  return new Response(new Uint8Array(png), {
+    headers: { "Content-Type": "image/png" },
+  });
 }
