@@ -20,18 +20,16 @@ priority relative to utilities.
 
 ## Links
 
-| Pattern | Use |
-| --- | --- |
+| Pattern        | Use                                                                                                                        |
+| -------------- | -------------------------------------------------------------------------------------------------------------------------- |
 | `.action-link` | Layout of standalone actions: inline flex, minimum height and vertical alignment. Navigation and social links also use it. |
-| `.text-link` | Accent color, underline and hover treatment. Works on inline text and standalone actions. |
-| `.prose a` | The same editorial appearance, applied contextually inside prose. |
+| `.text-link`   | Accent color, underline and hover treatment. Works on inline text and standalone actions.                                  |
+| `.prose a`     | The same editorial appearance, applied contextually inside prose.                                                          |
 
 ```astro
-<a href="/projects/turistar" class="text-link">my own product</a>
-<a href="/projects" class="action-link text-link text-xs">All projects</a>
-<a href="/about" class="action-link text-muted transition-colors hover:text-accent">
-  About
-</a>
+<a href="/projects/turistar" class="text-link ...">my own product</a>
+<a href="/projects" class="action-link text-link ...">All projects</a>
+<a href="/about" class="action-link ...">About</a>
 ```
 
 Keep font size, gaps, wrapping and placement local. Icon-only footer links keep

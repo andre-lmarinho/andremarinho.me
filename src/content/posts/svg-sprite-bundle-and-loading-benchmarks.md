@@ -22,10 +22,10 @@ I compared inline components, a manually scoped 60-icon sprite, and the entire 5
 
 Total gzip response bodies, in bytes, for the first page and both pages combined:
 
-| Strategy | First | Both |
-| --- | ---: | ---: |
-| Inline | 51,586 | 54,696 |
-| Sprite (60) | 52,481 | 53,674 |
+| Strategy     |  First |   Both |
+| ------------ | -----: | -----: |
+| Inline       | 51,586 | 54,696 |
+| Sprite (60)  | 52,481 | 53,674 |
 | Sprite (500) | 73,589 | 74,783 |
 
 First-page gzip JavaScript was 50,079 bytes inline and 46,849 bytes with either sprite.
@@ -54,19 +54,19 @@ The source sprite contains 156 symbols and compresses to 7,925 bytes with gzip. 
 
 For the first visit, gzip response bodies were:
 
-| Strategy | JS (B) | Total (B) |
-| --- | ---: | ---: |
-| Injection | 60,994 | 69,712 |
-| Inline | 61,848 | 62,639 |
-| External | 53,682 | 62,406 |
+| Strategy  | JS (B) | Total (B) |
+| --------- | -----: | --------: |
+| Injection | 60,994 |    69,712 |
+| Inline    | 61,848 |    62,639 |
+| External  | 53,682 |    62,406 |
 
 Median timings are in milliseconds from navigation start. External means the experimental native file reference; injection is the original implementation.
 
-| Strategy | LCP (ms) | Geometry (ms) |
-| --- | ---: | ---: |
-| Injection | 792 | 1,120 |
-| Inline | 844 | 836 |
-| External | 772 | 913 |
+| Strategy  | LCP (ms) | Geometry (ms) |
+| --------- | -------: | ------------: |
+| Injection |      792 |         1,120 |
+| Inline    |      844 |           836 |
+| External  |      772 |           913 |
 
 The original implementation shipped 1.38% less JavaScript than inline, while transferring 11.29% more total bytes. Text painted earlier, but icon geometry resolved later. With warm cache, geometry still took 412 ms for injection against 315 ms inline.
 
