@@ -97,7 +97,7 @@ import { Fragment } from "react";
       </span>
     </Fragment>
   ))}
-</h1>
+</h1>;
 ```
 
 The [implemented component](https://github.com/andre-lmarinho/andremarinho.me/blob/4e15b67ac8d21e2a75f88d638cfdc0f858e18c59/src/components/transitions/MorphTitle.tsx) supports multiple heading levels. Its [regression test](https://github.com/andre-lmarinho/andremarinho.me/blob/4e15b67ac8d21e2a75f88d638cfdc0f858e18c59/src/components/transitions/__tests__/MorphTitle.test.tsx) checks the heading and enclosing link's accessible names. That protects the DOM contract; the separate Orca recheck established the announcement behavior for the tested pages.

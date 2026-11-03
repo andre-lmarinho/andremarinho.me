@@ -29,6 +29,10 @@ pnpm test
 pnpm lighthouse
 ```
 
+Type checking uses TypeScript 7.1 beta and `@astrojs/ts-content-mapper` to check
+both TypeScript and Astro files. Versions are pinned while this integration is
+experimental. `pnpm typecheck` runs `astro sync` before `tsc --noEmit --runExternalCode`.
+
 ## Adding content
 
 Posts and projects are Markdown files in `src/content/`, validated by the schemas in `src/content.config.ts`.

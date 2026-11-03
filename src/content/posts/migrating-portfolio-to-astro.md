@@ -13,10 +13,10 @@ The migration shipped in [PR #39](https://github.com/andre-lmarinho/andremarinho
 
 The [pre-migration PR #38 CI run](https://github.com/andre-lmarinho/andremarinho.me/actions/runs/38930334816/job/117072386062), on October 16, recorded a Lighthouse Performance score of 73/100 for the home page. The [final migration CI run](https://github.com/andre-lmarinho/andremarinho.me/actions/runs/39093552873/job/117575158524), on October 18, checked six routes, including the home page, without a warning against the 90/100 performance threshold.
 
-| Historical CI observation | Home-page Performance |
-| --- | ---: |
-| Next.js, before migration | 73/100 |
-| Astro, final migration run | At least 90/100 |
+| Historical CI observation  | Home-page Performance |
+| -------------------------- | --------------------: |
+| Next.js, before migration  |                73/100 |
+| Astro, final migration run |       At least 90/100 |
 
 That establishes a score increase of at least 17 points between those recorded runs. The full CI report artifacts have expired, so the retained logs establish the later lower bound rather than an exact score. Separately, the migration PR records a local single-run result of 99–100 across the six routes, with 100 in accessibility, best practices and SEO, and zero CLS. Those local figures are a separate observation.
 
