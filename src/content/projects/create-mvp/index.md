@@ -38,6 +38,8 @@ The CLI scaffolds:
 
 Product-specific models, features, and business integrations are deliberately absent. I leave those decisions to each project.
 
+The initial authentication setup needs changes before production: it does not require email verification, includes no email transport, and accepts passwords as short as six characters.
+
 ## Evidence
 
 The package is published on [npm](https://www.npmjs.com/package/@andre.marinho/create-mvp), and the [source is public on GitHub](https://github.com/andre-lmarinho/create-app-mvp). The repository exposes the template, tests, release workflow, and all 35 [decision records](https://github.com/andre-lmarinho/create-app-mvp/blob/0d617a39b391709c1c4bf08bd45e68b2ef902305/docs/decisions.md) for inspection.

@@ -40,7 +40,7 @@ WHERE plan_snapshots.plan_id = append_plan_events.plan_id;
 
 With no new state supplied, `COALESCE` deliberately retained the previous state while the version advanced. When the function had to insert a missing snapshot, the equivalent fallback was `{"days":[]}`.
 
-The event append and snapshot update could run together successfully and still produce an invalid checkpoint. Transactional execution could not compensate for the caller supplying events without their corresponding materialized state.
+The event append and snapshot update could succeed in the same transaction and still produce an invalid checkpoint: the caller supplied events without their corresponding materialized state.
 
 ## Build the next state before appending
 
@@ -48,7 +48,7 @@ The corrected [server append flow](https://github.com/andre-lmarinho/turistar/bl
 
 For a snapshot whose version matches `baseVersion`, the builder assigns the incoming events consecutive versions beginning at `baseVersion + 1`. It applies them with the same reducer used to interpret the event history and serializes the resulting days as JSON-safe state.
 
-The database still checks `base_version` under its snapshot row lock. If another append wins between the server's read and its write, the database sees the version mismatch and returns the current version without inserting that batch. Calculating a snapshot on the server does not replace the database's concurrency check.
+For an existing snapshot, the database still checks `base_version` under its snapshot row lock. If another append wins between the server's read and its write, the database sees the version mismatch and returns the current version without inserting that batch. Calculating a snapshot on the server does not replace the database's concurrency check; the historical lock did not cover a snapshot row that did not yet exist.
 
 When the versions match and the server supplies the calculated state, the RPC writes events and their resulting snapshot together. The client does not need to follow a successful append with a separate snapshot update that could fail independently.
 

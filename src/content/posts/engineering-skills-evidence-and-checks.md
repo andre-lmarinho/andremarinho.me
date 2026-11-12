@@ -6,7 +6,7 @@ tags: AI agents, Developer tooling, Python, GitHub Actions, Testing
 project: skills
 ---
 
-A skill can contain correct advice and still produce an unhelpful review. The agent can apply a rule to the wrong surface, mistake a checklist for a standard, or report a passing result after inspecting only the source.
+A skill can contain correct advice and still produce an unhelpful review. An agent might apply a rule to the wrong surface, mistake a checklist for a standard, or report a passing result after inspecting only the source.
 
 I built [Engineering Skills](/projects/skills) around those failure modes. The collection covers documentation, technical SEO, search-facing content and web accessibility. The design problem was deciding which evidence each task needs and when the agent has enough of it to make a finding.
 
@@ -53,7 +53,7 @@ I kept the source records local to each skill so a separately installed skill re
 
 ## Separate three kinds of validation
 
-The repository has checks for its format and distribution. Review quality needs a different procedure.
+The repository checks format and distribution. Assessing review quality needs a different procedure.
 
 ### Skill and manifest validation
 

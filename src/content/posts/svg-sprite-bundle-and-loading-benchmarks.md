@@ -8,7 +8,7 @@ project: typed-svg-sprite
 
 A shared SVG sprite reduced gzip JavaScript by 6.45% in my two-page simulation. The first page still downloaded 1.73% more bytes, and the icons resolved later. Looking only at the JavaScript bundle would have given me an incomplete answer.
 
-I built [typed-svg-sprite](/projects/typed-svg-sprite) to generate an SVG sprite and typed icon names from one validated list. That gives me a concrete consistency check between the asset and its callers. Whether the same delivery strategy makes a page faster needed a separate experiment.
+I built [typed-svg-sprite](/projects/typed-svg-sprite) to generate an SVG sprite and typed icon names from one validated list. This checks consistency between the asset and its callers. Whether the delivery strategy makes a page faster needed a separate experiment.
 
 I ran two benchmarks: a synthetic comparison built around the reference project, then an isolated extraction of the actual icon components from Cal.diy, which inspired the approach. Together they produced 375 measured navigations. They answer different questions, so I kept their inputs and results separate.
 

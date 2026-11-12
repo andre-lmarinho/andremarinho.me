@@ -9,7 +9,7 @@ In 2014 I worked in the finance department at Grupo Hemocat, a medical device di
 
 I asked her if I could try to automate it. That became my first technical project: learning how the system's database worked and connecting Excel directly to the local SQL database.
 
-In July 2025, software development became my main occupation. A lot of the work that led me there happened in finance, logistics and business consulting.
+In July 2023, software development became my main occupation. A lot of the work that led me there happened in finance, logistics and business consulting.
 
 ## Connecting the spreadsheet to its source
 
@@ -27,17 +27,17 @@ In 2015 I became logistics supervisor at the same company, working with inventor
 
 I modelled stock availability and built a Power BI dashboard to support purchasing and distribution decisions. A unit in stock is not one thing. It can be available, committed, in transit, in customs or on consignment. Treating all of those as the same number is how you promise a hospital something you cannot deliver.
 
-The model had to reflect those differences so that purchasing, sales and logistics could work from the same view. Getting the data onto a screen was only part of the job; deciding what it represented mattered just as much.
+The model had to reflect those differences so that purchasing, sales and logistics could work from the same view. Before putting the data on a screen, I had to decide what each number represented.
 
 ## How Duonorth changed
 
 In 2017 I started Duonorth Studio as a business intelligence and business solutions consultancy. I worked with clients to understand their operations, reconcile data and build dashboards, spreadsheets and automations they could use in their daily work.
 
-Around 2020, Duonorth expanded into marketing and digital delivery. The work connected business analysis with campaigns, websites, landing pages and software. I handled diagnosis, scope and the relationship with the client, bringing in specialists as the work grew.
+From 2020, Duonorth combined its consulting work with web development and integrations. The work connected business analysis with campaigns, websites and landing pages. I handled diagnosis, scope and the relationship with the client, bringing in specialists as the work grew.
 
-From 2023, I concentrated the business on websites and software. I was both directing the work and implementing it: WordPress sites, themes, plugins, interfaces and integrations in HTML, CSS, JavaScript and PHP.
+I was both directing technical work and implementing it: WordPress sites, themes, plugins, interfaces and integrations in HTML, CSS, JavaScript and PHP.
 
-In July 2025, software product development became my main occupation.
+Duonorth closed in June 2023. The following month, I began working independently as a software engineer.
 
 ## What carried over
 
@@ -47,6 +47,6 @@ I still ask where the data lives before designing anything on top of it, and wha
 
 The current work takes me deeper into relational databases, authentication, security, automated tests and continuous delivery. Earlier experience with dashboards and websites helps, but it does not answer every question that comes up in a software product.
 
-That experience helps me frame the problem. I still have to test my assumptions about the systems I build and learn from what breaks.
+I still have to test my assumptions about the systems I build and learn from what breaks.
 
 I wrote more about the learning part in [working with AI without skipping the understanding](/posts/learning-to-code-with-ai). The current work is on [GitHub](https://github.com/andre-lmarinho).

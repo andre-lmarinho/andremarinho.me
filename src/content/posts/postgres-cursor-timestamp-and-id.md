@@ -60,7 +60,7 @@ The API validates the cursor as a timestamp and UUID before it reaches that filt
 
 For a requested page size of 20, the repository asks for at most 21 rows. It returns the first 20 and sets `hasMore` when the result contained the extra row. The client continues from row 20. Using row 21 as the cursor would skip a notification that had never been displayed.
 
-An empty result ends the traversal. A result with exactly 20 rows and no extra row also has `hasMore: false`. This answers whether another page existed when the query ran, without requesting an exact total just to draw a Load more control.
+An empty result ends the traversal. A result with exactly 20 rows and no extra row also has `hasMore: false`. This tells the interface whether another page existed when the query ran, without requesting an exact total for the Load more control.
 
 The interface gives up direct jumps to an arbitrary page number. That fits an inbox where the action is to read further back. A numbered reporting table could require a different tradeoff.
 

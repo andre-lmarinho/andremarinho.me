@@ -16,7 +16,7 @@ The change shipped in [PR #518](https://github.com/andre-lmarinho/turistar/pull/
 
 Before the change, the page loaded plans and destinations through separate paths, including a snapshot read per destination. An itinerary snapshot contains the days and activity records used by the planner. Most of those fields have no use in a dashboard summary.
 
-The application still had to receive and parse that content to derive a count. The [per-destination snapshot reads already ran through `Promise.all`](https://github.com/andre-lmarinho/turistar/blob/151498387e729ca5759137a7de6a37686452a817/src/features/plan/repositories/PlanRepository.ts). They were parallel, but each still crossed the database API boundary and transferred the snapshot content.
+The application had to receive and parse that content to derive a count. The [per-destination snapshot reads already ran through `Promise.all`](https://github.com/andre-lmarinho/turistar/blob/151498387e729ca5759137a7de6a37686452a817/src/features/plan/repositories/PlanRepository.ts). They ran in parallel, but each still crossed the database API boundary and transferred the snapshot content.
 
 I introduced `get_user_plan_summaries`, a query dedicated to this screen, and changed the page to call `PlanService.getUserDashboard()`. The service receives summary rows once and derives both the trip cards and map destinations from them.
 
@@ -63,4 +63,4 @@ The benchmark includes database API latency, which makes avoiding per-destinatio
 
 The [repository tests](https://github.com/andre-lmarinho/turistar/blob/6c045f98bcd3ecc685358bc52b13ba22c47f93c3/src/features/plan/repositories/PlanRepository.test.ts) check the summary RPC call and error handling. The [service tests](https://github.com/andre-lmarinho/turistar/blob/6c045f98bcd3ecc685358bc52b13ba22c47f93c3/src/features/plan/services/PlanService.test.ts) use 55 rows to assert that only 50 become cards while all 55 remain available to the map. They also cover empty data, destination-less plans, zero coordinates, dates, authentication, and propagation of failures.
 
-Those checks constrain the optimization to the dashboard's existing contract. A response can become smaller and faster while accidentally losing a shared plan or truncating the travel history; the read model needs to preserve those behaviors as explicitly as it removes the full snapshots.
+The checks protect the dashboard's existing behavior: a smaller response would not help if it lost a shared plan or truncated the travel history.

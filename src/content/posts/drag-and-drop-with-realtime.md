@@ -48,7 +48,7 @@ The January revision eventually committed the final `DayPlan[]`. The [collaborat
 
 Suppose a second screen added an activity while the first screen was dragging. The shared state could receive the addition, while the frozen draft never contained it. On drop, comparing the current shared state with that old draft could interpret the missing activity as an intentional deletion. A concurrent edit to an existing card could similarly be overwritten by the draft's older fields.
 
-The gesture remained visually stable while the eventual commit could still misrepresent what the person intended. Versioning the resulting events did not recover the intent lost in that whole-array comparison.
+The gesture stayed visually stable, but the commit could misrepresent what the person intended. Versioning the resulting events did not recover the intent lost in that whole-array comparison.
 
 That conflict required edits to the same itinerary during the active drag and its commit. I did not measure the race window or its frequency. This limitation belongs to the linked historical revision; the later move contract avoids submitting that whole draft.
 

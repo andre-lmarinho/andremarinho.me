@@ -16,7 +16,7 @@ You can [open the login page and use its demo button](https://turistar.me/login)
 
 The login and signup screens already have a demo entry point. Their sign-in helper authenticates the shared account through the application's auth flow. After login, the dashboard recognizes that account and calls `resetDemoIfStale` before fetching its data.
 
-The [demo feature documentation](https://github.com/andre-lmarinho/turistar/blob/d442fc13e62347d8e49a59e1173f6c8b7298288f/src/features/demo/README.md) describes that path. A visitor uses the existing permissions, itinerary editor, and budget operations. I don't have a second implementation of those features to keep in step with the product.
+The [demo feature documentation](https://github.com/andre-lmarinho/turistar/blob/d442fc13e62347d8e49a59e1173f6c8b7298288f/src/features/demo/README.md) describes that path. A visitor uses the existing permissions, itinerary editor, and budget operations, so I don't have a second implementation of those features to keep in step with the product.
 
 The tradeoff is shared state. Two visitors can change the same itinerary or see each other's edits. Serializing the resets prevents two restore operations from competing; it does not give each visitor a private sandbox.
 
