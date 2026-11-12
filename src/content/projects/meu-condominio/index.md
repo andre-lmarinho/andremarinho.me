@@ -40,6 +40,4 @@ I prefetched the main routes, ran their queries in parallel, and removed a repea
 
 In the recorded desktop browser comparison, the settings form became available **94% faster** on a return visit in the same session. The first visit also improved. The measurement checked when fields and the button were enabled; it did not measure the end of background revalidation. The browser's HTTP cache was not cleared.
 
-## Current status
-
-This is a client project in progress. The application supports installation on mobile browsers, but installation and layout still need validation on physical devices; there is no offline support. Before real operation, recovery objectives, restore drills, and billing contention need further work. The cover is an illustration of the financial model, not a screenshot or real condominium data.
+The application supports installation on mobile browsers, but installation and layout still need validation on physical devices; there is no offline support. Before real operation, recovery objectives, restore drills, and billing contention need further work. The cover is an illustration of the financial model, not a screenshot or real condominium data.

@@ -11,13 +11,13 @@ console.log("Hello, world");
 
 The site has been up for a while. The blog has not, mostly because I kept deciding I had nothing finished enough to write about.
 
-This runs on Next.js, TypeScript and Tailwind. Posts are markdown files in a folder, which is enough for this small blog. I would rather add a CMS or database when maintaining the files becomes a problem. Everything renders to static HTML at build time.
+When I started the blog, the site ran on Next.js, TypeScript and Tailwind. Posts were Markdown files in a folder, which was enough for a small blog. I would rather add a CMS or database when maintaining the files becomes a problem. The pages rendered to static HTML at build time.
 
 I wrote it from scratch instead of starting from a template, which cost me a weekend I could have skipped. Worth it anyway. A portfolio claiming I write software should be software I wrote.
 
 ## Some context on who is typing
 
-I ran Duonorth from 2017 to 2025. It began as a business intelligence consultancy, expanded into digital strategy and marketing around 2020, and focused on websites and software from 2023. In July 2025, software product development became my main occupation.
+I ran Duonorth from 2017 to 2023. It began as a business, marketing and BI consultancy, then combined that work with websites and integrations from 2020. In July 2023, after Duonorth closed, I began working independently as a software engineer.
 
 Current projects include [Turistar](/projects/turistar), an open-source planner for my own trips; [create-mvp](/projects/create-mvp), a CLI on npm for the project setup I got tired of assembling by hand; and [client work](/projects) in production.
 

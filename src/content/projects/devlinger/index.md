@@ -3,6 +3,7 @@ title: DevLinger
 description: A Linux tray monitor I built in Go to find development servers and Docker containers that are still running after the editor closes.
 date: 2026-11-07
 tags: Go, Linux, Docker, D-Bus, Performance
+link: https://github.com/andre-lmarinho/dev.linger
 images:
   01-cover.webp:
     alt: Illustrated DevLinger cover showing local services, ports and Docker containers
@@ -16,13 +17,17 @@ I built DevLinger to put that information in the Linux system tray. It looks for
 
 ## My role
 
-I built the Go application, process and container discovery, tray integration, Debian packaging, tests, and performance benchmarks. The performance changes described below are implemented on a branch and have not yet been merged into the main branch.
+I built the Go application, process and container discovery, tray integration, Linux packaging, tests, and performance benchmarks. The optimizations described below were merged into the main branch in [PR #4](https://github.com/andre-lmarinho/dev.linger/pull/4), and the [v0.3.2 release](https://github.com/andre-lmarinho/dev.linger/releases/tag/v0.3.2) shipped DEB, RPM, and AppImage packages with checksums.
 
 ## Scope
 
 For recognized TCP listeners, DevLinger shows the project, port, Git branch, uptime, CPU, and memory when available. Docker containers can be grouped by Compose project. The menu refreshes every ten seconds and is read-only.
 
 Detection uses explicit command signatures. Unknown listeners and sockets shared by multiple processes are omitted, so a missing service does not necessarily mean nothing is listening. Docker access is optional and uses a local Unix socket.
+
+The app includes a desktop launcher and prevents multiple instances through D-Bus. Tray registration responds to watcher availability, with a fallback retry during startup. Packages enable autostart at login.
+
+The cover is an illustration of the information the application presents, not a screenshot.
 
 ## Decisions
 
@@ -38,6 +43,4 @@ I compared the revision before both changes with the branch containing them. Acr
 
 I added stage and synthetic benchmarks as well as separate process CPU and RSS sampling. Those measurements answer different questions: Go allocations per operation are not the application's resident memory, and a short private-bus run cannot establish long-term desktop resource use.
 
-## Current status
-
-The application and benchmark baseline are implemented. The listener and path-resolution optimizations remain on the performance branch. The comparison above covers one host and workload; Docker state and host activity were not controlled. The cover is an illustration of the information the application presents, not a screenshot.
+The comparison covers one host and workload; Docker state and host activity were not controlled.

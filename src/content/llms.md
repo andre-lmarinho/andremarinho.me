@@ -1,6 +1,6 @@
 André Marinho is a software engineer in Salvador, Brazil. His work spans full-stack client products and his own open-source projects, from product decisions to deployment and maintenance. He works on interfaces, APIs, data models, authentication, tenant isolation, payments and automated tests, with a focus on accessibility and performance.
 
-His background includes financial planning, logistics dashboards, business intelligence and digital strategy. He founded Duonorth in 2017, moved its focus toward websites and software in 2023, and made software product development his main occupation in July 2025.
+His background includes financial planning, logistics dashboards, business intelligence and digital strategy. He founded Duonorth in 2017, shifted its focus toward web development in 2020, and became an independent software engineer after the company closed in June 2023.
 
 He is open to remote software engineering roles, including international teams. Portuguese is his native language, and he is fluent in English.
 

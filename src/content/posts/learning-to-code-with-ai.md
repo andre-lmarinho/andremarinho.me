@@ -17,7 +17,7 @@ I use AI every day, and I would be slower and poorer without it. What I want to 
 
 Broken code fails loudly. You get a stack trace, a red test, a page that will not load. You fix it, and in fixing it you learn where you were wrong. That was the old deal: the bug was the tuition.
 
-The deal is still on offer, but the window is much shorter. Paste the error back, the fix comes down, the page loads, and you can be past it in forty seconds without ever having formed a theory of what went wrong. The failure still happens. Whether it teaches anything now depends entirely on whether you stopped to look, and there is a great deal of pressure not to stop.
+The deal is still on offer, but the window is much shorter. Paste the error back, the fix comes down, the page loads, and you can be past it in forty seconds without ever having formed a theory of what went wrong. There is a great deal of pressure to move on without stopping to look.
 
 Working code I do not understand can leave that gap hidden until a requirement changes or an edge case shows up in production. Sometimes someone asks why I built it that way, and all I can say is that a model suggested it and the tests were green.
 
@@ -35,7 +35,7 @@ AI-generated code can leave me in the same position, even when it draws on more 
 
 ## What understanding buys you, concretely
 
-Every problem I actually sat with turns into a better instruction the next time. The first version of a feature gets described as what I want. The second version gets described as what I want, minus the four things I now know go wrong. That second description is worth more than the code that came out of the first one, and it is not something a model can hand me. It is the residue of having watched something break and bothered to find out why.
+When I sit with a problem, I can give a better instruction the next time. The first version of a feature gets described as what I want. The second gets described as what I want, minus the four things I now know go wrong. Finding out why something broke gives me a better starting point than the code from the first attempt.
 
 There is a second thing, harder to justify on a timesheet. When the mechanical part is handled, there is room to be curious about the domain instead of the syntax. I have read more about how Postgres actually evaluates a policy, or what a queue guarantees and does not, than I would have if I had been heads-down fighting the language. I have to choose to spend that time investigating.
 

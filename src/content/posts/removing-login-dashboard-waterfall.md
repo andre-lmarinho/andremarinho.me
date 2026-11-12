@@ -8,7 +8,7 @@ project: lawflow
 
 The slow part of entering [LawFlow](/projects/lawflow) crossed several systems. After authentication, the browser hydrated its session, resolved the workspace, checked billing access, loaded shared workspace data and finally mounted screens that could request their own data.
 
-The user had to wait for a chain of dependent browser requests. Optimizing a query helped its own stage while leaving the rest of that chain intact.
+The user had to wait for a chain of dependent browser requests. Optimizing one query left the rest of that chain intact.
 
 I changed the authenticated entry route to resolve an authorized bootstrap on the server and pass the result into the client providers. The browser could initialize from that snapshot instead of discovering the workspace and rebuilding the shared state after mounting.
 

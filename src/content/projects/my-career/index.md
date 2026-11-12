@@ -10,7 +10,7 @@ images:
 
 ## Context
 
-A job search produces documents everywhere: résumés in PDF, cover letters in a text editor, job postings in ten different portals, application outcomes in an inbox, career history in the head of the person who lived it. When an agent is asked to write a letter or evaluate a posting, the question is not whether the model can write — it is which of those documents the answer can trust.
+A job search produces documents everywhere: résumés in PDF, cover letters in a text editor, job postings in ten different portals, application outcomes in an inbox, career history in the head of the person who lived it. When an agent writes a letter or evaluates a posting, it needs to know which documents support the claims it makes.
 
 I built my career context as a single Markdown repository that an agent can operate through chat. It separates what happened from what is claimed about it, scores opportunities with a defined protocol, and keeps every application as a record instead of an intention. Skills route each task, scripts handle the arithmetic, and the person remains the source of authority for facts.
 
@@ -37,7 +37,7 @@ The repository has operated my own search since July 2026.
 
 The hierarchy places experiences, projects and events above summaries, and summaries above derived pieces. A confirmed fact is updated in its source first; a search by term then finds the summaries and pieces affected by a rename or correction. Historical snapshots of sent material stay untouched — they prove what was sent, not what is true today.
 
-This keeps the repository coherent when its only operator is an agent following procedures instead of a person who remembers every document.
+These procedures help an agent find the affected documents without relying on conversation memory.
 
 ### Let the agent classify and the script compute
 
@@ -59,6 +59,4 @@ This is what makes an eventual open release tractable: what came from upstream, 
 
 Lint, security checks and unit tests verify skill metadata, dangerous-content handling and scoring arithmetic, and check that résumé sources still compile to the expected PDFs. None of these prove the workflows behave well: a change to a skill's flow requires exercising a realistic task in a temporary workspace, without handing the reviewer the expected answer.
 
-## Status
-
-The repository is private and carries my application history. The planned public release keeps the skeleton — skills, scripts, templates and documentation — and removes the personal records, so contributors can reuse the infrastructure for their own searches. The repository link will be added here at release.
+The repository is private and carries my application history. A planned public release keeps the skeleton — skills, scripts, templates and documentation — and removes the personal records, so contributors can reuse the infrastructure for their own searches.

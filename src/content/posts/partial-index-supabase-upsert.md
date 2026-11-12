@@ -60,7 +60,7 @@ The `NOT NULL` constraint is important to that reasoning. A normal PostgreSQL un
 
 Fetching existing keys first would let the service omit known duplicates, but two requests could both read an absent key before either inserted it. An in-memory set would only coordinate one request. Two browser tabs could still generate the same notification concurrently.
 
-The unique index remained the authority. `DO NOTHING` handled an expected collision at the write boundary, and unrelated database errors still propagated. The batch removed the per-candidate network calls without weakening the protection against concurrent requests.
+The unique index enforced the rule. `DO NOTHING` handled an expected collision at the write boundary, and unrelated database errors still propagated. The batch removed the per-candidate network calls without weakening the protection against concurrent requests.
 
 Repository tests checked the batch payload, conflict options, timestamp mapping and empty-input behavior. Service tests checked which candidates the rules generated. Those tests helped keep the refactor faithful to the existing notification behavior; mocked repository tests alone would not have exposed the index-inference failure.
 

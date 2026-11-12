@@ -7,7 +7,7 @@ tags: Astro, Next.js, Architecture, Static sites, Performance
 
 My portfolio's main job is to serve writing and project cases. The content lives in Markdown, the pages are public, and the visitor needs to read them without waiting for application data. I moved the site from Next.js and React to static Astro to make that shape explicit in the implementation.
 
-The migration shipped in [PR #39](https://github.com/andre-lmarinho/andremarinho.me/pull/39). It covered the page shell, content pipeline, images, navigation and deployment configuration. Swapping dependencies was only part of the work: a post still needed the same public address, a preview image and readable content after the move.
+The migration shipped in [PR #39](https://github.com/andre-lmarinho/andremarinho.me/pull/39). It covered the page shell, content pipeline, images, navigation and deployment configuration. After the move, a post still needed the same public address, a preview image and readable content.
 
 ## What the CI history measures
 
