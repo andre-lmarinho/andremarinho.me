@@ -1,6 +1,6 @@
 ---
 title: Kestrel
-description: An agent for Outlook email and calendars, with controls over what it can do and which actions need approval.
+description: An agent for Outlook email, calendars, files, notes, and messages, with visible permissions and approval for sensitive actions.
 date: 2026-01-22
 tags: TypeScript, Node.js, MCP, Microsoft Graph, SSE
 images:
@@ -16,9 +16,9 @@ images:
 
 ## Context
 
-An agent connected to email and calendars needs different permissions for reading a message, drafting a reply, sending it, and deleting an event.
+An agent connected to Microsoft accounts needs different permissions to search a message, draft a reply, send it, or change a calendar. The same boundary matters when it can reach files and notes.
 
-The client product brought work and personal Outlook accounts into one conversation. The frontend had to make two things clear at all times: what the agent was trying to do, and whether it was allowed to do it without asking.
+The client product brought work and personal Microsoft accounts into one conversation across Outlook, Calendar, OneDrive, OneNote, and Teams. The interface had to make two things clear: what the agent was trying to do, and whether it could act without asking.
 
 ## My role
 
@@ -28,21 +28,21 @@ I led technical delivery for the three-person team, chose the architecture and s
 
 The team delivered:
 
-- natural-language email and calendar workflows across several Outlook accounts;
+- natural-language search and communication workflows across Outlook, Calendar, OneDrive, OneNote, and Teams;
 - visible tool calls for searches, drafts, free-time checks, sends, and calendar changes;
 - per-tool policies of Auto, Ask, or Off;
-- mandatory approval for sensitive external actions;
+- recorded human approval for sensitive external actions, including sends, scheduling, and deletions;
 - connected-account and MCP-server management;
 - an audit timeline for agent activity;
 - streamed agent output and tool state over SSE.
 
-The Next.js application called a tRPC API. Separate Node.js MCP services connected to Microsoft Graph through OAuth2 with PKCE, incremental synchronization, and webhooks.
+The Next.js application called a tRPC API. Separate Node.js MCP services connected to Microsoft Graph through OAuth2 with PKCE, incremental synchronization, and webhooks. The agent received defined tools rather than a Microsoft Graph token; refresh tokens were encrypted, and access scopes were limited by account.
 
 ## Decisions
 
 ### Turn permissions into interface state
 
-Each tool displayed its policy, Auto, Ask, or Off, so users could see what was allowed before reaching an approval prompt. Sensitive actions remained visibly distinct.
+Each tool displayed its policy, Auto, Ask, or Off, so users could see what was allowed before an action. Sends, scheduling, and deletions needed approval, with the decision recorded in the activity history.
 
 ### Render tool calls as first-class objects
 
