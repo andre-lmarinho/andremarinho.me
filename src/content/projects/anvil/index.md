@@ -1,6 +1,6 @@
 ---
 title: Anvil
-description: A browser IDE for working with an AI agent, inspecting its changes, and running the result in the same workspace.
+description: A browser IDE where an AI agent edits a project and developers inspect, run, and reverse its changes in one workspace.
 date: 2026-05-22
 tags: TypeScript, WebSockets, Git, xterm.js
 images:
@@ -16,11 +16,11 @@ images:
 
 ## Context
 
-The client needed a browser workspace where a developer could ask an agent for a change, inspect the files it edited, and run the result. The editor, terminal, and preview had to stay in sync as the agent worked; a stale panel could show code that was no longer running.
+The client needed a browser workspace where a developer could ask an agent to change a project, inspect the files it touched, and run the result. The editor, terminal, and preview had to stay in sync; otherwise, a panel could show code that was no longer running.
 
 ## My role
 
-I led technical delivery on a three-person team, defined the architecture and stack, and reviewed the other developers' pull requests. I built the three-panel workspace and worked with the team on the backend and infrastructure that connected the agent, project files, and running processes.
+I led technical delivery on a three-person team, defined the architecture and stack, and reviewed the other developers' pull requests. I built the three-panel workspace and contributed to the sandbox infrastructure that connected the agent, project files, and running processes.
 
 ## Scope
 
@@ -34,7 +34,7 @@ The team delivered:
 - Git checkpoints for agent steps;
 - controls for running and deploying the project.
 
-Each project ran in an isolated, temporary environment. Project data, sessions, tool calls, and checkpoints were persisted, while WebSockets carried terminal output, file events, and agent updates.
+Each project ran in an isolated, temporary environment. A Go sandbox manager orchestrated execution on Firecracker. Project data, sessions, tool calls, and checkpoints were persisted, while WebSockets carried terminal output, file events, and agent updates.
 
 ## Decisions
 
@@ -48,7 +48,7 @@ The interface had to keep file events, terminal output, and agent progress in sy
 
 ### Make reversibility visible
 
-Each agent step became a Git checkpoint that the developer could inspect or return to from the interface.
+Each agent step became a Git checkpoint the developer could inspect or return to from the interface. The product also asked for confirmation before destructive commands.
 
 ## Disclosure
 
