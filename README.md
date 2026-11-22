@@ -1,8 +1,16 @@
 # andremarinho.me
 
-Personal site, blog and portfolio of André Marinho — [andremarinho.me](https://andremarinho.me).
+[Live site](https://andremarinho.me)
 
-Built with Astro (static output), Tailwind CSS 4 and TypeScript. Deployed on Vercel.
+Personal site, blog and portfolio of André Marinho.
+
+Built with Astro 7, TypeScript and Tailwind CSS 4. Astro content collections
+validate Markdown posts and project case studies. Pages use static output.
+Two API routes read and update post view counts.
+
+Selected projects: [Turistar](https://turistar.me/),
+[LawFlow](https://www.lawflowhub.com/) and
+[create-mvp](https://www.npmjs.com/package/@andre.marinho/create-mvp).
 
 ## Getting started
 
@@ -30,8 +38,9 @@ pnpm lighthouse
 ```
 
 Type checking uses TypeScript 7.1 beta and `@astrojs/ts-content-mapper` to check
-both TypeScript and Astro files. Versions are pinned while this integration is
-experimental. `pnpm typecheck` runs `astro sync` before `tsc --noEmit --runExternalCode`.
+both TypeScript and Astro files. The project pins these versions while the
+integration remains experimental. `pnpm typecheck` runs `astro sync` before
+`tsc --noEmit --runExternalCode`.
 
 ## Adding content
 
@@ -79,13 +88,14 @@ images:
     caption: Optional caption
 ```
 
-Every project needs at least one image. The first image is used as its cover and
-SEO image. `alt` is required, captions are optional, and covers use a 1280:769
-aspect ratio.
+Every project needs at least one image. The site uses the first image as each
+project's cover and SEO image. Each image needs an `alt` value. A caption is
+optional. Covers use a 1280:769 aspect ratio.
 
 Tags accept either a comma-separated string (`"postgres, supabase"`) or an array.
 
-Home projects are selected by the slug array in `src/pages/index.astro`, in display order. Missing or unpublished projects are omitted in production.
+The slug array in `src/pages/index.astro` sets the home project order.
+Production omits missing or unpublished projects.
 
 ## Structure
 
@@ -100,5 +110,5 @@ Home projects are selected by the slug array in `src/pages/index.astro`, in disp
 
 - `/rss.xml` — full-content feed for RSS readers
 - `/llms.txt` and `/llms-full.txt` — generated Markdown for AI crawlers (`src/pages/llms.txt.ts`)
-- Per-page `/opengraph-image` routes rendered with Satori and Sharp
-- `vercel.json` serves each post/project as raw Markdown with canonical `Link` headers
+- Satori and Sharp render a page-specific `/opengraph-image` route for each page
+- `vercel.json` routes serve raw Markdown for posts and projects with canonical `Link` headers

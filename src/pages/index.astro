@@ -8,7 +8,7 @@ import { getPosts } from "@/lib/posts";
 import { getProject } from "@/lib/projects";
 import { jobTitle, socials } from "@/lib/site";
 
-const FEATURED = ["turistar", "create-mvp", "typed-svg-sprite"];
+const FEATURED = ["turistar", "lawflow", "create-mvp"];
 
 const projects = (await Promise.all(FEATURED.map(getProject))).filter(
   (project) => project !== null,
