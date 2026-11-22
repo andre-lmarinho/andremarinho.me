@@ -48,24 +48,24 @@ Posts and projects are Markdown files in `src/content/`, validated by the schema
 
 Posts — `src/content/posts/*.md`:
 
-| Field | Type | Required |
-| --- | --- | --- |
-| `title` | string | yes |
-| `description` | string | yes |
-| `date` | `YYYY-MM-DD` string or date | no |
-| `tags` | string (`"a, b"`) or string array | no |
-| `project` | string (project slug) | no |
+| Field         | Type                              | Required |
+| ------------- | --------------------------------- | -------- |
+| `title`       | string                            | yes      |
+| `description` | string                            | yes      |
+| `date`        | `YYYY-MM-DD` string or date       | no       |
+| `tags`        | string (`"a, b"`) or string array | no       |
+| `project`     | string (project slug)             | no       |
 
 Projects — `src/content/projects/<slug>/index.md`:
 
-| Field | Type | Required |
-| --- | --- | --- |
-| `title` | string | yes |
-| `description` | string | yes |
-| `date` | `YYYY-MM-DD` string or date | no |
-| `tags` | string (`"a, b"`) or string array | no |
-| `link` | string | no |
-| `images` | file-name map of `{ alt, caption? }` | yes |
+| Field         | Type                                 | Required |
+| ------------- | ------------------------------------ | -------- |
+| `title`       | string                               | yes      |
+| `description` | string                               | yes      |
+| `date`        | `YYYY-MM-DD` string or date          | no       |
+| `tags`        | string (`"a, b"`) or string array    | no       |
+| `link`        | string                               | no       |
+| `images`      | file-name map of `{ alt, caption? }` | yes      |
 
 Keep each project's Markdown and images together. Images appear in file-name
 order, so name the cover `01-cover.webp`:
