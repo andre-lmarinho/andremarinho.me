@@ -111,7 +111,6 @@ export function getPostMetadata(post: Post): PageMetadata {
 
 export function getProjectMetadata(project: Project): PageMetadata {
   const { slug } = project;
-  const cover = project.images[0];
   return {
     title: `${project.title} - ${siteName}`,
     description: project.description,
@@ -127,10 +126,10 @@ export function getProjectMetadata(project: Project): PageMetadata {
       tags: project.tags,
       url: `/projects/${slug}`,
       image: {
-        url: cover.src.src,
-        width: cover.src.width,
-        height: cover.src.height,
-        alt: cover.alt,
+        url: project.image.src.src,
+        width: project.image.src.width,
+        height: project.image.src.height,
+        alt: project.image.alt,
       },
     },
   };

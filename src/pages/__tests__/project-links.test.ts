@@ -19,11 +19,7 @@ const content = vi.hoisted(() => {
       title: id,
       description: `About ${id}.`,
       tags: [],
-      images: {
-        "01-cover.webp": { alt: "Project cover" },
-        "02-application.webp": { alt: "Application" },
-        "03-website.webp": { alt: "Website" },
-      },
+      alt: "Project cover",
       ...data,
     },
   });
@@ -114,9 +110,12 @@ describe("project links", () => {
     );
     expect(links).toHaveLength(1);
     expect(links[0].getAttribute("href")).toBe("/posts/related");
-    const carousel = page.querySelector("[data-carousel]");
-    expect(carousel?.querySelectorAll("figure")).toHaveLength(3);
-    expect(carousel?.querySelectorAll("button")).toHaveLength(0);
+    const image = page.querySelector(".project-images img");
+    expect(page.querySelectorAll(".project-images figure")).toHaveLength(1);
+    expect(page.querySelector("[data-carousel]")).toBeNull();
+    expect(image?.getAttribute("style")).toContain(
+      "view-transition-name:project-image-turistar",
+    );
     expect(page.querySelector("#product-presentation")).toBeNull();
   });
 

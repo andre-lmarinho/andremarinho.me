@@ -3,9 +3,7 @@ title: Meu condomínio
 description: A client project I am building to manage condominium cash and monthly fees with an auditable financial history.
 date: 2026-11-07
 tags: Next.js, TypeScript, tRPC, Supabase, PostgreSQL, pgTAP
-images:
-  01-cover.webp:
-    alt: Illustrated financial ledger showing condominium transactions and their history
+alt: Illustrated financial ledger showing condominium transactions and their history
 ---
 
 ## Context

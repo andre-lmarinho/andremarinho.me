@@ -3,15 +3,7 @@ title: Anvil
 description: A browser IDE where an AI agent edits a project and developers inspect, run, and reverse its changes in one workspace.
 date: 2026-05-22
 tags: TypeScript, WebSockets, Git, xterm.js
-images:
-  01-cover.webp:
-    alt: Anvil anonymised workspace and reconstructed homepage
-  02-application.webp:
-    alt: Anvil code editor, agent and running preview with an illustrative project
-    caption: Application experience
-  03-website.webp:
-    alt: Anvil product homepage reconstructed for the portfolio
-    caption: Product website
+alt: Anvil anonymised workspace and reconstructed homepage
 ---
 
 ## Context

@@ -4,9 +4,7 @@ description: A Linux tray monitor I built in Go to find development servers and 
 date: 2026-11-07
 tags: Go, Linux, Docker, D-Bus, Performance
 link: https://github.com/andre-lmarinho/dev.linger
-images:
-  01-cover.webp:
-    alt: Illustrated DevLinger cover showing local services, ports and Docker containers
+alt: Illustrated DevLinger cover showing local services, ports and Docker containers
 ---
 
 ## Context
