@@ -3,15 +3,7 @@ title: Northstar
 description: Product analytics that connects user behavior to revenue, conversion, and activation, with the comparison and context behind each result.
 date: 2026-04-12
 tags: Next.js, ClickHouse, Data visualization, SVG
-images:
-  01-cover.webp:
-    alt: Northstar anonymised dashboard and reconstructed homepage
-  02-application.webp:
-    alt: Northstar outcome dashboard and analytics with illustrative metrics
-    caption: Application experience
-  03-website.webp:
-    alt: Northstar product homepage reconstructed for the portfolio
-    caption: Product website
+alt: Northstar anonymised dashboard and reconstructed homepage
 ---
 
 ## Context

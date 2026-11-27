@@ -37,7 +37,7 @@ export const projectJsonLd = (project: Project) => ({
   description: project.description,
   url: `${siteUrl}/projects/${project.slug}`,
   mainEntityOfPage: `${siteUrl}/projects/${project.slug}`,
-  image: `${siteUrl}${project.images[0].src.src}`,
+  image: `${siteUrl}${project.image.src.src}`,
   keywords: project.tags,
   inLanguage: "en",
   ...(project.date && { datePublished: project.date }),

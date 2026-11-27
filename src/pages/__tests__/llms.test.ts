@@ -12,7 +12,7 @@ const content = vi.hoisted(() => {
       description: `About ${id}.`,
       date,
       tags: [],
-      images: {},
+      alt: "Project cover",
     },
   });
   return {

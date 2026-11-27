@@ -21,7 +21,7 @@ const content = vi.hoisted(() => {
       description: "A technical decision.",
       date,
       tags: [],
-      images: {},
+      alt: "Project cover",
     },
   });
   return {

@@ -31,16 +31,10 @@ const project: Project = {
   date: "2026-07-17",
   tags: ["astro", "testing"],
   link: "",
-  images: [
-    {
-      src: { src: "/first.webp", width: 800, height: 600, format: "webp" },
-      alt: "First image",
-    },
-    {
-      src: { src: "/second.webp", width: 800, height: 600, format: "webp" },
-      alt: "Second image",
-    },
-  ],
+  image: {
+    src: { src: "/cover.webp", width: 800, height: 600, format: "webp" },
+    alt: "Cover image",
+  },
   body: "The content.",
 };
 
@@ -102,13 +96,13 @@ it("omits draft dates from page metadata", () => {
   ).toBeUndefined();
 });
 
-it("always uses the first project image for metadata and structured data", () => {
-  const first = project.images[0];
+it("uses the project cover for metadata and structured data", () => {
+  const { image } = project;
   expect(projectMetadata(project).openGraph.image).toEqual({
-    url: first.src.src,
-    width: first.src.width,
-    height: first.src.height,
-    alt: first.alt,
+    url: image.src.src,
+    width: image.src.width,
+    height: image.src.height,
+    alt: image.alt,
   });
-  expect(projectJsonLd(project).image).toBe(`${siteUrl}${first.src.src}`);
+  expect(projectJsonLd(project).image).toBe(`${siteUrl}${image.src.src}`);
 });

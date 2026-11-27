@@ -1,8 +1,6 @@
 // @vitest-environment node
 import { afterEach, expect, it, vi } from "vitest";
-import cover from "@/content/projects/turistar/01-cover.webp";
-import application from "@/content/projects/turistar/02-application.webp";
-import website from "@/content/projects/turistar/03-website.webp";
+import cover from "@/content/projects/turistar/cover.webp";
 import { getProject } from "../projects";
 
 vi.mock("astro:content", () => ({
@@ -15,11 +13,7 @@ vi.mock("astro:content", () => ({
         description: "Example project.",
         date: id === "draft" ? undefined : "2026-07-17",
         tags: [],
-        images: {
-          "03-website.webp": { alt: "Website" },
-          "02-application.webp": { alt: "Application", caption: "Detail" },
-          "01-cover.webp": { alt: "Cover" },
-        },
+        alt: "Cover",
       },
     };
   },
@@ -38,16 +32,14 @@ it("allows draft previews during development", async () => {
   expect((await getProject("draft"))?.date).toBe("");
 });
 
-it("discovers the slug's images in file-name order regardless of description order", async () => {
-  expect((await getProject("turistar"))?.images).toEqual([
-    { src: cover, alt: "Cover" },
-    { src: application, alt: "Application", caption: "Detail" },
-    { src: website, alt: "Website" },
-  ]);
+it("loads the project's cover image and description", async () => {
+  expect((await getProject("turistar"))?.image).toEqual({
+    src: cover,
+    alt: "Cover",
+  });
 });
 
-it("discovers a single cover without adding images from other projects", async () => {
+it("loads a single cover for each project", async () => {
   const project = await getProject("skills");
-  expect(project?.images).toHaveLength(1);
-  expect(project?.images[0].alt).toBe("Cover");
+  expect(project?.image.alt).toBe("Cover");
 });

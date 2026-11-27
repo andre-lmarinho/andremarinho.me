@@ -8,13 +8,13 @@ export type Project = {
   description: string;
   date: string;
   tags: string[];
-  images: { src: ImageMetadata; alt: string; caption?: string }[];
+  image: { src: ImageMetadata; alt: string };
   link: string;
   body: string;
 };
 
-const images = import.meta.glob<ImageMetadata>(
-  "/src/content/projects/*/*.{avif,gif,jpeg,jpg,png,svg,webp}",
+const covers = import.meta.glob<ImageMetadata>(
+  "/src/content/projects/*/cover.webp",
   { eager: true, import: "default" },
 );
 
@@ -25,14 +25,10 @@ function toProject({ id, data, body }: CollectionEntry<"projects">): Project {
     description: data.description,
     date: data.date ?? "",
     tags: data.tags,
-    images: Object.entries(images)
-      .filter(([path]) => path.startsWith(`/src/content/projects/${id}/`))
-      .sort(([a], [b]) => a.localeCompare(b))
-      .map(([path, src]) => {
-        const { alt, caption } =
-          data.images[path.slice(path.lastIndexOf("/") + 1)];
-        return { src, alt, caption };
-      }),
+    image: {
+      src: covers[`/src/content/projects/${id}/cover.webp`],
+      alt: data.alt,
+    },
     link: data.link ?? "",
     body: body ?? "",
   };

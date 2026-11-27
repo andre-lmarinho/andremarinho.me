@@ -4,9 +4,7 @@ description: Three open-source agent skills for technical SEO, search content, a
 date: 2026-10-16
 tags: AI agents, Developer tooling, Python, GitHub Actions, Accessibility, SEO
 link: https://github.com/andre-lmarinho/skills
-images:
-  01-cover.webp:
-    alt: Terminal card with the installation command and names of the three current skills
+alt: Terminal card with the installation command and names of the three current skills
 ---
 
 ## Context

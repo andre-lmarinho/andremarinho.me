@@ -3,9 +3,7 @@ title: my-career
 description: A career workflow built on reusable agent skills, evidence-backed records, job-fit scoring, and application tracking.
 date: 2026-07-22
 tags: AI agents, Markdown, Python, Typst, Documentation
-images:
-  01-cover.webp:
-    alt: Terminal card summarizing application records, job-fit scoring, source documents, and the separation between agent workflows and private career records
+alt: Terminal card summarizing application records, job-fit scoring, source documents, and the separation between agent workflows and private career records
 ---
 
 ## Context

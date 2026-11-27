@@ -65,32 +65,24 @@ Projects — `src/content/projects/<slug>/index.md`:
 | `date`        | `YYYY-MM-DD` string or date          | no       |
 | `tags`        | string (`"a, b"`) or string array    | no       |
 | `link`        | string                               | no       |
-| `images`      | file-name map of `{ alt, caption? }` | yes      |
+| `alt`         | string                               | yes      |
 
-Keep each project's Markdown and images together. Images appear in file-name
-order, so name the cover `01-cover.webp`:
+Keep each project's Markdown and cover together. Name the image `cover.webp`:
 
 ```text
 src/content/projects/example/
   index.md
-  01-cover.webp
-  02-detail.webp
+  cover.webp
 ```
 
-The folder name is the project slug. Describe each image in `index.md`:
+The folder name is the project slug. Describe the cover in `index.md`:
 
 ```yaml
-images:
-  01-cover.webp:
-    alt: A description of the project cover
-  02-detail.webp:
-    alt: A description of the detail shown
-    caption: Optional caption
+alt: A description of the project cover
 ```
 
-Every project needs at least one image. The site uses the first image as each
-project's cover and SEO image. Each image needs an `alt` value. A caption is
-optional. Covers use a 1280:769 aspect ratio.
+Every project needs one cover image with an `alt` value. The site uses it on the
+project page and as the SEO image. Covers use a 1280:769 aspect ratio.
 
 Tags accept either a comma-separated string (`"postgres, supabase"`) or an array.
 
